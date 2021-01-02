@@ -1,0 +1,96 @@
+#Basic config
+
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Detroit
+
+  customize: !include customize.yaml
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Discover some devices automatically
+discovery:
+
+recorder:
+  #purge_interval: 7
+  purge_keep_days: 30
+  # exclude:
+  #   entities:
+  #     - sensor.ambient_light_sensor
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+tplink: !include tplink.yaml
+
+vesync:
+    username: !secret vesync_username
+    password: !secret vesync_password
+
+pi_hole:
+  - host: 192.168.254.50
+
+shelly:
+  discovery: true
+  version: true
+  sensors:
+    - all
+  devices:
+    - id: "D0E973"
+
+
+light: !include lights.yaml
+group: !include groups.yaml
+automation: !include_dir_merge_list automation/
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensors.yaml
+binary_sensor: !include binary_sensors.yaml
+zone: !include zones.yaml
+
+mqtt:
+  broker: !secret mqtt_broker
+  port: !secret mqtt_port
+  client_id: !secret mqtt_client_id
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  discovery: true
+  discovery_prefix: homeassistant
+
+roomba:
+  - host: !secret roomba_host
+    blid: !secret roomba_blid
+    password: !secret roomba_password
+
+input_boolean:
+  washer_status:
+    name: Washer Status Switch
+    initial: off
+    # icon: mdi:washing-machine
+
+  defeat_sleep:
+    name: "Disable sleep on ESPHome"
+    initial: false
+
+
+# Internet speed checks
+
+fastdotcom:
+
+speedtestdotnet:
+

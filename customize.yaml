@@ -1,0 +1,366 @@
+
+## Lights
+
+light.shelly_shrgbw2_1dfb87:
+  friendly_name: Undercabinet Lights
+  icon: mdi:led-strip-variant
+light.tv_backlight:
+  icon: mdi:led-strip-variant
+light.led_mirror:
+  icon: mdi:led-strip-variant
+
+#   friendly_name: Up Bath Mirror
+# light.tv_backlight:
+#   friendly_name: TV Backlight
+# light.hue_white_lamp_1_5:
+#   friendly_name: Office Chair Lamp
+# light.hue_white_lamp_2_2:
+#   friendly_name: Office Window Lamp
+
+## Switches
+
+switch.woodpile_lights:
+  friendly_name: Woodpile Lights
+  icon: mdi:lightbulb-outline
+light.dining_room_light:
+  icon: mdi:lightbulb-outline
+  friendly_name: Dining Room Light
+switch.deck_light:
+  icon: mdi:lightbulb-outline
+switch.kitchen_light:
+  icon: mdi:lightbulb-outline
+switch.laundry_light:
+  icon: mdi:lightbulb-outline
+switch.garage_door_lights:
+  icon: mdi:lightbulb-outline
+switch.office_door_light:
+  icon: mdi:lightbulb-outline
+switch.guest_room_light:
+  icon: mdi:lightbulb-outline
+switch.sink_light:
+  icon: mdi:lightbulb-outline
+switch.coat_rack_light:
+  icon: mdi:lightbulb-outline
+switch.garage_light:
+  icon: mdi:lightbulb-outline
+switch.shelly_shsw_1_500291ed2481:
+  icon: mdi:lightbulb-outline
+switch.washer:
+  icon: mdi:washing-machine
+  friendly_name: Washer
+switch.shelly_shsw_1_bcddc2771acf:
+  friendly_name: Guest Room Light
+  icon: mdi:lightbulb-outline
+switch.shelly_shsw_1_500291ed226d:
+  friendly_name: Basement Stair
+  icon: mdi:lightbulb-outline
+
+## Covers
+
+cover.garage_door:
+  #device_class: garage
+  friendly_name: Garage Door
+  icon: mdi:garage
+# cover.office_blinds:
+#   friendly_name: Office Blinds
+
+## Sensors
+
+sensor.living_room_temperature:
+  friendly_name: Living Room Temp
+sensor.living_room_humidity:
+  friendly_name: Living Room Humidity
+  icon: mdi:water-percent
+sensor.living_room_battery:
+  friendly_name: Living Room Battery
+  icon: mdi:battery
+sensor.mb_temp:
+  friendly_name: Master BR Temp
+sensor.mb_humid:
+  friendly_name: Master BR Humidity
+  icon: mdi:water-percent
+sensor.mb_batt:
+  friendly_name: Master Battery
+  icon: mdi:battery
+sensor.b2_temp:
+  friendly_name: Spare Bedroom Temp
+sensor.b2_humid:
+  friendly_name: Spare Bedroom Humidity
+  icon: mdi:water-percent
+sensor.b2_batt:
+  friendly_name: Spare Bedroom Battery
+  icon: mdi:battery
+sensor.ub_temp:
+  friendly_name: Up Bath Temp
+sensor.ub_humid:
+  friendly_name: Up Bath Humidity
+  icon: mdi:water-percent
+sensor.familty_room_temperature:
+  friendly_name: Family Room Temp
+sensor.familty_room_humidity:
+  friendly_name: Family Room Humidity
+  icon: mdi:water-percent
+sensor.family_room_battery:
+  friendly_name: Family Room Battery
+  icon: mdi:battery
+sensor.laundry_temp:
+  friendly_name: Laundry Room Temp
+sensor.laundry_humid:
+  friendly_name: Laundry Room Humidity
+  icon: mdi:water-percent
+sensor.dryer_sensor:
+  friendly_name: Dryer Status
+  icon: mdi:washing-machine
+sensor.ws_temp:
+  friendly_name: Workshop Temp
+sensor.ws_humid:
+  friendly_name: Workshop Humidity
+  icon: mdi:water-percent
+sensor.ws_batt:
+  friendly_name: Workshop Battery
+  icon: mdi:battery
+sensor.office_temperature:
+  friendly_name: Office Temp
+sensor.office_humidity:
+  friendly_name: Office Humidity
+  icon: mdi:water-percent
+sensor.office_pressure:
+  friendly_name: Office Pressure
+  icon: mdi:gauge
+sensor.office_battery:
+  friendly_name: Office Battery
+  icon: mdi:battery
+sensor.ga_temp:
+  friendly_name: Garage Temp
+# sensor.ga_pressure:
+#   friendly_name: Garage Pressure
+#   icon: mdi:gauge
+sensor.ga_humid:
+  friendly_name: Garage Humidity
+  icon: mdi:water-percent
+# sensor.gs_temp:
+#   friendly_name: Garage Temp 2
+# sensor.gs_pressure:
+#   friendly_name: Garage Pressure
+#   icon: mdi:gauge
+# sensor.gs_humid:
+#   friendly_name: Garage Humidity 2
+#   icon: mdi:water-percent
+sensor.temp_compare_bme280_press:
+  friendly_name: Bedroom 2 Pressure
+  icon: mdi:gauge
+sensor.temp_compare_sht3xd_humid:
+  friendly_name: Bedroom 2 Humidity
+  icon: mdi:water-percent
+sensor.ipv4_address_eth0:
+  friendly_name: IPV4 Address
+sensor.washer_amps:
+  icon: mdi:washing-machine
+sensor.washer_watts:
+  icon: mdi:washing-machine
+sensor.washer_volts:
+  icon: mdi:washing-machine
+sensor.washer_total_kwh:
+  icon: mdi:washing-machine
+sensor.washer_today_kwh:
+  icon: mdi:washing-machine
+sensor.washer_state:
+  friendly_name: Washer Status
+  icon: mdi:washing-machine
+sensor.master_dimmer_switch_battery_level:
+  friendly_name: Master Dimmer Switch Battery
+  icon: mdi:battery
+
+sensor.outdoor_sea_level_pressure:
+  friendly_name: Outdoor Sea Level Equivalent
+  icon: mdi:gauge
+
+sensor.garage_left_bay:
+  icon: mdi:car-pickup
+  # templates:
+  #   hs_color: >
+  #     if (state === 'Occupied') return [48,76,251];
+
+sensor.hp_laserjet_pro_m148f_m149f:
+  friendly_name: HP M148
+sensor.hp_laserjet_pro_m148f_m149f_black_cartridge_hp_cf294a:
+  friendly_name: HP M148 Toner
+sensor.hp_laserjet_pro_m148f_m149f_imaging_drum_hp_cf232a:
+  friendly_name: HP M148 Drum
+sensor.sun_elevation:
+  icon: mdi:weather-sunny
+sensor.dining_room_light_temp:
+  icon: mdi:thermometer
+sensor.dining_room_light_update:
+  icon: mdi:restart
+# sensor.dining_room_light_overtemp:
+#   icon: mdi:thermometer-alert
+
+# Hass Server sensors
+sensor.hass_server_cputemp:
+  icon: mdi:thermometer
+  friendly_name: CPU Temp
+sensor.hass_server_cpuused:
+  icon: mdi:cpu-64-bit
+  friendly_name: CPU Used
+sensor.hass_server_freegb:
+  icon: hass:database
+  friendly_name: Disk Free
+sensor.hass_server_driveused:
+  icon: hass:database
+  friendly_name: Disk Used
+sensor.hass_server_freemem:
+  icon: mdi:memory
+  friendly_name: Free Memory
+sensor.hass_server_usedmem:
+  icon: mdi:memory
+  friendly_name: Memory Used
+sensor.hass_server_networkin:
+  icon: hass:network-outline
+  friendly_name: Network In
+sensor.hass_server_networkout:
+  icon: hass:network-outline
+  friendly_name: Network Out
+sensor.hass_server:
+  icon: mdi:server
+
+## Binary Sensors
+
+binary_sensor.garage_access_door:
+  friendly_name: Garage Access Door
+  device_class: door
+binary_sensor.garage_house_door:
+  friendly_name: Garage House Door
+  device_class: door
+binary_sensor.garage_door_binary:
+  friendly_name: Garage Door
+  device_class: door
+  icon: mdi:garage
+binary_sensor.closet_motion:
+  friendly_name: Master Closet Motion
+  device_class: motion
+binary_sensor.laundry_motion:
+  friendly_name: Laundry Motion
+  device_class: motion
+binary_sensor.garage_motion_1:
+  friendly_name: Garage Motion 1
+  device_class: motion
+binary_sensor.garage_motion_2:
+  friendly_name: Garage Motion 2
+  device_class: motion
+binary_sensor.garage_motion_3:
+  friendly_name: Garage Motion 3
+  device_class: motion
+binary_sensor.dining_room_light_switch:
+  friendly_name: Dining Room Light Switch
+  icon: mdi:light-switch
+binary_sensor.high_water:
+  friendly_name: Sink Level
+  icon: mdi:water
+
+
+## Scenes
+
+scene.living_room_normal:
+  friendly_name: Living Room Normal
+  icon: mdi:lightbulb-outline
+scene.living_room_bright:
+  friendly_name: Living Room Bright
+  icon: mdi:lightbulb-on-outline
+scene.living_room_off:
+  friendly_name: Living Room Off
+  icon: mdi:lightbulb
+scene.watch_tv:
+  friendly_name: Living Room TV
+  icon: mdi:television-classic
+scene.living_room_dim:
+  friendly_name: Living Room Dim
+  icon: mdi:lightbulb-on
+scene.office_bright:
+  friendly_name: Office Bright
+  icon: mdi:lightbulb-on-outline
+scene.office_normal:
+  friendly_name: Office Normal
+  icon: mdi:lightbulb-outline
+scene.office_zoom:
+  friendly_name: Office Zoom
+  icon: mdi:webcam
+scene.office_dim:
+  friendly_name: Office Dim
+  icon: mdi:lightbulb-on
+scene.office_off:
+  friendly_name: Office  Off
+  icon: mdi:lightbulb
+scene.kitchen_bright:
+  friendly_name: Kitchen Bright
+  icon: mdi:lightbulb-on-outline
+scene.kitchen_normal:
+  friendly_name: Kitchen Normal
+  icon: mdi:lightbulb-outline
+scene.kitchen_dim:
+  friendly_name: Kitchen Dim
+  icon: mdi:lightbulb-on
+scene.kitchen_off:
+  friendly_name: Kitchen Off
+  icon: mdi:lightbulb
+scene.nighttime:
+  friendly_name: Master Nighttime
+  icon: mdi:weather-night
+scene.master_warm:
+  friendly_name: Master Warm
+  icon: mdi:weather-sunny
+scene.master_cool:
+  friendly_name: Master Cool
+  icon: mdi:snowflake
+scene.master_bright:
+  friendly_name: Master Bright
+  icon: mdi:lightbulb-on-outline
+scene.master_dim:
+  friendly_name: Master Dim
+  icon: mdi:lightbulb-on
+scene.master_off:
+  friendly_name: Master Off
+  icon: mdi:lightbulb
+
+## Tracker
+
+device_tracker.google_maps_102501070565386974294:
+  friendly_name: Dan
+# sensor.home_to_work:
+#   icon: mdi:school
+#   friendly_name: Home to Work
+# sensor.dan_to_work:
+#   icon: mdi:school
+# sensor.dan_to_home:
+#   icon: mdi:home
+# sensor.work_to_home:
+#   icon: mdi:home
+#   friendly_name: Work to Home
+# device_tracker.theedge:
+#   friendly_name: Dan's Phone
+# device_tracker.kellysiphone:
+#   friendly_name: Kelly's Phone
+# device_tracker.csgentrysiphone:
+#   friendly_name: Corinne's Phone
+# binary_sensor.truck1:
+#   friendly_name: Ranger
+#   icon: mdi:car-pickup
+
+## Scripts
+
+script.ac_powerful:
+  icon: mdi:fan
+script.master_ac_powerful:
+  icon: mdi:fan
+script.master_ac_day:
+  icon: mdi:air-conditioner
+script.master_ac_night:
+  icon: mdi:air-conditioner
+script.water_warning:
+  icon: mdi:water-off
+script.say_somthing:
+  icon: mdi:account-voice
+
+
+
+

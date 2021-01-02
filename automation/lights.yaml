@@ -1,0 +1,384 @@
+# Outside lights
+
+- alias: 'Deck Light Timer'
+  trigger:
+    - platform: state
+      entity_id: switch.deck_light
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.deck_light
+
+- alias: 'Deck Light turns on Woodpile Lights'
+  trigger:
+    - platform: state
+      entity_id: switch.deck_light
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.woodpile_lights
+
+- alias: 'Deck Light turns off Woodpile Lights'
+  trigger:
+    - platform: state
+      entity_id: switch.deck_light
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.woodpile_lights
+
+- alias: 'Woodpile Lights Timer'
+  trigger:
+    - platform: state
+      entity_id: switch.woodpile_lights
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 15
+        seconds: 0
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.woodpile_lights
+
+
+- alias: 'sunset transition'
+  trigger:
+  - platform: time_pattern
+    minutes: '/2'
+    seconds: 00
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '16:00:00'         #    (the time when a sunset could start in a year)
+        before: '23:00:00'        #  (the time when a sunset could end in a year)
+      - condition: numeric_state
+        entity_id: sensor.sun_elevation
+        above: -8
+        below: 0
+      - condition: or
+        conditions:
+          - condition: template
+            value_template: '{{states.light.front_porch_light.attributes.brightness < ((0.0625*((states.sun.sun.attributes.elevation+8)**2))-(31.125*(states.sun.sun.attributes.elevation+8))+255)|int}}'
+          - condition: template
+            value_template: '{{ states.light.front_porch_light.attributes.brightness==null }} '
+  action:
+    - service: light.turn_on
+      entity_id: light.front_porch_light
+      data_template:
+        profile: sunset
+        brightness: '{{((0.0625*((states.sun.sun.attributes.elevation+8)**2))-(31.125*(states.sun.sun.attributes.elevation+8))+255)|int}}'
+
+- alias: Turn off front porch light at midnight
+  trigger:
+    - platform: time_pattern
+      hours: 00
+      minutes: 00
+      seconds: 00
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: light.front_porch_light
+
+# Kitchen lights
+
+- alias: 'sink_off_when_kitchen_off'
+  trigger:
+    - platform: state
+      entity_id: switch.kitchen_light
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.sink_light
+
+- alias: undercabinet_morning
+  trigger:
+    - platform: time_pattern
+      hours: 06
+      minutes: 00
+      seconds: 00
+  action:
+    # - service: light.turn_on
+    #   entity_id: light.shelly_shrgbw2_1dfb87
+    #   data:
+    #     effect: none
+    - service: script.undercabinet_morning
+
+- alias: undercabinet_evening
+  trigger:
+    - platform: time_pattern
+      hours: 20
+      minutes: 00
+      seconds: 00
+  action:
+    # - service: light.turn_on
+    #   entity_id: light.shelly_shrgbw2_1dfb87
+    #   data:
+    #     effect: none
+    - service: script.undercabinet_evening
+
+- alias: undercabinet_button
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.undercabinet_button_push
+      from: 'off'
+      to: 'on'
+  action:
+    - service: script.undercabinet_button
+
+# Garage Lights
+
+- alias: 'door turns on lights'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.garage_access_door
+      from: 'off'
+      to: 'on'
+
+  action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.garage_door_lights
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.garage_light
+
+# - alias: 'door turns off lights'
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.garage_access_door
+#       from: 'on'
+#       to: 'off'
+
+#   action:
+#     - service: homeassistant.turn_off
+#       data:
+#         entity_id: switch.garage_door_lights
+
+- alias: 'house door turns on light'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.garage_house_door
+      from: 'off'
+      to: 'on'
+
+  action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.garage_light
+
+# Motion sensor lights
+
+- alias: Turn on laundry light when there is movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.laundry_motion
+    to: 'on'
+  action:
+    service: homeassistant.turn_on
+    entity_id: switch.laundry_light
+
+- alias: Turn off laundry light 2 minutes after last movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.laundry_motion
+    to: 'off'
+    for:
+      minutes: 2
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.laundry_light
+
+- alias: Turn on closet light when there is movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.closet_motion
+    to: 'on'
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.master_closet_light
+
+- alias: 'Turn off closet light 2 minutes after last movement'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.closet_motion
+    to: 'off'
+    for:
+      minutes: 2
+  action:
+    service: light.turn_off
+    entity_id: light.master_closet_light
+
+- id: garage_motion_1
+  alias: Turn on garage light when there is movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.garage_motion_1
+    to: 'on'
+  action:
+    service: switch.turn_on
+    entity_id: switch.garage_light
+
+- id: garage_motion_2
+  alias: Turn on garage light when there is movement 2
+  trigger:
+    platform: state
+    entity_id: binary_sensor.garage_motion_2
+    to: 'on'
+  action:
+    service: switch.turn_on
+    entity_id: switch.garage_light
+
+- id: garage_motion_3
+  alias: Turn on garage light when there is movement 3
+  trigger:
+    platform: state
+    entity_id: binary_sensor.garage_motion_3
+    to: 'on'
+  action:
+    service: switch.turn_on
+    entity_id: switch.garage_light
+
+# - alias: 'Turn off garage light 15 minutes after last movement'
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.garage_motion_1
+#     to: 'off'
+#     for:
+#       minutes: 15
+#   action:
+#     service: switch.turn_off
+#     entity_id: switch.garage_light
+
+- alias: 'Closet Lights Timer'
+  trigger:
+    - platform: state
+      entity_id: light.master_closet_light
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 15
+        seconds: 0
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.master_closet_light
+
+- alias: tv_backight_on
+  trigger:
+    - platform: sun
+      event: sunset
+  action:
+    - service: light.turn_on
+      entity_id: light.tv_backlight
+      data:
+        effect: rainbow
+        brightness: 110
+        transition: 5
+
+# Living Room
+
+- alias: tv_backlight_off
+  trigger:
+    - platform: time_pattern
+      hours: 00
+      minutes: 01
+      seconds: 00
+  action:
+    - service: light.turn_off
+      entity_id: light.tv_backlight
+
+# Office
+
+- alias: 'Office switch turns on all office Lights'
+  trigger:
+    - platform: state
+      entity_id: switch.office_door_light
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: light.turn_on
+      entity_id: light.office_window_light
+    - service: light.turn_on
+      entity_id: light.office_chair_light
+
+- alias: 'Office switch turns off all office Lights'
+  trigger:
+    - platform: state
+      entity_id: switch.office_door_light
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: light.turn_off
+      entity_id: light.office_window_light
+    - service: light.turn_off
+      entity_id: light.office_chair_light
+
+# Others
+
+- alias: 'feed_the_dog'
+  trigger:
+    platform: time_pattern
+    hours: 06
+    minutes: 00
+    seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.morning_dog_feeding
+
+
+- alias: 'Lights off when we all leave'
+  trigger:
+    - platform: state
+      entity_id: group.phones
+      from: 'home'
+      to: 'not_home'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.lights
+    - service: light.turn_on
+      data:
+        entity_id: light.kelly_lamp
+
+
+

@@ -1,0 +1,243 @@
+
+- alias: 'Garage door is opening'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      from: 'closed'
+      to: 'open'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.smart_clock
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'The garage door is opening'
+
+- alias: 'Turn on garage_door_lights with garage door open'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      from: 'closed'
+      to: 'open'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  condition:
+    condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.garage_door_lights
+
+- alias: 'Turn on garage_light with garage door open'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      from: 'closed'
+      to: 'open'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.garage_light
+
+- alias: 'Garage door open for 30 minutes'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      from: 'closed'
+      to: 'open'
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'The garage door has been open for 30 minutes'
+
+- alias: 'Garage door open for 60 minutes - close it'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      from: 'closed'
+      to: 'open'
+      for:
+        hours: 0
+        minutes: 60
+        seconds: 0
+
+  action:
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'The garage door has been open for one hour.  Closing now'
+
+- alias: 'Garage door open for 90 minutes - close it'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      from: 'closed'
+      to: 'open'
+      for:
+        hours: 1
+        minutes: 30
+        seconds: 0
+
+  action:
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: '90 minutes this garage door has been open! I will try to close it again'
+
+- alias: 'Garage door open for 2 hours - close it'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      from: 'closed'
+      to: 'open'
+      for:
+        hours: 2
+        minutes: 00
+        seconds: 0
+
+  action:
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'OK, 2 hours is too long for the garage door to be open.  I will try to close it one more time, but you should check it'
+
+- alias: 'Garage door has closed'
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      from: 'open'
+      to: 'closed'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'The garage door has closed'
+
+
+- alias: 'Garage Door Lights Timer'
+  trigger:
+    - platform: state
+      entity_id: switch.garage_door_lights
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.garage_door_lights
+
+
+- alias: 'Garage Light Timer'
+  trigger:
+    - platform: state
+      entity_id: switch.garage_light
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 15
+        seconds: 0
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.garage_light
+
+- alias: 'Garage access door is opening'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.garage_access_door
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'The garage access door is opening'

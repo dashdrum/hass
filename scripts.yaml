@@ -1,0 +1,188 @@
+water_warning:
+  alias: High Water Warning
+  sequence:
+  - service: switch.turn_off
+    entity_id: switch.washer
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: tts.google_translate_say
+    entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+    data:
+      message: 'Warning! The lawndry sink water level is high! The washer has been turned off.'
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: light.turn_on
+    data:
+      entity_id: group.living_room
+      flash: long
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: light.turn_on
+    data:
+      entity_id: group.living_room
+      flash: long
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: light.turn_on
+    data:
+      entity_id: group.living_room
+      flash: long
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: light.turn_on
+    data:
+      entity_id: group.living_room
+      flash: long
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: light.turn_on
+    data:
+      entity_id: group.living_room
+      flash: long
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: light.turn_on
+    data:
+      entity_id: group.living_room
+      flash: long
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: light.turn_on
+    data:
+      entity_id: group.living_room
+      flash: long
+  - service: switch.toggle
+    entity_id: switch.laundry_light
+  - service: light.turn_on
+    data:
+      entity_id: group.living_room
+      flash: long
+  - service: switch.turn_on
+    entity_id: switch.laundry_light
+#   - service: script.turn_on
+#     data:
+#       entity_id: script.water_warning_again
+# water_warning_again:
+#   alias: Rerun water warning script
+#   sequence:
+#     - service: script.turn_on
+#       data:
+#         entity_id: script.water_warning
+say_somthing:
+  alias: Text-to-Speech Test
+  sequence:
+  - service: tts.google_translate_say
+    entity_id:
+      - media_player.dan_speaker
+      - media_player.spare_room_speaker
+      - media_player.guest_room_speaker
+      - media_player.kitchen_speaker
+      - media_player.office_home
+      - media_player.kelly_home
+      - media_player.smart_clock
+    data:
+      message: 'Testing ... 1 ... 2 ... 3'
+      # language: 'en-au'
+
+
+
+office_dim:
+  alias: Activate Office Dim scene avoiding automations
+  sequence:
+    - service: scene.turn_on
+      data:
+        entity_id: scene.office_off
+    - service: scene.turn_on
+      data:
+        entity_id: scene.office_dim
+
+undercabinet_morning:
+  alias: Activate morning settings
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.shelly_shrgbw2_1dfb87
+        effect: 'Off'
+    - service: light.turn_off
+      data:
+        entity_id: light.shelly_shrgbw2_1dfb87
+    - service: scene.turn_on
+      data:
+        entity_id: scene.undercabinet_morning
+
+undercabinet_evening:
+  alias: Activate evening settings
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.shelly_shrgbw2_1dfb87
+        effect: 'Off'
+    - service: light.turn_off
+      data:
+        entity_id: light.shelly_shrgbw2_1dfb87
+    - service: scene.turn_on
+      data:
+        entity_id: scene.undercabinet_evening
+
+undercabinet_warm:
+  alias: Activate warm settings
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.shelly_shrgbw2_1dfb87
+        effect: 'Off'
+    - service: light.turn_off
+      data:
+        entity_id: light.shelly_shrgbw2_1dfb87
+    - service: scene.turn_on
+      data:
+        entity_id: scene.undercabinet_warm
+
+undercabinet_cool:
+  alias: Activate cool settings
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.shelly_shrgbw2_1dfb87
+        effect: 'Off'
+    - service: light.turn_off
+      data:
+        entity_id: light.shelly_shrgbw2_1dfb87
+    - service: scene.turn_on
+      data:
+        entity_id: scene.undercabinet_cool
+
+undercabinet_button:
+  alias: undercabinet button press
+  sequence:
+    - choose:
+        # IF on bright scene
+        - conditions:
+            - condition: template
+              value_template: "{{ states.light.shelly_shrgbw2_1dfb87.attributes.white_value == 255 }}"
+          sequence:
+            - choose:
+                - conditions:
+                    - condition: time
+                      after: '06:00:00'
+                      before: '20:00:00'
+                  sequence:
+                    - service: script.turn_on
+                      data:
+                        entity_id: script.undercabinet_morning
+              default:
+                - service: script.turn_on
+                  data:
+                    entity_id: script.undercabinet_evening
+      # ELSE turn on bright scene
+      default:
+        - service: script.turn_on
+          data:
+            entity_id: script.undercabinet_cool

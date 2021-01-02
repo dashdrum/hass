@@ -1,0 +1,47 @@
+
+  # - platform: mqtt
+  #   state_topic: "laundry_motion/state"
+  #   name: laundry_motion
+  #   availability_topic: laundry_motion/availability
+
+  - platform: mqtt
+    state_topic: "closet_motion/state"
+    name: closet_motion
+    availability_topic: closet_motion/availability
+
+  # - platform: mqtt
+  #   state_topic: "garage_motion_1/state"
+  #   name: garage_motion_1
+  #   availability_topic: garage_motion_1/availability
+
+  # - platform: mqtt
+  #   state_topic: "garage_motion_2/state"
+  #   name: garage_motion_2
+  #   availability_topic: garage_motion_2/availability
+
+
+  # - platform: mqtt
+  #   state_topic: "garage_sensor/motion/state"
+  #   name: garage_motion_3
+  #   availability_topic: garage_sensor/availability
+
+  # - platform: mqtt
+  #   state_topic: "garage_sensor/door/state"
+  #   name: garage_house_door
+  #   availability_topic: garage_sensor/availability
+
+  # - platform: mqtt
+  #   state_topic: "garage/access_door"
+  #   name: garage_access_door
+  #   expire_after: 600
+
+  # - platform: mqtt
+  #   state_topic: "garage/door"
+  #   name: garage_door_binary
+  #   payload_on: "OPENED"
+  #   payload_off: "CLOSED"
+  #   expire_after: 600
+
+
+
+

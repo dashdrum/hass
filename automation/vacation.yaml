@@ -1,0 +1,173 @@
+
+
+- alias: kitchen_breakfast
+  trigger:
+    - platform: time_pattern
+      hours: 07
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.kitchen_normal
+
+- alias: kitchen_breakfast_over
+  trigger:
+    - platform: time_pattern
+      hours: 08
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.kitchen_off
+
+- alias: kitchen_supper
+  trigger:
+    - platform: time_pattern
+      hours: 17
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.kitchen_normal
+
+- alias: kitchen_supper_over
+  trigger:
+    - platform: time_pattern
+      hours: 19
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.kitchen_dim
+
+- alias: kitchen_snack
+  trigger:
+    - platform: time_pattern
+      hours: 21
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.kitchen_normal
+
+- alias: kitchen_snack_over
+  trigger:
+    - platform: time_pattern
+      hours: 21
+      minutes: 15
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.kitchen_dim
+
+- alias: living_morning
+  trigger:
+    - platform: time_pattern
+      hours: 06
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.living_room_dim
+
+- alias: living_day
+  trigger:
+    - platform: time_pattern
+      hours: 09
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.watch_tv
+
+- alias: living_evening
+  trigger:
+    - platform: time_pattern
+      hours: 18
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.living_room_bright
+
+- alias: living_late
+  trigger:
+    - platform: time_pattern
+      hours: 20
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.watch_tv
+
+- alias: living_done
+  trigger:
+    - platform: time_pattern
+      hours: 23
+      minutes: 05
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.living_room_off
+
+- alias: office_afternoon
+  trigger:
+    - platform: time_pattern
+      hours: 14
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.office_normal
+
+- alias: office_afternoon_end
+  trigger:
+    - platform: time_pattern
+      hours: 16
+      minutes: 00
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.office_off
+
+- alias: office_evening
+  trigger:
+    - platform: time_pattern
+      hours: 18
+      minutes: 30
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.office_dim
+
+- alias: office_evening_end
+  trigger:
+    - platform: time_pattern
+      hours: 19
+      minutes: 30
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.office_off
+
+- alias: bedroom_evening
+  trigger:
+    - platform: time_pattern
+      hours: 21
+      minutes: 15
+      seconds: 00
+  action:
+    - service: scene.turn_on
+      entity_id: scene.master_bright
+
+- alias: bedroom_night
+  trigger:
+    - platform: time_pattern
+      hours: 23
+      minutes: 10
+      seconds: 00
+  action:
+    - service: scene.turn_off
+      entity_id: scene.nighttime
+
+

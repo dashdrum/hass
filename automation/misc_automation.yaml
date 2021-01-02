@@ -1,0 +1,167 @@
+# Send out MQTT messages
+
+- alias: 'Publish Dark Sky Temperature'
+  trigger:
+    platform: state
+    entity_id: sensor.dark_sky_temperature
+  action:
+    service: mqtt.publish
+    data_template:
+      payload: "{{states.sensor.dark_sky_temperature.state}}"
+      topic: darksky/temperature/state
+      retain: true
+
+- alias: 'Publish defeat_sleep'
+  trigger:
+    platform: state
+    entity_id: input_boolean.defeat_sleep
+  action:
+    service: mqtt.publish
+    data_template:
+      payload: "{{states.input_boolean.defeat_sleep.state}}"
+      topic: hass/defeat_sleep/state
+      retain: true
+
+
+
+# Other fun things
+
+- alias: 'Bye Dan'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.theedge
+      from: 'home'
+      to: 'not_home'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id: media_player.dan_speaker
+      data:
+        message: 'Dan has left the building'
+
+- alias: 'Bye Kelly'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.kellysiphone
+      from: 'home'
+      to: 'not_home'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id: media_player.dan_speaker
+      data:
+        message: 'Kelly is outta here'
+
+- alias: 'Bye Corinne'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.csgentrysiphone
+      from: 'home'
+      to: 'not_home'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id: media_player.dan_speaker
+      data:
+        message: "Wait ... where's Koreen?"
+
+- alias: 'Hello Corinne'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.csgentrysiphone
+      from: 'not_home'
+      to: 'home'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id: media_player.dan_speaker
+      data:
+        message: 'Oh, her again?'
+
+- alias: 'Hello Dan'
+  trigger:
+    - platform: state
+      entity_id: device_tracker.theedge
+      from: 'not_home'
+      to: 'home'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id: media_player.dan_speaker
+      data:
+        message: 'Hes baa-aack'
+
+
+# - alias: 'Ranger contact'
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.truck1
+#       from: 'off'
+#       to: 'on'
+#   action:
+#     - service: switch.turn_on
+#       data:
+#         entity_id: switch.kitchen_light
+
+# - alias: 'Ranger out of contact'
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.truck1
+#       from: 'on'
+#       to: 'off'
+#   action:
+#     - service: switch.turn_off
+#       data:
+#         entity_id: switch.kitchen_light
+
+# - alias: Set office blinds slider
+#   trigger:
+#     platform: mqtt
+#     topic: "of_blinds/tilt/position"
+#   action:
+#     service: input_number.set_value
+#     data_template:
+#       entity_id: input_number.office_blinds_slider
+#       value: '{{ trigger.payload }}'
+
+# - alias: Office blinds slider moved
+#   trigger:
+#     platform: state
+#     entity_id: input_number.office_blinds_slider
+#   action:
+#     service: mqtt.publish
+#     data_template:
+#       topic: "of_blinds/tilt/control"
+#       retain: true
+#       payload: '{{ states.input_number.office_blinds_slider.state | int }}'
+
+# - alias: 'Dark in here'
+#   trigger:
+#     - platform: numeric_state
+#       entity_id: sensor.ambient_light_sensor
+#       below: 0.5
+#       for:
+#         hours: 0
+#         minutes: 0
+#         seconds: 5
+#   action:
+#     - service: tts.google_translate_say
+#       entity_id: media_player.office_home
+#       data:
+#         message: 'Boy, it sure is dark in here'
+

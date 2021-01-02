@@ -1,0 +1,451 @@
+kitchen_lights:
+  name: Kitchen
+  entities:
+    - switch.kitchen_light
+    - switch.sink_light
+
+laundry_lights:
+  name: Laundry
+  entities:
+    - switch.laundry_light
+#     - switch.coat_rack_light
+
+# dresser_lights:
+#   name: Dressers
+#   entities:
+#     - light.dresser1
+#     - light.dresser2
+
+
+
+## Old groups
+
+# default_view:
+#   #view: yes
+#   icon: mdi:home
+#   entities:
+#     - group.living_room
+#     - group.dining_room
+#     - group.office
+#     - group.laundry
+#     - group.upstairs
+#     - group.basement
+#     - group.garage
+#     - group.outside
+# scenes:
+#   name: Scenes
+#   #view: yes
+#   entities:
+#     - group.main_scenes
+#     - group.upstairs_scenes
+# main_scenes:
+#   name: Main Floor
+#   entities:
+#     - scene.living_room_bright
+#     - scene.living_room_normal
+#     - scene.living_room_dim
+#     - scene.watch_tv
+#     - scene.living_room_off
+#     - scene.morning_dog_feeding
+#     - scene.office_bright
+#     - scene.office_normal
+#     - scene.office_dim
+#     - scene.office_off
+#     - scene.kitchen_bright
+#     - scene.kitchen_normal
+#     - scene.kitchen_dim
+#     - scene.kitchen_off
+#     - scene.undercabinet_morning
+#     - scene.undercabinet_evening
+# upstairs_scenes:
+#   name: Upstairs
+#   entities:
+#     - scene.master_bright
+#     - scene.master_warm
+#     - scene.master_cool
+#     - scene.master_dim
+#     - scene.master_off
+#     - scene.nighttime
+#     - scene.master_off
+# sensors:
+#   name: Sensors
+#   #view: yes
+#   entities:
+#     -  group.temps
+#     -  group.humid
+#     -  group.pressure
+#     -  group.batteries
+#     #-  group.water
+#     -  group.appliances
+#     -  group.other_sensors
+#     -  group.electrical
+# scripts:
+#   name: Scripts
+#   #view: yes
+#   entities:
+#     - script.say_somthing
+#     - script.water_warning
+#     - script.master_ac_day
+#     - script.master_ac_night
+#     - script.master_ac_powerful
+#     - script.ac_powerful
+# lights:
+#   name: Lights
+#   #view: yes
+#   entities:
+#     - light.dan_lamp
+#     - light.kelly_lamp
+#     - light.stairway_light
+#     - light.office_chair_light
+#     - light.office_window_light
+#     - light.front_porch_light
+#     - light.dan_bedside_lamp
+#     - light.kelly_bedside_lamp
+#     - light.master_closet_light
+#     - light.dresser1
+#     - light.dresser2
+#     - light.dining_room_light
+#     - switch.kitchen_light
+#     - switch.laundry_light
+#     - switch.coat_rack_light
+#     - switch.deck_light
+#     - switch.garage_door_lights
+#     - switch.garage_light
+#     - switch.woodpile_lights
+#     - switch.office_door_light
+#     - switch.sink_light
+# living_room:
+#   name: Living Room
+#   entities:
+#     - light.dan_lamp
+#     - light.kelly_lamp
+#     - light.stairway_light
+#     - sensor.lr_temp
+#     # - input_number.living_ac_slider
+#     - script.ac_powerful
+#     # - light.tv_backlight
+#     # - input_number.tv_animation_speed
+#     # - sensor.lr_humid
+#     # - sensor.lr_batt
+# dining_room:
+#   name: "Kitchen/Dining"
+#   #view: no
+#   entities:
+#     - switch.kitchen_light
+#     - switch.sink_light
+#     - light.shelly_shrgbw2_1dfb87
+#     - light.dining_room_light
+# office:
+#   name: "Office"
+#   #view: no
+#   entities:
+#     - switch.office_door_light
+#     - light.office_chair_light
+#     - light.office_window_light
+#     - sensor.of_temp
+#     - switch.printer
+# # master:
+# #   name: Master Bedroom
+# #   entities:
+# #     - light.hue_color_lamp_1
+# #     - light.hue_color_lamp_2
+# #     - sensor.mb_temp
+# #     - input_number.master_ac_slider
+# #     # - sensor.mb_humid
+# # bed_2:
+# #   name: Bedroom 2
+# #   entities:
+# #     - sensor.b2_temp
+# #     # - sensor.b2_humid
+# upstairs:
+#   name: Upstairs
+#   entities:
+#     - light.dan_bedside_lamp
+#     - light.kelly_bedside_lamp
+#     - light.dresser1
+#     - light.dresser2
+#     - light.master_closet_light
+#     - sensor.mb_temp
+#     # - input_number.master_ac_slider
+#     - script.master_ac_powerful
+#     # - light.led_mirror
+#     - sensor.ub_temp
+# basement:
+#   name: Basement
+#   entities:
+#     - sensor.bs_temp
+#     # - sensor.bs_humid
+# laundry:
+#   name: Laundry
+#   entities:
+#     - switch.laundry_light
+#     - switch.coat_rack_light
+#     - sensor.washer_state
+#     - sensor.dryer_status
+#     - sensor.water_status
+#     - sensor.laundry_temp
+#     # - sensor.laundry_humid
+#     # - switch.washer
+# garage:
+#   name: Garage
+#   entities:
+#     - switch.garage_light
+#     - cover.garage_door
+#     - binary_sensor.garage_access_door
+#     - binary_sensor.garage_house_door
+#     - sensor.ga_temp
+#     - sensor.gs_temp
+#     - sensor.ws_temp
+#     # - sensor.ws_humid
+# outside:
+#   name: Outside
+#   #view: no
+#   entities:
+#     - switch.deck_light
+#     - switch.garage_door_lights
+#     - switch.woodpile_lights
+#     - light.front_porch_light
+#     - sensor.sun_elevation
+#     - sensor.dark_sky_temperature
+#     # - sensor.dark_sky_humidity
+#     # - sensor.dark_sky_dew_point
+#     # - sensor.dark_sky_pressure
+#     - sensor.b2_temp
+# temps:
+#   name: Temperature
+#  #view: no
+#   entities:
+#     - sensor.dark_sky_temperature
+#     - sensor.lr_temp
+#     - sensor.of_temp
+#     - sensor.mb_temp
+#     - sensor.ub_temp
+#     - sensor.bs_temp
+#     - sensor.laundry_temp
+#     - sensor.ws_temp
+#     - sensor.ga_temp
+#     - sensor.gs_temp
+#     - sensor.b2_temp
+# humid:
+#   name: Humidity
+#   #view: no
+#   entities:
+#     - sensor.dark_sky_humidity
+#     - sensor.lr_humid
+#     - sensor.of_humid
+#     - sensor.mb_humid
+#     - sensor.ub_humid
+#     - sensor.bs_humid
+#     - sensor.laundry_humid
+#     - sensor.ws_humid
+#     - sensor.ga_humid
+#     - sensor.gs_humid
+#     - sensor.b2_humid
+#     - sensor.dark_sky_dew_point
+# pressure:
+#   name: Barometric Pressure
+#   #view: no
+#   entities:
+#     - sensor.dark_sky_pressure
+#     - sensor.gs_pressure
+# batteries:
+#   name: Batteries
+#   #view: no
+#   entities:
+#     # - sensor.lr_batt
+#     - sensor.of_batt
+#     # - sensor.mb_batt
+#     - sensor.b2_batt
+#     - sensor.bs_batt
+#     - sensor.ws_batt
+#     - sensor.master_dimmer_switch_battery_level
+# appliances:
+#   name: Appliances
+#   #view: no
+#   entities:
+#     - sensor.washer_state
+#     - sensor.dryer_status
+#     - sensor.water_status
+# electrical:
+#   name: Electrical
+#   #view: no
+#   entities:
+#     - sensor.washer_amps
+#     - sensor.washer_watts
+#     - sensor.washer_volts
+#     - sensor.washer_total_kwh
+#     - sensor.washer_today_kwh
+# other_sensors:
+#   name: Other Sensors
+#   #view: no
+#   entities:
+#     - binary_sensor.laundry_motion
+#     - binary_sensor.closet_motion
+#     - binary_sensor.garage_motion_1
+#     - binary_sensor.garage_motion_2
+#     - binary_sensor.garage_motion_3
+#     - binary_sensor.garage_access_door
+#     - binary_sensor.garage_house_door
+#     - binary_sensor.garage_door_binary
+#     - sensor.sun_elevation
+# presence:
+#   name: Presence
+#   #view: yes
+#   entities:
+#     - group.phones
+#     # - group.vehicles
+# phones:
+#   name: Phones
+#   entities:
+#     # - device_tracker.theedge
+#     - device_tracker.google_maps_102501070565386974294
+#     # - device_tracker.kellysiphone
+#     # - device_tracker.csgentrysiphone
+#     # - sensor.dan_to_home
+#     # - sensor.dan_to_work
+#     # - sensor.home_to_work
+#     # - sensor.work_to_home
+# vehicles:
+#   name: Vehicles
+#   entities:
+#     binary_sensor.truck1
+
+# rpi:
+#   name: Raspberry Pi
+#   #view: no
+#   entities:
+#     - sensor.processor_use
+#     # - sensor.disk_use_percent_
+#     - sensor.memory_use_percent
+#     - sensor.ipv4_address_eth0
+#     - sensor.last_boot
+# network:
+#   name: Network
+#   #view: no
+#   entities:
+#     - sensor.fast_com_download
+#     - sensor.speedtest_ping
+#     - sensor.speedtest_download
+#     - sensor.speedtest_upload
+# tech:
+#   name: Tech
+#   #view: yes
+#   entities:
+#     - group.rpi
+#     - group.network
+#     - group.google_home_units
+
+
+# presense_auto:
+#   name: Presense
+#   #view: no
+#   entities:
+#     - automation.bye_corinne
+#     - automation.bye_dan
+#     - automation.bye_kelly
+#     - automation.hello_corinne
+#     - automation.hello_dan
+
+
+# appl_auto:
+#   name: Appliances
+#   #view: no
+#   entities:
+#     - automation.dryer_has_stopped
+#     - automation.laundry_sink_level_back_to_normal
+#     - automation.laundry_sink_level_high
+#     - automation.set_bedroom_ac_to_day_setting
+#     - automation.set_bedroom_ac_to_night_setting
+#     - automation.washer_start
+#     - automation.washer_stop
+
+
+# lights_auto:
+#   name: Lights
+#   #view: no
+#   entities:
+#     - automation.deck_light_timer
+#     - automation.deck_light_turns_on_woodpile_lights
+#     - automation.deck_light_turns_off_woodpile_lights
+#     - automation.woodpile_lights_timer
+#     - automation.lights_off_when_we_all_leave
+#     - automation.garage_door_lights_timer
+#     - automation.turn_on_garage_door_lights_with_garage_door_open
+#     - automation.sink_off_when_kitchen_off
+#     - automation.undercabinet_morning
+#     - automation.undercabinet_evening
+#     - automation.sunset_transition
+#     - automation.turn_off_front_porch_light_at_midnight
+#     - automation.door_turns_on_lights
+#     # - automation.door_turns_off_lights
+#     - automation.turn_on_laundry_light_when_there_is_movement
+#     - automation.turn_off_laundry_light_2_minutes_after_last_movement
+#     - automation.turn_on_closet_light_when_there_is_movement
+#     - automation.turn_off_closet_light_2_minutes_after_last_movement
+#     - automation.closet_lights_timer
+#     - automation.office_switch_turns_off_all_office_lights
+#     - automation.office_switch_turns_on_all_office_lights
+#     # - automation.tv_backlight_on
+#     # - automation.tv_backlight_off
+
+# vacation_auto:
+#   name: Vacation Lights
+#   #view: no
+#   entities:
+#     - automation.feed_the_dog
+#     - automation.kitchen_breakfast
+#     - automation.kitchen_breakfast_over
+#     - automation.kitchen_supper
+#     - automation.kitchen_supper_over
+#     - automation.kitchen_snack
+#     - automation.kitchen_snack_over
+#     - automation.living_morning
+#     - automation.living_day
+#     - automation.living_evening
+#     - automation.living_late
+#     - automation.living_done
+#     - automation.office_afternoon
+#     - automation.office_afternoon_end
+#     - automation.office_evening
+#     - automation.office_evening_end
+#     - automation.bedroom_evening
+#     - automation.bedroom_night
+
+# garage_auto:
+#   name: Garage
+#   #view: no
+#   entities:
+#     - automation.garage_door_has_closed
+#     - automation.garage_door_is_opening
+#     - automation.garage_door_open_for_2_hours_close_it
+#     - automation.garage_door_open_for_30_minutes
+#     - automation.garage_door_open_for_60_minutes_close_it
+#     - automation.garage_door_open_for_90_minutes_close_it
+#     - automation.garage_access_door_is_opening
+#     - automation.turn_on_garage_light_when_there_is_movement
+#     - automation.turn_on_garage_light_when_there_is_movement_2
+#     - automation.turn_on_garage_light_when_there_is_movement_3
+
+
+# auto_panel:
+#   name: Automations
+#   #view: yes
+#   entities:
+#     - group.appl_auto
+#     - group.lights_auto
+#     - group.vacation_auto
+#     - group.garage_auto
+#     - group.presense_auto
+
+# google_home_units:
+#   name: Google Home Units
+#   #view: no
+#   entities:
+#     - media_player.dan_speaker
+#     - media_player.family_room_speaker
+#     - media_player.guest_room_speaker
+#     - media_player.kitchen_speaker
+#     - media_player.master_bedroom_speaker
+#     - media_player.office_home
+#     - media_player.kelly_home
+#     - media_player.smart_clock

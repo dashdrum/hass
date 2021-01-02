@@ -1,0 +1,171 @@
+
+
+- alias: Set bedroom AC to night setting
+  trigger:
+    platform: time_pattern
+    hours: 20
+    minutes: 00
+    seconds: 00
+  action:
+  - service: switch.turn_on
+    entity_id: switch.mb_night
+
+- alias: Set bedroom AC to day setting
+  trigger:
+    platform: time_pattern
+    hours: 8
+    minutes: 00
+    seconds: 00
+  action:
+  - service: switch.turn_on
+    entity_id: switch.mb_day
+
+
+
+- alias: 'Dryer has stopped'
+  trigger:
+    - platform: state
+      entity_id: sensor.dryer_sensor
+      from: 'Running'
+      to: 'Cycle Complete'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'The dryer has stopped'
+
+
+- alias: 'Laundry sink level high'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.high_water
+    from: 'off'
+    to: 'on'
+    for:
+      seconds: 5
+  condition:
+    - condition: state
+      entity_id: script.water_warning
+      state: 'off'
+  action:
+  - service: script.turn_on
+    entity_id: script.water_warning
+
+- alias: 'Laundry sink level back to normal'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.high_water
+    from: 'on'
+    to: 'off'
+    for:
+      seconds: 5
+  condition:
+    - condition: state
+      entity_id: script.water_warning
+      state: 'on'
+  action:
+  - service: script.turn_off
+    entity_id: script.water_warning
+
+- alias: Washer Start
+
+  trigger:
+    platform: numeric_state
+    entity_id: switch.washer
+    value_template: '{{ states.switch.washer.attributes["current_a"] | float }}'
+    above: 0.03
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+
+  condition:
+    - condition: state
+      entity_id: input_boolean.washer_status
+      state: 'off'
+
+  action:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.washer_status
+
+
+- alias: Washer Stop
+
+  trigger:
+    platform: numeric_state
+    entity_id: switch.washer
+    value_template: '{{ states.switch.washer.attributes["current_a"] | float }}'
+    below: 0.03
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 30
+
+  condition:
+    - condition: state
+      entity_id: input_boolean.washer_status
+      state: 'on'
+
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.washer_status
+
+- alias: 'Washer has stopped'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.washer_status
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'The washer has stopped'
+
+
+
+- alias: 'Roomba Bin Full'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.roomba_bin_full
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: 'The Roomba bin is full'
+

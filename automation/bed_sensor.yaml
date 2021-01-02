@@ -1,0 +1,126 @@
+# Bed Sensors
+
+- alias: 'Master Left Get Up - Nightlight'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.master_bed_sensor_left_side
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 1
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '21:30:00'
+        before: '08:00:00'
+      - condition: state
+        entity_id: light.dan_bedside_lamp
+        state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: light.dan_bedside_lamp
+      data:
+        brightness: 13
+        rgb_color: [255,0,0]
+        transition: 0
+
+- alias: 'Master Left Lie Down - Nightlight'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.master_bed_sensor_left_side
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 1
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '21:30:00'
+        before: '08:00:00'
+      - condition: numeric_state
+        entity_id: light.dan_bedside_lamp
+        value_template: '{% if states.light.dan_bedside_lamp.state == "on"  %}{{ states.light.dan_bedside_lamp.attributes.brightness }}{% else %}0{% endif %}'
+        below: 14
+        above: 12
+  action:
+    - service: light.turn_off
+      entity_id: light.dan_bedside_lamp
+      data:
+        transition: 1
+
+- alias: 'Master Left Lie Down - Closet'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.master_bed_sensor_left_side
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 1
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '21:30:00'
+        before: '08:00:00'
+      - condition: state
+        entity_id: light.master_closet_light
+        state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: light.master_closet_light
+      data:
+        transition: 5
+
+- alias: 'Master Left Lie Down - Room Lights'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.master_bed_sensor_left_side
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 2
+        seconds: 0
+  condition:
+    - condition: time
+      after: '21:30:00'
+      before: '08:00:00'
+  action:
+    - service: scene.turn_on
+      data:
+        entity_id: scene.nighttime
+        transition: 10
+
+- alias: 'Master Left Get Up - Stairway'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.master_bed_sensor_left_side
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 1
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '05:30:00'
+        before: '08:00:00'
+      - condition: state
+        entity_id: light.stairway_light
+        state: 'off'
+  action:
+    - service: light.turn_on
+      entity_id: light.stairway_light
+      data:
+        transition: 3
+        brightness: 13

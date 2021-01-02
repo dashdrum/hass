@@ -1,0 +1,329 @@
+- name: Morning Dog Feeding
+  entities:
+    light.stairway_light:
+      state: on
+      brightness: 128
+    switch.laundry_light:
+      state: on
+    switch.deck_light:
+      state: on
+    switch.kitchen_light:
+      state: on
+
+# Living Room
+
+- name: Watch TV
+  entities:
+    switch.kitchen_light:
+      state: off
+    switch.laundry_light:
+      state: off
+    switch.sink_light:
+      state: off
+    light.stairway_light:
+      state: off
+    # light.shelly_shrgbw2_1dfb87:
+    #   state: off
+    light.dan_lamp:
+      state: off
+    light.kelly_lamp:
+      state: on
+      brightness: 128
+    light.dining_room_light:
+      state: off
+
+- name: living_room_normal
+  entities:
+    light.dan_lamp:
+      state: on
+      brightness: 191
+    light.kelly_lamp:
+      state: on
+      brightness: 255
+    light.stairway_light:
+      state: on
+      brightness: 25
+    light.dining_room_light:
+      state: on
+      brightness: 128
+
+- name: living_room_bright
+  entities:
+    light.dan_lamp:
+      state: on
+      brightness: 255
+    light.kelly_lamp:
+      state: on
+      brightness: 255
+    light.stairway_light:
+      state: on
+      brightness: 255
+    light.dining_room_light:
+      state: on
+      brightness: 255
+
+- name: living_room_dim
+  entities:
+    light.dan_lamp:
+      state: on
+      brightness: 94
+    light.kelly_lamp:
+      state: on
+      brightness: 94
+    light.stairway_light:
+      state: off
+    light.dining_room_light:
+      state: on
+      brightness: 94
+
+- name: living_room_off
+  entities:
+    light.dan_lamp:
+      state: off
+    light.kelly_lamp:
+      state: off
+    light.stairway_light:
+      state: off
+    light.dining_room_light:
+      state: off
+
+# Kitchen
+
+- name: kitchen_bright
+  entities:
+    light.shelly_shrgbw2_1dfb87:
+      state: on
+      brightness: 255
+      #color_temp: 500
+      #rgb_color: [255,244,229]
+      white_value: 255
+    switch.kitchen_light:
+      state: on
+    switch.sink_light:
+      state: on
+
+- name: kitchen_normal
+  entities:
+    light.shelly_shrgbw2_1dfb87:
+      state: on
+      brightness: 173
+      rgb_color: [255, 241, 224]
+    switch.kitchen_light:
+      state: on
+    switch.sink_light:
+      state: on
+
+- name: kitchen_dim
+  entities:
+    light.shelly_shrgbw2_1dfb87:
+      state: on
+      brightness: 89
+      rgb_color: [72,45,20]
+    switch.kitchen_light:
+      state: off
+    switch.sink_light:
+      state: off
+
+- name: kitchen_off
+  entities:
+    light.shelly_shrgbw2_1dfb87:
+      state: off
+    switch.kitchen_light:
+      state: off
+    switch.sink_light:
+      state: off
+
+- name: undercabinet_morning
+  entities:
+    light.shelly_shrgbw2_1dfb87:
+      state: on
+      brightness: 83
+      rgb_color: [0,0,0]
+      effect: "Off"
+      white_value: 83
+
+- name: undercabinet_cool
+  entities:
+    light.shelly_shrgbw2_1dfb87:
+      state: on
+      brightness: 255
+      rgb_color: [212, 235, 255]
+      effect: "Off"
+      white_value: 255
+
+- name: undercabinet_warm
+  entities:
+    light.shelly_shrgbw2_1dfb87:
+      state: on
+      brightness: 200
+      rgb_color: [255,237, 222]
+      effect: "Off"
+      white_value: 0
+
+- name: undercabinet_evening
+  entities:
+    light.shelly_shrgbw2_1dfb87:
+      state: on
+      brightness: 89
+      # rgb_color: [25,25,112]   #midnightblue
+      white_value: 0
+      effect: "Gradual change"
+
+# Master Bedroom
+
+- name: nighttime
+  entities:
+    light.kelly_bedside_lamp:
+      state: on
+      brightness: 5
+      rgb_color: [0,0,255]   #blue
+      effect: colorloop
+    light.dan_bedside_lamp:
+      state: off
+    light.master_closet_light:
+      state: off
+    light.dresser1:
+      state: off
+    light.dresser2:
+      state: off
+    # light.led_mirror:
+    #   state: on
+    #   effect: colorfade_fast
+
+- name: master_warm
+  entities:
+    light.kelly_bedside_lamp:
+      state: on
+      brightness: 191
+      color_temp: 450
+    light.dan_bedside_lamp:
+      state: on
+      brightness: 191
+      color_temp: 450
+    light.dresser1:
+      state: on
+      brightness: 191
+    light.dresser2:
+      state: on
+      brightness: 191
+
+- name: master_cool
+  entities:
+    light.kelly_bedside_lamp:
+      state: on
+      brightness: 204
+      color_temp: 203
+    light.dan_bedside_lamp:
+      state: on
+      brightness: 204
+      color_temp: 203
+    light.dresser1:
+      state: off
+    light.dresser2:
+      state: off
+
+- name: master_bright
+  entities:
+    light.kelly_bedside_lamp:
+      state: on
+      brightness: 255
+      color_temp: 329
+    light.dan_bedside_lamp:
+      state: on
+      brightness: 255
+      color_temp: 329
+    light.master_closet_light:
+      state: on
+      brightness: 255
+    light.dresser1:
+      state: on
+      brightness: 255
+    light.dresser2:
+      state: on
+      brightness: 255
+
+- name: master_dim
+  entities:
+    light.kelly_bedside_lamp:
+      state: on
+      brightness: 55
+      xy_color: [0.4575, 0.4099]
+    light.dan_bedside_lamp:
+      state: on
+      brightness: 55
+      xy_color: [0.4575, 0.4099]
+    light.dresser1:
+      state: on
+      brightness: 55
+    light.dresser2:
+      state: on
+      brightness: 55
+    light.master_closet_light:
+      state: off
+
+- name: master_off
+  entities:
+    light.kelly_bedside_lamp:
+      state: off
+    light.dan_bedside_lamp:
+      state: off
+    light.master_closet_light:
+      state: off
+    light.dresser1:
+      state: off
+    light.dresser2:
+      state: off
+
+# Office
+
+- name: office_normal
+  entities:
+    switch.office_door_light:
+      state: on
+    light.office_chair_light :
+      state: on
+      brightness: 191
+    light.office_window_light:
+      state: on
+      brightness: 191
+
+- name: office_bright
+  entities:
+    switch.office_door_light:
+      state: on
+    light.office_chair_light :
+      state: on
+      brightness: 255
+    light.office_window_light:
+      state: on
+      brightness: 255
+
+- name: office_zoom
+  entities:
+    switch.office_door_light:
+      state: on
+    light.office_chair_light :
+      state: off
+    light.office_window_light:
+      state: off
+
+- name: office_dim
+  entities:
+    light.office_chair_light :
+      state: on
+      brightness: 89
+    light.office_window_light:
+      state: on
+      brightness: 89
+    # switch.office_door_light:
+    #   state: off
+
+- name: office_off
+  entities:
+    switch.office_door_light:
+      state: off
+    light.office_chair_light :
+      state: off
+    light.office_window_light:
+      state: off
+
