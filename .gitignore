@@ -1,3 +1,5 @@
-secrets.yaml
+/secrets.yaml
 *.db
 .DS_Store
+deploy_hass.sh
+*.pyc
