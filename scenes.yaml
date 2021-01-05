@@ -286,6 +286,9 @@
     light.office_window_light:
       state: on
       brightness: 191
+    light.office_desk_lamp:
+      state: on
+      brightness: 191
 
 - name: office_bright
   entities:
@@ -297,6 +300,9 @@
     light.office_window_light:
       state: on
       brightness: 255
+    light.office_desk_lamp:
+      state: on
+      brightness: 255
 
 - name: office_zoom
   entities:
@@ -306,6 +312,9 @@
       state: off
     light.office_window_light:
       state: off
+    light.office_desk_lamp:
+      state: on
+      brightness: 255
 
 - name: office_dim
   entities:
@@ -317,6 +326,9 @@
       brightness: 89
     # switch.office_door_light:
     #   state: off
+    light.office_desk_lamp:
+      state: on
+      brightness: 72
 
 - name: office_off
   entities:
@@ -325,5 +337,7 @@
     light.office_chair_light :
       state: off
     light.office_window_light:
+      state: off
+    light.office_desk_lamp:
       state: off
 

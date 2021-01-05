@@ -332,6 +332,8 @@
       entity_id: light.office_window_light
     - service: light.turn_on
       entity_id: light.office_chair_light
+    - service: light.turn_on
+      entity_id: light.office_desk_lamp
 
 - alias: 'Office switch turns off all office Lights'
   trigger:
@@ -348,6 +350,8 @@
       entity_id: light.office_window_light
     - service: light.turn_off
       entity_id: light.office_chair_light
+    - service: light.turn_off
+      entity_id: light.office_desk_lamp
 
 # Others
 
