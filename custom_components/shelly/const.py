@@ -31,9 +31,8 @@ CONF_VERSION = 'version'
 CONF_POWER_DECIMALS = 'power_decimals'
 CONF_SENSORS = 'sensors'
 CONF_UPGRADE_SWITCH = 'upgrade_switch'
+CONF_UPGRADE_BETA_SWITCH = 'upgrade_beta_switch'
 CONF_UNAVALABLE_AFTER_SEC = 'unavailable_after_sec'
-CONF_LOCAL_PY_SHELLY = 'debug_local_py_shelly'
-CONF_ONLY_DEVICE_ID = 'debug_only_device_id'
 CONF_CLOUD_AUTH_KEY = 'cloud_auth_key'
 CONF_CLOUD_SERVER = 'cloud_server'
 CONF_TMPL_NAME = 'tmpl_name'
@@ -45,6 +44,11 @@ CONF_DECIMALS = 'decimals'
 CONF_DIV = 'div'
 CONF_UNIT = 'unit'
 CONF_MQTT_PORT = 'mqtt_port'
+
+#Debug settings used for testing
+CONF_LOCAL_PY_SHELLY = 'debug_local_py_shelly'
+CONF_ONLY_DEVICE_ID = 'debug_only_device_id'
+CONF_DEBUG_ENABLE_INFO = 'debug_enable_info'
 
 CONF_WIFI_SENSOR = 'wifi_sensor' #deprecated
 CONF_UPTIME_SENSOR = 'uptime_sensor' #deprecated
@@ -65,9 +69,9 @@ DEFAULT_SETTINGS = \
     'humidity' : {CONF_UNIT:'%'},
     'total_consumption' : {CONF_DECIMALS:2, CONF_DIV:1000, CONF_UNIT:'kWh'},
     'total_returned' : {CONF_DECIMALS:2, CONF_DIV:1000, CONF_UNIT:'kWh'},
-    'current' : {CONF_DECIMALS:1},
+    'current' : {CONF_UNIT:'A', CONF_DECIMALS:1},
     'current_consumption' : {CONF_UNIT:'W'},
-    'voltage' : {CONF_UNIT:'V'},
+    'voltage' : {CONF_UNIT:'V', CONF_DECIMALS:0},
     'power_factor' : {CONF_DECIMALS:1},
     'uptime': {CONF_DIV:3600, CONF_UNIT:'h'},
     'rssi': {CONF_UNIT:'dB'},
@@ -87,9 +91,11 @@ ATTRIBUTE_SHELLY_TYPE = 'shelly_type'
 ATTRIBUTE_SHELLY_ID = 'shelly_id'
 ATTRIBUTE_SSID = 'ssid'
 ATTRIBUTE_RSSI = 'rssi'
+ATTRIBUTE_RSSI_LEVEL = 'rssi_level'
 ATTRIBUTE_UPTIME = 'uptime'
 ATTRIBUTE_HAS_FIRMWARE_UPDATE = 'has_firmware_update'
 ATTRIBUTE_LATEST_FW = 'latest_fw_version'
+ATTRIBUTE_LATEST_BETA_FW = 'latest_beta_fw_version'
 ATTRIBUTE_FW = 'firmware_version'
 ATTRIBUTE_CLOUD_ENABLED = 'cloud_enabled'
 ATTRIBUTE_CLOUD_CONNECTED = 'cloud_connected'
@@ -124,9 +130,11 @@ ALL_ATTRIBUTES = {
     ATTRIBUTE_SHELLY_ID,
     ATTRIBUTE_SSID,
     ATTRIBUTE_RSSI,
+    ATTRIBUTE_RSSI_LEVEL,
     ATTRIBUTE_UPTIME,
     ATTRIBUTE_HAS_FIRMWARE_UPDATE,
     ATTRIBUTE_LATEST_FW,
+    ATTRIBUTE_LATEST_BETA_FW,
     ATTRIBUTE_FW,
     ATTRIBUTE_MQTT_CONNECTED,
     ATTRIBUTE_CLOUD_STATUS,
@@ -166,11 +174,12 @@ DEFAULT_ATTRIBUTES = {
     ATTRIBUTE_SHELLY_TYPE,
     ATTRIBUTE_SHELLY_ID,
     ATTRIBUTE_HAS_FIRMWARE_UPDATE,
+    #ATTRIBUTE_RSSI_LEVEL,
     ATTRIBUTE_CLOUD_STATUS,
     ATTRIBUTE_SWITCH,
     ATTRIBUTE_OVER_POWER,
     ATTRIBUTE_OVER_TEMP,
-    #ATTRIBUTE_TOTAL_CONSUMPTION,
+    ATTRIBUTE_TOTAL_CONSUMPTION,
     #ATTRIBUTE_VOLTAGE,
     ATTRIBUTE_BATTERY,
     ATTRIBUTE_CLICK_CNT,
@@ -185,7 +194,9 @@ DEFAULT_ATTRIBUTES = {
 }
 
 SENSOR_ALL = 'all'
+SENSOR_DEFAULT = 'default'
 SENSOR_RSSI = 'rssi'
+SENSOR_RSSI_LEVEL = 'rssi_level'
 SENSOR_POWER = 'power'  #depreated, same as consumption
 SENSOR_CONSUMPTION = 'consumption'
 SENSOR_CURRENT_CONSUMPTION = 'current_consumption'
@@ -212,6 +223,7 @@ SENSOR_TOTAL_WORK_TIME = 'total_work_time'
 
 ALL_SENSORS = {
     SENSOR_RSSI: {'attr':'rssi'},
+    SENSOR_RSSI_LEVEL: {'attr':'rssi_level'},
     SENSOR_UPTIME: {'attr':'uptime'},
     SENSOR_OVER_POWER: {'attr':'over_power'},
     SENSOR_CURRENT_CONSUMPTION: {},
@@ -237,19 +249,22 @@ ALL_SENSORS = {
 
 EXTRA_SENSORS = {
     SENSOR_ALL: {},
+    SENSOR_DEFAULT: {},
     SENSOR_POWER: {},
     SENSOR_CONSUMPTION: {}
 }
 
 DEFAULT_SENSORS = [
     SENSOR_CURRENT_CONSUMPTION,
-    SENSOR_TOTAL_CONSUMPTION
+    SENSOR_TOTAL_CONSUMPTION,
+    SENSOR_SWITCH
 ]
 
 SENSOR_TYPE_TEMPERATURE = 'temperature'
 SENSOR_TYPE_HUMIDITY = 'humidity'
 SENSOR_TYPE_POWER = 'current_consumption'
 SENSOR_TYPE_RSSI = 'rssi'
+SENSOR_TYPE_RSSI_LEVEL = 'rssi_level'
 SENSOR_TYPE_UPTIME = 'uptime'
 SENSOR_TYPE_BATTERY = 'battery'
 SENSOR_TYPE_OVER_POWER = 'over_power'
@@ -284,8 +299,10 @@ SENSOR_TYPES_CFG = {
         ['Consumption', POWER_WATT, 'mdi:flash-outline', None, None],
     SENSOR_TYPE_RSSI:
         ['RSSI', 'dB', 'mdi:wifi', None, None],
+    SENSOR_TYPE_RSSI_LEVEL:
+        ['RSSI Level', None, 'mdi:wifi', None, None],
     SENSOR_TYPE_UPTIME:
-        ['Uptime', 's', 'mdi:timer', None, None],
+        ['Uptime', 's', 'mdi:timer-outline', None, None],
     SENSOR_TYPE_BATTERY:
         ['Battery', '%', None, DEVICE_CLASS_BATTERY, None],
     SENSOR_TYPE_OVER_POWER:
@@ -312,11 +329,11 @@ SENSOR_TYPES_CFG = {
         ['Total returned', ENERGY_WATT_HOUR,
          'mdi:flash-circle', DEVICE_CLASS_POWER, None],
     SENSOR_TYPE_VOLTAGE:
-        ['Voltage', 'V', 'mdi:flash', None, None],
+        ['Voltage', 'V', 'mdi:alpha-v-circle-outline', None, None],
     SENSOR_TYPE_POWER_FACTOR:
         ['Power factor', None, 'mdi:flash', None, None],
     SENSOR_TYPE_CURRENT:
-        ['Current', 'A', 'mdi:flash', None, None],
+        ['Current', 'A', 'mdi:alpha-i-circle-outline', None, None],
     SENSOR_TYPE_CLICK_TYPE:
         ['Click type', '', 'mdi:hockey-puck', None, None],
     SENSOR_TYPE_TILT:
