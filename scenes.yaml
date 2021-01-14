@@ -314,7 +314,7 @@
       state: off
     light.office_desk_lamp:
       state: on
-      brightness: 255
+      brightness: 137
 
 - name: office_dim
   entities:
