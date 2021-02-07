@@ -1,0 +1,43 @@
+- platform: mqtt
+  name: master_bedroom_ac_2
+  availability_topic: "mb_ac/availability"
+  fan_mode_command_topic: "mb_ac/climate/master_bedroom_ac/fan_mode/command"
+  fan_mode_state_topic: mb_ac/climate/master_bedroom_ac/fan_mode/state
+  fan_modes: ["auto", "high", "medium", "low"]
+  initial: 21
+  max_temp: 31
+  min_temp: 18
+  mode_command_topic: "mb_ac/climate/master_bedroom_ac/mode/command"
+  mode_state_topic: mb_ac/climate/master_bedroom_ac/mode/state
+  modes: ["off", "cool", "fan_only", "heat"]
+  precision: 1.0
+  swing_mode_command_topic: "mb_ac/climate/master_bedroom_ac/swing_mode/command"
+  swing_mode_state_topic: mb_ac/climate/master_bedroom_ac/swing_mode/state
+  swing_modes: ["off", "vertical"]
+  temp_step: 2
+  temperature_command_topic: "mb_ac/climate/master_bedroom_ac/target_temperature/command"
+  temperature_state_topic: mb_ac/climate/master_bedroom_ac/target_temperature/state
+  temperature_unit: "C"
+  unique_id: "ESPclimatemaster_bedroom_ac_2"
+
+- platform: mqtt
+  name: living_room_ac_2
+  availability_topic: "lr_ac/availability"
+  fan_mode_command_topic: "lr_ac/climate/living_room_ac/fan_mode/command"
+  fan_mode_state_topic: lr_ac/climate/living_room_ac/fan_mode/state
+  fan_modes: ["auto", "high", "medium", "low"]
+  initial: 21
+  max_temp: 31
+  min_temp: 18
+  mode_command_topic: "lr_ac/climate/living_room_ac/mode/command"
+  mode_state_topic: lr_ac/climate/living_room_ac/mode/state
+  modes: ["off", "cool", "fan_only", "heat"]
+  precision: 1.0
+  swing_mode_command_topic: "lr_ac/climate/living_room_ac/swing_mode/command"
+  swing_mode_state_topic: lr_ac/climate/living_room_ac/swing_mode/state
+  swing_modes: ["off","vertical"]
+  temp_step: 2
+  temperature_command_topic: "lr_ac/climate/living_room_ac/target_temperature/command"
+  temperature_state_topic: lr_ac/climate/living_room_ac/target_temperature/state
+  temperature_unit: "C"
+  unique_id: "ESPclimateliving_room_ac_2"

@@ -7,8 +7,23 @@
     minutes: 00
     seconds: 00
   action:
-  - service: switch.turn_on
-    entity_id: switch.mb_night
+    - service: climate.turn_on
+      data:
+        entity_id: climate.master_bedroom_ac_2
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.master_bedroom_ac_2
+        temperature: 66.0
+        hvac_mode: cool
+    - service: climate.set_fan_mode
+      data:
+        entity_id: climate.master_bedroom_ac_2
+        fan_mode: high
+    - service: climate.set_swing_mode
+      data:
+        entity_id: climate.master_bedroom_ac_2
+        swing_mode: vertical
+
 
 - alias: Set bedroom AC to day setting
   trigger:
@@ -17,8 +32,22 @@
     minutes: 00
     seconds: 00
   action:
-  - service: switch.turn_on
-    entity_id: switch.mb_day
+    - service: climate.turn_on
+      data:
+        entity_id: climate.master_bedroom_ac_2
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.master_bedroom_ac_2
+        temperature: 74
+        hvac_mode: cool
+    - service: climate.set_fan_mode
+      data:
+        entity_id: climate.master_bedroom_ac_2
+        fan_mode: auto
+    - service: climate.set_swing_mode
+      data:
+        entity_id: climate.master_bedroom_ac_2
+        swing_mode: "off"
 
 
 
@@ -43,7 +72,16 @@
         - media_player.kelly_home
         - media_player.smart_clock
       data:
-        message: 'The dryer has stopped'
+        message: >
+          {{
+            [
+              "The dryer has stopped",
+              "Better get those clothes out beofre they wrinkle",
+              "Dryer! Now!",
+              "No more tumbling",
+              "The clothing dehydration process has terminated"
+            ] | random
+          }}
 
 
 - alias: 'Laundry sink level high'
@@ -144,7 +182,16 @@
         - media_player.kelly_home
         - media_player.smart_clock
       data:
-        message: 'The washer has stopped'
+        message: >
+          {{
+            [
+              "The washer has stopped",
+              "Finally!  That noise was driving me crazy!",
+              "Washer! Now!",
+              "Better get those clothes into the dryer",
+              "Done washing"
+            ] | random
+          }}
 
 
 
