@@ -1,3 +1,5 @@
+## See also lights.yaml - platform: group
+
 kitchen_lights:
   name: Kitchen
   entities:
@@ -10,11 +12,27 @@ laundry_lights:
     - switch.laundry_light
     - switch.coat_rack_light
 
+kit_laun_lights:
+  name: Kitchen/Laundry
+  entities:
+    - switch.laundry_light
+    - switch.coat_rack_light
+    - switch.kitchen_light
+    - switch.sink_light
+
 office_couch_lights:
   name: Office Couch
   entities:
     - light.office_chair_light
     - light.office_window_light
+
+office_lights:
+  name: Office Lights
+  entities:
+    - light.office_chair_light
+    - light.office_window_light
+    - light.office_desk_light
+    - switch.office_door_light
 
 # dresser_lights:
 #   name: Dressers

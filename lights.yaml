@@ -12,6 +12,14 @@
     - light.dresser1
     - light.dresser2
 
+- platform: group
+  name: Living Room Lights
+  entities:
+    - light.dan_lamp
+    - light.kelly_lamp
+    - light.dining_room_light
+    - light.stairway_light
+
 ####  LED Mirror
 # - platform: mqtt
 #   name: LED Mirror

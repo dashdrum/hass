@@ -1,46 +1,22 @@
 
-discovery: false
+discovery: false   # This just doesn't work
 
 # These TP-Link switches work better with a hard-coded IP
 
 switch:
-#   - host: 192.168.254.110
-#     # Deck Light
-
-#   - host: 192.168.254.161
-#     # Garage Door Lights
-
-#   - host: 192.168.254.175
-#   - host: 192.168.254.137
-#   - host: 192.168.254.155
-#   - host: 192.168.254.156
-#   - host: 192.168.254.196
-
-#     #3Way switches
-#   - host: 192.168.254.101
-#   - host: 192.168.254.134
-
-#     # Washer switch
-#   - host: 192.168.254.167
-#     # name: washer
-
-# dimmer:
-#     # Dining Room
-#   - host: 192.168.254.141
-#     # name: dining_room_light
 
   # HS200
-  - host: 192.168.254.187
-  - host: 192.168.254.193
-  - host: 192.168.254.195
-  - host: 192.168.254.196
-  - host: 192.168.254.197 # Garage Door Lights
-  - host: 192.168.254.199
-  - host: 192.168.254.200
+  - host: 192.168.254.153
+  - host: 192.168.254.104
+  - host: 192.168.254.137
+  - host: 192.168.254.120
+  - host: 192.168.254.107
+  - host: 192.168.254.117
+  - host: 192.168.254.146
 
   # HS110 (washer)
-  - host: 192.168.254.177 # Washer Switch
+  - host: 192.168.254.130 # Washer Switch
 
   # HS210 (3-way switches)
-  - host: 192.168.254.105
-  - host: 192.168.254.125
+  - host: 192.168.254.136
+  - host: 192.168.254.135

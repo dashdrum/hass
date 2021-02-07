@@ -361,6 +361,24 @@ script.water_warning:
 script.say_somthing:
   icon: mdi:account-voice
 
-
+## Pi-Hole
+sensor.pi_hole_ads_blocked_today:
+  friendly_name: Ads Blocked Today
+sensor.pi_hole_ads_percentage_blocked_today:
+  friendly_name: Percentage Blocked Today
+sensor.pi_hole_dns_queries_cached:
+  friendly_name: DNS Queries Cached
+sensor.pi_hole_dns_queries_forwarded:
+  friendly_name: DNS Queries Forwarded
+sensor.pi_hole_dns_queries_today:
+  friendly_name: DNS Queries Today
+sensor.pi_hole_dns_unique_clients:
+  friendly_name: DNS Unique Clients
+sensor.pi_hole_dns_unique_domains:
+  friendly_name: DNS Unique Domains
+sensor.pi_hole_domains_blocked:
+  friendly_name: Domains Blocked
+sensor.pi_hole_seen_clients:
+  friendly_name: Seen Clients
 
 

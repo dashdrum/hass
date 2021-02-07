@@ -62,6 +62,7 @@ scene: !include scenes.yaml
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 zone: !include zones.yaml
+climate: !include climate.yaml
 
 mqtt:
   broker: !secret mqtt_broker
@@ -72,11 +73,6 @@ mqtt:
   discovery: true
   discovery_prefix: homeassistant
 
-roomba:
-  - host: !secret roomba_host
-    blid: !secret roomba_blid
-    password: !secret roomba_password
-
 input_boolean:
   washer_status:
     name: Washer Status Switch
@@ -86,7 +82,6 @@ input_boolean:
   defeat_sleep:
     name: "Disable sleep on ESPHome"
     initial: false
-
 
 # Internet speed checks
 
