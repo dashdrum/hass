@@ -67,60 +67,26 @@ cover.garage_door:
 ## Sensors
 
 sensor.living_room_temperature:
-  friendly_name: Living Room Temp
+  friendly_name: Living Room Temperature
 sensor.living_room_humidity:
   friendly_name: Living Room Humidity
   icon: mdi:water-percent
 sensor.living_room_battery:
   friendly_name: Living Room Battery
   icon: mdi:battery
-sensor.mb_temp:
-  friendly_name: Master BR Temp
-sensor.mb_humid:
-  friendly_name: Master BR Humidity
-  icon: mdi:water-percent
-sensor.mb_batt:
-  friendly_name: Master Battery
-  icon: mdi:battery
-sensor.b2_temp:
-  friendly_name: Spare Bedroom Temp
-sensor.b2_humid:
-  friendly_name: Spare Bedroom Humidity
-  icon: mdi:water-percent
-sensor.b2_batt:
-  friendly_name: Spare Bedroom Battery
-  icon: mdi:battery
-sensor.ub_temp:
-  friendly_name: Up Bath Temp
-sensor.ub_humid:
-  friendly_name: Up Bath Humidity
-  icon: mdi:water-percent
-sensor.familty_room_temperature:
-  friendly_name: Family Room Temp
+sensor.family_room_temperature:
+  friendly_name: Family Room Temperature
 sensor.familty_room_humidity:
   friendly_name: Family Room Humidity
   icon: mdi:water-percent
 sensor.family_room_battery:
   friendly_name: Family Room Battery
   icon: mdi:battery
-sensor.laundry_temp:
-  friendly_name: Laundry Room Temp
-sensor.laundry_humid:
-  friendly_name: Laundry Room Humidity
-  icon: mdi:water-percent
 sensor.dryer_sensor:
   friendly_name: Dryer Status
   icon: mdi:washing-machine
-sensor.ws_temp:
-  friendly_name: Workshop Temp
-sensor.ws_humid:
-  friendly_name: Workshop Humidity
-  icon: mdi:water-percent
-sensor.ws_batt:
-  friendly_name: Workshop Battery
-  icon: mdi:battery
-sensor.office_temperature:
-  friendly_name: Office Temp
+# sensor.office_temperature:
+#   friendly_name: Office Temp
 sensor.office_humidity:
   friendly_name: Office Humidity
   icon: mdi:water-percent
@@ -130,30 +96,29 @@ sensor.office_pressure:
 sensor.office_battery:
   friendly_name: Office Battery
   icon: mdi:battery
-sensor.ga_temp:
-  friendly_name: Garage Temp
-# sensor.ga_pressure:
-#   friendly_name: Garage Pressure
-#   icon: mdi:gauge
-sensor.ga_humid:
-  friendly_name: Garage Humidity
-  icon: mdi:water-percent
-# sensor.gs_temp:
-#   friendly_name: Garage Temp 2
-# sensor.gs_pressure:
-#   friendly_name: Garage Pressure
-#   icon: mdi:gauge
-# sensor.gs_humid:
-#   friendly_name: Garage Humidity 2
-#   icon: mdi:water-percent
+sensor.garage_temp:
+  friendly_name: Garage Temperature
 sensor.temp_compare_bme280_press:
   friendly_name: Bedroom 2 Pressure
   icon: mdi:gauge
 sensor.temp_compare_sht3xd_humid:
   friendly_name: Bedroom 2 Humidity
   icon: mdi:water-percent
-sensor.ipv4_address_eth0:
-  friendly_name: IPV4 Address
+sensor.outdoor_temperature_c:
+  friendly_name: Outdoor Temperature Celsius
+  icon: mdi:thermometer
+sensor.temp_compare_bme280_temperature:
+  friendly_name: Tech Cabinet BME280 Temperature
+sensor.temp_compare_sht30d_temperature:
+  friendly_name: Tech Cabinet SHT30D Temperature
+sensor.avg_tech_cabinet_temp:
+  friendly_name: Tech Cabinet Temperature
+sensor.temp_compare_bme280_humidity:
+  friendly_name: Tech Cabinet BME280 Humidity
+sensor.temp_compare_sht30d_humidity:
+  friendly_name: Tech Cabinet SHT30D Humidity
+sensor.temp_compare_bme280_pressure:
+  friendly_name: Tech Cabinet Pressure
 sensor.washer_amps:
   icon: mdi:washing-machine
 sensor.washer_watts:

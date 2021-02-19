@@ -83,6 +83,10 @@ input_boolean:
     name: "Disable sleep on ESPHome"
     initial: false
 
+  outdoor_defeat_sleep:
+    name: "Disable sleep on Outdoor"
+    initial: false
+
 # Internet speed checks
 
 fastdotcom:
