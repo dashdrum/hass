@@ -33,8 +33,6 @@ switch.laundry_light:
   icon: mdi:lightbulb-outline
 switch.garage_door_lights:
   icon: mdi:lightbulb-outline
-switch.office_door_light:
-  icon: mdi:lightbulb-outline
 switch.guest_room_light:
   icon: mdi:lightbulb-outline
 switch.sink_light:

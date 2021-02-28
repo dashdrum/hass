@@ -93,15 +93,15 @@ say_somthing:
 
 
 
-office_dim:
-  alias: Activate Office Dim scene avoiding automations
-  sequence:
-    - service: scene.turn_on
-      data:
-        entity_id: scene.office_off
-    - service: scene.turn_on
-      data:
-        entity_id: scene.office_dim
+# office_dim:
+#   alias: Activate Office Dim scene avoiding automations
+#   sequence:
+#     - service: scene.turn_on
+#       data:
+#         entity_id: scene.office_off
+#     - service: scene.turn_on
+#       data:
+#         entity_id: scene.office_dim
 
 undercabinet_morning:
   alias: Activate morning settings

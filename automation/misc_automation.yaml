@@ -22,6 +22,17 @@
       topic: hass/defeat_sleep/state
       retain: true
 
+- alias: 'Publish outdoor_defeat_sleep'
+  trigger:
+    platform: state
+    entity_id: input_boolean.outdoor_defeat_sleep
+  action:
+    service: mqtt.publish
+    data_template:
+      payload: "{{states.input_boolean.outdoor_defeat_sleep.state}}"
+      topic: outdoor/defeat_sleep/state
+      retain: true
+
 
 
 # Other fun things

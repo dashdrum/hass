@@ -320,7 +320,7 @@
 - alias: 'Office switch turns on all office Lights'
   trigger:
     - platform: state
-      entity_id: switch.office_door_light
+      entity_id: light.shelly_shdm_1_d0e973
       from: 'off'
       to: 'on'
       for:
@@ -338,7 +338,7 @@
 - alias: 'Office switch turns off all office Lights'
   trigger:
     - platform: state
-      entity_id: switch.office_door_light
+      entity_id: light.shelly_shdm_1_d0e973
       from: 'on'
       to: 'off'
       for:

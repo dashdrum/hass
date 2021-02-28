@@ -278,8 +278,9 @@
 
 - name: office_normal
   entities:
-    switch.office_door_light:
+    light.shelly_shdm_1_d0e973:
       state: on
+      brightness: 191
     light.office_chair_light :
       state: on
       brightness: 191
@@ -292,8 +293,9 @@
 
 - name: office_bright
   entities:
-    switch.office_door_light:
+    light.shelly_shdm_1_d0e973:
       state: on
+      brightness: 255
     light.office_chair_light :
       state: on
       brightness: 255
@@ -306,33 +308,35 @@
 
 - name: office_zoom
   entities:
-    switch.office_door_light:
+    light.shelly_shdm_1_d0e973:
       state: on
+      brightness: 255
     light.office_chair_light :
       state: off
     light.office_window_light:
       state: off
     light.office_desk_lamp:
       state: on
-      brightness: 137
+      brightness: 162
 
 - name: office_dim
   entities:
+    light.shelly_shdm_1_d0e973:
+      state: on
+      brightness: 72
     light.office_chair_light :
       state: on
       brightness: 89
     light.office_window_light:
       state: on
       brightness: 89
-    # switch.office_door_light:
-    #   state: off
     light.office_desk_lamp:
       state: on
       brightness: 72
 
 - name: office_off
   entities:
-    switch.office_door_light:
+    light.shelly_shdm_1_d0e973:
       state: off
     light.office_chair_light :
       state: off
