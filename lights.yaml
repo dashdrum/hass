@@ -20,6 +20,23 @@
     - light.dining_room_light
     - light.stairway_light
 
+- platform: group
+  name: Office Lights
+  entities:
+    - light.shelly_shdm_1_d0e973
+    - light.office_desk_lamp
+    - light.office_chair_light
+    - light.office_window_light
+
+- platform: group
+  name: master_bedroom
+  entities:
+    - light.dan_bedside_lamp
+    - light.kelly_bedside_lamp
+    - light.dresser1
+    - light.dresser2
+    - light.master_closet_light
+
 ####  LED Mirror
 # - platform: mqtt
 #   name: LED Mirror
