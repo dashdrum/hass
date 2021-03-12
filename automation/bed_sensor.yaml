@@ -17,8 +17,11 @@
         after: '21:30:00'
         before: '08:00:00'
       - condition: state
-        entity_id: light.dan_bedside_lamp
+        entity_id: light.stairway_light
         state: 'off'
+      - condition: state
+        entity_id: sensor.sun_state
+        state: 'down'
   action:
     - service: light.turn_on
       entity_id: light.dan_bedside_lamp
@@ -87,11 +90,11 @@
       to: 'on'
       for:
         hours: 0
-        minutes: 2
-        seconds: 0
+        minutes: 0
+        seconds: 30
   condition:
     - condition: time
-      after: '21:30:00'
+      after: '21:00:00'
       before: '08:00:00'
   action:
     - service: scene.turn_on
@@ -114,10 +117,13 @@
     conditions:
       - condition: time
         after: '05:30:00'
-        before: '08:00:00'
+        before: '08:30:00'
       - condition: state
         entity_id: light.stairway_light
         state: 'off'
+      - condition: state
+        entity_id: sensor.sun_state
+        state: 'down'
   action:
     - service: light.turn_on
       entity_id: light.stairway_light

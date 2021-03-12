@@ -64,6 +64,8 @@ cover.garage_door:
 
 ## Sensors
 
+sensor.hass_server_cputemp:
+  unit_of_measurement: "°C"
 sensor.living_room_temperature:
   friendly_name: Living Room Temperature
 sensor.living_room_humidity:
