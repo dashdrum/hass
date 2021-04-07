@@ -130,3 +130,69 @@
       data:
         transition: 3
         brightness: 13
+
+- alias: 'Morning Clean Up - Nightlight'
+  trigger:
+    - platform: state
+      entity_id: sensor.sun_state
+      from: 'down'
+      to: 'up'
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 1
+  condition:
+    - condition: numeric_state
+      entity_id: light.dan_bedside_lamp
+      value_template: '{% if states.light.dan_bedside_lamp.state == "on"  %}{{ states.light.dan_bedside_lamp.attributes.brightness }}{% else %}0{% endif %}'
+      below: 14
+      above: 12
+  action:
+    - service: light.turn_off
+      entity_id: light.dan_bedside_lamp
+      data:
+        transition: 1
+
+- alias: 'Morning Clean Up - Night Mode'
+  trigger:
+    - platform: state
+      entity_id: sensor.sun_state
+      from: 'down'
+      to: 'up'
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 2
+  condition:
+    - condition: numeric_state
+      entity_id: light.kelly_bedside_lamp
+      value_template: '{% if states.light.kelly_bedside_lamp.state == "on"  %}{{ states.light.kelly_bedside_lamp.attributes.brightness }}{% else %}0{% endif %}'
+      below: 6
+      above: 4
+  action:
+    - service: light.turn_off
+      entity_id: light.kelly_bedside_lamp
+      data:
+        transition: 1
+
+- alias: 'Morning Clean Up - Stairway Light'
+  trigger:
+    - platform: state
+      entity_id: sensor.sun_state
+      from: 'down'
+      to: 'up'
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 3
+  condition:
+    - condition: numeric_state
+      entity_id: light.stairway_light
+      value_template: '{% if states.light.stairway_light.state == "on"  %}{{ states.light.stairway_light.attributes.brightness }}{% else %}0{% endif %}'
+      below: 14
+      above: 12
+  action:
+    - service: light.turn_off
+      entity_id: light.stairway_light
+      data:
+        transition: 1

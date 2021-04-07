@@ -385,4 +385,27 @@
         entity_id: light.kelly_lamp
 
 
+- alias: 'wall clock brightness'
+  trigger:
+  - platform: time_pattern
+    minutes: '/2'
+    seconds: 00
+  condition:
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.sun_elevation
+        above: -8.01
+        below: 5.01
+      - condition: state
+        entity_id: light.wall_clock
+        state: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.wall_clock
+      data:
+        transition: 3
+        brightness: '{{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int  }}'
+        # Based on the sun's elevation, the brightness is set between 45% and 100%
+
 
