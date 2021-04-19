@@ -9,19 +9,19 @@
   action:
     - service: climate.turn_on
       data:
-        entity_id: climate.master_bedroom_ac_2
+        entity_id: climate.master_bedroom_ac
     - service: climate.set_temperature
       data:
-        entity_id: climate.master_bedroom_ac_2
-        temperature: 66.0
+        entity_id: climate.master_bedroom_ac
+        temperature: 64.0
         hvac_mode: cool
     - service: climate.set_fan_mode
       data:
-        entity_id: climate.master_bedroom_ac_2
+        entity_id: climate.master_bedroom_ac
         fan_mode: high
     - service: climate.set_swing_mode
       data:
-        entity_id: climate.master_bedroom_ac_2
+        entity_id: climate.master_bedroom_ac
         swing_mode: vertical
 
 
@@ -34,19 +34,19 @@
   action:
     - service: climate.turn_on
       data:
-        entity_id: climate.master_bedroom_ac_2
+        entity_id: climate.master_bedroom_ac
     - service: climate.set_temperature
       data:
-        entity_id: climate.master_bedroom_ac_2
-        temperature: 74
+        entity_id: climate.master_bedroom_ac
+        temperature: 74.0
         hvac_mode: cool
     - service: climate.set_fan_mode
       data:
-        entity_id: climate.master_bedroom_ac_2
+        entity_id: climate.master_bedroom_ac
         fan_mode: auto
     - service: climate.set_swing_mode
       data:
-        entity_id: climate.master_bedroom_ac_2
+        entity_id: climate.master_bedroom_ac
         swing_mode: "off"
 
 
@@ -104,6 +104,11 @@
     data:
       effect: 'Police 3'
       brightness: 255
+  - service: light.turn_on
+    entity_id: light.wall_clock
+    data:
+      effect: 'Police 3'
+      brightness: 255
 
 - alias: 'Laundry sink level back to normal'
   trigger:
@@ -122,6 +127,10 @@
     entity_id: script.water_warning
   - service: light.turn_on
     entity_id: light.clock_circle
+    data:
+      effect: 'Clock'
+  - service: light.turn_on
+    entity_id: light.wall_clock
     data:
       effect: 'Clock'
 

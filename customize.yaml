@@ -163,6 +163,7 @@ sensor.dining_room_light_update:
 
 # Hass Server sensors
 sensor.hass_server_cputemp:
+  # unit_of_measurement: "°C"
   icon: mdi:thermometer
   friendly_name: CPU Temp
 sensor.hass_server_cpuused:
