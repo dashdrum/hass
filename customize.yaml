@@ -135,6 +135,9 @@ sensor.washer_state:
 sensor.master_dimmer_switch_battery_level:
   friendly_name: Master Dimmer Switch Battery
   icon: mdi:battery
+sensor.avg_indoor_humidity:
+  friendly_name: Avg Indoor Humidity
+  icon: mdi:water-percent
 
 sensor.outdoor_sea_level_pressure:
   friendly_name: Outdoor Sea Level Equivalent

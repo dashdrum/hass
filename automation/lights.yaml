@@ -385,27 +385,50 @@
         entity_id: light.kelly_lamp
 
 
+
+# Clock brightness
+
 - alias: 'wall clock brightness'
   trigger:
-  - platform: time_pattern
-    minutes: '/2'
-    seconds: 00
+    - platform: time_pattern
+      minutes: '/2'
+      seconds: 00
   condition:
-    condition: and
-    conditions:
-      - condition: numeric_state
-        entity_id: sensor.sun_elevation
-        above: -8.01
-        below: 5.01
-      - condition: state
-        entity_id: light.wall_clock
-        state: 'on'
+    - condition: state
+      entity_id: light.wall_clock
+      state: 'on'
   action:
     - service: light.turn_on
       entity_id: light.wall_clock
       data:
         transition: 3
-        brightness: '{{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int  }}'
+        # brightness: '{{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int  }}'
+        brightness: >
+          {% if state_attr('sun.sun', 'elevation') | int < -9 or state_attr('sun.sun', 'elevation') | int > 6 %}
+            {{ state_attr('light.wall_clock', 'brightness') | int }}
+          {% elif state_attr('sun.sun', 'elevation') | int < -8 %}
+            114
+          {% elif state_attr('sun.sun', 'elevation') | int > 5 %}
+            255
+          {% else %}
+            {{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int  }}
+          {% endif %}
         # Based on the sun's elevation, the brightness is set between 45% and 100%
 
 
+- alias: 'Clock Circle Brightness'
+  trigger:
+    - platform: time_pattern
+      minutes: '/2'
+      seconds: 00
+  condition:
+    - condition: state
+      entity_id: light.clock_circle
+      state: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.clock_circle
+      data:
+        transition: 3
+        brightness: '{{ (([states.sensor.light_meter_display_light_sensor, 300] | min)  * 0.47) + 114 | int  }}'
+        # Based on the light meter value, the brightness is set between 45% and 100%
