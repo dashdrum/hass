@@ -93,3 +93,47 @@ fastdotcom:
 
 # speedtestdotnet:
 
+rest_command:
+  lr_tv_mute:
+    url: "http://192.168.254.31/mute"
+  lr_tv_on:
+    url: "http://192.168.254.31/on"
+  lr_tv_off:
+    url: "http://192.168.254.31/off"
+  lr_tv_channelup:
+    url: "http://192.168.254.31/channelup"
+  lr_tv_channeldown:
+    url: "http://192.168.254.31/channeldown"
+  lr_tv_last:
+    url: "http://192.168.254.31/last"
+  lr_tv_netflix:
+    url: "http://192.168.254.31/netflix"
+  lr_tv_home:
+    url: "http://192.168.254.31/home"
+  lr_tv_cablebox:
+    url: "http://192.168.254.31/cablebox"
+  lr_tv_info:
+    url: "http://192.168.254.31/info"
+  lr_tv_louder:
+    url: "http://192.168.254.31/louder"
+  lr_tv_muchlouder:
+    url: "http://192.168.254.31/muchlouder"
+  lr_tv_muchsofter:
+    url: "http://192.168.254.31/muchsofter"
+  lr_tv_softer:
+    url: "http://192.168.254.31/softer"
+  lr_tv_nbc:
+    url: "http://192.168.254.31/nbc"
+  lr_tv_cbs:
+    url: "http://192.168.254.31/cbs"
+  lr_tv_science:
+    url: "http://192.168.254.31/science"
+  lr_tv_cnn:
+    url: "http://192.168.254.31/cnn"
+  lr_tv_tcm:
+    url: "http://192.168.254.31/811"
+
+
+
+
+
