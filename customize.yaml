@@ -98,6 +98,8 @@ sensor.office_battery:
   icon: mdi:battery
 sensor.garage_temp:
   friendly_name: Garage Temperature
+sensor.shelly_shdm_2_e8db84d6142e_device_temp:
+  icon: mdi:thermometer
 sensor.temp_compare_bme280_press:
   friendly_name: Bedroom 2 Pressure
   icon: mdi:gauge
