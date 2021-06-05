@@ -22,7 +22,7 @@
       state: off
     light.stairway_light:
       state: off
-    # light.shelly_shrgbw2_1dfb87:
+    # light.shellyrgbw2_1dfb87:
     #   state: off
     light.dan_lamp:
       state: off
@@ -91,7 +91,7 @@
 
 - name: kitchen_bright
   entities:
-    light.shelly_shrgbw2_1dfb87:
+    light.shellyrgbw2_1dfb87:
       state: on
       brightness: 255
       #color_temp: 500
@@ -104,7 +104,7 @@
 
 - name: kitchen_normal
   entities:
-    light.shelly_shrgbw2_1dfb87:
+    light.shellyrgbw2_1dfb87:
       state: on
       brightness: 173
       rgb_color: [255, 241, 224]
@@ -115,7 +115,7 @@
 
 - name: kitchen_dim
   entities:
-    light.shelly_shrgbw2_1dfb87:
+    light.shellyrgbw2_1dfb87:
       state: on
       brightness: 89
       rgb_color: [72,45,20]
@@ -126,7 +126,7 @@
 
 - name: kitchen_off
   entities:
-    light.shelly_shrgbw2_1dfb87:
+    light.shellyrgbw2_1dfb87:
       state: off
     switch.kitchen_light:
       state: off
@@ -135,39 +135,36 @@
 
 - name: undercabinet_morning
   entities:
-    light.shelly_shrgbw2_1dfb87:
+    light.shellyrgbw2_1dfb87:
       state: on
       brightness: 83
-      rgb_color: [0,0,0]
+      rgbw_color: [0,0,0,83]
       effect: "Off"
-      white_value: 83
 
 - name: undercabinet_cool
   entities:
-    light.shelly_shrgbw2_1dfb87:
+    light.shellyrgbw2_1dfb87:
       state: on
       brightness: 255
-      rgb_color: [212, 235, 255]
+      rgbw_color: [212, 235, 255,255]
       effect: "Off"
-      white_value: 255
 
 - name: undercabinet_warm
   entities:
-    light.shelly_shrgbw2_1dfb87:
+    light.shellyrgbw2_1dfb87:
       state: on
       brightness: 200
-      rgb_color: [255,237, 222]
+      rgbw_color: [255,237, 222,0]
       effect: "Off"
-      white_value: 0
 
 - name: undercabinet_evening
   entities:
-    light.shelly_shrgbw2_1dfb87:
+    light.shellyrgbw2_1dfb87:
       state: on
       brightness: 89
-      # rgb_color: [25,25,112]   #midnightblue
-      white_value: 0
-      effect: "Gradual change"
+      rgbw_color: [25,25,112,0]   #midnightblue
+      # white_value: 0
+      # effect: "Gradual change"
 
 # Master Bedroom
 
@@ -278,7 +275,7 @@
 
 - name: office_normal
   entities:
-    light.shelly_shdm_1_d0e973:
+    light.shellydimmer_d0e973:
       state: on
       brightness: 191
     light.office_chair_light :
@@ -293,7 +290,7 @@
 
 - name: office_bright
   entities:
-    light.shelly_shdm_1_d0e973:
+    light.shellydimmer_d0e973:
       state: on
       brightness: 255
     light.office_chair_light :
@@ -308,7 +305,7 @@
 
 - name: office_zoom
   entities:
-    light.shelly_shdm_1_d0e973:
+    light.shellydimmer_d0e973:
       state: on
       brightness: 255
     light.office_chair_light :
@@ -321,7 +318,7 @@
 
 - name: office_dim
   entities:
-    light.shelly_shdm_1_d0e973:
+    light.shellydimmer_d0e973:
       state: on
       brightness: 72
     light.office_chair_light :
@@ -336,7 +333,7 @@
 
 - name: office_off
   entities:
-    light.shelly_shdm_1_d0e973:
+    light.shellydimmer_d0e973:
       state: off
     light.office_chair_light :
       state: off

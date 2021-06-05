@@ -125,7 +125,7 @@
       seconds: 00
   action:
     # - service: light.turn_on
-    #   entity_id: light.shelly_shrgbw2_1dfb87
+    #   entity_id: light.shellyrgbw2_1dfb87
     #   data:
     #     effect: none
     - service: script.undercabinet_morning
@@ -138,7 +138,7 @@
       seconds: 00
   action:
     # - service: light.turn_on
-    #   entity_id: light.shelly_shrgbw2_1dfb87
+    #   entity_id: light.shellyrgbw2_1dfb87
     #   data:
     #     effect: none
     - service: script.undercabinet_evening
@@ -320,7 +320,7 @@
 - alias: 'Office switch turns on all office Lights'
   trigger:
     - platform: state
-      entity_id: light.shelly_shdm_1_d0e973
+      entity_id: light.shellydimmer_d0e973
       from: 'off'
       to: 'on'
       for:
@@ -338,7 +338,7 @@
 - alias: 'Office switch turns off all office Lights'
   trigger:
     - platform: state
-      entity_id: light.shelly_shdm_1_d0e973
+      entity_id: light.shellydimmer_d0e973
       from: 'on'
       to: 'off'
       for:
@@ -441,17 +441,14 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: light.shelly_shdm_2_e8db84d6142e
+        entity_id: light.shellydimmer2_e8db84d6142e
         state: 'off'
       - condition: state
         entity_id: sensor.sun_state
         state: 'down'
-      - condition: time
-        before: '23:59:59'
-        after: '17:30:31'
   action:
-    - service: light.turn_on
-      entity: light.shelly_shdm_2_e8db84d6142e
+    - service: homeassistant.turn_on
+      entity_id: light.shellydimmer2_e8db84d6142e
       data:
         transition: 3
         brightness: 51
@@ -464,11 +461,11 @@
       to: 'up'
   condition:
     - condition: numeric_state
-      entity_id: light.shelly_shdm_2_e8db84d6142e
-      value_template: '{% if states.light.shelly_shdm_2_e8db84d6142e.state == "on"  %}{{ states.light.shelly_shdm_2_e8db84d6142e.attributes.brightness }}{% else %}0{% endif %}'
+      entity_id: light.shellydimmer2_e8db84d6142e
+      value_template: '{% if states.light.shellydimmer2_e8db84d6142e.state == "on"  %}{{ states.light.shellydimmer2_e8db84d6142e.attributes.brightness }}{% else %}0{% endif %}'
       below: 52
       above: 50
   action:
     - service: homeassistant.turn_off
       data:
-        entity_id: light.shelly_shdm_2_e8db84d6142e
+        entity_id: light.shellydimmer2_e8db84d6142e

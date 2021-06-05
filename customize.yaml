@@ -1,9 +1,14 @@
 
 ## Lights
 
-light.shelly_shrgbw2_1dfb87:
+light.shellyrgbw2_1dfb87:
   friendly_name: Undercabinet Lights
   icon: mdi:led-strip-variant
+light.shellydimmer_d0e973:
+  friendly_name: Office Door Light
+light.shellydimmer2_e8db84d6142e:
+  friendly_name: Upstairs Hall Light
+  icon: mdi:lightbulb-outline
 light.tv_backlight:
   icon: mdi:led-strip-variant
 light.led_mirror:
@@ -41,17 +46,21 @@ switch.coat_rack_light:
   icon: mdi:lightbulb-outline
 switch.garage_light:
   icon: mdi:lightbulb-outline
-switch.shelly_shsw_1_500291ed2481:
+switch.shelly1_500291ed2481:
   icon: mdi:lightbulb-outline
 switch.washer:
   icon: mdi:washing-machine
   friendly_name: Washer
-switch.shelly_shsw_1_bcddc2771acf:
+switch.shelly1_bcddc2771acf:
   friendly_name: Guest Room Light
   icon: mdi:lightbulb-outline
-switch.shelly_shsw_1_500291ed226d:
+switch.shelly1_500291ed226d:
   friendly_name: Basement Stair
   icon: mdi:lightbulb-outline
+switch.shelly1_500291ED2481:
+  friendly_name: Spare Room Light
+  icon: mdi:lightbulb-outline
+
 
 ## Covers
 
@@ -119,6 +128,7 @@ sensor.temp_compare_bme280_humidity:
   friendly_name: Tech Cabinet BME280 Humidity
 sensor.temp_compare_sht30d_humidity:
   friendly_name: Tech Cabinet SHT30D Humidity
+  icon: mdi:water-percent
 sensor.temp_compare_bme280_pressure:
   friendly_name: Tech Cabinet Pressure
 sensor.washer_amps:
@@ -139,6 +149,14 @@ sensor.master_dimmer_switch_battery_level:
   icon: mdi:battery
 sensor.avg_indoor_humidity:
   friendly_name: Avg Indoor Humidity
+  icon: mdi:water-percent
+sensor.garage_humidity:
+  icon: mdi:water-percent
+sensor.garage_sensor_humidity:
+  icon: mdi:water-percent
+sensor.laundry_humidity:
+  icon: mdi:water-percent
+sensor.upstairs_bath_humidity :
   icon: mdi:water-percent
 
 sensor.outdoor_sea_level_pressure:

@@ -149,7 +149,7 @@ office_couch_lights:
 #   entities:
 #     - switch.kitchen_light
 #     - switch.sink_light
-#     - light.shelly_shrgbw2_1dfb87
+#     - light.shellyrgbw2_1dfb87
 #     - light.dining_room_light
 # office:
 #   name: "Office"

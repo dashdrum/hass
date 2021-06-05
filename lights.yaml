@@ -23,7 +23,7 @@
 - platform: group
   name: Office Lights
   entities:
-    - light.shelly_shdm_1_d0e973
+    - light.shellydimmer_d0e973
     - light.office_desk_lamp
     - light.office_chair_light
     - light.office_window_light

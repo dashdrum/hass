@@ -38,20 +38,14 @@ tts:
 
 tplink: !include tplink.yaml
 
-vesync:
-    username: !secret vesync_username
-    password: !secret vesync_password
+# vesync:
+#     username: !secret vesync_username
+#     password: !secret vesync_password
 
-pi_hole:
-  - host: 192.168.254.50
+# pi_hole:
+#   - host: 192.168.254.50
 
-shelly:
-  discovery: true
-  version: true
-  sensors:
-    - all
-  devices:
-    - id: "D0E973"
+# shelly:
 
 
 light: !include lights.yaml
