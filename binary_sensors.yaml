@@ -1,13 +1,55 @@
 
-  # - platform: mqtt
-  #   state_topic: "laundry_motion/state"
-  #   name: laundry_motion
-  #   availability_topic: laundry_motion/availability
+- platform: mqtt
+  state_topic: "closet_motion/state"
+  name: closet_motion
+  availability_topic: closet_motion/availability
 
-  - platform: mqtt
-    state_topic: "closet_motion/state"
-    name: closet_motion
-    availability_topic: closet_motion/availability
+
+- platform: template
+  sensors:
+    mb_ac_power:
+      friendly_name: "MB AC Power"
+      value_template: >-
+        {% if is_state('climate.master_bedroom_ac', 'off')   %}
+          off
+        {% else %}
+          on
+        {% endif %}
+
+- platform: template
+  sensors:
+    lr_ac_power:
+      friendly_name: "LR AC Power"
+      value_template: >-
+        {% if is_state('climate.living_room_ac', 'off')   %}
+          off
+        {% else %}
+          on
+        {% endif %}
+
+- platform: template
+  sensors:
+    master_bed_state_icon:
+      friendly_name: "Master Bed Entire Bed"
+      value_template: >-
+        {% if is_state('binary_sensor.master_bed_sensor_entire_bed', 'on')   %}
+          on
+        {% else %}
+          off
+        {% endif %}
+      icon_template: >-
+        {% if is_state('binary_sensor.master_bed_sensor_entire_bed', 'on') %}
+          mdi:bed
+        {% else %}
+          mdi:bed-empty
+        {% endif %}
+
+
+- platform: workday
+  country: US
+  province: MI
+  workdays: [mon, tue, wed, thu, fri]
+  excludes: [sat, sun, holiday]
 
   # - platform: mqtt
   #   state_topic: "garage_motion_1/state"
@@ -42,6 +84,11 @@
   #   payload_off: "CLOSED"
   #   expire_after: 600
 
+
+  # - platform: mqtt
+  #   state_topic: "laundry_motion/state"
+  #   name: laundry_motion
+  #   availability_topic: laundry_motion/availability
 
 
 

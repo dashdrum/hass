@@ -60,7 +60,9 @@ switch.shelly1_500291ed226d:
 switch.shelly1_500291ED2481:
   friendly_name: Spare Room Light
   icon: mdi:lightbulb-outline
-
+switch.shelly1l_f4cfa2e397de:
+  friendly_name: Path Light
+  icon: mdi:lightbulb-outline
 
 ## Covers
 
@@ -105,10 +107,15 @@ sensor.office_pressure:
 sensor.office_battery:
   friendly_name: Office Battery
   icon: mdi:battery
-sensor.garage_temp:
-  friendly_name: Garage Temperature
-sensor.shelly_shdm_2_e8db84d6142e_device_temp:
+sensor.shellydimmer2_e8db84d6142e_device_temperature:
   icon: mdi:thermometer
+  friendly_name: Upstairs Hall Dimmer Temp
+sensor.shellydimmer_d0e973_device_temperature:
+  icon: mdi:thermometer
+  friendly_name: Office Dimmer Temp
+sensor.shelly1l_f4cfa2e397de_device_temperature:
+  icon: mdi:thermometer
+  friendly_name: Path Switch Temp
 sensor.temp_compare_bme280_press:
   friendly_name: Bedroom 2 Pressure
   icon: mdi:gauge
@@ -150,24 +157,45 @@ sensor.master_dimmer_switch_battery_level:
 sensor.avg_indoor_humidity:
   friendly_name: Avg Indoor Humidity
   icon: mdi:water-percent
-sensor.garage_humidity:
-  icon: mdi:water-percent
-sensor.garage_sensor_humidity:
-  icon: mdi:water-percent
 sensor.laundry_humidity:
   icon: mdi:water-percent
 sensor.upstairs_bath_humidity :
   icon: mdi:water-percent
 
+sensor.avg_garage_temp:
+  friendly_name: Garage Temperature (Avg)
+sensor.avg_garage_humidity:
+  friendly_name: Garage Humidity (Avg)
+  icon: mdi:water-percent
+sensor.garage_temp:
+  friendly_name: Garage Temperature (Ceiling)
+sensor.garage_humidity:
+  friendly_name: Garage Humidity (Ceiling)
+  icon: mdi:water-percent
+sensor.garage_sensor_temperature:
+  friendly_name: Garage Temperature (House Wall)
+sensor.garage_sensor_humidity:
+  friendly_name: Garage Humidity (House Wall)
+  icon: mdi:water-percent
+sensor.garage_humidity_3:
+  friendly_name: Garage Humidity (Outer Wall)
+  icon: mdi:water-percent
+sensor.garage_temperature_3:
+  friendly_name: Garage Temperature (Outer Wall)
+  icon: mdi:thermometer
+sensor.garage_left_bay:
+  icon: mdi:car-pickup
+
 sensor.outdoor_sea_level_pressure:
   friendly_name: Outdoor Sea Level Equivalent
   icon: mdi:gauge
+sensor.dark_sky_dew_point:
+  icon: mdi:water-outline
+sensor.openweathermap_dew_point:
+  icon: mdi:water-outline
+sensor.outdoor_dew_point_s:
+  icon: mdi:water-outline
 
-sensor.garage_left_bay:
-  icon: mdi:car-pickup
-  # templates:
-  #   hs_color: >
-  #     if (state === 'Occupied') return [48,76,251];
 
 sensor.hp_laserjet_pro_m148f_m149f:
   friendly_name: HP M148

@@ -1,0 +1,89 @@
+
+
+- id: phone_charging_stops
+  alias: Phone Stops Charging
+  trigger:
+    platform: state
+    entity_id: sensor.sm_g975u_charger_type
+    from: wireless
+    to: none
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 1
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '06:00:00'
+        before: '09:00:00'
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: "on"
+      - condition: state
+        entity_id: device_tracker.sm_g975u
+        state: "home"
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.set_bedroom_ac_to_day_setting
+    # - service: light.turn_on
+    #   entity_id: light.shellydimmer2_e8db84d6142e
+    #   data:
+    #     brightness: 128
+
+- id: phone_charging_stops_weekend
+  alias: Phone Stops Charging on Weekend
+  trigger:
+    platform: state
+    entity_id: sensor.sm_g975u_charger_type
+    from: wireless
+    to: none
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 1
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '06:00:00'
+        before: '10:30:00'
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: "off"
+      - condition: state
+        entity_id: device_tracker.sm_g975u
+        state: "home"
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.set_bedroom_ac_to_day_setting
+
+- id: phone_charging_starts
+  alias: Phone Starts Charging
+  trigger:
+    platform: state
+    entity_id: sensor.sm_g975u_charger_type
+    from: none
+    to: wireless
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 20
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '21:00:00'
+        before: '23:59:59'
+      - condition: state
+        entity_id: device_tracker.sm_g975u
+        state: "home"
+  action:
+    - service: script.turn_on
+      data:
+        entity_id: script.set_bedroom_ac_to_night_setting
+
+# sensor.sm_g975u_charger_type
+# device_tracker.sm_g975u

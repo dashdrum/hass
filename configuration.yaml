@@ -38,15 +38,6 @@ tts:
 
 tplink: !include tplink.yaml
 
-# vesync:
-#     username: !secret vesync_username
-#     password: !secret vesync_password
-
-# pi_hole:
-#   - host: 192.168.254.50
-
-# shelly:
-
 
 light: !include lights.yaml
 group: !include groups.yaml
@@ -57,6 +48,7 @@ sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 zone: !include zones.yaml
 climate: !include climate.yaml
+cloud: !include cloud.yaml
 
 mqtt:
   broker: !secret mqtt_broker
@@ -80,6 +72,46 @@ input_boolean:
   outdoor_defeat_sleep:
     name: "Disable sleep on Outdoor"
     initial: false
+
+  office_ac_power:
+    name: "Office AC Power"
+    # initial: false
+
+  office_ac_eco:
+    name: "Office AC Eco"
+    # initial: false
+
+  office_ac_display:
+    name: "Office AC Display"
+    # initial: false
+
+input_number:
+  office_ac_temperature:
+    name: "Office AC Temperature"
+    min: 62
+    max: 86
+    unit_of_measurement: "ºF"
+    mode: box
+    step: 1
+
+input_select:
+  office_ac_fan:
+    name: Office AC Fan Speed
+    options:
+      - "auto"
+      - "low"
+      - "med"
+      - "high"
+    icon: mdi:fan
+
+  office_ac_mode:
+    name: Office AC Mode
+    options:
+      - "auto"
+      - "cool"
+      - "dry"
+      - "fan"
+    icon: mdi:format-list-bulleted
 
 # Internet speed checks
 

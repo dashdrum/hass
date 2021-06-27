@@ -26,6 +26,15 @@ office_couch_lights:
     - light.office_chair_light
     - light.office_window_light
 
+outdoor_lights:
+  name: Outdoor
+  entities:
+    - switch.deck_light
+    - switch.garage_door_lights
+    - switch.woodpile_lights
+    - light.front_porch_light
+    - switch.shelly1l_f4cfa2e397de
+
 # dresser_lights:
 #   name: Dressers
 #   entities:

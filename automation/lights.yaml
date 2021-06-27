@@ -1,6 +1,7 @@
 # Outside lights
 
-- alias: 'Deck Light Timer'
+- id: lights_deck_light_timer
+  alias: 'Deck Light Timer'
   trigger:
     - platform: state
       entity_id: switch.deck_light
@@ -15,7 +16,8 @@
       data:
         entity_id: switch.deck_light
 
-- alias: 'Deck Light turns on Woodpile Lights'
+- id: lights_deck_turns_on_woodpile
+  alias: 'Deck Light turns on Woodpile Lights'
   trigger:
     - platform: state
       entity_id: switch.deck_light
@@ -30,7 +32,8 @@
       data:
         entity_id: switch.woodpile_lights
 
-- alias: 'Deck Light turns off Woodpile Lights'
+- id: lights_deck_turns_off_woodpile
+  alias: 'Deck Light turns off Woodpile Lights'
   trigger:
     - platform: state
       entity_id: switch.deck_light
@@ -45,7 +48,8 @@
       data:
         entity_id: switch.woodpile_lights
 
-- alias: 'Woodpile Lights Timer'
+- id: lights_woodpile_lights_timer
+  alias: 'Woodpile Lights Timer'
   trigger:
     - platform: state
       entity_id: switch.woodpile_lights
@@ -60,8 +64,25 @@
       data:
         entity_id: switch.woodpile_lights
 
+- id: lights_path_light_timer
+  alias: 'Path Light Timer'
+  trigger:
+    - platform: state
+      entity_id: switch.shelly1l_f4cfa2e397de
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.shelly1l_f4cfa2e397de
 
-- alias: 'sunset transition'
+
+- id: lights_porch_sunset_transition
+  alias: Sunset Transition
   trigger:
   - platform: time_pattern
     minutes: '/2'
@@ -89,7 +110,8 @@
         profile: sunset
         brightness: '{{((0.0625*((states.sun.sun.attributes.elevation+8)**2))-(31.125*(states.sun.sun.attributes.elevation+8))+255)|int}}'
 
-- alias: Turn off front porch light at midnight
+- id: lights_porch_off_midnight
+  alias: Turn off front porch light at midnight
   trigger:
     - platform: time_pattern
       hours: 00
@@ -102,7 +124,8 @@
 
 # Kitchen lights
 
-- alias: 'sink_off_when_kitchen_off'
+- id: lights_kitchen_turns_off_sink
+  alias: 'Sink Off When Kitch Off'
   trigger:
     - platform: state
       entity_id: switch.kitchen_light
@@ -117,7 +140,8 @@
       data:
         entity_id: switch.sink_light
 
-- alias: undercabinet_morning
+- id: lights_undercabinet_morning
+  alias: Undercabinet Morning
   trigger:
     - platform: time_pattern
       hours: 06
@@ -130,7 +154,8 @@
     #     effect: none
     - service: script.undercabinet_morning
 
-- alias: undercabinet_evening
+- id: lights_undercabinet_evening
+  alias: Undercabinet Evening
   trigger:
     - platform: time_pattern
       hours: 20
@@ -143,7 +168,8 @@
     #     effect: none
     - service: script.undercabinet_evening
 
-- alias: undercabinet_button
+- id: lights_undercabinet_button
+  alias: Undercabinet Button
   trigger:
     - platform: state
       entity_id: binary_sensor.undercabinet_button_push
