@@ -495,3 +495,37 @@
     - service: homeassistant.turn_off
       data:
         entity_id: light.shellydimmer2_e8db84d6142e
+
+- alias: 'Light LED Mirror on at sunset'
+  trigger:
+  trigger:
+    - platform: state
+      entity_id: sensor.sun_state
+      from: 'up'
+      to: 'down'
+  condition:
+    - condition: state
+      entity_id: light.led_mirror
+      state: 'off'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: light.led_mirror
+      data:
+        effect: Random
+        brightness: 198
+
+- alias: 'Light LED Mirror off at sunrise'
+  trigger:
+    - platform: state
+      entity_id: sensor.sun_state
+      from: 'down'
+      to: 'up'
+  condition:
+    - condition: state
+      entity_id: light.led_mirror
+      state: 'on'
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: light.led_mirror
+

@@ -307,7 +307,7 @@
   entities:
     light.shellydimmer_d0e973:
       state: on
-      brightness: 255
+      brightness: 250
     light.office_chair_light :
       state: off
     light.office_window_light:

@@ -116,6 +116,8 @@ sensor.shellydimmer_d0e973_device_temperature:
 sensor.shelly1l_f4cfa2e397de_device_temperature:
   icon: mdi:thermometer
   friendly_name: Path Switch Temp
+sensor.shellybutton1_3c6105e53723_battery:
+  friendly_name: Office Shade Button Battery
 sensor.temp_compare_bme280_press:
   friendly_name: Bedroom 2 Pressure
   icon: mdi:gauge
@@ -154,6 +156,9 @@ sensor.washer_state:
 sensor.master_dimmer_switch_battery_level:
   friendly_name: Master Dimmer Switch Battery
   icon: mdi:battery
+sensor.avg_indoor_temperature:
+  friendly_name: Avg Indoor Temperature
+  icon: mdi:thermometer
 sensor.avg_indoor_humidity:
   friendly_name: Avg Indoor Humidity
   icon: mdi:water-percent
@@ -195,6 +200,14 @@ sensor.openweathermap_dew_point:
   icon: mdi:water-outline
 sensor.outdoor_dew_point_s:
   icon: mdi:water-outline
+sensor.openweathermap_uv_index:
+  icon: mdi:weather-sunny
+sensor.openweathermap_wind_speed:
+  icon: mdi:weather-windy
+sensor.openweathermap_cloud_coverage:
+  icon: mdi:cloud-outline
+sensor.openweathermap_condition:
+  icon: mdi:newspaper-variant
 
 
 sensor.hp_laserjet_pro_m148f_m149f:
@@ -209,8 +222,10 @@ sensor.dining_room_light_temp:
   icon: mdi:thermometer
 sensor.dining_room_light_update:
   icon: mdi:restart
-# sensor.dining_room_light_overtemp:
-#   icon: mdi:thermometer-alert
+sensor.rusty_status:
+  icon: mdi:pulse
+sensor.rusty_position:
+  icon: mdi:map-marker
 
 # Hass Server sensors
 sensor.hass_server_cputemp:
@@ -240,6 +255,22 @@ sensor.hass_server_networkout:
   friendly_name: Network Out
 sensor.hass_server:
   icon: mdi:server
+
+# AccuWeather Sensors
+sensor.accuweather_temperature:
+  friendly_name: AccuWeather Temperature
+  icon: mdi:thermometer
+sensor.accuweather_humidity:
+  friendly_name: AccuWeather Humidity
+  icon: mdi:water-percent
+sensor.accuweather_pressure:
+  friendly_name: AccuWeather Pressure
+  icon: mdi:gauge
+sensor.accuweather_visibility:
+  friendly_name: AccuWeather Visibility
+  icon: mdi:eye-outline
+sensor.accuweather_dew_point:
+  icon: mdi:water-outline
 
 ## Binary Sensors
 
@@ -341,8 +372,32 @@ scene.master_off:
 
 ## Tracker
 
-device_tracker.google_maps_102501070565386974294:
-  friendly_name: Dan
+device_tracker.daniels_ipad_2:
+  icon: mdi:tablet
+  friendly_name: Daniel's iPad - Router
+device_tracker.daniels_ipad:
+  icon: mdi:tablet
+  friendly_name: Daniel's iPad - GPS
+device_tracker.sm_g975u:
+  icon:  mdi:cellphone
+  friendly_name: Galaxy S10 - GPS
+device_tracker.galaxy_s10:
+  icon:  mdi:cellphone
+  friendly_name: Galaxy S10 - Router
+device_tracker.kellysaplewatch:
+  icon:  mdi:watch-variant
+  friendly_name: Kelly's Apple Watch - Router
+device_tracker.kellys_iphone:
+  icon:  mdi:cellphone
+  friendly_name: Kelly's iPhone - GPS
+device_tracker.iphone:
+  icon:  mdi:cellphone
+  friendly_name: Kelly's iPhone - Router
+
+
+
+# device_tracker.google_maps_102501070565386974294:
+#   friendly_name: Dan
 # sensor.home_to_work:
 #   icon: mdi:school
 #   friendly_name: Home to Work

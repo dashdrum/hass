@@ -1,7 +1,7 @@
 
 
-- id: mb_ac_to_night_setting
-  alias: MB AC to night setting
+- id: mb_ac_to_night
+  alias: MB AC to night
   trigger:
     platform: time_pattern
     hours: 20
@@ -17,8 +17,8 @@
         entity_id: script.mb_ac_to_night_setting
 
 
-- id: mb_ac_to_day_setting
-  alias: MB AC to day setting
+- id: mb_ac_to_day
+  alias: MB AC to day
   trigger:
     platform: time_pattern
     hours: 8
@@ -319,7 +319,7 @@
   trigger:
     - platform: numeric_state
       entity_id: sensor.office_temperature
-      above: 72.9
+      above: 72.49
       for:
         hours: 0
         minutes: 20
@@ -332,6 +332,17 @@
     - service: switch.turn_on
       data:
         entity_id: switch.office_ac_power
+    - service: tts.google_translate_say
+      entity_id: media_player.office_home
+      data:
+        message: >
+          {{
+            [
+              "It's getting hot in here",
+              "Time for some AC, don't you think?",
+              "Don't get up!  I'll turn on the AC"
+            ] | random
+          }}
 
 - id: office_ac_turn_off
   alias: "Office AC Off"
@@ -367,11 +378,7 @@
 #   action:
 #     - service: tts.google_translate_say
 #       entity_id:
-#         - media_player.dan_speaker
-#         - media_player.kitchen_speaker
-#         - media_player.office_home
-#         - media_player.kelly_home
-#         - media_player.smart_clock
+#         - media_player.main_floor
 #       data:
 #         message: 'The Roomba bin is full'
 

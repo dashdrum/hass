@@ -17,6 +17,8 @@ google_actions:
       - sensor.family_room_temperature
       - switch.office_ac_power
       - switch.wall_clock_random_effect
+      - switch.lr_powerful
+      - switch.mb_powerful
     include_domains:
       - cover
       - climate
@@ -63,6 +65,20 @@ google_actions:
       aliases:
         - washing machine
       room: Laundry
+
+    switch.lr_powerful:
+      name: LR Powerful
+      aliases:
+        - living room AC powerful
+        - ac powerful
+      room: Living Room
+
+    switch.mb_powerful:
+      name: MB Powerful
+      aliases:
+        - master AC powerful
+        - master bedroom AC powerful
+      room: Master Bedroom
 
 
 

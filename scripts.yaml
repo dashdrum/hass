@@ -243,8 +243,8 @@ lr_tv_tcm:
 #       entity_id: input_number.office_ac_mode
 #       value: "cool"
 
-set_bedroom_ac_to_night_setting:
-  alias: MB AC to Night Setting
+mb_ac_to_night_setting:
+  alias: Set MB AC to Night Setting
   sequence:
     - service: climate.turn_on
       data:
@@ -263,7 +263,7 @@ set_bedroom_ac_to_night_setting:
         entity_id: climate.master_bedroom_ac
         swing_mode: vertical
 
-set_bedroom_ac_to_day_setting:
+mb_ac_to_day_setting:
   alias: MB AC to Day Setting
   sequence:
     - service: climate.turn_on
@@ -290,3 +290,21 @@ office_ac_toggle:
       data:
         entity_id: switch.office_ac_power
 
+office_zoom:
+  alias: Office Zoom
+  sequence:
+## Setup the lights just right
+    - service: scene.turn_on
+      data:
+        entity_id: scene.office_zoom
+## Pause the music
+    - service: media_player.media_pause
+      data:
+        entity_id: media_player.office_home
+##  Here is where we could close the blinds
+##
+##  Run the scene again in case the back lights came on with the door light switch
+    - delay: "00:00:02"
+    - service: scene.turn_on
+      data:
+        entity_id: scene.office_zoom

@@ -23,10 +23,13 @@
       - condition: state
         entity_id: device_tracker.sm_g975u
         state: "home"
+      - condition: state
+        entity_id: binary_sensor.mb_ac_power
+        state: 'on'
   action:
     - service: script.turn_on
       data:
-        entity_id: script.set_bedroom_ac_to_day_setting
+        entity_id: script.mb_ac_to_day_setting
     # - service: light.turn_on
     #   entity_id: light.shellydimmer2_e8db84d6142e
     #   data:
@@ -55,10 +58,16 @@
       - condition: state
         entity_id: device_tracker.sm_g975u
         state: "home"
+      - condition: state
+        entity_id: binary_sensor.mb_ac_power
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.master_bed_sensor_left_side
+        state: 'off'
   action:
     - service: script.turn_on
       data:
-        entity_id: script.set_bedroom_ac_to_day_setting
+        entity_id: script.mb_ac_to_day_setting
 
 - id: phone_charging_starts
   alias: Phone Starts Charging
@@ -80,10 +89,59 @@
       - condition: state
         entity_id: device_tracker.sm_g975u
         state: "home"
+      - condition: state
+        entity_id: binary_sensor.mb_ac_power
+        state: 'on'
   action:
     - service: script.turn_on
       data:
-        entity_id: script.set_bedroom_ac_to_night_setting
+        entity_id: script.mb_ac_to_night_setting
 
-# sensor.sm_g975u_charger_type
-# device_tracker.sm_g975u
+- id: presence_all_away_starts_roomba
+  alias: All Away Starts Roomba
+  trigger:
+    platform: state
+    entity_id: group.all_persons
+    from: 'home'
+  condition:
+    - condition: state
+      entity_id: vacuum.rusty
+      state: 'docked'
+  action:
+    service: vacuum.start
+    target:
+      entity_id: vacuum.rusty
+
+- id: presence_any_home_docks_roomba
+  alias: Anyone Arrives Docks Roomba
+  trigger:
+    - platform: state
+      entity_id: person.kelly_gentry
+      to: 'home'
+    - platform: state
+      entity_id: person.dan_gentry
+      to: 'home'
+  condition:
+    condition: not
+    conditions:
+      - condition: state
+        entity_id: vacuum.rusty
+        state: 'docked'
+  action:
+    service: vacuum.return_to_base
+    data: {}
+    target:
+      entity_id: vacuum.rusty
+
+
+
+
+
+
+
+
+
+
+
+
+

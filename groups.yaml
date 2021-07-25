@@ -35,6 +35,12 @@ outdoor_lights:
     - light.front_porch_light
     - switch.shelly1l_f4cfa2e397de
 
+all_persons:
+  name: All Persons
+  entities:
+    - person.dan_gentry
+    - person.kelly_gentry
+
 # dresser_lights:
 #   name: Dressers
 #   entities:
