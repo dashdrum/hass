@@ -13,7 +13,12 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Detroit
 
+  external_url: !secret external_url
+  internal_url: !secret internal_url
+
   customize: !include customize.yaml
+
+  packages: !include_dir_named packages
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
