@@ -26,6 +26,11 @@
       - condition: state
         entity_id: binary_sensor.mb_ac_power
         state: 'on'
+      - condition: state
+        entity_id: binary_sensor.master_bed_sensor_left_side
+        state: 'off'
+      - condition: template
+        value_template: "{{ state_attr('climate.master_bedroom_ac','temperature')< 66 }}"
   action:
     - service: script.turn_on
       data:
@@ -64,6 +69,8 @@
       - condition: state
         entity_id: binary_sensor.master_bed_sensor_left_side
         state: 'off'
+      - condition: template
+        value_template: "{{ state_attr('climate.master_bedroom_ac','temperature')< 66 }}"
   action:
     - service: script.turn_on
       data:
@@ -92,6 +99,8 @@
       - condition: state
         entity_id: binary_sensor.mb_ac_power
         state: 'on'
+      - condition: template
+        value_template: "{{ state_attr('climate.master_bedroom_ac','temperature') > 65 }}"
   action:
     - service: script.turn_on
       data:
