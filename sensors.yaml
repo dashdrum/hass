@@ -30,29 +30,29 @@
 
 - platform: fastdotcom
 
-## HS110 Washer switch sensors
-- platform: template
-  sensors:
-    washer_amps:
-      friendly_name: "Washer Current"
-      value_template: '{{ states.switch.washer.attributes["current_a"] | float }}'
-      unit_of_measurement: 'A'
-    washer_watts:
-      friendly_name_template: "Washer Current Consumption"
-      value_template: '{{ states.switch.washer.attributes["current_power_w"] | float }}'
-      unit_of_measurement: 'W'
-    washer_total_kwh:
-      friendly_name_template: "Washer Total Consumption"
-      value_template: '{{ states.switch.washer.attributes["total_energy_kwh"] | float }}'
-      unit_of_measurement: 'kWh'
-    washer_volts:
-      friendly_name_template: "Washer Voltage"
-      value_template: '{{ states.switch.washer.attributes["voltage"] | float }}'
-      unit_of_measurement: 'V'
-    washer_today_kwh:
-      friendly_name_template: "Washer Today's Consumption"
-      value_template: '{{ states.switch.washer.attributes["today_energy_kwh"] | float }}'
-      unit_of_measurement: 'kWh'
+# ## HS110 Washer switch sensors
+# - platform: template
+#   sensors:
+#     washer_amps:
+#       friendly_name: "Washer Current"
+#       value_template: '{{ states.switch.washer.attributes["current_a"] | float }}'
+#       unit_of_measurement: 'A'
+#     washer_watts:
+#       friendly_name_template: "Washer Current Consumption"
+#       value_template: '{{ states.switch.washer.attributes["current_power_w"] | float }}'
+#       unit_of_measurement: 'W'
+#     washer_total_kwh:
+#       friendly_name_template: "Washer Total Consumption"
+#       value_template: '{{ states.switch.washer.attributes["total_energy_kwh"] | float }}'
+#       unit_of_measurement: 'kWh'
+#     washer_volts:
+#       friendly_name_template: "Washer Voltage"
+#       value_template: '{{ states.switch.washer.attributes["voltage"] | float }}'
+#       unit_of_measurement: 'V'
+#     washer_today_kwh:
+#       friendly_name_template: "Washer Today's Consumption"
+#       value_template: '{{ states.switch.washer.attributes["today_energy_kwh"] | float }}'
+#       unit_of_measurement: 'kWh'
 
 - platform: template
   sensors:

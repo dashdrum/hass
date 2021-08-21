@@ -152,7 +152,7 @@
   trigger:
     platform: numeric_state
     entity_id: switch.washer
-    value_template: '{{ states.switch.washer.attributes["current_a"] | float }}'
+    value_template: '{{ states.sensor.washer_current | float }}'
     above: 0.03
     for:
       hours: 0
@@ -175,7 +175,7 @@
   trigger:
     platform: numeric_state
     entity_id: switch.washer
-    value_template: '{{ states.switch.washer.attributes["current_a"] | float }}'
+    value_template: '{{ states.sensor.washer_current | float }}'
     below: 0.03
     for:
       hours: 0
@@ -218,7 +218,7 @@
             [
               "The washer has stopped",
               "Finally!  That noise was driving me crazy!",
-              "Washer! Now!",
+              "I have had it with these mother fucking clothes in this mother fucking washer",
               "Better get those clothes into the dryer",
               "Done washing"
             ] | random
