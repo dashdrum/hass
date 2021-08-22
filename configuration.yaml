@@ -90,6 +90,21 @@ input_boolean:
     name: "Office AC Display"
     # initial: false
 
+  garage_automations:
+    name: Garage Automations
+
+  ac_automations:
+    name: AC Automations
+
+  tts_automations:
+    name: TTS Automations
+
+  vacation_automations:
+    name: Vacation Automations
+
+  lights_off_automations:
+    name: Lights Off Automations
+
 input_number:
   office_ac_temperature:
     name: "Office AC Temperature"

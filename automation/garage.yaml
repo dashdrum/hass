@@ -9,7 +9,10 @@
         hours: 0
         minutes: 0
         seconds: 0
-
+  condition:
+    condition: state
+    entity_id: input_boolean.tts_automations
+    state: "on"
   action:
     - service: tts.google_translate_say
       entity_id:
@@ -54,7 +57,6 @@
         hours: 0
         minutes: 0
         seconds: 0
-
   action:
     - service: switch.turn_on
       data:
@@ -70,7 +72,10 @@
         hours: 0
         minutes: 30
         seconds: 0
-
+  condition:
+    condition: state
+    entity_id: input_boolean.tts_automations
+    state: "on"
   action:
     - service: tts.google_translate_say
       entity_id:
@@ -94,7 +99,10 @@
         hours: 0
         minutes: 60
         seconds: 0
-
+  condition:
+    condition: state
+    entity_id: input_boolean.garage_automations
+    state: "on"
   action:
     - service: cover.close_cover
       entity_id: cover.garage_door
@@ -120,7 +128,10 @@
         hours: 1
         minutes: 30
         seconds: 0
-
+  condition:
+    condition: state
+    entity_id: input_boolean.garage_automations
+    state: "on"
   action:
     - service: cover.close_cover
       entity_id: cover.garage_door
@@ -146,7 +157,10 @@
         hours: 2
         minutes: 00
         seconds: 0
-
+  condition:
+    condition: state
+    entity_id: input_boolean.garage_automations
+    state: "on"
   action:
     - service: cover.close_cover
       entity_id: cover.garage_door
@@ -172,7 +186,10 @@
         hours: 0
         minutes: 0
         seconds: 0
-
+  condition:
+    condition: state
+    entity_id: input_boolean.tts_automations
+    state: "on"
   action:
     - service: tts.google_translate_say
       entity_id:
@@ -197,6 +214,10 @@
         hours: 0
         minutes: 30
         seconds: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: switch.turn_off
       data:
@@ -213,6 +234,10 @@
         hours: 0
         minutes: 15
         seconds: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: switch.turn_off
       data:
@@ -228,7 +253,10 @@
         hours: 0
         minutes: 0
         seconds: 0
-
+  condition:
+    condition: state
+    entity_id: input_boolean.garage_automations
+    state: "on"
   action:
     - service: tts.google_translate_say
       entity_id:

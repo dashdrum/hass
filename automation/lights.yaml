@@ -11,6 +11,10 @@
         hours: 0
         minutes: 30
         seconds: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: switch.turn_off
       data:
@@ -59,6 +63,10 @@
         hours: 0
         minutes: 15
         seconds: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: switch.turn_off
       data:
@@ -75,6 +83,10 @@
         hours: 0
         minutes: 30
         seconds: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: switch.turn_off
       data:
@@ -117,6 +129,10 @@
       hours: 00
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: homeassistant.turn_off
       data:
@@ -186,7 +202,6 @@
       entity_id: binary_sensor.garage_access_door
       from: 'off'
       to: 'on'
-
   action:
     - service: homeassistant.turn_on
       data:
@@ -312,6 +327,10 @@
         hours: 0
         minutes: 15
         seconds: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: light.turn_off
       data:
@@ -337,6 +356,10 @@
       hours: 00
       minutes: 01
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: light.turn_off
       entity_id: light.tv_backlight
@@ -381,16 +404,6 @@
 
 # Others
 
-- alias: 'feed_the_dog'
-  trigger:
-    platform: time_pattern
-    hours: 06
-    minutes: 00
-    seconds: 00
-  action:
-    - service: scene.turn_on
-      entity_id: scene.morning_dog_feeding
-
 
 - alias: 'Lights off when we all leave'
   trigger:
@@ -402,6 +415,10 @@
         hours: 0
         minutes: 0
         seconds: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.lights_off_automations
+    state: "on"
   action:
     - service: homeassistant.turn_off
       data:
@@ -486,11 +503,16 @@
       from: 'down'
       to: 'up'
   condition:
-    - condition: numeric_state
-      entity_id: light.shellydimmer2_e8db84d6142e
-      value_template: '{% if states.light.shellydimmer2_e8db84d6142e.state == "on"  %}{{ states.light.shellydimmer2_e8db84d6142e.attributes.brightness }}{% else %}0{% endif %}'
-      below: 52
-      above: 50
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: light.shellydimmer2_e8db84d6142e
+        value_template: '{% if states.light.shellydimmer2_e8db84d6142e.state == "on"  %}{{ states.light.shellydimmer2_e8db84d6142e.attributes.brightness }}{% else %}0{% endif %}'
+        below: 52
+        above: 50
+      - condition: state
+        entity_id: input_boolean.lights_off_automations
+        state: "on"
   action:
     - service: homeassistant.turn_off
       data:
@@ -521,9 +543,14 @@
       from: 'down'
       to: 'up'
   condition:
-    - condition: state
-      entity_id: light.led_mirror
-      state: 'on'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: light.led_mirror
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.lights_off_automations
+        state: "on"
   action:
     - service: homeassistant.turn_off
       data:

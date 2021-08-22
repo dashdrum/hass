@@ -31,6 +31,9 @@
         state: 'off'
       - condition: template
         value_template: "{{ state_attr('climate.master_bedroom_ac','temperature')< 66 }}"
+      - condition: state
+        entity_id: input_boolean.ac_automations
+        state: "on"
   action:
     - service: script.turn_on
       data:
@@ -71,6 +74,9 @@
         state: 'off'
       - condition: template
         value_template: "{{ state_attr('climate.master_bedroom_ac','temperature')< 66 }}"
+      - condition: state
+        entity_id: input_boolean.ac_automations
+        state: "on"
   action:
     - service: script.turn_on
       data:
@@ -101,6 +107,9 @@
         state: 'on'
       - condition: template
         value_template: "{{ state_attr('climate.master_bedroom_ac','temperature') > 65 }}"
+      - condition: state
+        entity_id: input_boolean.ac_automations
+        state: "on"
   action:
     - service: script.turn_on
       data:

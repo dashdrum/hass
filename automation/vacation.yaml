@@ -1,11 +1,29 @@
 
 
+- alias: 'feed_the_dog'
+  trigger:
+    platform: time_pattern
+    hours: 06
+    minutes: 00
+    seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
+  action:
+    - service: scene.turn_on
+      entity_id: scene.morning_dog_feeding
+
 - alias: kitchen_breakfast
   trigger:
     - platform: time_pattern
       hours: 07
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.kitchen_normal
@@ -16,6 +34,10 @@
       hours: 08
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.kitchen_off
@@ -26,6 +48,10 @@
       hours: 17
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.kitchen_normal
@@ -36,6 +62,10 @@
       hours: 19
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.kitchen_dim
@@ -46,6 +76,10 @@
       hours: 21
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.kitchen_normal
@@ -56,6 +90,10 @@
       hours: 21
       minutes: 15
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.kitchen_dim
@@ -66,6 +104,10 @@
       hours: 06
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.living_room_dim
@@ -76,6 +118,10 @@
       hours: 09
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.watch_tv
@@ -86,6 +132,10 @@
       hours: 18
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.living_room_bright
@@ -96,6 +146,10 @@
       hours: 20
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.watch_tv
@@ -106,6 +160,10 @@
       hours: 23
       minutes: 05
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.living_room_off
@@ -116,6 +174,10 @@
       hours: 14
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.office_normal
@@ -126,6 +188,10 @@
       hours: 16
       minutes: 00
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.office_off
@@ -136,6 +202,10 @@
       hours: 18
       minutes: 30
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.office_dim
@@ -146,6 +216,10 @@
       hours: 19
       minutes: 30
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.office_off
@@ -156,6 +230,10 @@
       hours: 21
       minutes: 15
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_on
       entity_id: scene.master_bright
@@ -166,6 +244,10 @@
       hours: 23
       minutes: 10
       seconds: 00
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_automations
+    state: "on"
   action:
     - service: scene.turn_off
       entity_id: scene.nighttime
