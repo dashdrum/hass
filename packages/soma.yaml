@@ -1,0 +1,36 @@
+homeassistant:
+  customize:
+    sensor.office_south_shade_battery_level:
+      icon: mdi:battery
+    sensor.office_south_shade_battery_percentage:
+      icon: mdi:battery
+      friendly_name: Office Shade Battery
+
+sensor:
+
+  ## SOMA resource format <url of SOMA Hub>/<command>/<mac address of hardware>
+  ## Eg. http://192.168.123.456/get_battery_level/a1:b2:c3:d4:e5:f6
+
+  ## SOMA battery level
+  - platform: rest
+    name: Office South Shade Battery Level
+    resource: !secret soma_office_south_url_battery
+    value_template: '{{value_json.battery_level}}'
+    unit_of_measurement: mV
+    scan_interval: 300
+
+  ## SOMA battery percentage
+  - platform: rest
+    name: Office South Shade Battery Percentage
+    resource: !secret soma_office_south_url_battery
+    value_template: '{{value_json.battery_percentage}}'
+    unit_of_measurement: '%'
+    scan_interval: 300
+
+  # ## SOMA shade state
+  # - platform: rest
+  #   name: Office South Shade Position
+  #   resource: !secret soma_office_south_url_shade
+  #   value_template: '{{value_json.shade_state}}'
+  #   unit_of_measurement: '%'
+  #   scan_interval: 300

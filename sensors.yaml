@@ -295,6 +295,8 @@
 
 
 
+
+
 # ## Workshop Temperature/Humdity Sensor
 
 # - platform: mqtt
