@@ -225,46 +225,6 @@ lr_tv_tcm:
   sequence:
     - service: rest_command.lr_tv_tcm
 
-mb_ac_to_night_setting:
-  alias: Set MB AC to Night Setting
-  sequence:
-    - service: climate.turn_on
-      data:
-        entity_id: climate.master_bedroom_ac
-    - service: climate.set_temperature
-      data:
-        entity_id: climate.master_bedroom_ac
-        temperature: 64.0
-        hvac_mode: cool
-    - service: climate.set_fan_mode
-      data:
-        entity_id: climate.master_bedroom_ac
-        fan_mode: high
-    - service: climate.set_swing_mode
-      data:
-        entity_id: climate.master_bedroom_ac
-        swing_mode: vertical
-
-mb_ac_to_day_setting:
-  alias: MB AC to Day Setting
-  sequence:
-    - service: climate.turn_on
-      data:
-        entity_id: climate.master_bedroom_ac
-    - service: climate.set_temperature
-      data:
-        entity_id: climate.master_bedroom_ac
-        temperature: 74.0
-        hvac_mode: cool
-    - service: climate.set_fan_mode
-      data:
-        entity_id: climate.master_bedroom_ac
-        fan_mode: auto
-    - service: climate.set_swing_mode
-      data:
-        entity_id: climate.master_bedroom_ac
-        swing_mode: "off"
-
 office_zoom:
   alias: Office Zoom
   sequence:

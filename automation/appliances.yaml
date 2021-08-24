@@ -1,78 +1,5 @@
 
 
-- id: mb_ac_to_night
-  alias: MB AC to night
-  trigger:
-    platform: time_pattern
-    hours: 20
-    minutes: 00
-    seconds: 00
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: binary_sensor.mb_ac_power
-        state: 'on'
-      - condition: state
-        entity_id: input_boolean.ac_automations
-        state: "on"
-  action:
-    - service: script.turn_on
-      data:
-        entity_id: script.mb_ac_to_night_setting
-
-
-- id: mb_ac_to_day
-  alias: MB AC to day
-  trigger:
-    platform: time_pattern
-    hours: 8
-    minutes: 00
-    seconds: 00
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: binary_sensor.mb_ac_power
-        state: 'on'
-      - condition: state
-        entity_id: input_boolean.ac_automations
-        state: "on"
-  action:
-    - service: script.turn_on
-      data:
-        entity_id: script.mb_ac_to_day_setting
-
-- id: lr_ac_powerful_off
-  alias: LR AC Powerful Off
-  trigger:
-    platform: state
-    entity_id: switch.lr_powerful
-    from: "off"
-    to: "on"
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-  action:
-    - service: switch.turn_off
-      entity_id: switch.lr_powerful
-
-- id: mb_ac_powerful_off
-  alias: MB AC Powerful Off
-  trigger:
-    platform: state
-    entity_id: switch.mb_powerful
-    from: "off"
-    to: "on"
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-  action:
-    - service: switch.turn_off
-      entity_id: switch.mb_powerful
-
 
 - alias: 'Dryer has stopped'
   trigger:
@@ -165,8 +92,7 @@
 
   trigger:
     platform: numeric_state
-    entity_id: switch.washer
-    value_template: '{{ states.sensor.washer_current | float }}'
+    entity_id: sensor.washer_current
     above: 0.03
     for:
       hours: 0
@@ -188,8 +114,7 @@
 
   trigger:
     platform: numeric_state
-    entity_id: switch.washer
-    value_template: '{{ states.sensor.washer_current | float }}'
+    entity_id: sensor.washer_current
     below: 0.03
     for:
       hours: 0

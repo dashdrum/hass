@@ -420,14 +420,6 @@ device_tracker.iphone:
 
 ## Scripts
 
-script.ac_powerful:
-  icon: mdi:fan
-script.master_ac_powerful:
-  icon: mdi:fan
-script.master_ac_day:
-  icon: mdi:air-conditioner
-script.master_ac_night:
-  icon: mdi:air-conditioner
 script.water_warning:
   icon: mdi:water-off
 script.say_somthing:

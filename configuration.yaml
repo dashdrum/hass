@@ -52,7 +52,6 @@ scene: !include scenes.yaml
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 zone: !include zones.yaml
-climate: !include climate.yaml
 cloud: !include cloud.yaml
 
 mqtt:

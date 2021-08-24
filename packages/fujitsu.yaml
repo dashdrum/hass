@@ -1,0 +1,195 @@
+## Fujitsu AC Package
+
+homeassistant:
+  customize:
+    script.ac_powerful:
+      icon: mdi:fan
+    script.master_ac_powerful:
+      icon: mdi:fan
+    script.master_ac_day:
+      icon: mdi:air-conditioner
+    script.master_ac_night:
+      icon: mdi:air-conditioner
+
+automation:
+  - id: mb_ac_to_night
+    alias: MB AC to night
+    trigger:
+      platform: time_pattern
+      hours: 20
+      minutes: 00
+      seconds: 00
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.mb_ac_power
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.ac_automations
+          state: "on"
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.mb_ac_to_night_setting
+
+
+  - id: mb_ac_to_day
+    alias: MB AC to day
+    trigger:
+      platform: time_pattern
+      hours: 8
+      minutes: 00
+      seconds: 00
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.mb_ac_power
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.ac_automations
+          state: "on"
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.mb_ac_to_day_setting
+
+  - id: lr_ac_powerful_off
+    alias: LR AC Powerful Off
+    trigger:
+      platform: state
+      entity_id: switch.lr_powerful
+      from: "off"
+      to: "on"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 3
+    action:
+      - service: switch.turn_off
+        entity_id: switch.lr_powerful
+
+  - id: mb_ac_powerful_off
+    alias: MB AC Powerful Off
+    trigger:
+      platform: state
+      entity_id: switch.mb_powerful
+      from: "off"
+      to: "on"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 3
+    action:
+      - service: switch.turn_off
+        entity_id: switch.mb_powerful
+
+binary_sensor:
+  - platform: template
+    sensors:
+      mb_ac_power:
+        friendly_name: "MB AC Power"
+        value_template: >-
+          {% if is_state('climate.master_bedroom_ac', 'off')   %}
+            off
+          {% else %}
+            on
+          {% endif %}
+
+  - platform: template
+    sensors:
+      lr_ac_power:
+        friendly_name: "LR AC Power"
+        value_template: >-
+          {% if is_state('climate.living_room_ac', 'off')   %}
+            off
+          {% else %}
+            on
+          {% endif %}
+
+climate:
+  - platform: mqtt
+    name: master_bedroom_ac
+    availability_topic: "mb_ac/availability"
+    fan_mode_command_topic: "mb_ac/climate/master_bedroom_ac/fan_mode/command"
+    fan_mode_state_topic: mb_ac/climate/master_bedroom_ac/fan_mode/state
+    fan_modes: ["auto", "high", "medium", "low"]
+    initial: 21
+    max_temp: 31
+    min_temp: 18
+    mode_command_topic: "mb_ac/climate/master_bedroom_ac/mode/command"
+    mode_state_topic: mb_ac/climate/master_bedroom_ac/mode/state
+    modes: ["off", "cool", "fan_only", "heat"]
+    precision: 1.0
+    swing_mode_command_topic: "mb_ac/climate/master_bedroom_ac/swing_mode/command"
+    swing_mode_state_topic: mb_ac/climate/master_bedroom_ac/swing_mode/state
+    swing_modes: ["off", "vertical"]
+    temp_step: 2
+    temperature_command_topic: "mb_ac/climate/master_bedroom_ac/target_temperature/command"
+    temperature_state_topic: mb_ac/climate/master_bedroom_ac/target_temperature/state
+    temperature_unit: "C"
+    unique_id: "ESPclimatemaster_bedroom_ac"
+
+  - platform: mqtt
+    name: living_room_ac
+    availability_topic: "lr_ac/availability"
+    fan_mode_command_topic: "lr_ac/climate/living_room_ac/fan_mode/command"
+    fan_mode_state_topic: lr_ac/climate/living_room_ac/fan_mode/state
+    fan_modes: ["auto", "high", "medium", "low"]
+    initial: 21
+    max_temp: 31
+    min_temp: 18
+    mode_command_topic: "lr_ac/climate/living_room_ac/mode/command"
+    mode_state_topic: lr_ac/climate/living_room_ac/mode/state
+    modes: ["off", "cool", "fan_only", "heat"]
+    precision: 1.0
+    swing_mode_command_topic: "lr_ac/climate/living_room_ac/swing_mode/command"
+    swing_mode_state_topic: lr_ac/climate/living_room_ac/swing_mode/state
+    swing_modes: ["off","vertical"]
+    temp_step: 2
+    temperature_command_topic: "lr_ac/climate/living_room_ac/target_temperature/command"
+    temperature_state_topic: lr_ac/climate/living_room_ac/target_temperature/state
+    temperature_unit: "C"
+    unique_id: "ESPclimateliving_room_ac"
+
+script:
+  mb_ac_to_night_setting:
+    alias: Set MB AC to Night Setting
+    sequence:
+      - service: climate.turn_on
+        data:
+          entity_id: climate.master_bedroom_ac
+      - service: climate.set_temperature
+        data:
+          entity_id: climate.master_bedroom_ac
+          temperature: 64.0
+          hvac_mode: cool
+      - service: climate.set_fan_mode
+        data:
+          entity_id: climate.master_bedroom_ac
+          fan_mode: high
+      - service: climate.set_swing_mode
+        data:
+          entity_id: climate.master_bedroom_ac
+          swing_mode: vertical
+
+  mb_ac_to_day_setting:
+    alias: MB AC to Day Setting
+    sequence:
+      - service: climate.turn_on
+        data:
+          entity_id: climate.master_bedroom_ac
+      - service: climate.set_temperature
+        data:
+          entity_id: climate.master_bedroom_ac
+          temperature: 74.0
+          hvac_mode: cool
+      - service: climate.set_fan_mode
+        data:
+          entity_id: climate.master_bedroom_ac
+          fan_mode: auto
+      - service: climate.set_swing_mode
+        data:
+          entity_id: climate.master_bedroom_ac
+          swing_mode: "off"
