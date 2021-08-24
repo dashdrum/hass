@@ -78,18 +78,6 @@ input_boolean:
     name: "Disable sleep on Outdoor"
     initial: false
 
-  office_ac_power:
-    name: "Office AC Power"
-    # initial: false
-
-  office_ac_eco:
-    name: "Office AC Eco"
-    # initial: false
-
-  office_ac_display:
-    name: "Office AC Display"
-    # initial: false
-
   garage_automations:
     name: Garage Automations
 
@@ -104,34 +92,6 @@ input_boolean:
 
   lights_off_automations:
     name: Lights Off Automations
-
-input_number:
-  office_ac_temperature:
-    name: "Office AC Temperature"
-    min: 62
-    max: 86
-    unit_of_measurement: "ºF"
-    mode: box
-    step: 1
-
-input_select:
-  office_ac_fan:
-    name: Office AC Fan Speed
-    options:
-      - "auto"
-      - "low"
-      - "med"
-      - "high"
-    icon: mdi:fan
-
-  office_ac_mode:
-    name: Office AC Mode
-    options:
-      - "auto"
-      - "cool"
-      - "dry"
-      - "fan"
-    icon: mdi:format-list-bulleted
 
 # Internet speed checks
 

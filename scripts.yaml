@@ -225,24 +225,6 @@ lr_tv_tcm:
   sequence:
     - service: rest_command.lr_tv_tcm
 
-# office_ac_reset:
-#   sequence:
-#     - service: input_boolean.turn_off
-#       entity_id: input_boolean.office_ac_power
-#     - service: input_boolean.turn_on
-#       entity_id: input_boolean.office_ac_eco
-#     - service: input_boolean.turn_on
-#       entity_id: input_boolean.office_ac_display
-#     - service: input_number.set_value
-#       entity_id: input_number.office_ac_temperature
-#       value: 70
-#     - service: input_select.set_value
-#       entity_id: input_number.office_ac_fan
-#       value: "low"
-#     - service: input_select.set_value
-#       entity_id: input_number.office_ac_mode
-#       value: "cool"
-
 mb_ac_to_night_setting:
   alias: Set MB AC to Night Setting
   sequence:
@@ -282,13 +264,6 @@ mb_ac_to_day_setting:
       data:
         entity_id: climate.master_bedroom_ac
         swing_mode: "off"
-
-office_ac_toggle:
-  alias: Office AC Toggle On/Off
-  sequence:
-    - service: switch.turn_on
-      data:
-        entity_id: switch.office_ac_power
 
 office_zoom:
   alias: Office Zoom

@@ -1,0 +1,219 @@
+## Office AC Package
+
+script:
+
+# office_ac_reset:
+#   sequence:
+#     - service: input_boolean.turn_off
+#       entity_id: input_boolean.office_ac_power
+#     - service: input_boolean.turn_on
+#       entity_id: input_boolean.office_ac_eco
+#     - service: input_boolean.turn_on
+#       entity_id: input_boolean.office_ac_display
+#     - service: input_number.set_value
+#       entity_id: input_number.office_ac_temperature
+#       value: 70
+#     - service: input_select.set_value
+#       entity_id: input_number.office_ac_fan
+#       value: "low"
+#     - service: input_select.set_value
+#       entity_id: input_number.office_ac_mode
+#       value: "cool"
+
+  office_ac_toggle:
+    alias: Office AC Toggle On/Off
+    sequence:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.office_ac_power
+
+input_boolean:
+  office_ac_power:
+    name: "Office AC Power"
+    # initial: false
+
+  office_ac_eco:
+    name: "Office AC Eco"
+    # initial: false
+
+  office_ac_display:
+    name: "Office AC Display"
+    # initial: false
+
+input_number:
+  office_ac_temperature:
+    name: "Office AC Temperature"
+    min: 62
+    max: 86
+    unit_of_measurement: "ºF"
+    mode: box
+    step: 1
+
+input_select:
+  office_ac_fan:
+    name: Office AC Fan Speed
+    options:
+      - "auto"
+      - "low"
+      - "med"
+      - "high"
+    icon: mdi:fan
+
+  office_ac_mode:
+    name: Office AC Mode
+    options:
+      - "auto"
+      - "cool"
+      - "dry"
+      - "fan"
+    icon: mdi:format-list-bulleted
+
+automation:
+
+  - alias: "Office AC Power Toggle"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_ac_power_button
+        from: 'off'
+        to: 'on'
+    action:
+      - service: input_boolean.toggle
+        data:
+          entity_id: input_boolean.office_ac_power
+
+
+  - id: office_ac_eco_toggle
+    alias: "Office AC Eco Toggle"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_ac_eco
+        from: 'off'
+        to: 'on'
+    action:
+      - service: input_boolean.toggle
+        data:
+          entity_id: input_boolean.office_ac_eco
+
+
+  - id: office_ac_display_toggle
+    alias: "Office AC Display Toggle"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_ac_display
+        from: 'off'
+        to: 'on'
+    action:
+      - service: input_boolean.toggle
+        data:
+          entity_id: input_boolean.office_ac_display
+
+
+  - id: office_ac_temp_plus
+    alias: "Office AC Temp Plus"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_ac_temp_plus
+        from: 'off'
+        to: 'on'
+    action:
+      - service: input_number.increment
+        data:
+          entity_id: input_number.office_ac_temperature
+
+
+  - id: office_ac_temp_minus
+    alias: "Office AC Temp Minus"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_ac_temp_minus
+        from: 'off'
+        to: 'on'
+    action:
+      - service: input_number.decrement
+        data:
+          entity_id: input_number.office_ac_temperature
+
+
+  - id: office_ac_fan_next
+    alias: "Office AC Fan Next"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_ac_fan
+        from: 'off'
+        to: 'on'
+    action:
+      - service: input_select.select_next
+        data:
+          entity_id: input_select.office_ac_fan
+
+
+  - id: office_ac_mode_next
+    alias: "Office AC Mode Next"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_ac_mode
+        from: 'off'
+        to: 'on'
+    action:
+      - service: input_select.select_next
+        data:
+          entity_id: input_select.office_ac_mode
+
+  - id: office_ac_turn_on
+    alias: "Office AC On"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.office_temperature
+        above: 72.49
+        for:
+          hours: 0
+          minutes: 20
+          seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.office_ac_power
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.ac_automations
+          state: "on"
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.office_ac_power
+      - service: tts.google_translate_say
+        entity_id: media_player.office_home
+        data:
+          message: >
+            {{
+              [
+                "It's getting hot in here",
+                "Time for some AC, don't you think?",
+                "Don't get up!  I'll turn on the AC"
+              ] | random
+            }}
+
+  - id: office_ac_turn_off
+    alias: "Office AC Off"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.office_temperature
+        below: 70
+        for:
+          hours: 0
+          minutes: 20
+          seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.office_ac_power
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.ac_automations
+          state: "on"
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.office_ac_power
