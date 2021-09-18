@@ -275,7 +275,7 @@
 
 - name: office_normal
   entities:
-    light.shellydimmer_d0e973:
+    light.shellydimmer2_e8db84d4610a:
       state: on
       brightness: 191
     light.office_chair_light :
@@ -290,7 +290,7 @@
 
 - name: office_bright
   entities:
-    light.shellydimmer_d0e973:
+    light.shellydimmer2_e8db84d4610a:
       state: on
       brightness: 255
     light.office_chair_light :
@@ -305,7 +305,7 @@
 
 - name: office_zoom
   entities:
-    light.shellydimmer_d0e973:
+    light.shellydimmer2_e8db84d4610a:
       state: on
       brightness: 250
     light.office_chair_light :
@@ -318,7 +318,7 @@
 
 - name: office_dim
   entities:
-    light.shellydimmer_d0e973:
+    light.shellydimmer2_e8db84d4610a:
       state: on
       brightness: 72
     light.office_chair_light :
@@ -333,7 +333,7 @@
 
 - name: office_off
   entities:
-    light.shellydimmer_d0e973:
+    light.shellydimmer2_e8db84d4610a:
       state: off
     light.office_chair_light :
       state: off

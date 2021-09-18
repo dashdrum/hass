@@ -369,7 +369,7 @@
 - alias: 'Office switch turns on all office Lights'
   trigger:
     - platform: state
-      entity_id: light.shellydimmer_d0e973
+      entity_id: light.shellydimmer2_e8db84d4610a
       from: 'off'
       to: 'on'
       for:
@@ -387,7 +387,7 @@
 - alias: 'Office switch turns off all office Lights'
   trigger:
     - platform: state
-      entity_id: light.shellydimmer_d0e973
+      entity_id: light.shellydimmer2_e8db84d4610a
       from: 'on'
       to: 'off'
       for:

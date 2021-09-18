@@ -4,7 +4,7 @@
 light.shellyrgbw2_1dfb87:
   friendly_name: Undercabinet Lights
   icon: mdi:led-strip-variant
-light.shellydimmer_d0e973:
+light.shellydimmer2_e8db84d4610a:
   friendly_name: Office Door Light
 light.shellydimmer2_e8db84d6142e:
   friendly_name: Upstairs Hall Light
