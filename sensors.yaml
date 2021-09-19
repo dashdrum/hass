@@ -94,57 +94,6 @@
           Empty
         {% endif %}
 
-- platform: template
-  sensors:
-    master_bed_left_state:
-      friendly_name: "Master Bed Left Side"
-      value_template: >-
-        {% if is_state('binary_sensor.master_bed_sensor_left_side', 'on')   %}
-          Occupied
-        {% else %}
-          Not Occupied
-        {% endif %}
-      icon_template: >-
-        {% if is_state('binary_sensor.master_bed_sensor_left_side', 'on') %}
-          mdi:bed
-        {% else %}
-          mdi:bed-empty
-        {% endif %}
-
-- platform: template
-  sensors:
-    master_bed_right_state:
-      friendly_name: "Master Bed Right Side"
-      value_template: >-
-        {% if is_state('binary_sensor.master_bed_sensor_right_side', 'on')   %}
-          Occupied
-        {% else %}
-          Not Occupied
-        {% endif %}
-      icon_template: >-
-        {% if is_state('binary_sensor.master_bed_sensor_right_side', 'on') %}
-          mdi:bed
-        {% else %}
-          mdi:bed-empty
-        {% endif %}
-
-- platform: template
-  sensors:
-    master_bed_state:
-      friendly_name: "Master Bed Entire Bed"
-      value_template: >-
-        {% if is_state('binary_sensor.master_bed_sensor_entire_bed', 'on')   %}
-          Occupied
-        {% else %}
-          Not Occupied
-        {% endif %}
-      icon_template: >-
-        {% if is_state('binary_sensor.master_bed_sensor_entire_bed', 'on') %}
-          mdi:bed
-        {% else %}
-          mdi:bed-empty
-        {% endif %}
-
 # Sensor to monitor system resources for the Hass Server
 - platform: rest
   name: Hass Server

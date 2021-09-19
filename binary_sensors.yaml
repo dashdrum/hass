@@ -4,26 +4,6 @@
   name: closet_motion
   availability_topic: closet_motion/availability
 
-
-
-- platform: template
-  sensors:
-    master_bed_state_icon:
-      friendly_name: "Master Bed Entire Bed"
-      value_template: >-
-        {% if is_state('binary_sensor.master_bed_sensor_entire_bed', 'on')   %}
-          on
-        {% else %}
-          off
-        {% endif %}
-      icon_template: >-
-        {% if is_state('binary_sensor.master_bed_sensor_entire_bed', 'on') %}
-          mdi:bed
-        {% else %}
-          mdi:bed-empty
-        {% endif %}
-
-
 - platform: workday
   country: US
   province: MI
