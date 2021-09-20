@@ -9,8 +9,8 @@
     to: none
     for:
       hours: 0
-      minutes: 1
-      seconds: 1
+      minutes: 10
+      seconds: 10
   condition:
     condition: and
     conditions:
@@ -38,10 +38,10 @@
     - service: script.turn_on
       data:
         entity_id: script.mb_ac_to_day_setting
-    # - service: light.turn_on
-    #   entity_id: light.shellydimmer2_e8db84d6142e
-    #   data:
-    #     brightness: 128
+    - service: light.turn_on
+      entity_id: light.shellydimmer2_e8db84d6142e
+      data:
+        brightness: 128
 
 - id: phone_charging_stops_weekend
   alias: Phone Stops Charging on Weekend
@@ -52,8 +52,8 @@
     to: none
     for:
       hours: 0
-      minutes: 1
-      seconds: 1
+      minutes: 10
+      seconds: 10
   condition:
     condition: and
     conditions:

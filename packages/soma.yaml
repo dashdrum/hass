@@ -5,6 +5,9 @@ homeassistant:
     sensor.office_south_shade_battery_percentage:
       icon: mdi:battery
       friendly_name: Office Shade Battery
+    binary_sensor.office_south_shade_obstruction:
+      icon: mdi:window-shutter-alert
+      friendly_name: "Office Shade Obstruction"
 
 sensor:
 
@@ -34,3 +37,9 @@ sensor:
   #   value_template: '{{value_json.shade_state}}'
   #   unit_of_measurement: '%'
   #   scan_interval: 300
+
+binary_sensor:
+  - platform: template
+    sensors:
+      office_south_shade_obstruction:
+        value_template: '{{ states.cover.smart_shades.attributes["obstruction-detected"]  }}'

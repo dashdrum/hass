@@ -30,6 +30,35 @@
 
 - platform: fastdotcom
 
+## Elec Tek Smart Plug sensors
+
+- platform: template
+  sensors:
+    undercab_current_power_w:
+      value_template: '{{ states.switch.cabinet_reset.attributes["current_power_w"] | float }}'
+      unit_of_measurement: 'W'
+      friendly_name: Undercab Current Power
+    undercab_today_energy_kwh:
+      value_template: '{{ states.switch.cabinet_reset.attributes["today_energy_kwh"] | float }}'
+      unit_of_measurement: 'kWh'
+      friendly_name: Undercab Energy Today
+    undercab_voltage:
+      value_template: '{{ states.switch.cabinet_reset.attributes["voltage"] | float }}'
+      unit_of_measurement: 'V'
+      friendly_name: Undercab Voltage
+    undercab_weekly_energy_total:
+      value_template: '{{ states.switch.cabinet_reset.attributes["weekly_energy_total"] | float }}'
+      unit_of_measurement: 'kWh'
+      friendly_name: Undercab Weekly
+    undercab_monthly_energy_total:
+      value_template: '{{ states.switch.cabinet_reset.attributes["monthly_energy_total"] | float }}'
+      unit_of_measurement: 'kWh'
+      friendly_name: Undercab Monthly
+    undercab_yearly_energy_total:
+      value_template: '{{ states.switch.cabinet_reset.attributes["yearly_energy_total"] | float }}'
+      unit_of_measurement: 'kWh'
+      friendly_name: Undercab Annual
+
 # ## HS110 Washer switch sensors
 # - platform: template
 #   sensors:
