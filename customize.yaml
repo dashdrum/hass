@@ -140,16 +140,6 @@ sensor.temp_compare_sht30d_humidity:
   icon: mdi:water-percent
 sensor.temp_compare_bme280_pressure:
   friendly_name: Tech Cabinet Pressure
-sensor.washer_amps:
-  icon: mdi:washing-machine
-sensor.washer_watts:
-  icon: mdi:washing-machine
-sensor.washer_volts:
-  icon: mdi:washing-machine
-sensor.washer_total_kwh:
-  icon: mdi:washing-machine
-sensor.washer_today_kwh:
-  icon: mdi:washing-machine
 sensor.washer_state:
   friendly_name: Washer Status
   icon: mdi:washing-machine
@@ -166,6 +156,19 @@ sensor.laundry_humidity:
   icon: mdi:water-percent
 sensor.upstairs_bath_humidity :
   icon: mdi:water-percent
+
+sensor.undercab_current_power_w:
+  icon: mdi:flash
+sensor.undercab_today_energy_kwh:
+  icon: mdi:lightning-bolt
+sensor.undercab_voltage:
+  icon: mdi:sine-wave
+sensor.undercab_weekly_energy_total:
+  icon: mdi:lightning-bolt
+sensor.undercab_monthly_energy_total:
+  icon: mdi:lightning-bolt
+sensor.undercab_yearly_energy_total:
+  icon: mdi:lightning-bolt
 
 sensor.avg_garage_temp:
   friendly_name: Garage Temperature (Avg)

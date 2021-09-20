@@ -95,8 +95,6 @@ input_boolean:
 # Internet speed checks
 
 fastdotcom:
-  scan_interval:
-    minutes: 60
 
 rest_command:
   lr_tv_mute:

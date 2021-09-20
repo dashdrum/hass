@@ -520,7 +520,6 @@
 
 - alias: 'Light LED Mirror on at sunset'
   trigger:
-  trigger:
     - platform: state
       entity_id: sensor.sun_state
       from: 'up'
