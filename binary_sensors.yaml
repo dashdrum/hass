@@ -10,6 +10,18 @@
   workdays: [mon, tue, wed, thu, fri]
   excludes: [sat, sun, holiday]
 
+- platform: template
+  sensors:
+    dryer_state:
+      friendly_name: "Dryer"
+      device_class: power
+      value_template: >-
+        {% if is_state('sensor.dryer_sensor', 'Running')   %}
+          on
+        {% else %}
+          off
+        {% endif %}
+
   # - platform: mqtt
   #   state_topic: "garage_motion_1/state"
   #   name: garage_motion_1

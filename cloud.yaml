@@ -1,13 +1,14 @@
 google_actions:
   filter:
     include_entities:
+      - binary_sensor.dryer_state
       - binary_sensor.garage_access_door
       - input_boolean.washer_status
       - light.led_mirror
       - light.tv_backlight
       - light.wall_clock
       - light.xmas_window
-      - scene.office_zoom
+      - script.office_zoom
       - scene.watch_tv
       - scene.nighttime
       - sensor.office_temperature
@@ -15,10 +16,10 @@ google_actions:
       - sensor.living_room_temperature
       - sensor.spare_room_temperature
       - sensor.family_room_temperature
-      - switch.office_ac_power
       - switch.wall_clock_random_effect
       - switch.lr_powerful
       - switch.mb_powerful
+      - script.office_ac_toggle
     include_domains:
       - cover
       - climate
@@ -28,19 +29,12 @@ google_actions:
       - scene
       - script
     # exclude_entities:
-    #   - switch.office_ac_display
-    #   - switch.office_ac_eco
-    #   - switch.office_ac_fan
-    #   - switch.office_ac_minus
-    #   - switch.office_ac_mode
-    #   - switch.office_ac_plus
-    #   - switch.office_ac_power
-    #   - switch.office_ac_receiver_restart
-    #   - switch.office_ac_restart
-    #   - switch.office_ac_sleep
-    #   - switch.office_ac_timer
 
   entity_config:
+
+    sensor.living_room_temperature:
+      name: Living room temperature
+      room: Living Room
 
     climate.living_room_ac:
       name: Living Room Air Conditioner
@@ -54,7 +48,7 @@ google_actions:
         - master bedroom AC
       room: Master Bedroom
 
-    switch.office_ac_power:
+    script.office_ac_toggle:
       name: Office AC
       aliases:
         - office air conditioner
@@ -65,6 +59,10 @@ google_actions:
       aliases:
         - washing machine
       room: Laundry
+
+    binary_sensor.dryer_state:
+      name: dryer
+      room: laundry
 
     switch.lr_powerful:
       name: LR Powerful
@@ -80,7 +78,9 @@ google_actions:
         - master bedroom AC powerful
       room: Master Bedroom
 
-
+    script.office_zoom:
+      name: Office Zoom
+      room: Office
 
 
 

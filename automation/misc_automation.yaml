@@ -34,7 +34,37 @@
       retain: true
 
 
+- id: co2_warning
+  alias: 'CO2 Level High'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.air_quality_eco2
+    above: 1000
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  action:
+    service: notify.mobile_app_sm_g975u
+    data_template:
+      message: 'eCO2 level has exceeded 1,000 ppm'
+      title: 'Bad Air'
 
+- id: tvoc_warning
+  alias: 'TVOC Level High'
+  trigger:
+    platform: numeric_state
+    entity_id:  sensor.air_quality_tvoc
+    above: 500
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  action:
+    service: notify.mobile_app_sm_g975u
+    data_template:
+      message: 'TVOC level has exceeded 500 ppb'
+      title: 'Bad Air'
 
 # - alias: 'Ranger contact'
 #   trigger:
