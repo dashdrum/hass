@@ -30,16 +30,16 @@ sensor:
     unit_of_measurement: '%'
     scan_interval: 300
 
-  # ## SOMA shade state
-  # - platform: rest
-  #   name: Office South Shade Position
-  #   resource: !secret soma_office_south_url_shade
-  #   value_template: '{{value_json.shade_state}}'
-  #   unit_of_measurement: '%'
-  #   scan_interval: 300
+  ## SOMA shade state
+  - platform: rest
+    name: Office South Shade Position
+    resource: !secret soma_office_south_url_shade
+    value_template: '{{value_json.shade_state}}'
+    unit_of_measurement: '%'
+    scan_interval: 300
 
 binary_sensor:
   - platform: template
     sensors:
       office_south_shade_obstruction:
-        value_template: '{{ states.cover.smart_shades.attributes["obstruction-detected"]  }}'
+        value_template: '{{ states.cover.soma_ed_c1_c6_bb_2c_74.attributes["obstruction-detected"]  }}'
