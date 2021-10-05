@@ -2,9 +2,12 @@ homeassistant:
   customize:
     sensor.office_south_shade_battery_level:
       icon: mdi:battery
-    sensor.office_south_shade_battery_percentage:
+    sensor.office_south_battery_percent:
       icon: mdi:battery
       friendly_name: Office Shade Battery
+    sensor.office_south_shade_position:
+      icon: mdi:blinds
+      friendly_name: Office South Shade Position
     binary_sensor.office_south_shade_obstruction:
       icon: mdi:window-shutter-alert
       friendly_name: "Office Shade Obstruction"
@@ -23,23 +26,101 @@ sensor:
     scan_interval: 300
 
   ## SOMA battery percentage
-  - platform: rest
-    name: Office South Shade Battery Percentage
-    resource: !secret soma_office_south_url_battery
-    value_template: '{{value_json.battery_percentage}}'
-    unit_of_measurement: '%'
-    scan_interval: 300
+  # - platform: rest
+  #   name: Office South Shade Battery Percentage
+  #   resource: !secret soma_office_south_url_battery
+  #   value_template: '{{value_json.battery_percentage}}'
+  #   unit_of_measurement: '%'
+  #   scan_interval: 300
 
   ## SOMA shade state
-  - platform: rest
-    name: Office South Shade Position
-    resource: !secret soma_office_south_url_shade
-    value_template: '{{value_json.shade_state}}'
-    unit_of_measurement: '%'
-    scan_interval: 300
+  # - platform: rest
+  #   name: Office South Shade Position
+  #   resource: !secret soma_office_south_url_shade
+  #   value_template: '{{value_json.position}}'
+  #   unit_of_measurement: '%'
+  #   scan_interval: 300
+
+  - platform: template
+    sensors:
+      office_south_shade_position:
+        value_template: '{{ states.cover.soma_ed_c1_c6_bb_2c_74.attributes["current_position"] }}'
+        unit_of_measurement: '%'
 
 binary_sensor:
   - platform: template
     sensors:
       office_south_shade_obstruction:
         value_template: '{{ states.cover.soma_ed_c1_c6_bb_2c_74.attributes["obstruction-detected"]  }}'
+
+
+automation:
+
+  ## Close at sunset
+  - alias: Office Shade Sunset Close
+    id: shade_sunset_close
+    trigger:
+      - platform: sun
+        event: sunset
+    condition:
+      condition: state
+      entity_id: cover.soma_ed_c1_c6_bb_2c_74
+      state: "open"
+    action:
+      - service: cover.close_cover
+        target:
+          entity_id: cover.soma_ed_c1_c6_bb_2c_74
+
+  ## Open 80% at 8am on weekdays
+  - alias: Office Shade Weekday Open
+    id: shade_weekday_open
+    trigger:
+      - platform: time_pattern
+        hours: 08
+        minutes: 00
+        seconds: 00
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: cover.soma_ed_c1_c6_bb_2c_74
+          state: "closed"
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.vacation_automations
+          state: "off"
+    action:
+      - service: cover.set_cover_position
+        data:
+          position: 80
+        target:
+          entity_id: cover.soma_ed_c1_c6_bb_2c_74
+
+  ## Open 75% at 10am on weekends
+  - alias: Office Shade Weekend Open
+    id: shade_weekend_open
+    trigger:
+      - platform: time_pattern
+        hours: 10
+        minutes: 00
+        seconds: 00
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: cover.soma_ed_c1_c6_bb_2c_74
+          state: "closed"
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "off"
+        - condition: state
+          entity_id: input_boolean.vacation_automations
+          state: "off"
+    action:
+      - service: cover.set_cover_position
+        data:
+          position: 75
+        target:
+          entity_id: cover.soma_ed_c1_c6_bb_2c_74
