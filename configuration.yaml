@@ -41,8 +41,6 @@ recorder:
 tts:
   - platform: google_translate
 
-tplink: !include tplink.yaml
-
 
 light: !include lights.yaml
 group: !include groups.yaml
