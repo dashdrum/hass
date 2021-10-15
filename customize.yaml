@@ -185,12 +185,15 @@ sensor.garage_sensor_temperature:
 sensor.garage_sensor_humidity:
   friendly_name: Garage Humidity (House Wall)
   icon: mdi:water-percent
-sensor.garage_humidity_3:
+sensor.garage_temp_3_humidity:
   friendly_name: Garage Humidity (Outer Wall)
   icon: mdi:water-percent
-sensor.garage_temperature_3:
+sensor.garage_temp_3_temperature:
   friendly_name: Garage Temperature (Outer Wall)
   icon: mdi:thermometer
+sensor.garage_temp_3_pressure:
+  friendly_name: Garage Pressure (Outer Wall)
+  icon: mdi:gauge
 sensor.garage_left_bay:
   icon: mdi:car-pickup
 

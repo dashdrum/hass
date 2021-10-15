@@ -216,14 +216,14 @@
 #       value_template: >-
 #         {{ ((float(states('sensor.garage_sensor_temperature'))
 #            + float(states('sensor.garage_temp'))
-#            + float(states('sensor.garage_temperature_3'))
+#            + float(states('sensor.garage_temp_3_temperature'))
 #                      ) / 3) | round(2) }}
 
 - platform: min_max
   entity_ids:
     - sensor.garage_sensor_temperature
     - sensor.garage_temp
-    # - sensor.garage_temperature_3
+    - sensor.garage_temp_3_temperature
   type: mean
   name: avg_garage_temp
   round_digits: 2
@@ -235,14 +235,14 @@
 #       value_template: >-
 #         {{ ((float(states('sensor.garage_humidity'))
 #            + float(states('sensor.garage_sensor_humidity'))
-#            + float(states('sensor.garage_humidity_3'))
+#            + float(states('sensor.garage_temp_3_humidity'))
 #                    ) / 3) | round(2) }}
 
 - platform: min_max
   entity_ids:
     - sensor.garage_humidity
     - sensor.garage_sensor_humidity
-    # - sensor.garage_humidity_3
+    # - sensor.garage_temp_3_humidity
   type: mean
   name: avg_garage_humidity
   round_digits: 2
