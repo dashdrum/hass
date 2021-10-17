@@ -2,15 +2,17 @@ homeassistant:
   customize:
     sensor.office_south_shade_battery_level:
       icon: mdi:battery
-    sensor.office_south_battery_percent:
+    sensor.office_south_shade_battery_percent:
       icon: mdi:battery
       friendly_name: Office Shade Battery
     sensor.office_south_shade_position:
       icon: mdi:blinds
       friendly_name: Office South Shade Position
-    binary_sensor.office_south_shade_obstruction:
-      icon: mdi:window-shutter-alert
-      friendly_name: "Office Shade Obstruction"
+    sensor.shellybutton1_3c6105e53723_event:
+      icon: mdi:blinds
+      friendly_name: Office South Shade Button
+    binary_sensor.shellybutton1_3c6105e53723_firmware_update:
+      friendly_name: shellybutton1-3C6105E53723 Firmware Update
 
 sensor:
 
@@ -25,40 +27,35 @@ sensor:
     unit_of_measurement: mV
     scan_interval: 300
 
-  ## SOMA battery percentage
-  # - platform: rest
-  #   name: Office South Shade Battery Percentage
-  #   resource: !secret soma_office_south_url_battery
-  #   value_template: '{{value_json.battery_percentage}}'
-  #   unit_of_measurement: '%'
-  #   scan_interval: 300
-
-  ## SOMA shade state
-  # - platform: rest
-  #   name: Office South Shade Position
-  #   resource: !secret soma_office_south_url_shade
-  #   value_template: '{{value_json.position}}'
-  #   unit_of_measurement: '%'
-  #   scan_interval: 300
-
+  ## SOMA current position
   - platform: template
     sensors:
       office_south_shade_position:
         value_template: '{{ states.cover.soma_ed_c1_c6_bb_2c_74.attributes["current_position"] }}'
         unit_of_measurement: '%'
 
-binary_sensor:
-  - platform: template
-    sensors:
-      office_south_shade_obstruction:
-        value_template: '{{ states.cover.soma_ed_c1_c6_bb_2c_74.attributes["obstruction-detected"]  }}'
+  ## Shelly Button for Shade Control
+  - platform: mqtt
+    name: shellybutton1_3C6105E53723_event
+    unique_id: 'shellybutton1-3C6105E53723-event'
+    state_topic: "shellies/shellybutton1-3C6105E53723/input_event/0"
+    value_template:  '{{ value_json.event }}'
+    expire_after: 1
 
+binary_sensor:
+
+  ## Shelly Button Firmware Check
+  - platform: mqtt
+    unique_id: 'shellybutton1-3C6105E53723-firmware_update'
+    state_topic: 'shellies/shellybutton1-3C6105E53723/announce'
+    name: shellybutton1_3C6105E53723_firmware_update
+    value_template:  '{{ value_json.new_fw }}'
 
 automation:
 
   ## Close at sunset
-  - alias: Office Shade Sunset Close
-    id: shade_sunset_close
+  - id: shade_sunset_close
+    alias: Office South Shade Sunset Close
     trigger:
       - platform: sun
         event: sunset
@@ -71,13 +68,17 @@ automation:
         target:
           entity_id: cover.soma_ed_c1_c6_bb_2c_74
 
-  ## Open 80% at 8am on weekdays
-  - alias: Office Shade Weekday Open
+## Open 80% at 8am on weekdays
+  - alias: Office South Shade Weekday Open
     id: shade_weekday_open
     trigger:
       - platform: time_pattern
         hours: 08
         minutes: 00
+        seconds: 00
+      - platform: time_pattern
+        hours: 08
+        minutes: 30
         seconds: 00
     condition:
       condition: and
@@ -91,6 +92,8 @@ automation:
         - condition: state
           entity_id: input_boolean.vacation_automations
           state: "off"
+        - condition: sun
+          after: sunrise
     action:
       - service: cover.set_cover_position
         data:
@@ -99,7 +102,7 @@ automation:
           entity_id: cover.soma_ed_c1_c6_bb_2c_74
 
   ## Open 75% at 10am on weekends
-  - alias: Office Shade Weekend Open
+  - alias: Office South Shade Weekend Open
     id: shade_weekend_open
     trigger:
       - platform: time_pattern
@@ -124,3 +127,48 @@ automation:
           position: 75
         target:
           entity_id: cover.soma_ed_c1_c6_bb_2c_74
+
+  - id: office_south_shade_button_webhook
+    alias: Office Shade Button Webhook
+    trigger:
+      - platform: webhook
+        webhook_id: "office_shade_button"
+    action:
+      - service: script.turn_on
+        data: {}
+        target:
+          entity_id: script.office_south_shade_button
+
+  - id: office_south_shade_button_press
+    alias: Office Shade Button Press
+    trigger:
+      - platform: state
+        entity_id: sensor.shellybutton1_3c6105e53723_event
+        from: unavailable
+        to: 'S'
+    action:
+      - service: script.turn_on
+        data: {}
+        target:
+          entity_id: script.office_south_shade_button
+
+script:
+  office_south_shade_button:
+    alias: Office South Shade Button Script
+    sequence:
+      choose:
+        - alias: Shade is open
+          conditions:
+            - condition: state
+              entity_id: cover.soma_ed_c1_c6_bb_2c_74
+              state: open
+          sequence:
+            - service: cover.close_cover
+              target:
+                entity_id: cover.soma_ed_c1_c6_bb_2c_74
+      default:
+        - service: cover.set_cover_position
+          data:
+            position: 75
+          target:
+            entity_id: cover.soma_ed_c1_c6_bb_2c_74
