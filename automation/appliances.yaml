@@ -30,10 +30,43 @@
           {{
             [
               "The dryer has stopped",
-              "Better get those clothes out beofre they wrinkle",
               "Dryer! Now!",
-              "No more tumbling",
+              "Your laundry is dry",
               "The clothing dehydration process has terminated"
+            ] | random
+          }}
+
+- alias: 'Dryer stopped a while ago'
+  trigger:
+    - platform: state
+      entity_id: sensor.dryer_sensor
+      from: 'Running'
+      to: 'Cycle Complete'
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+  condition:
+    condition: state
+    entity_id: input_boolean.tts_automations
+    state: "on"
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.dan_speaker
+        - media_player.spare_room_speaker
+        - media_player.guest_room_speaker
+        - media_player.kitchen_speaker
+        - media_player.office_home
+        - media_player.kelly_home
+        - media_player.smart_clock
+      data:
+        message: >
+          {{
+            [
+              "OK, those clothes in the dryer are wrinkling fast",
+              "Are you just going to leave those clothes in the dryer forever?",
+              "Clothes waiting in the dryer"
             ] | random
           }}
 
@@ -160,8 +193,6 @@
           {{
             [
               "The washer has stopped",
-              "Finally!  That noise was driving me crazy!",
-              "I have had it with these mother fucking clothes in this mother fucking washer",
               "Better get those clothes into the dryer",
               "Done washing"
             ] | random
@@ -170,20 +201,20 @@
 
 
 
-# - alias: 'Roomba Bin Full'
-#   trigger:
-#     - platform: state
-#       entity_id: binary_sensor.roomba_bin_full
-#       from: 'off'
-#       to: 'on'
-#       for:
-#         hours: 0
-#         minutes: 0
-#         seconds: 0
-#   action:
-#     - service: tts.google_translate_say
-#       entity_id:
-#         - media_player.main_floor
-#       data:
-#         message: 'The Roomba bin is full'
+- alias: 'Roomba Bin Full'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.roomba_bin_full
+      from: 'off'
+      to: 'on'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  action:
+    - service: tts.google_translate_say
+      entity_id:
+        - media_player.main_floor
+      data:
+        message: 'The Roomba bin is full'
 
