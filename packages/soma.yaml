@@ -92,8 +92,8 @@ automation:
         - condition: state
           entity_id: input_boolean.vacation_automations
           state: "off"
-        - condition: sun
-          after: sunrise
+        - condition: template
+          value_template: "{{ state_attr('sun.sun', 'elevation') > 0 }}"
     action:
       - service: cover.set_cover_position
         data:

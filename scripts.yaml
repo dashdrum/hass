@@ -243,3 +243,19 @@ office_zoom:
     - service: scene.turn_on
       data:
         entity_id: scene.office_zoom
+
+office_hacker:
+  alias: Office Hacker
+  sequence:
+## Setup the lights just right
+    - service: scene.turn_on
+      data:
+        entity_id: scene.office_hacker
+##  Run the scene again in case the desk light turned off with the door light switch
+    - delay: "00:00:01"
+    - service: scene.turn_on
+      data:
+        entity_id: scene.office_hacker
+    - service: cover.close_cover
+      target:
+        entity_id: cover.soma_ed_c1_c6_bb_2c_74

@@ -331,6 +331,23 @@
       state: on
       brightness: 72
 
+- name: office_hacker
+  entities:
+    light.shellydimmer2_e8db84d4610a:
+      state: off
+    light.office_chair_light :
+      state: off
+    light.office_window_light:
+      state: off
+    light.office_desk_lamp:
+      state: on
+      brightness: 3
+    light.wall_clock:
+      state: on
+      rgb_color: [0,0,75]
+      effect: "Clock Inverse"
+
+
 - name: office_off
   entities:
     light.shellydimmer2_e8db84d4610a:

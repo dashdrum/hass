@@ -407,14 +407,13 @@
 
 - alias: 'Lights off when we all leave'
   trigger:
-    - platform: state
-      entity_id: group.phones
-      from: 'home'
-      to: 'not_home'
-      for:
-        hours: 0
-        minutes: 0
-        seconds: 0
+    platform: state
+    entity_id: group.all_persons
+    from: 'home'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
   condition:
     condition: state
     entity_id: input_boolean.lights_off_automations
@@ -456,6 +455,91 @@
             {{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int  }}
           {% endif %}
         # Based on the sun's elevation, the brightness is set between 45% and 100%. Otherwise, it is left as-is.
+
+# - alias: 'Wall clock low light effect'
+#   trigger:
+#     - platform: numeric_state
+#       entity_id: light.wall_clock
+#       attribute: brightness
+#       below: 115
+#       for: "00:10:00"
+#   condition:
+#     - condition: state
+#       entity_id: light.wall_clock
+#       state: 'on'
+#   action:
+#     - service: light.turn_on
+#       entity_id: light.wall_clock
+#       data:
+#         effect: 'Clock Basic'
+
+- alias: 'Wall clock 65 markers off'
+  trigger:
+    - platform: numeric_state
+      entity_id: light.wall_clock
+      attribute: brightness
+      below: 166  # 65%
+  condition:
+    - condition: state
+      entity_id: light.wall_clock
+      state: 'on'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: wall_clock/markers/command
+        payload: '1'
+        retain: false
+
+- alias: 'Wall clock 45 markers off'
+  trigger:
+    - platform: numeric_state
+      entity_id: light.wall_clock
+      attribute: brightness
+      below: 115 # 45%
+  condition:
+    - condition: state
+      entity_id: light.wall_clock
+      state: 'on'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: wall_clock/markers/command
+        payload: '0'
+        retain: false
+
+- alias: 'Wall clock 65 markers on'
+  trigger:
+    - platform: numeric_state
+      entity_id: light.wall_clock
+      attribute: brightness
+      above: 167  # 65%
+  condition:
+    - condition: state
+      entity_id: light.wall_clock
+      state: 'on'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: wall_clock/markers/command
+        payload: '2'
+        retain: false
+
+- alias: 'Wall clock 45 markers on'
+  trigger:
+    - platform: numeric_state
+      entity_id: light.wall_clock
+      attribute: brightness
+      above: 116 # 45%
+  condition:
+    - condition: state
+      entity_id: light.wall_clock
+      state: 'on'
+  action:
+    - service: mqtt.publish
+      data:
+        topic: wall_clock/markers/command
+        payload: '1'
+        retain: false
 
 
 - alias: 'Clock Circle Brightness'

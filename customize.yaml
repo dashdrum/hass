@@ -9,6 +9,9 @@ light.shellydimmer2_e8db84d4610a:
 light.shellydimmer2_e8db84d6142e:
   friendly_name: Upstairs Hall Light
   icon: mdi:lightbulb-outline
+light.shelly1_500291edbc26:
+  friendly_name: Mechanical Room Lights
+  icon: mdi:lightbulb-multiple-outline
 light.tv_backlight:
   icon: mdi:led-strip-variant
 light.led_mirror:
@@ -63,6 +66,9 @@ switch.shelly1_500291ED2481:
 switch.shelly1l_f4cfa2e397de:
   friendly_name: Path Light
   icon: mdi:lightbulb-outline
+switch.shellyswitch25_68c63afb7b5c_shelly_3_way_switch:
+  friendly_name: Ceiling Lights
+
 
 ## Covers
 
@@ -342,6 +348,9 @@ scene.office_zoom:
 scene.office_dim:
   friendly_name: Office Dim
   icon: mdi:lightbulb-on
+scene.office_hacker:
+  friendly_name: Office Hacker
+  icon: mdi:keyboard
 scene.office_off:
   friendly_name: Office  Off
   icon: mdi:lightbulb
@@ -452,3 +461,49 @@ sensor.pi_hole_seen_clients:
   friendly_name: Seen Clients
 
 
+## DS220+
+
+# Main Unit
+
+
+# Drive 1
+binary_sensor.ds220plus_below_min_remaining_life_2:
+  friendly_name: DS220+ Drive 1 Below Min Remaining Life
+binary_sensor.ds220plus_exceeded_max_bad_sectors_2:
+  friendly_name: DS220+ Drive 1 Exceed Max Bad Sectors
+sensor.ds220plus_status_3:
+  friendly_name: DS220+ Drive 1 Status
+sensor.ds220plus_status_smart_2:
+  friendly_name: DS220+ Drive 1 Smart Status
+sensor.ds220plus_temperature_2:
+  friendly_name: DS220+ Drive 1 Temperature
+
+# Drive 2
+binary_sensor.ds220plus_below_min_remaining_life:
+  friendly_name: DS220+ Drive 2 Below Min Remaining Life
+binary_sensor.ds220plus_exceeded_max_bad_sectors:
+  friendly_name: DS220+ Drive 2 Exceed Max Bad Sectors
+sensor.ds220plus_status_2:
+  friendly_name: DS220+ Drive 2 Status
+sensor.ds220plus_status_smart:
+  friendly_name: DS220+ Drive 2 Smart Status
+sensor.ds220plus_temperature:
+  friendly_name: DS220+ Drive 2 Temperature
+
+# Volume 1
+sensor.ds220plus_average_disk_temp:
+  friendly_name: DS220+ V1 Avg Disk Temperature
+sensor.ds220plus_maximum_disk_temp:
+  friendly_name: DS220+ V1 Max Disk Temperature
+sensor.ds220plus_status:
+  friendly_name: DS220+ V1 Status
+sensor.ds220plus_total_size:
+  friendly_name: DS220+ V1 Total Size
+sensor.ds220plus_used_space:
+  friendly_name: DS220+ V1 Used Space
+sensor.ds220plus_volume_used:
+  friendly_name: DS220+ V1 Used %
+
+# Surveillance Station
+switch.ds220plus_home_mode:
+  friendly_name: DS220+ Surveillance Home Mode

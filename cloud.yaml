@@ -8,9 +8,15 @@ google_actions:
       - light.tv_backlight
       - light.wall_clock
       - light.xmas_window
+      - light.family_room_lights
       - script.office_zoom
+      - script.office_hacker
       - scene.watch_tv
       - scene.nighttime
+      # - scene.office_hacker
+      - scene.office_dim
+      - scene.office_normal
+      - scene.office_bright
       - sensor.office_temperature
       - sensor.master_bedroom_temperature
       - sensor.living_room_temperature
@@ -19,6 +25,7 @@ google_actions:
       - switch.wall_clock_random_effect
       - switch.lr_powerful
       - switch.mb_powerful
+      - switch.shellyswitch25_68c63afb7b5c_shelly_3_way_switch
       - script.office_ac_toggle
     include_domains:
       - cover
@@ -32,9 +39,9 @@ google_actions:
 
   entity_config:
 
-    sensor.living_room_temperature:
-      name: Living room temperature
-      room: Living Room
+    binary_sensor.dryer_state:
+      name: dryer
+      room: laundry
 
     climate.living_room_ac:
       name: Living Room Air Conditioner
@@ -48,21 +55,37 @@ google_actions:
         - master bedroom AC
       room: Master Bedroom
 
-    script.office_ac_toggle:
-      name: Office AC
-      aliases:
-        - office air conditioner
-      room: Office
-
     input_boolean.washer_status:
       name: Washer
       aliases:
         - washing machine
       room: Laundry
 
-    binary_sensor.dryer_state:
-      name: dryer
-      room: laundry
+    light.family_room_lights:
+      name: Family Room Lights
+      room: Family Room
+
+    script.office_ac_toggle:
+      name: Office AC
+      aliases:
+        - office air conditioner
+      room: Office
+
+    script.office_zoom:
+      name: Office Zoom
+      room: Office
+
+    script.office_hacker:
+      name: Office Hacker
+      aliases:
+        - Hacker Mode
+        - Hacker
+        - Hacker Scene
+      room: Office
+
+    sensor.living_room_temperature:
+      name: Living room temperature
+      room: Living Room
 
     switch.lr_powerful:
       name: LR Powerful
@@ -78,10 +101,7 @@ google_actions:
         - master bedroom AC powerful
       room: Master Bedroom
 
-    script.office_zoom:
-      name: Office Zoom
-      room: Office
-
-
-
+    switch.shellyswitch25_68c63afb7b5c_shelly_3_way_switch:
+      name: Ceiling Lights
+      room: Family Room
 
