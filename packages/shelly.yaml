@@ -1,0 +1,131 @@
+# Will automatically update Shelly firmware when available
+homeassistant:
+
+rest_command:
+  update_firmware_shellydimmer2_e8db84d4610a:
+    url: "http://192.168.254.40/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shelly1_bcddc2771acf:
+    url: "http://192.168.254.41/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shelly1_500291ed2481:
+    url: "http://192.168.254.42/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shellyrgbw2_1dfb87:
+    url: "http://192.168.254.43/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shelly1_500291ed226d:
+    url: "http://192.168.254.44/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shellydimmer2_e8db84d6142e:
+    url: "http://192.168.254.45/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shelly1l_f4cfa2e397de:
+    url: "http://192.168.254.46/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shelly1_500291edbc26:
+    url: "http://192.168.254.48/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+
+automation:
+  - id: update_shelly1_500291ed226d
+    alias: update_shelly1_500291ed226d
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shelly1_500291ed226_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shelly1_500291ed226d
+  - id: update_shellydimmer2_e8db84d6142e
+    alias: update_shellydimmer2_e8db84d6142e
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shellydimmer2_e8db84d6142e_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shellydimmer2_e8db84d6142e
+  - id: update_shelly1l_f4cfa2e397de
+    alias: update_shelly1l_f4cfa2e397de
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shelly1l_f4cfa2e397de_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shelly1l_f4cfa2e397de
+  - id: update_shellyrgbw2_1dfb87
+    alias: update_shellyrgbw2_1dfb87
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shellyrgbw2_1dfb87_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shellyrgbw2_1dfb87
+  - id: update_shelly1_500291ed2481
+    alias: update_shelly1_500291ed2481
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shelly1_500291ed2481_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shelly1_500291ed2481
+  - id: update_shelly1_bcddc2771acf
+    alias: update_shelly1_bcddc2771acf
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shelly1_bcddc2771acf_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shelly1_bcddc2771acf
+  - id: update_shellydimmer2_e8db84d4610a
+    alias: update_shellydimmer2_e8db84d4610a
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shellydimmer2_e8db84d4610a_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shellydimmer2_e8db84d4610a
+  - id: update_shelly1_500291edbc26
+    alias: update_shelly1_500291edbc26
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shelly1_500291edbc26_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shelly1_500291edbc26
+
+script:
+  shelly_updates:
+    alias: Shelly Updates
+    sequence:
+      - service: rest_command.update_firmware_shelly1_500291ed226d
+      - service: rest_command.update_firmware_shellydimmer2_e8db84d6142e
+      - service: rest_command.update_firmware_shelly1l_f4cfa2e397de
+      - service: rest_command.update_firmware_shellyrgbw2_1dfb87
+      - service: rest_command.update_firmware_shelly1_500291ed2481
+      - service: rest_command.update_firmware_shelly1_bcddc2771acf
+      - service: rest_command.update_firmware_shellydimmer2_e8db84d4610a
+      - service: rest_command.update_firmware_shelly1_500291edbc26
