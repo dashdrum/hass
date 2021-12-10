@@ -287,6 +287,9 @@
     light.office_desk_lamp:
       state: on
       brightness: 191
+    light.wall_clock:
+      state: on
+      effect: "Clock Comet"
 
 - name: office_bright
   entities:
@@ -302,6 +305,9 @@
     light.office_desk_lamp:
       state: on
       brightness: 255
+    light.wall_clock:
+      state: on
+      effect: "Clock Backfill"
 
 - name: office_zoom
   entities:
@@ -330,6 +336,9 @@
     light.office_desk_lamp:
       state: on
       brightness: 72
+    light.wall_clock:
+      state: on
+      effect: "Clock"
 
 - name: office_hacker
   entities:
@@ -344,7 +353,7 @@
       brightness: 3
     light.wall_clock:
       state: on
-      rgb_color: [0,0,75]
+      rgb_color: [0,0,255]
       effect: "Clock Inverse"
 
 
@@ -358,4 +367,7 @@
       state: off
     light.office_desk_lamp:
       state: off
+    light.wall_clock:
+      state: on
+      effect: "Clock Basic"
 
