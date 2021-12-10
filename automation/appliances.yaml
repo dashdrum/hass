@@ -16,7 +16,7 @@
     entity_id: input_boolean.tts_automations
     state: "on"
   action:
-    - service: tts.google_translate_say
+    - service: tts.cloud_say
       entity_id:
         - media_player.dan_speaker
         - media_player.spare_room_speaker
@@ -56,7 +56,7 @@
 #           entity_id: sensor.dryer_sensor
 #           state: "Cycle Complete"
 #   action:
-#     - service: tts.google_translate_say
+#     - service: tts.cloud_say
 #       entity_id:
 #         - media_player.dan_speaker
 #         - media_player.spare_room_speaker
@@ -184,7 +184,7 @@
     entity_id: input_boolean.tts_automations
     state: "on"
   action:
-    - service: tts.google_translate_say
+    - service: tts.cloud_say
       entity_id:
         - media_player.dan_speaker
         - media_player.spare_room_speaker
@@ -217,7 +217,7 @@
         minutes: 0
         seconds: 0
   action:
-    - service: tts.google_translate_say
+    - service: tts.cloud_say
       entity_id:
         - media_player.main_floor
       data:
