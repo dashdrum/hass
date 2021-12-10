@@ -3,6 +3,7 @@ google_actions:
     include_entities:
       - binary_sensor.dryer_state
       - binary_sensor.garage_access_door
+      - binary_sensor.garage_bin
       - input_boolean.washer_status
       - light.led_mirror
       - light.tv_backlight
@@ -13,7 +14,6 @@ google_actions:
       - script.office_hacker
       - scene.watch_tv
       - scene.nighttime
-      # - scene.office_hacker
       - scene.office_dim
       - scene.office_normal
       - scene.office_bright
@@ -42,6 +42,15 @@ google_actions:
     binary_sensor.dryer_state:
       name: dryer
       room: laundry
+
+    binary_sensor.garage_bin:
+      name: Trash Bin
+      aliases:
+        - trash
+        - trashcan
+        - bin
+        - garbage
+      room: Garage
 
     climate.living_room_ac:
       name: Living Room Air Conditioner
