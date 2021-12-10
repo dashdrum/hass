@@ -137,5 +137,10 @@ rest_command:
 
 
 
+camera:
+  - platform: generic
+    name: Doorbell Last Alarm Pic
+    still_image_url: "{{ states('sensor.db1_e84450613_last_alarm_pic')  }}"
+
 
 
