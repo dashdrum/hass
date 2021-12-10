@@ -1,0 +1,192 @@
+homeassistant:
+  customize:
+    binary_sensor.garage_bin:
+      icon: mdi:trash-can
+
+input_boolean:
+  bin_has_gone_out:
+    name: Bin Has Gone Out
+    icon: mdi:trash-can-outline
+
+automation:
+
+  ## Bin goes out
+  - id: bin_goes_out
+    alias: Bin Goes Out
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_bin
+        to: 'off'
+    condition:
+        # Between Monday at 5pm and Tuesday at 3pm
+      - condition: template
+        value_template: >-
+          {{ ( now().weekday() == 0 and now().hour > 17 ) or ( now().weekday() == 1 and now().hour < 15 )}}
+    action:
+      service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.bin_has_gone_out
+
+  ## Bin comes back early
+  - id: bin_comes_back_early
+    alias: Bin Comes Back Early
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_bin
+        to: 'on'
+    condition:
+        # Between Monday at 5pm and Tuesday at noon
+      - condition: template
+        value_template: >-
+          {{ ( now().weekday() == 0 and now().hour > 17 ) or ( now().weekday() == 1 and now().hour < 12 )}}
+    action:
+      service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.bin_has_gone_out
+
+  ## Quiet reminder to take out bin
+  - id: time_for_bin_out
+    alias: Time for Bin to go Out
+    trigger:
+      - platform: time
+        at: '10:00:00'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          weekday:
+            - tue
+        - condition: state
+          entity_id: binary_sensor.garage_bin
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.bin_has_gone_out
+          state: 'off'
+    action:
+      - service: notify.mobile_app_sm_g975u
+        data_template:
+          message: 'Time to take out the trash'
+          title: 'Trash Day'
+      - service: notify.mobile_app_iphone
+        data_template:
+          message: 'Time to take out the trash'
+          title: 'Trash Day'
+
+  ## Vocal reminder to take out bin
+  - id: time_for_bin_out_now
+    alias: Time for Bin to go Out Now
+    trigger:
+      - platform: time
+        at: '12:30:00'
+    condition:
+      - condition: time
+        weekday:
+          - tue
+      - condition: state
+        entity_id: binary_sensor.garage_bin
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.bin_has_gone_out
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.tts_automations
+        state: "on"
+    action:
+      - service: tts.cloud_say
+        entity_id:
+          - media_player.dan_speaker
+          - media_player.kitchen_speaker
+          - media_player.office_home
+          - media_player.kelly_home
+        data:
+          message: >
+            {{
+              [
+                "Time to get the trash out",
+                "You're going to miss the truck"
+              ] | random
+            }}
+
+  ## Quiet reminder to retrieve bin
+  - id: time_for_bin_in
+    alias: Time for Bin to Come In
+    trigger:
+      - platform: time
+        at: '17:55:00'
+    condition:
+      - condition: time
+        weekday:
+          - tue
+      - condition: state
+        entity_id: binary_sensor.garage_bin
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.bin_has_gone_out
+        state: 'on'
+    action:
+      - service: notify.mobile_app_sm_g975u
+        data_template:
+          message: 'Time to bring in the trash bin'
+          title: 'Trash Day'
+      - service: notify.mobile_app_iphone
+        data_template:
+          message: 'Time to bring in the trash bin'
+          title: 'Trash Day'
+
+  ## Vocal reminder to retrieve bin
+  - id: time_for_bin_in_now
+    alias: Time for Bin to come in Now
+    trigger:
+      - platform: time
+        at: '10:00:00'
+    condition:
+      - condition: time
+        weekday:
+          - wed
+      - condition: state
+        entity_id: binary_sensor.garage_bin
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.bin_has_gone_out
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.tts_automations
+        state: "on"
+    action:
+      - service: tts.cloud_say
+        entity_id:
+          - media_player.dan_speaker
+          - media_player.kitchen_speaker
+          - media_player.office_home
+          - media_player.kelly_home
+        data:
+          message: >
+            {{
+              [
+                "Time to retrieve the trash bin",
+                "Let's not leave the trash bin out too long"
+              ] | random
+            }}
+
+  ## Reset bin routine
+  - id: trash_bin_reset
+    alias: Trash Bin Reset
+    trigger:
+      - platform: time
+        at: '10:01:00'
+    condition:
+      - condition: time
+        weekday:
+          - wed
+      - condition: state
+        entity_id: input_boolean.bin_has_gone_out
+        state: 'on'
+    action:
+      service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.bin_has_gone_out
+
+
+
+
+
