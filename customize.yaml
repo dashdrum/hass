@@ -66,8 +66,11 @@ switch.shelly1_500291ED2481:
 switch.shelly1l_f4cfa2e397de:
   friendly_name: Path Light
   icon: mdi:lightbulb-outline
-switch.shellyswitch25_68c63afb7b5c_shelly_3_way_switch:
-  friendly_name: Ceiling Lights
+# switch.shellyswitch25_68c63afb7b5c_shelly_3_way_switch:
+#   friendly_name: Ceiling Lights
+switch.shelly1_e8db84d38d16:
+  friendly_name: Basement Hall Light
+  icon: mdi:lightbulb-outline
 
 
 ## Covers
@@ -508,28 +511,3 @@ sensor.ds220plus_volume_used:
 switch.ds220plus_home_mode:
   friendly_name: DS220+ Surveillance Home Mode
 
-## DB1 Doorbell Cam
-
-binary_sensor.db1_e84450613_upgrade_available:
-  friendly_name: Doorbell Upgrade Available
-binary_sensor.db1_e84450613_motion_trigger:
-  friendly_name: Doorbell Motion Trigger
-camera.db1_e84450613:
-  friendly_name: Doorbell Camera
-sensor.db1_e84450613_local_ip:
-  friendly_name: Doorbell Local IP
-  icon: mdi:ip-network
-sensor.db1_e84450613_battery_level:
-  friendly_name: Doorbell Battery
-sensor.db1_e84450613_last_alarm_time:
-  friendly_name: Doorbell Last Alarm
-  icon: mdi:clock-alert
-sensor.db1_e84450613_last_alarm_pic:
-  friendly_name: Doorbell Last Pic
-  icon: mdi:camera
-sensor.db1_e84450613_seconds_last_trigger:
-  friendly_name: Doorbell Seconds Last Trigger
-  icon: mdi:clock-alert-outline
-sensor.db1_e84450613_pir_status:
-  friendly_name: Doorbell PIR Status
-  icon: mdi:walk

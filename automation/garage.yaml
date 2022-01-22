@@ -26,6 +26,9 @@
         - media_player.smart_clock
       data:
         message: 'The garage door is opening'
+        language: en-IE
+        options:
+          gender: female
 
 - alias: 'Turn on garage_door_lights with garage door open'
   trigger:
@@ -88,6 +91,9 @@
         - media_player.smart_clock
       data:
         message: 'The garage door has been open for 30 minutes'
+        language: en-IE
+        options:
+          gender: female
 
 - alias: 'Garage door open for 60 minutes - close it'
   trigger:
@@ -117,6 +123,9 @@
         - media_player.smart_clock
       data:
         message: 'The garage door has been open for one hour.  Closing now'
+        language: en-IE
+        options:
+          gender: female
 
 - alias: 'Garage door open for 90 minutes - close it'
   trigger:
@@ -146,6 +155,9 @@
         - media_player.smart_clock
       data:
         message: '90 minutes this garage door has been open! I will try to close it again'
+        language: en-IE
+        options:
+          gender: female
 
 - alias: 'Garage door open for 2 hours - close it'
   trigger:
@@ -175,6 +187,9 @@
         - media_player.smart_clock
       data:
         message: 'OK, 2 hours is too long for the garage door to be open.  I will try to close it one more time, but you should check it'
+        language: en-IE
+        options:
+          gender: female
 
 - alias: 'Garage door has closed'
   trigger:
@@ -202,6 +217,9 @@
         - media_player.smart_clock
       data:
         message: 'The garage door has closed'
+        language: en-IE
+        options:
+          gender: female
 
 
 - alias: 'Garage Door Lights Timer'
@@ -269,3 +287,6 @@
         - media_player.smart_clock
       data:
         message: 'The garage access door is opening'
+        language: en-IE
+        options:
+          gender: female

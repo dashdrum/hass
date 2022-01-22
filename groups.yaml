@@ -35,6 +35,22 @@ outdoor_lights:
     - light.front_porch_light
     - switch.shelly1l_f4cfa2e397de
 
+family_room_lights:
+  name: Family Room Lights
+  entities:
+    - light.ceiling_lights
+    - switch.shelly1_e8db84d38d16
+    - switch.shelly1_500291ed226d
+
+basement_lights:
+  name: Basement Lights
+  entities:
+    - light.ceiling_lights
+    - switch.shelly1_e8db84d38d16
+    - switch.shelly1_500291ed226d
+    - switch.shelly1_bcddc2771acf
+    - light.shelly1_500291edbc26
+
 all_persons:
   name: All Persons
   entities:

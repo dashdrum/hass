@@ -5,6 +5,8 @@ google_actions:
       - binary_sensor.garage_access_door
       - binary_sensor.garage_bin
       - input_boolean.washer_status
+      - group.family_room_lights
+      - group.basement_lights
       - light.led_mirror
       - light.tv_backlight
       - light.wall_clock
@@ -70,9 +72,12 @@ google_actions:
         - washing machine
       room: Laundry
 
-    light.family_room_lights:
+    group.family_room_lights:
       name: Family Room Lights
       room: Family Room
+
+    group.basement_lights:
+      name: Basement Lights
 
     script.office_ac_toggle:
       name: Office AC

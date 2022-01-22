@@ -1,6 +1,4 @@
 
-- platform: hue
-  host: !secret hue_host
 
 - platform: decora_wifi
   username: !secret leviton_username

@@ -28,6 +28,7 @@ discovery:
 
 recorder:
   #purge_interval: 7
+  auto_purge:
   purge_keep_days: 30
   # exclude:
   #   entities:
@@ -137,10 +138,6 @@ rest_command:
 
 
 
-camera:
-  - platform: generic
-    name: Doorbell Last Alarm Pic
-    still_image_url: "{{ states('sensor.db1_e84450613_last_alarm_pic')  }}"
 
 
 
