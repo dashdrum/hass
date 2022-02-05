@@ -27,7 +27,7 @@ google_actions:
       - switch.wall_clock_random_effect
       - switch.lr_powerful
       - switch.mb_powerful
-      - switch.shellyswitch25_68c63afb7b5c_shelly_3_way_switch
+      - switch.shellyswitch25_00fb7b5
       - script.office_ac_toggle
     include_domains:
       - cover
@@ -115,7 +115,7 @@ google_actions:
         - master bedroom AC powerful
       room: Master Bedroom
 
-    switch.shellyswitch25_68c63afb7b5c_shelly_3_way_switch:
+    switch.shellyswitch25_00fb7b5:
       name: Ceiling Lights
       room: Family Room
 

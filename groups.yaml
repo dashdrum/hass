@@ -38,14 +38,14 @@ outdoor_lights:
 family_room_lights:
   name: Family Room Lights
   entities:
-    - light.ceiling_lights
+    - switch.shellyswitch25_00fb7b5
     - switch.shelly1_e8db84d38d16
     - switch.shelly1_500291ed226d
 
 basement_lights:
   name: Basement Lights
   entities:
-    - light.ceiling_lights
+    - switch.shellyswitch25_00fb7b5
     - switch.shelly1_e8db84d38d16
     - switch.shelly1_500291ed226d
     - switch.shelly1_bcddc2771acf
