@@ -22,6 +22,19 @@
           off
         {% endif %}
 
+- platform: template
+  sensors:
+    living_room_tv_state:
+      friendly_name: "TV State"
+      value_template: >-
+        {% set tv_power = states('sensor.tv_reset_current_power') | float %}
+
+        {% if 100 <= tv_power %}
+           on
+        {% else %}
+           off
+        {% endif %}
+
   # - platform: mqtt
   #   state_topic: "garage_motion_1/state"
   #   name: garage_motion_1

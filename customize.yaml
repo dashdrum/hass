@@ -166,17 +166,17 @@ sensor.laundry_humidity:
 sensor.upstairs_bath_humidity :
   icon: mdi:water-percent
 
-sensor.undercab_current_power_w:
+sensor.tv_reset_current_power_w:
   icon: mdi:flash
-sensor.undercab_today_energy_kwh:
+sensor.tv_reset_today_energy_kwh:
   icon: mdi:lightning-bolt
-sensor.undercab_voltage:
+sensor.tv_reset_voltage:
   icon: mdi:sine-wave
-sensor.undercab_weekly_energy_total:
+sensor.tv_reset_weekly_energy_total:
   icon: mdi:lightning-bolt
-sensor.undercab_monthly_energy_total:
+sensor.tv_reset_monthly_energy_total:
   icon: mdi:lightning-bolt
-sensor.undercab_yearly_energy_total:
+sensor.tv_reset_yearly_energy_total:
   icon: mdi:lightning-bolt
 
 sensor.avg_garage_temp:

@@ -34,54 +34,22 @@
 
 - platform: template
   sensors:
-    undercab_current_power_w:
-      value_template: '{{ states.switch.cabinet_reset.attributes["current_power_w"] | float }}'
-      unit_of_measurement: 'W'
-      friendly_name: Undercab Current Power
-    undercab_today_energy_kwh:
-      value_template: '{{ states.switch.cabinet_reset.attributes["today_energy_kwh"] | float }}'
-      unit_of_measurement: 'kWh'
-      friendly_name: Undercab Energy Today
-    undercab_voltage:
-      value_template: '{{ states.switch.cabinet_reset.attributes["voltage"] | float }}'
+    tv_reset_voltage:
+      value_template: '{{ states.switch.tv_reset.attributes["voltage"] | float }}'
       unit_of_measurement: 'V'
-      friendly_name: Undercab Voltage
-    undercab_weekly_energy_total:
-      value_template: '{{ states.switch.cabinet_reset.attributes["weekly_energy_total"] | float }}'
+      friendly_name: TV Voltage
+    tv_reset_weekly_energy_total:
+      value_template: '{{ states.switch.tv_reset.attributes["weekly_energy_total"] | float }}'
       unit_of_measurement: 'kWh'
-      friendly_name: Undercab Weekly
-    undercab_monthly_energy_total:
-      value_template: '{{ states.switch.cabinet_reset.attributes["monthly_energy_total"] | float }}'
+      friendly_name: TV Weekly
+    tv_reset_monthly_energy_total:
+      value_template: '{{ states.switch.tv_reset.attributes["monthly_energy_total"] | float }}'
       unit_of_measurement: 'kWh'
-      friendly_name: Undercab Monthly
-    undercab_yearly_energy_total:
-      value_template: '{{ states.switch.cabinet_reset.attributes["yearly_energy_total"] | float }}'
+      friendly_name: TV Monthly
+    tv_reset_yearly_energy_total:
+      value_template: '{{ states.switch.tv_reset.attributes["yearly_energy_total"] | float }}'
       unit_of_measurement: 'kWh'
-      friendly_name: Undercab Annual
-
-# ## HS110 Washer switch sensors
-# - platform: template
-#   sensors:
-#     washer_amps:
-#       friendly_name: "Washer Current"
-#       value_template: '{{ states.switch.washer.attributes["current_a"] | float }}'
-#       unit_of_measurement: 'A'
-#     washer_watts:
-#       friendly_name_template: "Washer Current Consumption"
-#       value_template: '{{ states.switch.washer.attributes["current_power_w"] | float }}'
-#       unit_of_measurement: 'W'
-#     washer_total_kwh:
-#       friendly_name_template: "Washer Total Consumption"
-#       value_template: '{{ states.switch.washer.attributes["total_energy_kwh"] | float }}'
-#       unit_of_measurement: 'kWh'
-#     washer_volts:
-#       friendly_name_template: "Washer Voltage"
-#       value_template: '{{ states.switch.washer.attributes["voltage"] | float }}'
-#       unit_of_measurement: 'V'
-#     washer_today_kwh:
-#       friendly_name_template: "Washer Today's Consumption"
-#       value_template: '{{ states.switch.washer.attributes["today_energy_kwh"] | float }}'
-#       unit_of_measurement: 'kWh'
+      friendly_name: TV Annual
 
 - platform: template
   sensors:
@@ -121,6 +89,23 @@
           Occupied
         {% else %}
           Empty
+        {% endif %}
+
+- platform: template
+  sensors:
+    living_room_tv_state:
+      friendly_name: "TV State"
+      value_template: >-
+        {% set tv_power = states('sensor.tv_reset_current_power') | float %}
+
+        {% if tv_power <= 0 %}
+           No Power
+        {% elif 0 < tv_power < 100 %}
+           Standby
+        {% elif 100 <= tv_power %}
+           On
+        {% else %}
+           Unknown
         {% endif %}
 
 # Sensor to monitor system resources for the Hass Server
@@ -194,13 +179,6 @@
           /(17.625-log(float(states.sensor.outdoor_humidity.state)/100)-((17.625*float(states.sensor.outdoor_temperature_c.state))/(243.04+float(states.sensor.outdoor_temperature_c.state)))))
           *  9/5) + 32) | round(2) }}
 
-# - platform: template
-#   sensors:
-#     avg_tech_cabinet_temp:
-#       unit_of_measurement: "°F"
-#       value_template: >-
-#         {{ ((float(states('sensor.temp_compare_bme280_temperature')) + float(states('sensor.temp_compare_sht30d_temperature'))) / 2) | round(2) }}
-
 - platform: min_max
   entity_ids:
     - sensor.temp_compare_bme280_temperature
@@ -208,16 +186,6 @@
   type: mean
   name: avg_tech_cabinet_temp
   round_digits: 2
-
-# - platform: template
-#   sensors:
-#     avg_garage_temp:
-#       unit_of_measurement: "°F"
-#       value_template: >-
-#         {{ ((float(states('sensor.garage_sensor_temperature'))
-#            + float(states('sensor.garage_temp'))
-#            + float(states('sensor.garage_temp_3_temperature'))
-#                      ) / 3) | round(2) }}
 
 - platform: min_max
   entity_ids:
@@ -228,16 +196,6 @@
   name: avg_garage_temp
   round_digits: 2
 
-# - platform: template
-#   sensors:
-#     avg_garage_humidity:
-#       unit_of_measurement: "%"
-#       value_template: >-
-#         {{ ((float(states('sensor.garage_humidity'))
-#            + float(states('sensor.garage_sensor_humidity'))
-#            + float(states('sensor.garage_temp_3_humidity'))
-#                    ) / 3) | round(2) }}
-
 - platform: min_max
   entity_ids:
     - sensor.garage_humidity
@@ -246,18 +204,6 @@
   type: mean
   name: avg_garage_humidity
   round_digits: 2
-
-# - platform: template
-#   sensors:
-#     avg_indoor_humidity:
-#       unit_of_measurement: "%"
-#       value_template: >-
-#         {{ ((float(states('sensor.family_room_humidity'))
-#            + float(states('sensor.living_room_humidity'))
-#            + float(states('sensor.master_bedroom_humidity'))
-#            + float(states('sensor.office_humidity'))
-#            + float(states('sensor.plant_stand_humidity'))
-#            + float(states('sensor.spare_room_humidity'))) / 6) | round(2) }}
 
 - platform: min_max
   entity_ids:
@@ -269,18 +215,6 @@
   type: mean
   name: avg_indoor_humidity
   round_digits: 2
-
-# - platform: template
-#   sensors:
-#     avg_indoor_temperature:
-#       unit_of_measurement: "°F"
-#       value_template: >-
-#         {{ ((float(states('sensor.living_room_temperature'))
-#            + float(states('sensor.master_bedroom_temperature'))
-#            + float(states('sensor.laundry_temperature'))
-#            + float(states('sensor.office_temperature'))
-#            + float(states('sensor.plant_stand_temperature'))
-#            + float(states('sensor.spare_room_temperature'))) / 6) | round(2) }}
 
 - platform: min_max
   entity_ids:
@@ -318,9 +252,6 @@
     rusty_position:
       friendly_name: "Rusty Position"
       value_template: "{{ state_attr('vacuum.rusty', 'position')  }}"
-
-
-
 
 
 # ## Workshop Temperature/Humdity Sensor
