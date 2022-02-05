@@ -28,7 +28,7 @@ discovery:
 
 recorder:
   #purge_interval: 7
-  auto_purge:
+  auto_purge: True
   purge_keep_days: 30
   # exclude:
   #   entities:
