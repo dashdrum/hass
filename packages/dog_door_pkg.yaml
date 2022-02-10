@@ -1,0 +1,32 @@
+# Handle door/window sensors
+
+homeassistant:
+  customize:
+    binary_sensor.0x8cf681fffe2000f0_battery_low:
+      friendly_name: Dog Door Low Battery Indicator
+    binary_sensor.0x8cf681fffe2000f0_occupancy:
+      friendly_name: Dog Door Motion
+    binary_sensor.0x8cf681fffe2000f0_tamper:
+      friendly_name: Dog Door Tamper Indicator
+    sensor.0x8cf681fffe2000f0_linkquality:
+      friendly_name: Dog Door Link Quality
+    sensor.0x8cf681fffe2000f0_battery:
+      friendly_name: Dog Door Battery
+
+
+automation:
+
+  - id: dog_door_motion
+    alias: 'Dog Door Motion'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.0x8cf681fffe2000f0_occupancy
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: sensor.sun_state
+        state: 'down'
+    action:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.deck_light

@@ -1,0 +1,67 @@
+# Handle door/window sensors
+
+homeassistant:
+  customize:
+    binary_sensor.0x00158d0007e117ea_contact:
+      friendly_name: Coat Closet Door
+    sensor.0x00158d0007e117ea_battery:
+      friendly_name: Coat Closet Battery
+    sensor.0x00158d0007e117ea_temperature:
+      friendly_name: Coat Closet Temperature
+    sensor.0x00158d0007e117ea_linkquality:
+      friendly_name: Coat Closet Link Quality
+    sensor.0x00158d0007e117ea_voltage:
+      friendly_name: Coat Closet Voltage
+
+input_boolean:
+  coat_closet_door_light_turn_on:
+
+
+automation:
+
+# Handle coat closet open and close
+
+  - id: coat_closet_door
+    alias: 'Coat Closet Door'
+    trigger:
+      - platform: state
+        id: door_open
+        entity_id: binary_sensor.0x00158d0007e117ea_contact
+        to: 'on'
+      - platform: state
+        id: door_close
+        entity_id: binary_sensor.0x00158d0007e117ea_contact
+        to: 'off'
+    action:
+      - choose:
+        - conditions:
+          - condition: trigger
+            id: door_open
+          sequence:
+            # - service: input_boolean.turn_on
+            #   data:
+            #     entity_id: input_boolean.coat_closet_door_light_turn_on
+            - service: light.turn_on
+              target:
+                entity_id: light.stairway_light
+              data:
+                transition: 0
+                brightness: 255
+        - conditions:
+          - condition: trigger
+            id: door_close
+          # - condition: state
+          #   entity_id: input_boolean.coat_closet_door_light_turn_on
+          #   state: "ON"
+          sequence:
+            # - service: input_boolean.turn_off
+            #   data:
+            #     entity_id: input_boolean.coat_closet_door_light_turn_on
+            - service: light.turn_off
+              target:
+                entity_id: light.stairway_light
+              data:
+                transition: 1
+
+#TODO - Use input boolean to track if light was already on before the door was opened
+#TODO - Store light state and brightness to return to previous state after door closes
