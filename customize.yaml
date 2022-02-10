@@ -178,6 +178,8 @@ sensor.tv_reset_monthly_energy_total:
   icon: mdi:lightning-bolt
 sensor.tv_reset_yearly_energy_total:
   icon: mdi:lightning-bolt
+sensor.living_room_tv_state:
+  icon: mdi:television
 
 sensor.avg_garage_temp:
   friendly_name: Garage Temperature (Avg)
@@ -320,7 +322,8 @@ binary_sensor.dining_room_light_switch:
 binary_sensor.high_water:
   friendly_name: Sink Level
   icon: mdi:water
-
+binary_sensor.living_room_tv_state:
+  icon: mdi:television
 
 ## Scenes
 
