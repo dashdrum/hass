@@ -163,8 +163,6 @@
       state: on
       brightness: 89
       rgbw_color: [25,25,112,0]   #midnightblue
-      # white_value: 0
-      # effect: "Gradual change"
 
 # Master Bedroom
 

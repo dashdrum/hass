@@ -17,14 +17,6 @@ light.tv_backlight:
 light.led_mirror:
   icon: mdi:led-strip-variant
 
-#   friendly_name: Up Bath Mirror
-# light.tv_backlight:
-#   friendly_name: TV Backlight
-# light.hue_white_lamp_1_5:
-#   friendly_name: Office Chair Lamp
-# light.hue_white_lamp_2_2:
-#   friendly_name: Office Window Lamp
-
 ## Switches
 
 switch.woodpile_lights:
@@ -66,8 +58,6 @@ switch.shelly1_500291ED2481:
 switch.shelly1l_f4cfa2e397de:
   friendly_name: Path Light
   icon: mdi:lightbulb-outline
-# switch.shellyswitch25_68c63afb7b5c_shelly_3_way_switch:
-#   friendly_name: Ceiling Lights
 switch.shelly1_e8db84d38d16:
   friendly_name: Basement Hall Light
   icon: mdi:lightbulb-outline
@@ -79,8 +69,6 @@ cover.garage_door:
   #device_class: garage
   friendly_name: Garage Door
   icon: mdi:garage
-# cover.office_blinds:
-#   friendly_name: Office Blinds
 
 ## Sensors
 
@@ -105,8 +93,6 @@ sensor.family_room_battery:
 sensor.dryer_sensor:
   friendly_name: Dryer Status
   icon: mdi:washing-machine
-# sensor.office_temperature:
-#   friendly_name: Office Temp
 sensor.office_humidity:
   friendly_name: Office Humidity
   icon: mdi:water-percent
@@ -415,29 +401,6 @@ device_tracker.iphone:
   icon:  mdi:cellphone
   friendly_name: Kelly's iPhone - Router
 
-
-
-# device_tracker.google_maps_102501070565386974294:
-#   friendly_name: Dan
-# sensor.home_to_work:
-#   icon: mdi:school
-#   friendly_name: Home to Work
-# sensor.dan_to_work:
-#   icon: mdi:school
-# sensor.dan_to_home:
-#   icon: mdi:home
-# sensor.work_to_home:
-#   icon: mdi:home
-#   friendly_name: Work to Home
-# device_tracker.theedge:
-#   friendly_name: Dan's Phone
-# device_tracker.kellysiphone:
-#   friendly_name: Kelly's Phone
-# device_tracker.csgentrysiphone:
-#   friendly_name: Corinne's Phone
-# binary_sensor.truck1:
-#   friendly_name: Ranger
-#   icon: mdi:car-pickup
 
 ## Scripts
 
