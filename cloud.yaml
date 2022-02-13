@@ -7,6 +7,7 @@ google_actions:
       - input_boolean.washer_status
       # - group.family_room_lights
       - group.basement_lights
+      - light.0x00124b00199f0fcb
       - light.led_mirror
       - light.tv_backlight
       - light.wall_clock
@@ -78,6 +79,10 @@ google_actions:
 
     group.basement_lights:
       name: Basement Lights
+
+    light.0x00124b00199f0fcb:
+      name: under desk lights
+      room: Office
 
     script.office_ac_toggle:
       name: Office AC

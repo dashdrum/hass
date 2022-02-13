@@ -290,6 +290,8 @@
     light.wall_clock:
       state: on
       effect: "Clock Comet"
+    light.0x00124b00199f0fcb:  # Under Desk Lights
+      state: off
 
 - name: office_bright
   entities:
@@ -308,6 +310,8 @@
     light.wall_clock:
       state: on
       effect: "Clock Backfill"
+    light.0x00124b00199f0fcb:  # Under Desk Lights
+      state: off
 
 - name: office_zoom
   entities:
@@ -321,6 +325,8 @@
     light.office_desk_lamp:
       state: on
       brightness: 162
+    light.0x00124b00199f0fcb:  # Under Desk Lights
+      state: off
 
 - name: office_dim
   entities:
@@ -339,6 +345,11 @@
     light.wall_clock:
       state: on
       effect: "Clock"
+    light.0x00124b00199f0fcb:  # Under Desk Lights
+      state: on
+      # rgb_color: [255,255,255]
+      xy_color: [0.30929, 0.33007]
+      brightness: 255
 
 - name: office_hacker
   entities:
@@ -355,6 +366,11 @@
       state: on
       rgb_color: [0,0,255]
       effect: "Clock Inverse"
+    light.0x00124b00199f0fcb:  # Under Desk Lights
+      state: on
+      # rgb_color: [0,0,255]
+      xy_color: [0.13550, 0.030987]
+      brightness: 255
 
 
 - name: office_off
@@ -370,4 +386,6 @@
     light.wall_clock:
       state: on
       effect: "Clock Basic"
+    light.0x00124b00199f0fcb:  # Under Desk Lights
+      state: off
 
