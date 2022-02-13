@@ -2,7 +2,7 @@
 - platform: darksky
   api_key: !secret darksky_api_key
   monitored_conditions:
-    # - summary
+    - summary
     # - icon
     # - nearest_storm_distance
     # - nearest_storm_bearing
@@ -228,20 +228,20 @@
   round_digits: 2
 
 # Pull attributes from Accuweather
-- platform: template
-  sensors:
-    accuweather_temperature:
-      unit_of_measurement: "°F"
-      value_template: "{{ state_attr('weather.accuweather', 'temperature')| float}}"
-    accuweather_humidity:
-      unit_of_measurement: "%"
-      value_template: "{{ state_attr('weather.accuweather', 'humidity') | float }}"
-    accuweather_pressure:
-      unit_of_measurement: "mbar"
-      value_template: "{{ state_attr('weather.accuweather', 'pressure') * 33.863886667|  round(0) }}"
-    accuweather_visibility:
-      unit_of_measurement: "mi"
-      value_template: "{{ state_attr('weather.accuweather', 'visibility') | float }}"
+# - platform: template
+#   sensors:
+#     accuweather_temperature:
+#       unit_of_measurement: "°F"
+#       value_template: "{{ state_attr('weather.accuweather', 'temperature')| float}}"
+#     accuweather_humidity:
+#       unit_of_measurement: "%"
+#       value_template: "{{ state_attr('weather.accuweather', 'humidity') | float }}"
+#     accuweather_pressure:
+#       unit_of_measurement: "mbar"
+#       value_template: "{{ state_attr('weather.accuweather', 'pressure') * 33.863886667|  round(0) }}"
+#     accuweather_visibility:
+#       unit_of_measurement: "mi"
+#       value_template: "{{ state_attr('weather.accuweather', 'visibility') | float }}"
 
 # Pull attributes from Rusty the Roomba
 - platform: template
