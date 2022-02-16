@@ -1,0 +1,185 @@
+
+
+input_number:
+  wall_clock_brightness:
+    name: Wall Clock Brightness
+    min: 1
+    max: 255
+    step: 1
+
+
+automation:
+
+  # Change to input_number triggers change to clock (if on)
+  - alias: 'wall clock input number brightness change'
+    trigger:
+      - platform: state
+        entity_id: input_number.wall_clock_brightness
+    condition:
+      - condition: state
+        entity_id: light.wall_clock
+        state: 'on'
+    action:
+      - service: light.turn_on
+        entity_id: light.wall_clock
+        data:
+          transition: 3
+          brightness: "{{ trigger.to_state.state | int }}"
+
+  # Change to clock trggers change to input_number
+  # - alias: 'wall clock brightness change'
+  #   trigger:
+  #     - platform: numeric_state
+  #       entity_id: light.wall_clock
+  #       attribute: brightness
+  #   condition:
+  #     condition: template
+  #     value_template: >
+  #       {{ state_attr('light.wall_clock','brightness') != states('input_number.wall_clock_brightness', 255) | int }}
+  #   action:
+  #     - service: input_number.set_value
+  #       entity_id: input_number.wall_clock_brightness
+  #       data:
+  #         value: "{{ state_attr('light.wall_clock','brightness') | float }}"
+
+  # At turn on, clock is set to input_number
+  - alias: 'wall clock brightness set'
+    trigger:
+      - platform: state
+        entity_id: light.wall_clock
+        from: 'off'
+        to: 'on'
+    action:
+      - service: light.turn_on
+        entity_id: light.wall_clock
+        data:
+          transition: 3
+          brightness: "{{ states('input_number.wall_clock_brightness') | float }}"
+
+    # Clock brightness
+
+    # The new brightness level is updated to the input_number, and that entity's state change triggers the clock update
+
+  - alias: 'wall clock brightness'
+    trigger:
+      - platform: time_pattern
+        minutes: '/2'
+        seconds: 00
+    action:
+      - service: input_number.set_value
+        entity_id: input_number.wall_clock_brightness
+        data:
+          value: >
+            {% if state_attr('sun.sun', 'elevation') | int < -9 or state_attr('sun.sun', 'elevation') | int > 6 %}
+              {{ state_attr('light.wall_clock', 'brightness') | int }}
+            {% elif state_attr('sun.sun', 'elevation') | int < -8 %}
+              114
+            {% elif state_attr('sun.sun', 'elevation') | int > 5 %}
+              255
+            {% else %}
+              {{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int  }}
+            {% endif %}
+          # Based on the sun's elevation, the brightness is set between 45% and 100%. Otherwise, it is left as-is.
+
+  # - alias: 'Wall clock low light effect'
+  #   trigger:
+  #     - platform: numeric_state
+  #       entity_id: light.wall_clock
+  #       attribute: brightness
+  #       below: 115
+  #       for: "00:10:00"
+  #   condition:
+  #     - condition: state
+  #       entity_id: light.wall_clock
+  #       state: 'on'
+  #   action:
+  #     - service: light.turn_on
+  #       entity_id: light.wall_clock
+  #       data:
+  #         effect: 'Clock Basic'
+
+  - alias: 'Wall clock 65 markers off'
+    trigger:
+      - platform: numeric_state
+        entity_id: light.wall_clock
+        attribute: brightness
+        below: 166  # 65%
+    condition:
+      - condition: state
+        entity_id: light.wall_clock
+        state: 'on'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: wall_clock/markers/command
+          payload: '1'
+          retain: false
+
+  - alias: 'Wall clock 45 markers off'
+    trigger:
+      - platform: numeric_state
+        entity_id: light.wall_clock
+        attribute: brightness
+        below: 115 # 45%
+    condition:
+      - condition: state
+        entity_id: light.wall_clock
+        state: 'on'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: wall_clock/markers/command
+          payload: '0'
+          retain: false
+
+  - alias: 'Wall clock 65 markers on'
+    trigger:
+      - platform: numeric_state
+        entity_id: light.wall_clock
+        attribute: brightness
+        above: 167  # 65%
+    condition:
+      - condition: state
+        entity_id: light.wall_clock
+        state: 'on'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: wall_clock/markers/command
+          payload: '2'
+          retain: false
+
+  - alias: 'Wall clock 45 markers on'
+    trigger:
+      - platform: numeric_state
+        entity_id: light.wall_clock
+        attribute: brightness
+        above: 116 # 45%
+    condition:
+      - condition: state
+        entity_id: light.wall_clock
+        state: 'on'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: wall_clock/markers/command
+          payload: '1'
+          retain: false
+
+
+  - alias: 'Clock Circle Brightness'
+    trigger:
+      - platform: time_pattern
+        minutes: '/2'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: light.clock_circle
+        state: 'on'
+    action:
+      - service: light.turn_on
+        entity_id: light.clock_circle
+        data:
+          transition: 3
+          brightness: '{{ (([states.sensor.light_meter_display_light_sensor, 300] | min)  * 0.47) + 114 | int  }}'
+          # Based on the light meter value, the brightness is set between 45% and 100%
