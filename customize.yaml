@@ -61,6 +61,14 @@ switch.shelly1l_f4cfa2e397de:
 switch.shelly1_e8db84d38d16:
   friendly_name: Basement Hall Light
   icon: mdi:lightbulb-outline
+switch.shellyswitch25_3c6105e3e6e1_channel_1:
+  friendly_name: Basement Bath Light
+  icon: mdi:lightbulb-outline
+switch.shellyswitch25_3c6105e3e6e1_channel_2:
+  friendly_name: Basement Fan
+  icon: mdi:fan
+
+
 
 
 ## Covers
@@ -193,6 +201,9 @@ sensor.garage_temp_3_pressure:
   icon: mdi:gauge
 sensor.garage_left_bay:
   icon: mdi:car-pickup
+binary_sensor.garage_left_bay:
+  icon: mdi:car-pickup
+  device_class: occupancy
 
 sensor.outdoor_sea_level_pressure:
   friendly_name: Outdoor Sea Level Equivalent

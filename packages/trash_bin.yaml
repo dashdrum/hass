@@ -2,6 +2,7 @@ homeassistant:
   customize:
     binary_sensor.garage_bin:
       icon: mdi:trash-can
+      device_class: occupancy
 
 input_boolean:
   bin_has_gone_out:

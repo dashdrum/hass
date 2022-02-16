@@ -1,4 +1,7 @@
 homeassistant:
+  customize:
+    binary_sensor.master_bed_state_icon:
+      device_class: occupancy
 
 sensor:
   - platform: template
