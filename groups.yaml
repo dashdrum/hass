@@ -43,6 +43,8 @@ basement_lights:
     - switch.shelly1_500291ed226d
     - switch.shelly1_bcddc2771acf
     - light.shelly1_500291edbc26
+    - switch.shellyswitch25_3c6105e3e6e1_channel_1
+    - switch.shellyswitch25_3c6105e3e6e1_channel_2
 
 all_persons:
   name: All Persons
