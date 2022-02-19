@@ -30,25 +30,29 @@
 
 - platform: fastdotcom
 
-## Elec Tek Smart Plug sensors
+## VeSync Smart Plug sensors
 
 - platform: template
   sensors:
     tv_reset_voltage:
       value_template: '{{ states.switch.tv_reset.attributes["voltage"] | float }}'
       unit_of_measurement: 'V'
+      device_class: voltage
       friendly_name: TV Voltage
     tv_reset_weekly_energy_total:
       value_template: '{{ states.switch.tv_reset.attributes["weekly_energy_total"] | float }}'
       unit_of_measurement: 'kWh'
+      device_class: energy
       friendly_name: TV Weekly
     tv_reset_monthly_energy_total:
       value_template: '{{ states.switch.tv_reset.attributes["monthly_energy_total"] | float }}'
       unit_of_measurement: 'kWh'
+      device_class: energy
       friendly_name: TV Monthly
     tv_reset_yearly_energy_total:
       value_template: '{{ states.switch.tv_reset.attributes["yearly_energy_total"] | float }}'
       unit_of_measurement: 'kWh'
+      device_class: energy
       friendly_name: TV Annual
 
 - platform: template
@@ -78,17 +82,6 @@
           up
         {% else %}
           down
-        {% endif %}
-
-- platform: template
-  sensors:
-    garage_left_bay:
-      friendly_name: "Garage Left Bay"
-      value_template: >-
-        {% if is_state('binary_sensor.garage_left_bay', 'on') %}
-          Occupied
-        {% else %}
-          Empty
         {% endif %}
 
 - platform: template
@@ -130,7 +123,8 @@
   sensors:
     hass_server_cputemp:
       value_template: '{{ states.sensor.hass_server.attributes["cpu_temperature"] }}'
-      unit_of_measurement: '°'
+      unit_of_measurement: '°C'
+      device_class: temperature
     hass_server_cpuused:
       value_template: '{{ states.sensor.hass_server.attributes["cpu_current"] }}'
       unit_of_measurement: '%'
@@ -156,8 +150,16 @@
 
 - platform: template
   sensors:
+    hass_server_cputemp_c:
+      unit_of_measurement: 'ºC'
+      device_class: temperature
+      value_template: "{{ ((( states('sensor.hass_server_cputemp') | float ) - 32) * 5/9) | round(1) }}"
+
+- platform: template
+  sensors:
     outdoor_sea_level_pressure:
       unit_of_measurement: 'mBar'
+      device_class: pressure
       value_template: >-
         {{ (float(states.sensor.outdoor_pressure.state) / (1-0.0065*204/(float(states.sensor.outdoor_temperature.state) + 273.15 )) ** (5.255)) | round(1) }}
 
@@ -167,6 +169,7 @@
     outdoor_temperature_c:
       friendly_name: "Outdoor Temperature C"
       unit_of_measurement: 'ºC'
+      device_class: temperature
       value_template: "{{ ((( states('sensor.outdoor_temperature') | float ) - 32) * 5/9) | round(1) }}"
 
 - platform: template
@@ -236,3 +239,12 @@
     rusty_position:
       friendly_name: "Rusty Position"
       value_template: "{{ state_attr('vacuum.rusty', 'position')  }}"
+
+
+- platform: template
+  sensors:
+    shellyswitch25_00fb7b5_temperature_c:
+      friendly_name: "Ceiling Lights Switch Temp C"
+      unit_of_measurement: 'ºC'
+      device_class: temperature
+      value_template: "{{ ((( states('sensor.shellyswitch25_00fb7b5_temperature') | float ) - 32) * 5/9) | round(1) }}"

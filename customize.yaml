@@ -76,71 +76,58 @@ switch.shellyswitch25_3c6105e3e6e1_channel_2:
 cover.garage_door:
   #device_class: garage
   friendly_name: Garage Door
-  icon: mdi:garage
+  # icon: mdi:garage
 
 ## Sensors
 
-sensor.hass_server_cputemp:
-  unit_of_measurement: "°C"
 sensor.living_room_temperature:
   friendly_name: Living Room Temperature
 sensor.living_room_humidity:
   friendly_name: Living Room Humidity
-  icon: mdi:water-percent
 sensor.living_room_battery:
   friendly_name: Living Room Battery
-  icon: mdi:battery
 sensor.family_room_temperature:
   friendly_name: Family Room Temperature
 sensor.familty_room_humidity:
   friendly_name: Family Room Humidity
-  icon: mdi:water-percent
 sensor.family_room_battery:
   friendly_name: Family Room Battery
-  icon: mdi:battery
 sensor.dryer_sensor:
   friendly_name: Dryer Status
   icon: mdi:washing-machine
+sensor.dryer_door:
+  icon: mdi:washing-machine
 sensor.office_humidity:
   friendly_name: Office Humidity
-  icon: mdi:water-percent
 sensor.office_pressure:
   friendly_name: Office Pressure
-  icon: mdi:gauge
 sensor.office_battery:
   friendly_name: Office Battery
-  icon: mdi:battery
 sensor.shellydimmer2_e8db84d6142e_device_temperature:
-  icon: mdi:thermometer
   friendly_name: Upstairs Hall Dimmer Temp
 sensor.shellydimmer_d0e973_device_temperature:
-  icon: mdi:thermometer
   friendly_name: Office Dimmer Temp
 sensor.shelly1l_f4cfa2e397de_device_temperature:
-  icon: mdi:thermometer
   friendly_name: Path Switch Temp
 sensor.shellybutton1_3c6105e53723_battery:
   friendly_name: Office Shade Button Battery
 sensor.temp_compare_bme280_press:
   friendly_name: Bedroom 2 Pressure
-  icon: mdi:gauge
 sensor.temp_compare_sht3xd_humid:
   friendly_name: Bedroom 2 Humidity
-  icon: mdi:water-percent
 sensor.outdoor_temperature_c:
   friendly_name: Outdoor Temperature Celsius
-  icon: mdi:thermometer
 sensor.temp_compare_bme280_temperature:
   friendly_name: Tech Cabinet BME280 Temperature
 sensor.temp_compare_sht30d_temperature:
   friendly_name: Tech Cabinet SHT30D Temperature
 sensor.avg_tech_cabinet_temp:
   friendly_name: Tech Cabinet Temperature
+  icon: mdi:thermometer
 sensor.temp_compare_bme280_humidity:
   friendly_name: Tech Cabinet BME280 Humidity
 sensor.temp_compare_sht30d_humidity:
   friendly_name: Tech Cabinet SHT30D Humidity
-  icon: mdi:water-percent
 sensor.temp_compare_bme280_pressure:
   friendly_name: Tech Cabinet Pressure
 sensor.washer_state:
@@ -154,10 +141,6 @@ sensor.avg_indoor_temperature:
   icon: mdi:thermometer
 sensor.avg_indoor_humidity:
   friendly_name: Avg Indoor Humidity
-  icon: mdi:water-percent
-sensor.laundry_humidity:
-  icon: mdi:water-percent
-sensor.upstairs_bath_humidity :
   icon: mdi:water-percent
 
 sensor.tv_reset_current_power_w:
@@ -177,6 +160,7 @@ sensor.living_room_tv_state:
 
 sensor.avg_garage_temp:
   friendly_name: Garage Temperature (Avg)
+  icon: mdi:thermometer
 sensor.avg_garage_humidity:
   friendly_name: Garage Humidity (Avg)
   icon: mdi:water-percent
@@ -184,21 +168,16 @@ sensor.garage_temp:
   friendly_name: Garage Temperature (Ceiling)
 sensor.garage_humidity:
   friendly_name: Garage Humidity (Ceiling)
-  icon: mdi:water-percent
 sensor.garage_sensor_temperature:
   friendly_name: Garage Temperature (House Wall)
 sensor.garage_sensor_humidity:
   friendly_name: Garage Humidity (House Wall)
-  icon: mdi:water-percent
 sensor.garage_temp_3_humidity:
   friendly_name: Garage Humidity (Outer Wall)
-  icon: mdi:water-percent
 sensor.garage_temp_3_temperature:
   friendly_name: Garage Temperature (Outer Wall)
-  icon: mdi:thermometer
 sensor.garage_temp_3_pressure:
   friendly_name: Garage Pressure (Outer Wall)
-  icon: mdi:gauge
 sensor.garage_left_bay:
   icon: mdi:car-pickup
 binary_sensor.garage_left_bay:
@@ -232,10 +211,6 @@ sensor.hp_laserjet_pro_m148f_m149f_imaging_drum_hp_cf232a:
   friendly_name: HP M148 Drum
 sensor.sun_elevation:
   icon: mdi:weather-sunny
-sensor.dining_room_light_temp:
-  icon: mdi:thermometer
-sensor.dining_room_light_update:
-  icon: mdi:restart
 sensor.rusty_status:
   icon: mdi:pulse
 sensor.rusty_position:
@@ -243,9 +218,9 @@ sensor.rusty_position:
 
 # Hass Server sensors
 sensor.hass_server_cputemp:
-  # unit_of_measurement: "°C"
-  icon: mdi:thermometer
   friendly_name: CPU Temp
+sensor.hass_server_cputemp_c:
+  friendly_name: CPU Temp C
 sensor.hass_server_cpuused:
   icon: mdi:cpu-64-bit
   friendly_name: CPU Used
@@ -270,21 +245,6 @@ sensor.hass_server_networkout:
 sensor.hass_server:
   icon: mdi:server
 
-# AccuWeather Sensors
-sensor.accuweather_temperature:
-  friendly_name: AccuWeather Temperature
-  icon: mdi:thermometer
-sensor.accuweather_humidity:
-  friendly_name: AccuWeather Humidity
-  icon: mdi:water-percent
-sensor.accuweather_pressure:
-  friendly_name: AccuWeather Pressure
-  icon: mdi:gauge
-sensor.accuweather_visibility:
-  friendly_name: AccuWeather Visibility
-  icon: mdi:eye-outline
-sensor.accuweather_dew_point:
-  icon: mdi:water-outline
 
 ## Binary Sensors
 
@@ -294,28 +254,21 @@ binary_sensor.garage_access_door:
 binary_sensor.garage_house_door:
   friendly_name: Garage House Door
   device_class: door
-binary_sensor.garage_door_binary:
+binary_sensor.garage_door:
   friendly_name: Garage Door
-  device_class: door
   icon: mdi:garage
 binary_sensor.closet_motion:
   friendly_name: Master Closet Motion
-  device_class: motion
 binary_sensor.laundry_motion:
   friendly_name: Laundry Motion
-  device_class: motion
+binary_sensor.dryer_state:
+  icon: mdi:washing-machine
 binary_sensor.garage_motion_1:
   friendly_name: Garage Motion 1
-  device_class: motion
 binary_sensor.garage_motion_2:
   friendly_name: Garage Motion 2
-  device_class: motion
 binary_sensor.garage_motion_3:
   friendly_name: Garage Motion 3
-  device_class: motion
-binary_sensor.dining_room_light_switch:
-  friendly_name: Dining Room Light Switch
-  icon: mdi:light-switch
 binary_sensor.high_water:
   friendly_name: Sink Level
   icon: mdi:water
