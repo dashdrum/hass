@@ -1,0 +1,8 @@
+
+
+- name: signal-dan
+  platform: signal_messenger
+  url: !secret signal_url
+  number: !secret signal_sender # the sender number
+  recipients: # one or more recipients
+    - !secret signal_dan
