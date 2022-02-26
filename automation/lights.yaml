@@ -259,7 +259,7 @@
 - alias: Turn on closet light when there is movement
   trigger:
     platform: state
-    entity_id: binary_sensor.closet_motion
+    entity_id: binary_sensor.master_closet_motion_occupancy
     to: 'on'
   action:
     service: homeassistant.turn_on
@@ -268,7 +268,7 @@
 - alias: 'Turn off closet light 2 minutes after last movement'
   trigger:
     platform: state
-    entity_id: binary_sensor.closet_motion
+    entity_id: binary_sensor.master_closet_motion_occupancy
     to: 'off'
     for:
       minutes: 2

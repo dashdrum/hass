@@ -2,15 +2,15 @@
 
 homeassistant:
   customize:
-    binary_sensor.0x8cf681fffe2000f0_battery_low:
+    binary_sensor.dog_door_motion_battery_low:
       friendly_name: Dog Door Low Battery Indicator
-    binary_sensor.0x8cf681fffe2000f0_occupancy:
+    binary_sensor.dog_door_motion_occupancy:
       friendly_name: Dog Door Motion
-    binary_sensor.0x8cf681fffe2000f0_tamper:
+    binary_sensor.dog_door_motion_tamper:
       friendly_name: Dog Door Tamper Indicator
-    sensor.0x8cf681fffe2000f0_linkquality:
+    sensor.dog_door_motion_linkquality:
       friendly_name: Dog Door Link Quality
-    sensor.0x8cf681fffe2000f0_battery:
+    sensor.dog_door_motion_battery:
       friendly_name: Dog Door Battery
 
 
@@ -20,7 +20,7 @@ automation:
     alias: 'Dog Door Motion'
     trigger:
       - platform: state
-        entity_id: binary_sensor.0x8cf681fffe2000f0_occupancy
+        entity_id: binary_sensor.dog_door_motion_occupancy
         to: 'on'
     condition:
       - condition: state

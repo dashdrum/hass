@@ -2,15 +2,15 @@
 
 homeassistant:
   customize:
-    binary_sensor.0x00158d0007e117ea_contact:
+    binary_sensor.coat_closet_door_contact:
       friendly_name: Coat Closet Door
-    sensor.0x00158d0007e117ea_battery:
+    sensor.coat_closet_door_battery:
       friendly_name: Coat Closet Battery
-    sensor.0x00158d0007e117ea_temperature:
+    sensor.coat_closet_door_temperature:
       friendly_name: Coat Closet Temperature
-    sensor.0x00158d0007e117ea_linkquality:
+    sensor.coat_closet_door_linkquality:
       friendly_name: Coat Closet Link Quality
-    sensor.0x00158d0007e117ea_voltage:
+    sensor.coat_closet_door_voltage:
       friendly_name: Coat Closet Voltage
 
 input_boolean:
@@ -26,11 +26,11 @@ automation:
     trigger:
       - platform: state
         id: door_open
-        entity_id: binary_sensor.0x00158d0007e117ea_contact
+        entity_id: binary_sensor.coat_closet_door_contact
         to: 'on'
       - platform: state
         id: door_close
-        entity_id: binary_sensor.0x00158d0007e117ea_contact
+        entity_id: binary_sensor.coat_closet_door_contact
         to: 'off'
     action:
       - choose:

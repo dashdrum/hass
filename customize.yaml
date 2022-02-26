@@ -143,21 +143,6 @@ sensor.avg_indoor_humidity:
   friendly_name: Avg Indoor Humidity
   icon: mdi:water-percent
 
-sensor.tv_reset_current_power_w:
-  icon: mdi:flash
-sensor.tv_reset_today_energy_kwh:
-  icon: mdi:lightning-bolt
-sensor.tv_reset_voltage:
-  icon: mdi:sine-wave
-sensor.tv_reset_weekly_energy_total:
-  icon: mdi:lightning-bolt
-sensor.tv_reset_monthly_energy_total:
-  icon: mdi:lightning-bolt
-sensor.tv_reset_yearly_energy_total:
-  icon: mdi:lightning-bolt
-sensor.living_room_tv_state:
-  icon: mdi:television
-
 sensor.avg_garage_temp:
   friendly_name: Garage Temperature (Avg)
   icon: mdi:thermometer

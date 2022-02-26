@@ -1,9 +1,4 @@
 
-- platform: mqtt
-  state_topic: "closet_motion/state"
-  name: closet_motion
-  availability_topic: closet_motion/availability
-
 - platform: workday
   country: US
   province: MI
@@ -13,7 +8,7 @@
 - platform: template
   sensors:
     dryer_state:
-      friendly_name: "Dryer"
+      friendly_name: "Dryer State"
       value_template: >-
         {% if is_state('sensor.dryer_sensor', 'Running')   %}
           on
