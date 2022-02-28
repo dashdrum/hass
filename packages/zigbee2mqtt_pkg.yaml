@@ -87,10 +87,24 @@ sensor:
     icon: mdi:zigbee
   # Sensor for Showing the Coordinator Version
   - platform: mqtt
-    name: Coordinator Version
+    name: Zigbee2MQTT Coordinator Version
     state_topic: "zigbee2mqtt/bridge/info"
     value_template: "{{ value_json.coordinator }}"
     icon: mdi:chip
+
+binary_sensor:
+  # Sensor for Showing the restart state
+  - platform: mqtt
+    name: Zigbee2MQTT Restart Required
+    state_topic: "zigbee2mqtt/bridge/info"
+    value_template:  "{{ value_json.restart_required }}"
+    # value_template: >-
+    #     {% if value_json.restart_required == "false"   %}
+    #       off
+    #     {% else %}
+    #       on
+    #     {% endif %}
+    icon: mdi:restart-alert
 
 # Switch for enabling joining
 switch:
@@ -159,3 +173,19 @@ automation:
                     Vendor: {{trigger.payload_json.data.definition.vendor}},
                     Model: {{trigger.payload_json.data.definition.model}},
                     Description: {{trigger.payload_json.data.definition.description}}"
+
+  - id: "zigbee2mqtt_restart"
+    alias: Zigbee2MQTT Restart
+    trigger:
+      - platform: state
+        entity_id: input_button.zigbee2mqtt_restart
+    action:
+      - service: mqtt.publish
+        data:
+          topic: zigbee2mqtt/bridge/request/restart
+
+input_button:
+  zigbee2mqtt_restart:
+    name: Zigbee2MQTT Restart
+    icon: mdi:restart
+

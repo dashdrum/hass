@@ -105,6 +105,7 @@ automation:
               [
                 "Time to get the trash out",
                 "You're going to miss the truck"
+                "Hora de sacar la basura"
               ] | random
             }}
 

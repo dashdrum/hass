@@ -53,6 +53,7 @@ binary_sensor: !include binary_sensors.yaml
 zone: !include zones.yaml
 cloud: !include cloud.yaml
 notify: !include notify.yaml
+tts: !include tts.yam
 
 mqtt:
   broker: !secret mqtt_broker

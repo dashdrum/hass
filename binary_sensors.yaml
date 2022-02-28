@@ -9,8 +9,21 @@
   sensors:
     dryer_state:
       friendly_name: "Dryer State"
+      device_class: running
       value_template: >-
         {% if is_state('sensor.dryer_sensor', 'Running')   %}
+          on
+        {% else %}
+          off
+        {% endif %}
+
+- platform: template
+  sensors:
+    washer_state:
+      friendly_name: "Washer State"
+      device_class: running
+      value_template: >-
+        {% if is_state('sensor.washer_state', 'Washing')   %}
           on
         {% else %}
           off

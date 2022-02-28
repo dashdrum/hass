@@ -90,6 +90,7 @@ binary_sensor:
     sensors:
       mb_ac_power:
         friendly_name: "MB AC Power"
+        device_class: power
         value_template: >-
           {% if is_state('climate.master_bedroom_ac', 'off')   %}
             off
@@ -101,6 +102,7 @@ binary_sensor:
     sensors:
       lr_ac_power:
         friendly_name: "LR AC Power"
+        device_class: power
         value_template: >-
           {% if is_state('climate.living_room_ac', 'off')   %}
             off
