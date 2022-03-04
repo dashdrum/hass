@@ -1,5 +1,9 @@
 # zigbee2mqtt_pkg.yaml
 # From documentation
+homeassistant:
+  customize:
+    binary_sensor.zigbee2mqtt_restart_required:
+      icon: mdi:restart-alert
 
 # Input select for Zigbee2MQTT debug level
 input_select:
@@ -91,20 +95,26 @@ sensor:
     state_topic: "zigbee2mqtt/bridge/info"
     value_template: "{{ value_json.coordinator }}"
     icon: mdi:chip
-
-binary_sensor:
   # Sensor for Showing the restart state
   - platform: mqtt
     name: Zigbee2MQTT Restart Required
     state_topic: "zigbee2mqtt/bridge/info"
     value_template:  "{{ value_json.restart_required }}"
-    # value_template: >-
-    #     {% if value_json.restart_required == "false"   %}
-    #       off
-    #     {% else %}
-    #       on
-    #     {% endif %}
     icon: mdi:restart-alert
+
+binary_sensor:
+
+  - platform: template
+    sensors:
+      # Sensor for Showing the restart state
+      zigbee2mqtt_restart_required:
+        friendly_name: "Zigbee2MQTT Restart Required"
+        value_template: >-
+          {% if is_state('sensor.zigbee2mqtt_restart_required', 'False')   %}
+            off
+          {% else %}
+            on
+          {% endif %}
 
 # Switch for enabling joining
 switch:
