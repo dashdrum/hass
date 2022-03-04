@@ -1,8 +1,174 @@
 
 
-- name: signal-dan
+- name: signal_dan
   platform: signal_messenger
   url: !secret signal_url
   number: !secret signal_sender # the sender number
   recipients: # one or more recipients
     - !secret signal_dan
+
+- name: signal_kelly
+  platform: signal_messenger
+  url: !secret signal_url
+  number: !secret signal_sender # the sender number
+  recipients: # one or more recipients
+    - !secret signal_kelly
+
+- platform: group
+  name: signal_both
+  services:
+    - service: signal_dan
+    - service: signal_kelly
+
+- platform: tts
+  name: kitchen
+  tts_service: tts.google_translate_say
+  media_player: media_player.kitchen_speaker
+
+- platform: tts
+  name: dan
+  tts_service: tts.google_translate_say
+  media_player: media_player.dan_speaker
+
+- platform: tts
+  name: kelly
+  tts_service: tts.google_translate_say
+  media_player: media_player.kelly_home
+
+- platform: tts
+  name: guest
+  tts_service: tts.google_translate_say
+  media_player: media_player.nextmini4000
+
+- platform: tts
+  name: family
+  tts_service: tts.google_translate_say
+  media_player: media_player.guestmini5470
+
+- platform: tts
+  name: office
+  tts_service: tts.google_translate_say
+  media_player: media_player.office_home
+
+- platform: tts
+  name: master
+  tts_service: tts.google_translate_say
+  media_player: media_player.smart_clock
+
+- platform: tts
+  name: spare
+  tts_service: tts.google_translate_say
+  media_player: media_player.spare_room_speaker
+
+- platform: tts
+  name: main
+  tts_service: tts.google_translate_say
+  media_player: media_player.main_floor
+
+- platform: group
+  name: all_speakers
+  services:
+    - service: kitchen
+    - service: dan
+    - service: kelly
+    - service: guest
+    - service: family
+    - service: office
+    - service: master
+    - service: spare
+
+- platform: group
+  name: no_bedrooms
+  services:
+    - service: kitchen
+    - service: dan
+    - service: kelly
+    - service: family
+    - service: office
+
+- platform: group
+  name: bedrooms
+  services:
+    - service: master
+    - service: spare
+    - service: guest
+
+- platform: tts
+  name: kitchen_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.kitchen_speaker
+
+- platform: tts
+  name: dan_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.dan_speaker
+
+- platform: tts
+  name: kelly_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.kelly_home
+
+- platform: tts
+  name: guest_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.nextmini4000
+
+- platform: tts
+  name: family_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.guestmini5470
+
+- platform: tts
+  name: office_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.office_home
+
+- platform: tts
+  name: master_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.smart_clock
+
+- platform: tts
+  name: spare_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.spare_room_speaker
+
+- platform: tts
+  name: main_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.main_floor
+
+- platform: group
+  name: all_speakers_cloud
+  services:
+    - service: kitchen_cloud
+    - service: dan_cloud
+    - service: kelly_cloud
+    - service: guest_cloud
+    - service: family_cloud
+    - service: office_cloud
+    - service: master_cloud
+    - service: spare_cloud
+
+- platform: group
+  name: no_bedrooms_cloud
+  services:
+    - service: kitchen_cloud
+    - service: dan_cloud
+    - service: kelly_cloud
+    - service: family_cloud
+    - service: office_cloud
+
+- platform: group
+  name: bedrooms_cloud
+  services:
+    - service: master_cloud
+    - service: spare_cloud
+    - service: guest_cloud
+
+- platform: group
+  name: mobile_devices
+  services:
+    - service: mobile_app_daniels_ipad
+    - service: mobile_app_iphone
+    - service: mobile_app_sm_g975u

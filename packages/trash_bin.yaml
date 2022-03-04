@@ -3,6 +3,9 @@ homeassistant:
     binary_sensor.garage_bin:
       icon: mdi:trash-can
       device_class: occupancy
+    binary_sensor.trash_bin_time:
+      icon: mdi:truck-cargo-container
+      friendly_name: Trash Bin Time
 
 input_boolean:
   bin_has_gone_out:
@@ -64,11 +67,7 @@ automation:
           entity_id: input_boolean.bin_has_gone_out
           state: 'off'
     action:
-      - service: notify.mobile_app_sm_g975u
-        data_template:
-          message: 'Time to take out the trash'
-          title: 'Trash Day'
-      - service: notify.mobile_app_iphone
+      - service: notify.mobile_devices
         data_template:
           message: 'Time to take out the trash'
           title: 'Trash Day'
@@ -93,12 +92,7 @@ automation:
         entity_id: input_boolean.tts_automations
         state: "on"
     action:
-      - service: tts.google_translate_say
-        entity_id:
-          - media_player.dan_speaker
-          - media_player.kitchen_speaker
-          - media_player.office_home
-          - media_player.kelly_home
+      - service: notify.no_bedrooms
         data:
           message: >
             {{
@@ -126,11 +120,7 @@ automation:
         entity_id: input_boolean.bin_has_gone_out
         state: 'on'
     action:
-      - service: notify.mobile_app_sm_g975u
-        data_template:
-          message: 'Time to bring in the trash bin'
-          title: 'Trash Day'
-      - service: notify.mobile_app_iphone
+      - service: notify.mobile_devices
         data_template:
           message: 'Time to bring in the trash bin'
           title: 'Trash Day'
@@ -155,12 +145,7 @@ automation:
         entity_id: input_boolean.tts_automations
         state: "on"
     action:
-      - service: tts.cloud_say
-        entity_id:
-          - media_player.dan_speaker
-          - media_player.kitchen_speaker
-          - media_player.office_home
-          - media_player.kelly_home
+      - service: notify.no_bedrooms
         data:
           message: >
             {{
@@ -189,6 +174,24 @@ automation:
         entity_id: input_boolean.bin_has_gone_out
 
 
+template:
+  - binary_sensor:
+      - name: trash_bin_time
+        # The bin hasn't yet gone out, is still located in the garage, it's Tuesday between noon and 3pm
+        state: "{{ states('input_boolean.bin_has_gone_out') == 'off'
+                    and states('binary_sensor.garage_bin') == 'on'
+                    and  now().weekday() == 1
+                    and now().hour >= 12 and now().hour <= 14 }}"
 
-
-
+alert:
+  trash_bin_time:
+    name: Trash Bin Time
+    message: Time to get the trash out
+    done_message: The trash bin is out
+    entity_id: binary_sensor.trash_bin_time
+    repeat:
+      - 30
+      - 15
+    skip_first: true
+    notifiers:
+      - all_speakers

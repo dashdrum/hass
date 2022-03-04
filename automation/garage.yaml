@@ -206,20 +206,13 @@
     entity_id: input_boolean.tts_automations
     state: "on"
   action:
-    - service: tts.cloud_say
-      entity_id:
-        - media_player.dan_speaker
-        - media_player.spare_room_speaker
-        - media_player.guest_room_speaker
-        - media_player.kitchen_speaker
-        - media_player.office_home
-        - media_player.kelly_home
-        - media_player.smart_clock
+    - service: notify.main_cloud
       data:
         message: 'The garage door has closed'
-        language: en-IE
-        options:
-          gender: female
+        data:
+          language: en-IE
+          options:
+            gender: female
 
 
 - alias: 'Garage Door Lights Timer'

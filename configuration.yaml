@@ -39,8 +39,8 @@ recorder:
 #   base_url: example.duckdns.org:8123
 
 # Text to speech
-tts:
-  - platform: google_translate
+# tts:
+#   - platform: google_translate
 
 
 light: !include lights.yaml
@@ -53,7 +53,7 @@ binary_sensor: !include binary_sensors.yaml
 zone: !include zones.yaml
 cloud: !include cloud.yaml
 notify: !include notify.yaml
-tts: !include tts.yam
+tts: !include tts.yaml
 
 mqtt:
   broker: !secret mqtt_broker
