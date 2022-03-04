@@ -112,7 +112,7 @@
       - condition: or
         conditions:
           - condition: template
-            value_template: '{{states.light.front_porch_light.attributes.brightness < ((0.0625*((states.sun.sun.attributes.elevation+8)**2))-(31.125*(states.sun.sun.attributes.elevation+8))+255)|int}}'
+            value_template: '{{states.light.front_porch_light.attributes.brightness < ((0.0625*((states.sun.sun.attributes.elevation+8)**2))-(31.125*(states.sun.sun.attributes.elevation+8))+255)|int(1)}}'
           - condition: template
             value_template: '{{ states.light.front_porch_light.attributes.brightness==null }} '
   action:
@@ -120,7 +120,7 @@
       entity_id: light.front_porch_light
       data_template:
         profile: sunset
-        brightness: '{{((0.0625*((states.sun.sun.attributes.elevation+8)**2))-(31.125*(states.sun.sun.attributes.elevation+8))+255)|int}}'
+        brightness: '{{((0.0625*((states.sun.sun.attributes.elevation+8)**2))-(31.125*(states.sun.sun.attributes.elevation+8))+255)|int(1)}}'
 
 - id: lights_porch_off_midnight
   alias: Turn off front porch light at midnight
@@ -256,26 +256,6 @@
     service: homeassistant.turn_off
     entity_id: switch.laundry_light
 
-- alias: Turn on closet light when there is movement
-  trigger:
-    platform: state
-    entity_id: binary_sensor.master_closet_motion_occupancy
-    to: 'on'
-  action:
-    service: homeassistant.turn_on
-    entity_id: light.master_closet_light
-
-- alias: 'Turn off closet light 2 minutes after last movement'
-  trigger:
-    platform: state
-    entity_id: binary_sensor.master_closet_motion_occupancy
-    to: 'off'
-    for:
-      minutes: 2
-  action:
-    service: light.turn_off
-    entity_id: light.master_closet_light
-
 - id: garage_motion_1
   alias: Turn on garage light when there is movement
   trigger:
@@ -316,25 +296,6 @@
 #   action:
 #     service: switch.turn_off
 #     entity_id: switch.garage_light
-
-- alias: 'Closet Lights Timer'
-  trigger:
-    - platform: state
-      entity_id: light.master_closet_light
-      from: 'off'
-      to: 'on'
-      for:
-        hours: 0
-        minutes: 15
-        seconds: 0
-  condition:
-    condition: state
-    entity_id: input_boolean.lights_off_automations
-    state: "on"
-  action:
-    - service: light.turn_off
-      data:
-        entity_id: light.master_closet_light
 
 - alias: tv_backight_on
   trigger:

@@ -1,0 +1,78 @@
+
+
+automation:
+  - id: master_lights_morning
+    alias: Master Lights Morning
+    trigger:
+      - platform: time_pattern
+        hours: 6
+        minutes: '/1'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: '06:29:59'
+          before: '06:59:59'
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "on"
+    action:
+      - service: light.turn_on
+        entity_id: light.dressers
+        data_template:
+          brightness: '{{ ((now().minute ) * 255/29 ) | int(255) }}'
+
+  - id: master_lights_morning_cleanup
+    alias: Master Lights Morning Cleanup
+    trigger:
+      - platform: time_pattern
+        hours: 08
+        minutes: 00
+        seconds: 00
+    condition:
+      condition: state
+      entity_id: input_boolean.lights_off_automations
+      state: "on"
+    action:
+      - service: homeassistant.turn_off
+        data:
+          entity_id: light.dressers
+
+  - alias: Turn on closet light when there is movement
+    trigger:
+      platform: state
+      entity_id: binary_sensor.master_closet_motion_occupancy
+      to: 'on'
+    action:
+      service: homeassistant.turn_on
+      entity_id: light.master_closet_light
+
+  - alias: 'Turn off closet light 2 minutes after last movement'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.master_closet_motion_occupancy
+      to: 'off'
+      for:
+        minutes: 2
+    action:
+      service: light.turn_off
+      entity_id: light.master_closet_light
+
+  - alias: 'Closet Lights Timer'
+    trigger:
+      - platform: state
+        entity_id: light.master_closet_light
+        from: 'off'
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 15
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.lights_off_automations
+      state: "on"
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.master_closet_light

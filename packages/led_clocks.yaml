@@ -24,7 +24,7 @@ automation:
         entity_id: light.wall_clock
         data:
           transition: 3
-          brightness: "{{ trigger.to_state.state | int }}"
+          brightness: "{{ trigger.to_state.state | int(255) }}"
 
   # Change to clock trggers change to input_number
   # - alias: 'wall clock brightness change'
@@ -54,7 +54,7 @@ automation:
         entity_id: light.wall_clock
         data:
           transition: 3
-          brightness: "{{ states('input_number.wall_clock_brightness') | float }}"
+          brightness: "{{ states('input_number.wall_clock_brightness') | float(255) }}"
 
     # Clock brightness
 
@@ -70,14 +70,14 @@ automation:
         entity_id: input_number.wall_clock_brightness
         data:
           value: >
-            {% if state_attr('sun.sun', 'elevation') | int < -9 or state_attr('sun.sun', 'elevation') | int > 6 %}
-              {{ state_attr('light.wall_clock', 'brightness') | int }}
-            {% elif state_attr('sun.sun', 'elevation') | int < -8 %}
+            {% if state_attr('sun.sun', 'elevation') | int < -9 or state_attr('sun.sun', 'elevation') | int(1) > 6 %}
+              {{ state_attr('light.wall_clock', 'brightness') | int(1) }}
+            {% elif state_attr('sun.sun', 'elevation') | int(1) < -8 %}
               114
-            {% elif state_attr('sun.sun', 'elevation') | int > 5 %}
+            {% elif state_attr('sun.sun', 'elevation') | int(1) > 5 %}
               255
             {% else %}
-              {{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int  }}
+              {{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int(1)  }}
             {% endif %}
           # Based on the sun's elevation, the brightness is set between 45% and 100%. Otherwise, it is left as-is.
 
