@@ -7,12 +7,13 @@ google_actions:
       - input_boolean.washer_status
       # - group.family_room_lights
       - group.basement_lights
-      - light.0x00124b00199f0fcb
+      - light.0x94deb8fffe1d7768
       - light.led_mirror
       - light.tv_backlight
       - light.wall_clock
       - light.xmas_window
       - light.family_room_lights
+      - light.candle_mold_light
       - script.office_zoom
       - script.office_hacker
       - scene.watch_tv
@@ -80,9 +81,17 @@ google_actions:
     group.basement_lights:
       name: Basement Lights
 
-    light.0x00124b00199f0fcb:
+    light.0x94deb8fffe1d7768:
       name: under desk lights
       room: Office
+
+    light.candle_mold_light:
+      name: Candle Mold Light
+      aliases:
+        - Candle Mold
+        - Candle Light
+        - Tin Lamp
+      room: Living Room
 
     script.office_ac_toggle:
       name: Office AC

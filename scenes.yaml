@@ -31,6 +31,8 @@
       brightness: 128
     light.dining_room_light:
       state: off
+    light.candle_mold_light:
+      state: off
 
 - name: living_room_normal
   entities:
@@ -46,6 +48,8 @@
     light.dining_room_light:
       state: on
       brightness: 128
+    light.candle_mold_light:
+      state: on
 
 - name: living_room_bright
   entities:
@@ -61,6 +65,8 @@
     light.dining_room_light:
       state: on
       brightness: 255
+    light.candle_mold_light:
+      state: on
 
 - name: living_room_dim
   entities:
@@ -75,6 +81,8 @@
     light.dining_room_light:
       state: on
       brightness: 94
+    light.candle_mold_light:
+      state: off
 
 - name: living_room_off
   entities:
@@ -85,6 +93,8 @@
     light.stairway_light:
       state: off
     light.dining_room_light:
+      state: off
+    light.candle_mold_light:
       state: off
 
 # Kitchen
@@ -288,7 +298,7 @@
     light.wall_clock:
       state: on
       effect: "Clock Comet"
-    light.0x00124b00199f0fcb:  # Under Desk Lights
+    light.0x94deb8fffe1d7768:  # Under Desk Lights
       state: off
 
 - name: office_bright
@@ -308,8 +318,11 @@
     light.wall_clock:
       state: on
       effect: "Clock Backfill"
-    light.0x00124b00199f0fcb:  # Under Desk Lights
-      state: off
+    light.0x94deb8fffe1d7768:  # Under Desk Lights
+      state: on
+      # rgb_color: [255,255,255]
+      xy_color: [0.30929, 0.33007]
+      brightness: 255
 
 - name: office_zoom
   entities:
@@ -323,7 +336,7 @@
     light.office_desk_lamp:
       state: on
       brightness: 162
-    light.0x00124b00199f0fcb:  # Under Desk Lights
+    light.0x94deb8fffe1d7768:  # Under Desk Lights
       state: off
 
 - name: office_dim
@@ -343,11 +356,11 @@
     light.wall_clock:
       state: on
       effect: "Clock"
-    light.0x00124b00199f0fcb:  # Under Desk Lights
+    light.0x94deb8fffe1d7768:  # Under Desk Lights
       state: on
       # rgb_color: [255,255,255]
       xy_color: [0.30929, 0.33007]
-      brightness: 255
+      brightness: 127
 
 - name: office_hacker
   entities:
@@ -364,7 +377,7 @@
       state: on
       rgb_color: [0,0,255]
       effect: "Clock Inverse"
-    light.0x00124b00199f0fcb:  # Under Desk Lights
+    light.0x94deb8fffe1d7768:  # Under Desk Lights
       state: on
       # rgb_color: [0,0,255]
       xy_color: [0.13550, 0.030987]
@@ -384,6 +397,6 @@
     light.wall_clock:
       state: on
       effect: "Clock Basic"
-    light.0x00124b00199f0fcb:  # Under Desk Lights
+    light.0x94deb8fffe1d7768:  # Under Desk Lights
       state: off
 
