@@ -168,64 +168,6 @@ undercabinet_button:
           data:
             entity_id: script.undercabinet_cool
 
-lr_tv_mute:
-  sequence:
-    - service: rest_command.lr_tv_mute
-lr_tv_on:
-  sequence:
-    - service: rest_command.lr_tv_on
-lr_tv_off:
-  sequence:
-    - service: rest_command.lr_tv_offf
-lr_tv_channelup:
-  sequence:
-    - service: rest_command.lr_tv_channelup
-lr_tv_channeldown:
-  sequence:
-    - service: rest_command.lr_tv_channeldown
-lr_tv_last:
-  sequence:
-    - service: rest_command.lr_tv_last
-lr_tv_home:
-  sequence:
-    - service: rest_command.lr_tv_home
-lr_tv_netflix:
-  sequence:
-    - service: rest_command.lr_tv_netflix
-lr_tv_info:
-  sequence:
-    - service: rest_command.lr_tv_info
-lr_tv_cablebox:
-  sequence:
-    - service: rest_command.lr_tv_cablebox
-lr_tv_louder:
-  sequence:
-    - service: rest_command.lr_tv_louder
-lr_tv_muchlouder:
-  sequence:
-    - service: rest_command.lr_tv_muchlouder
-lr_tv_softer:
-  sequence:
-    - service: rest_command.lr_tv_softer
-lr_tv_muchsofter:
-  sequence:
-    - service: rest_command.lr_tv_muchsofter
-lr_tv_nbc:
-  sequence:
-    - service: rest_command.lr_tv_nbc
-lr_tv_cbs:
-  sequence:
-    - service: rest_command.lr_tv_cbs
-lr_tv_science:
-  sequence:
-    - service: rest_command.lr_tv_science
-lr_tv_cnn:
-  sequence:
-    - service: rest_command.lr_tv_cnn
-lr_tv_tcm:
-  sequence:
-    - service: rest_command.lr_tv_tcm
-
 office_zoom:
   alias: Office Zoom
   sequence:

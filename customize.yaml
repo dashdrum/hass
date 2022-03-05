@@ -67,7 +67,10 @@ switch.shellyswitch25_3c6105e3e6e1_channel_1:
 switch.shellyswitch25_3c6105e3e6e1_channel_2:
   friendly_name: Basement Fan
   icon: mdi:fan
-
+switch.candle_mold_light_switch:
+  device_class: outlet
+switch.master_smart_plug:
+  device_class: outlet
 
 
 
@@ -257,8 +260,6 @@ binary_sensor.garage_motion_3:
 binary_sensor.high_water:
   friendly_name: Sink Level
   icon: mdi:water
-binary_sensor.living_room_tv_state:
-  icon: mdi:television
 
 ## Scenes
 
@@ -357,6 +358,11 @@ script.water_warning:
   icon: mdi:water-off
 script.say_somthing:
   icon: mdi:account-voice
+
+## Media Players
+
+media_player.office_home:
+  device_class: speaker
 
 ## Pi-Hole
 sensor.pi_hole_ads_blocked_today:
