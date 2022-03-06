@@ -1,0 +1,108 @@
+homeassistant:
+  customize:
+    sensor.espresence_apple:1006:10-8:
+      friendly_name: Kelly's iPhone - ESPresense
+      icon: mdi:cellphone
+    sensor.espresence_apple:1005:9-24:
+      friendly_name: Kelly's Apple Watch - ESPresense
+      icon: mdi:cellphone
+    sensor.espresence_apple:1005:9-12:
+      friendly_name: Dan's iPad - ESPresense
+      icon: mdi:tablet
+    sensor.espresence_apple:1005:9:
+      friendly_name: MacbookProd - ESPresense
+      icon: mdi:laptop
+    sensor.espresence_iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1:
+      friendly_name: Dan's Samsung - ESPresense
+      icon: mdi:cellphone
+
+sensor:
+
+  - platform: mqtt_room
+    device_id: iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1
+    name: espresence_iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1
+    state_topic: espresense/devices/iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1
+
+  - platform: mqtt_room
+    device_id: apple:1006:10-8
+    name: espresence_apple:1006:10-8
+    state_topic: espresense/devices/apple:1006:10-8
+
+  - platform: mqtt_room
+    device_id: apple:1005:9-24
+    name: espresence_apple:1005:9-24
+    state_topic: espresense/devices/apple:1005:9-24
+
+  - platform: mqtt_room
+    device_id: apple:1005:9-12
+    name: espresence_apple:1005:9-12
+    state_topic: espresense/devices/apple:1005:9-12
+
+  - platform: mqtt_room
+    device_id: apple:1005:9
+    name: espresence_apple:1005:9
+    state_topic: espresense/devices/apple:1005:9
+
+  - platform: mqtt_room
+    device_id: msft:cdp:0902
+    name: espresence_msft:cdp:0902
+    state_topic: espresense/devices/msft:cdp:0902
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+  # - platform: mqtt_room
+  #   device_id: samsung:244b03842b5e
+  #   name: espresence_Samsung Device 1
+  #   state_topic: espresence/devices/samsung:244b03842b5e
+
+  # - platform: mqtt_room
+  #   device_id: samsung:7a0b8b92b646
+  #   name: espresence_Samsung Device 2
+  #   state_topic: espresence/devices/samsung:7a0b8b92b646
+
+  # - platform: mqtt_room
+  #   device_id: samsung:4078a81695bc
+  #   name: espresence_Samsung Device 3
+  #   state_topic: espresense/devices/samsung:4078a81695bc
+
+  # - platform: mqtt_room
+  #   device_id: samsung:455825ec03c6
+  #   name: espresence_Samsung Device 4
+  #   state_topic: espresense/devices/samsung:455825ec03c6
+
+  # - platform: mqtt_room
+  #   device_id: samsung:49a8b352de11
+  #   name: espresence_Samsung Device 5
+  #   state_topic: espresense/devices/samsung:49a8b532de11
+
+  # - platform: mqtt_room
+  #   device_id: samsung:4e99fa1474b3
+  #   name: espresence_Samsung Device 6
+  #   state_topic: espresense/devices/samsung:4e99fa1474b3
+
+  # - platform: mqtt_room
+  #   device_id: sd:0xfe9f
+  #   name: espresence_sd:0xfe9f
+  #   state_topic: espresense/devices/sd:0xfe9f
+
+  # - platform: mqtt_room
+  #   device_id: sd:0x252a
+  #   name: espresence_sd:0x252a
+  #   state_topic: espresense/devices/sd:0x252a
+
+  # - platform: mqtt_room
+  #   device_id: f492bf815d1a
+  #   name: espresence_f492bf815d1a
+  #   state_topic: espresense/devices/f492bf815d1a
+
+  # - platform: mqtt_room
+  #   device_id: md:0370:21
+  #   name: espresence_md:0370:21
+  #   state_topic: espresense/devices/md:0370:21
+
+# Excluded devices
+#   sd:0xfe9f
+#.  sd:0x252a
+#.  name:cam8z6_bird_gardepro_e6
+#   name:udm
+#.  f492bf815d1a
