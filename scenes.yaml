@@ -27,12 +27,11 @@
     light.dan_lamp:
       state: off
     light.kelly_lamp:
-      state: on
-      brightness: 128
+      state: off
     light.dining_room_light:
       state: off
     light.candle_mold_light:
-      state: off
+      state: on
 
 - name: living_room_normal
   entities:
@@ -371,8 +370,7 @@
     light.office_window_light:
       state: off
     light.office_desk_lamp:
-      state: on
-      brightness: 3
+      state: off
     light.wall_clock:
       state: on
       rgb_color: [0,0,255]

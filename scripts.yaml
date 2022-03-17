@@ -202,3 +202,60 @@ office_hacker:
     - service: cover.close_cover
       target:
         entity_id: cover.soma_ed_c1_c6_bb_2c_74
+
+office_around_the_horn:
+  sequence:
+    - service: scene.turn_on
+      data:
+        entity_id: scene.office_off
+    # - delay:
+    #     milliseconds: 500
+    - alias: the_loop
+      repeat:
+        count: 7
+        sequence:
+          - service: light.turn_on
+            data:
+              entity_id: light.office_desk_lamp
+              brightness: 255
+              transition: 0
+          - delay:
+              milliseconds: 250
+          - service: light.turn_off
+            data:
+              entity_id: light.office_desk_lamp
+              transition: 0
+          - service: light.turn_on
+            data:
+              entity_id: light.office_window_light
+              brightness: 255
+              transition: 0
+          - delay:
+              milliseconds: 250
+          - service: light.turn_off
+            data:
+              entity_id: light.office_window_light
+              transition: 0
+          - service: light.turn_on
+            data:
+              entity_id: light.office_chair_light
+              brightness: 255
+              transition: 0
+          - delay:
+              milliseconds: 250
+          - service: light.turn_off
+            data:
+              entity_id: light.office_chair_light
+              transition: 0
+    # - service: light.turn_on
+    #   data:
+    #     entity_id: light.shellydimmer2_e8db84d4610a
+    #     brightness: 255
+    #     transition: 0
+    # - delay:
+    #     milliseconds: 250
+    # - service: light.turn_off
+    #   data:
+    #     entity_id: light.shellydimmer2_e8db84d4610a
+    #     transition: 0
+
