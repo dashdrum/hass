@@ -55,15 +55,6 @@ cloud: !include cloud.yaml
 notify: !include notify.yaml
 tts: !include tts.yaml
 
-mqtt:
-  broker: !secret mqtt_broker
-  port: !secret mqtt_port
-  client_id: !secret mqtt_client_id
-  username: !secret mqtt_username
-  password: !secret mqtt_password
-  discovery: true
-  discovery_prefix: homeassistant
-
 input_boolean:
   washer_status:
     name: Washer Status Switch
