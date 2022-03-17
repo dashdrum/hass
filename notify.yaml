@@ -139,6 +139,12 @@
   media_player: media_player.main_floor
 
 - platform: group
+  name: living_room_cloud
+  services:
+    - service: dan_cloud
+    - service: kelly_cloud
+
+- platform: group
   name: all_speakers_cloud
   services:
     - service: kitchen_cloud
