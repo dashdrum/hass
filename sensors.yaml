@@ -121,6 +121,14 @@
       value_template: >-
         {{ (float(states.sensor.outdoor_pressure.state) / (1-0.0065*204/(float(states.sensor.outdoor_temperature.state) + 273.15 )) ** (5.255)) | round(1) }}
 
+- platform: template
+  sensors:
+    ktvc_sea_level_pressure_mbar:
+      unit_of_measurement: 'mBar'
+      device_class: pressure
+      value_template: >-
+        {{ float(states('sensor.ktvc_sea_level_pressure')) * 33.8639 | round(1) }}
+
 
 - platform: template
   sensors:
