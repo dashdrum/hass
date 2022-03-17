@@ -1,24 +1,23 @@
 homeassistant:
   customize:
-    binary_sensor.living_room_tv_state:
-      icon: mdi:television
     sensor.living_room_tv_state:
       icon: mdi:television
+      friendly_name: Living Room TV State
+    binary_sensor.living_room_tv_state:
+      icon: mdi:television
+      friendly_name: Living Room TV State
+    script.lr_tv_all_on_off:
+      friendly_name: Living Room TV All On/Off
+      icon: mdi:power
 
 binary_sensor:
 
-  - platform: template
-    sensors:
-      living_room_tv_state:
-        friendly_name: "TV State"
-        value_template: >-
-          {% set tv_power = states('sensor.tv_reset_current_power') | float %}
-
-          {% if 100 <= tv_power %}
-             on
-          {% else %}
-             off
-          {% endif %}
+  - platform: mqtt
+    name: living_room_tv_state
+    state_topic: lr_ir/living_room_tv/state
+    payload_on: "on"
+    payload_off: "off"
+    device_class: power
 
 sensor:
 
@@ -78,6 +77,20 @@ automation:
         retain: true
 
 script:
+
+  lr_tv_all_on_off:
+    sequence:
+      - alias: "Is the TV On?"
+        choose:
+          - alias: "TV is on"
+            conditions: "{{ states('binary_sensor.living_room_ir_tv_state') == 'on' }}"
+            sequence:
+              - service: button.press
+                entity_id: button.living_room_ir_tv_cable_off
+        default:
+          - service: button.press
+            entity_id: button.living_room_ir_tv_cable_on
+
 
   lr_tv_mute:
     sequence:
