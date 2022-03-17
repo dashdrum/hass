@@ -70,14 +70,14 @@ automation:
         entity_id: input_number.wall_clock_brightness
         data:
           value: >
-            {% if state_attr('sun.sun', 'elevation') | int < -9 or state_attr('sun.sun', 'elevation') | int(1) > 6 %}
-              {{ state_attr('light.wall_clock', 'brightness') | int(1) }}
-            {% elif state_attr('sun.sun', 'elevation') | int(1) < -8 %}
+            {% if state_attr('sun.sun', 'elevation') | int(-10) < -9 or state_attr('sun.sun', 'elevation') | int(7) > 6 %}
+              {{ state_attr('light.wall_clock', 'brightness') | int(115) }}
+            {% elif state_attr('sun.sun', 'elevation') | int(-9) < -8 %}
               114
-            {% elif state_attr('sun.sun', 'elevation') | int(1) > 5 %}
+            {% elif state_attr('sun.sun', 'elevation') | int(6) > 5 %}
               255
             {% else %}
-              {{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int(1)  }}
+              {{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int(115)  }}
             {% endif %}
           # Based on the sun's elevation, the brightness is set between 45% and 100%. Otherwise, it is left as-is.
 

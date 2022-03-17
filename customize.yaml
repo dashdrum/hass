@@ -189,6 +189,8 @@ sensor.openweathermap_cloud_coverage:
   icon: mdi:cloud-outline
 sensor.openweathermap_condition:
   icon: mdi:newspaper-variant
+sensor.ktvc_sea_level_pressure_mbar:
+  friendly_name: KTVC Sea Level Pressure mBar
 
 
 sensor.hp_laserjet_pro_m148f_m149f:

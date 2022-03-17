@@ -1,8 +1,18 @@
+homeassistant:
+  customize:
+    sensor.dressers_brightness:
+      icon: mdi:alarm-light-outline
 
+sensor:
+  - platform: template
+    sensors:
+      dressers_brightness:
+        friendly_name: "Dressers Brightness"
+        value_template: "{{ state_attr('light.dressers', 'brightness') | int(0) }}"
 
 automation:
-  - id: master_lights_morning
-    alias: Master Lights Morning
+  - id: master_lights_sunrise
+    alias: Master Lights Sunrise
     trigger:
       - platform: time_pattern
         hours: 6
@@ -20,7 +30,30 @@ automation:
       - service: light.turn_on
         entity_id: light.dressers
         data_template:
-          brightness: '{{ ((now().minute ) * 255/29 ) | int(255) }}'
+          brightness: '{{ ((now().minute - 30) * 255/58 ) | int(255) }}'
+
+  - id: master_lights_wakup
+    alias: Master Lights Wakeup
+    trigger:
+      - platform: time_pattern
+        hours: 07
+        minutes: 00
+        seconds: 01
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.master_closet_light
+          state: "off"
+        ## Check is bed if occupied
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "on"
+    action:
+      - service: light.turn_on
+        entity_id: light.master_bedroom
+        data_template:
+          brightness: 255
 
   - id: master_lights_morning_cleanup
     alias: Master Lights Morning Cleanup
