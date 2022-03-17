@@ -1,108 +1,257 @@
 homeassistant:
   customize:
-    sensor.espresence_apple:1006:10-8:
-      friendly_name: Kelly's iPhone - ESPresense
-      icon: mdi:cellphone
-    sensor.espresence_apple:1005:9-24:
-      friendly_name: Kelly's Apple Watch - ESPresense
-      icon: mdi:cellphone
-    sensor.espresence_apple:1005:9-12:
-      friendly_name: Dan's iPad - ESPresense
-      icon: mdi:tablet
-    sensor.espresence_apple:1005:9:
-      friendly_name: MacbookProd - ESPresense
-      icon: mdi:laptop
-    sensor.espresence_iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1:
+    sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1:
       friendly_name: Dan's Samsung - ESPresense
       icon: mdi:cellphone
+    sensor.espresence_apple_1006_10_8:
+      friendly_name: Kelly's iPhone - ESPresense
+      icon: mdi:cellphone
+    sensor.espresence_apple_1005_9_24:
+      friendly_name: Kelly's Apple Watch - ESPresense
+      icon: mdi:watch
+    sensor.espresence_apple_1005_9_12:
+      friendly_name: Dan's iPad - ESPresense
+      icon: mdi:tablet
+    # sensor.espresence_apple_1005_9:
+    #   friendly_name: MacbookPro - ESPresense
+    #   icon: mdi:laptop
+
+    binary_sensor.espresense_office:
+      friendly_name: ESP Office
+    button.espresense_office_restart:
+      friendly_name: ESP Office Restart
+    number.espresense_office_max_distance:
+      friendly_name: ESP Office Max Distance
+    number.espresense_office_absorption:
+      friendly_name: ESP Office Absorption
+    sensor.espresense_office_uptime:
+      icon: mdi:clock
+      friendly_name: ESP Office Uptime
+    sensor.espresense_office_free_memory:
+      icon: mdi:memory
+      friendly_name: ESP Office Free Mem
+    switch.espresense_office_status_led:
+      icon: mdi:led-on
+      friendly_name: ESP Office LED
+    switch.espresense_office_active_scan:
+      icon: mdi:magnify-plus
+      friendly_name: ESP Office Active Scan
+    switch.espresense_office_auto_update:
+      icon: mdi:folder-sync
+      friendly_name: ESP Office Auto Update
+    switch.espresense_office_arduino_ota:
+      icon: mdi:folder-upload
+      friendly_name: ESP Office OTA Update
+    switch.espresense_office_prerelease:
+      icon: mdi:folder-upload-outline
+      friendly_name: ESP Office Prerelease
+
+    binary_sensor.espresense_living_room:
+      friendly_name: ESP LR
+    button.espresense_living_room_restart:
+      friendly_name: ESP LR Restart
+    number.espresense_living_room_max_distance:
+      friendly_name: ESP LR Max Distance
+    number.espresense_living_room_absorption:
+      friendly_name: ESP LR Absorption
+    sensor.espresense_living_room_uptime:
+      icon: mdi:clock
+      friendly_name: ESP LR Uptime
+    sensor.espresense_living_room_free_memory:
+      icon: mdi:memory
+      friendly_name: ESP LR Free Mem
+    switch.espresense_living_room_status_led:
+      icon: mdi:led-on
+      friendly_name: ESP LR LED
+    switch.espresense_living_room_active_scan:
+      icon: mdi:magnify-plus
+      friendly_name: ESP LR Active Scan
+    switch.espresense_living_room_auto_update:
+      icon: mdi:folder-sync
+      friendly_name: ESP LR Auto Update
+    switch.espresense_living_room_arduino_ota:
+      icon: mdi:folder-upload
+      friendly_name: ESP LR OTA Update
+    switch.espresense_living_room_prerelease:
+      icon: mdi:folder-upload-outline
+      friendly_name: ESP LR Prerelease
+
+    binary_sensor.espresense_master:
+      friendly_name: ESP Master
+    button.espresense_master_restart:
+      friendly_name: ESP Master Restart
+    number.espresense_master_max_distance:
+      friendly_name: ESP Master Max Distance
+    number.espresense_master_absorption:
+      friendly_name: ESP Master Absorption
+    sensor.espresense_master_uptime:
+      icon: mdi:clock
+      friendly_name: ESP Master Uptime
+    sensor.espresense_master_free_memory:
+      icon: mdi:memory
+      friendly_name: ESP Master Free Mem
+    switch.espresense_master_status_led:
+      icon: mdi:led-on
+      friendly_name: ESP Master LED
+    switch.espresense_master_active_scan:
+      icon: mdi:magnify-plus
+      friendly_name: ESP Master Active Scan
+    switch.espresense_master_auto_update:
+      icon: mdi:folder-sync
+      friendly_name: ESP Master Auto Update
+    switch.espresense_master_arduino_ota:
+      icon: mdi:folder-upload
+      friendly_name: ESP Master OTA Update
+    switch.espresense_master_prerelease:
+      icon: mdi:folder-upload-outline
+      friendly_name: ESP Master Prerelease
+
+    binary_sensor.espresense_spare:
+      friendly_name: ESP Spare
+    button.espresense_spare_restart:
+      friendly_name: ESP Spare Restart
+    number.espresense_spare_max_distance:
+      friendly_name: ESP Spare Max Distance
+    number.espresense_spare_absorption:
+      friendly_name: ESP Spare Absorption
+    sensor.espresense_spare_uptime:
+      icon: mdi:clock
+      friendly_name: ESP Spare Uptime
+    sensor.espresense_spare_free_memory:
+      icon: mdi:memory
+      friendly_name: ESP Spare Free Mem
+    switch.espresense_spare_status_led:
+      icon: mdi:led-on
+      friendly_name: ESP Spare LED
+    switch.espresense_spare_active_scan:
+      icon: mdi:magnify-plus
+      friendly_name: ESP Spare Active Scan
+    switch.espresense_spare_auto_update:
+      icon: mdi:folder-sync
+      friendly_name: ESP Spare Auto Update
+    switch.espresense_spare_arduino_ota:
+      icon: mdi:folder-upload
+      friendly_name: ESP Spare OTA Update
+    switch.espresense_spare_prerelease:
+      icon: mdi:folder-upload-outline
+      friendly_name: ESP Spare Prerelease
+
+    binary_sensor.espresense_kitchen_dining:
+      friendly_name: ESP Kitchen
+    button.espresense_kitchen_dining_restart:
+      friendly_name: ESP Kitchen Restart
+    number.espresense_kitchen_dining_max_distance:
+      friendly_name: ESP Kitchen Max Distance
+    number.espresense_kitchen_dining_absorption:
+      friendly_name: ESP Kitchen Absorption
+    sensor.espresense_kitchen_dining_uptime:
+      icon: mdi:clock
+      friendly_name: ESP Kitchen Uptime
+    sensor.espresense_kitchen_dining_free_memory:
+      icon: mdi:memory
+      friendly_name: ESP Kitchen Free Mem
+    switch.espresense_kitchen_dining_status_led:
+      icon: mdi:led-on
+      friendly_name: ESP Kitchen LED
+    switch.espresense_kitchen_dining_active_scan:
+      icon: mdi:magnify-plus
+      friendly_name: ESP Kitchen Active Scan
+    switch.espresense_kitchen_dining_auto_update:
+      icon: mdi:folder-sync
+      friendly_name: ESP Kitchen Auto Update
+    switch.espresense_kitchen_dining_arduino_ota:
+      icon: mdi:folder-upload
+      friendly_name: ESP Kitchen OTA Update
+    switch.espresense_kitchen_dining_prerelease:
+      icon: mdi:folder-upload-outline
+      friendly_name: ESP Kitchen Prerelease
+
+  # Allow list: iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1 apple:1006:10-8 apple:1005:9-24 apple:1005:9-12
+
 
 sensor:
 
+  # Samsung Phone
   - platform: mqtt_room
     device_id: iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1
     name: espresence_iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1
     state_topic: espresense/devices/iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1
+    timeout: 60
+    away_timeout: 120 # number of seconds after which the enitity will get status not_home
 
+  # iPhone
   - platform: mqtt_room
     device_id: apple:1006:10-8
     name: espresence_apple:1006:10-8
     state_topic: espresense/devices/apple:1006:10-8
+    timeout: 60
+    away_timeout: 120 # number of seconds after which the enitity will get status not_home
 
+  # Apple Watch
   - platform: mqtt_room
     device_id: apple:1005:9-24
     name: espresence_apple:1005:9-24
     state_topic: espresense/devices/apple:1005:9-24
+    timeout: 60
+    away_timeout: 120 # number of seconds after which the enitity will get status not_home
 
+  # iPad
   - platform: mqtt_room
     device_id: apple:1005:9-12
     name: espresence_apple:1005:9-12
     state_topic: espresense/devices/apple:1005:9-12
+    timeout: 60
+    away_timeout: 120 # number of seconds after which the enitity will get status not_home
 
-  - platform: mqtt_room
-    device_id: apple:1005:9
-    name: espresence_apple:1005:9
-    state_topic: espresense/devices/apple:1005:9
+  # Macbook Pro
+  # - platform: mqtt_room
+  #   device_id: apple:1005:9
+  #   name: espresence_apple:1005:9
+  #   state_topic: espresense/devices/apple:1005:9
+  #   timeout: 60
+  #   away_timeout: 120 # number of seconds after which the enitity will get status not_home
 
-  - platform: mqtt_room
-    device_id: msft:cdp:0902
-    name: espresence_msft:cdp:0902
-    state_topic: espresense/devices/msft:cdp:0902
+  # Ruuvi Tag - C8:2E:8F:14:9A:A3
 
 #----------------------------------------------------------------------------------------------------------------------#
 
-  # - platform: mqtt_room
-  #   device_id: samsung:244b03842b5e
-  #   name: espresence_Samsung Device 1
-  #   state_topic: espresence/devices/samsung:244b03842b5e
-
-  # - platform: mqtt_room
-  #   device_id: samsung:7a0b8b92b646
-  #   name: espresence_Samsung Device 2
-  #   state_topic: espresence/devices/samsung:7a0b8b92b646
-
-  # - platform: mqtt_room
-  #   device_id: samsung:4078a81695bc
-  #   name: espresence_Samsung Device 3
-  #   state_topic: espresense/devices/samsung:4078a81695bc
-
-  # - platform: mqtt_room
-  #   device_id: samsung:455825ec03c6
-  #   name: espresence_Samsung Device 4
-  #   state_topic: espresense/devices/samsung:455825ec03c6
-
-  # - platform: mqtt_room
-  #   device_id: samsung:49a8b352de11
-  #   name: espresence_Samsung Device 5
-  #   state_topic: espresense/devices/samsung:49a8b532de11
-
-  # - platform: mqtt_room
-  #   device_id: samsung:4e99fa1474b3
-  #   name: espresence_Samsung Device 6
-  #   state_topic: espresense/devices/samsung:4e99fa1474b3
-
-  # - platform: mqtt_room
-  #   device_id: sd:0xfe9f
-  #   name: espresence_sd:0xfe9f
-  #   state_topic: espresense/devices/sd:0xfe9f
-
-  # - platform: mqtt_room
-  #   device_id: sd:0x252a
-  #   name: espresence_sd:0x252a
-  #   state_topic: espresense/devices/sd:0x252a
-
-  # - platform: mqtt_room
-  #   device_id: f492bf815d1a
-  #   name: espresence_f492bf815d1a
-  #   state_topic: espresense/devices/f492bf815d1a
-
-  # - platform: mqtt_room
-  #   device_id: md:0370:21
-  #   name: espresence_md:0370:21
-  #   state_topic: espresense/devices/md:0370:21
-
-# Excluded devices
-#   sd:0xfe9f
-#.  sd:0x252a
-#.  name:cam8z6_bird_gardepro_e6
-#   name:udm
-#.  f492bf815d1a
+automation:
+  - id: dan_movements
+    alias: "Dan's Movements"
+    trigger:
+      platform: state
+      entity_id: sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1
+      for:
+        seconds: 5
+    condition:
+      condition: state
+      entity_id: input_boolean.tts_automations
+      state: "on"
+    action:
+      choose:
+        - alias: living_room
+          conditions:
+            - condition: state
+              entity_id: sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1
+              state: living_room
+          sequence:
+            - service: notify.living_room_cloud
+              data:
+                message: 'Dan is in the Living room!'
+                data:
+                  language: es-US
+                  options:
+                    gender: male
+        - alias: kitchen
+          conditions:
+            - condition: state
+              entity_id: sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1
+              state: kitchen_dining
+          sequence:
+            - service: notify.kitchen_cloud
+              data:
+                message: 'Dan is in the kitchen!'
+                data:
+                  language: es-US
+                  options:
+                    gender: male
