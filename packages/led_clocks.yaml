@@ -54,7 +54,7 @@ automation:
         entity_id: light.wall_clock
         data:
           transition: 3
-          brightness: "{{ states('input_number.wall_clock_brightness') | float(255) }}"
+          brightness: "{{ states('input_number.wall_clock_brightness') | int(255) }}"
 
     # Clock brightness
 
@@ -70,11 +70,11 @@ automation:
         entity_id: input_number.wall_clock_brightness
         data:
           value: >
-            {% if state_attr('sun.sun', 'elevation') | int(-10) < -9 or state_attr('sun.sun', 'elevation') | int(7) > 6 %}
+            {% if state_attr('sun.sun', 'elevation') | int(-10) < -9 or state_attr('sun.sun', 'elevation') | int(8) > 7 %}
               {{ state_attr('light.wall_clock', 'brightness') | int(115) }}
-            {% elif state_attr('sun.sun', 'elevation') | int(-9) < -8 %}
+            {% elif state_attr('sun.sun', 'elevation') | int(0) < -8 %}
               114
-            {% elif state_attr('sun.sun', 'elevation') | int(6) > 5 %}
+            {% elif state_attr('sun.sun', 'elevation') | int(0) > 5 %}
               255
             {% else %}
               {{ ((states.sun.sun.attributes.elevation + 8) * 4.23 + 45) * 2.55 | int(115)  }}

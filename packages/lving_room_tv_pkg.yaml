@@ -2,7 +2,7 @@ homeassistant:
   customize:
     sensor.living_room_tv_state:
       icon: mdi:television
-      friendly_name: Living Room TV State
+      friendly_name: Living Room TV Status
     binary_sensor.living_room_tv_state:
       icon: mdi:television
       friendly_name: Living Room TV State
