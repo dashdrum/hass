@@ -147,7 +147,7 @@ undercabinet_button:
         # IF on bright scene
         - conditions:
             - condition: template
-              value_template: "{{ states.light.shellyrgbw2_1dfb87.attributes.white_value == 255 }}"
+              value_template: "{{ states.light.shellyrgbw2_1dfb87.attributes.brightness == 255 }}"
           sequence:
             - choose:
                 - conditions:
@@ -259,3 +259,34 @@ office_around_the_horn:
     #     entity_id: light.shellydimmer2_e8db84d4610a
     #     transition: 0
 
+
+notify_kelly:
+  sequence:
+    - choose:
+        conditions:
+        - condition: state
+          entity_id: person.kelly_gentry
+          state: 'home'
+        sequence:
+          - service: notify.living_room_cloud
+            data:
+              title: '{{ title }}'
+              message: '{{ message }}'
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: sensor.espresence_apple_1005_9_24
+                state: 'spare'
+              - condition: state
+                entity_id: sensor.espresence_apple_1006_10_8
+                state: 'spare'
+              sequence:
+                - service: notify.spare
+                  data:
+                    title: '{{ title }}'
+                    message: '{{ message }}'
+      default:
+        - service: notify.signal_kelly
+          data:
+            title: '{{ title }}'
+            message: '{{ message }}'

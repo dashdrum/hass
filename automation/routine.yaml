@@ -151,8 +151,61 @@
     target:
       entity_id: vacuum.rusty
 
+- id: presence_all_away_check_garage_door
+  alias: All Away Check Garage Door
+  trigger:
+    platform: state
+    entity_id: group.all_persons
+    from: 'home'
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 00
+  condition:
+    - condition: state
+      entity_id: cover.garage_door
+      state: 'open'
+  action:
+    - service: notify.signal_both
+      data:
+        message: 'The garage door is still open'
+        title: ALERT!
 
 
+- id: time_for_kellys_meds
+  alias: "Time for Kelly's Meds"
+  trigger:
+      - platform: time_pattern
+        hours: 09
+        minutes: 00
+        seconds: 00
+  condition:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: "on"
+  action:
+    - service: script.notify_kelly
+      data_template:
+        message: "Kelly, time for your daily meds"
+        title: "Time for Meds"
+
+
+- id: time_for_kellys_meds_weekend
+  alias: "Time for Kelly's Meds - Weekend"
+  trigger:
+      - platform: time_pattern
+        hours: 10
+        minutes: 00
+        seconds: 00
+  condition:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: "off"
+  action:
+    - service: script.notify_kelly
+      data_template:
+        message: "Kelly, time for your daily meds"
+        title: "Time for Meds"
 
 
 

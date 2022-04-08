@@ -1,5 +1,4 @@
 
-
 - name: signal_dan
   platform: signal_messenger
   url: !secret signal_url
@@ -137,6 +136,12 @@
   name: main_cloud
   tts_service: tts.cloud_say
   media_player: media_player.main_floor
+
+- platform: group
+  name: living_room
+  services:
+    - service: dan
+    - service: kelly
 
 - platform: group
   name: living_room_cloud
