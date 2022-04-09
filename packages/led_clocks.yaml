@@ -71,7 +71,7 @@ automation:
         data:
           value: >
             {% if state_attr('sun.sun', 'elevation') | int(-10) < -9 or state_attr('sun.sun', 'elevation') | int(8) > 7 %}
-              {{ state_attr('light.wall_clock', 'brightness') | int(115) }}
+              {{ states('input_number.wall_clock_brightness') | int(115) }}
             {% elif state_attr('sun.sun', 'elevation') | int(0) < -8 %}
               114
             {% elif state_attr('sun.sun', 'elevation') | int(0) > 5 %}
