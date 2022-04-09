@@ -4,6 +4,10 @@ homeassistant:
   customize:
     binary_sensor.zigbee2mqtt_restart_required:
       icon: mdi:restart-alert
+    sensor.zigbee2mqtt_coordinator_version:
+      friendly_name: Z2M Coord Version
+    sensor.zigbee2mqtt_coordinator_type:
+      friendly_name: Z2M Coord Type
 
 # Input select for Zigbee2MQTT debug level
 input_select:
@@ -93,14 +97,20 @@ sensor:
   - platform: mqtt
     name: Zigbee2MQTT Coordinator Version
     state_topic: "zigbee2mqtt/bridge/info"
-    value_template: "{{ value_json.coordinator }}"
-    icon: mdi:chip
+    value_template: "{{ value_json.coordinator.meta.product }}.{{ value_json.coordinator.meta.majorrel }}.{{ value_json.coordinator.meta.minorrel }}.{{ value_json.coordinator.meta.maintrel }}"
+    icon: mdi:zigbee
   # Sensor for Showing the restart state
   - platform: mqtt
     name: Zigbee2MQTT Restart Required
     state_topic: "zigbee2mqtt/bridge/info"
     value_template:  "{{ value_json.restart_required }}"
     icon: mdi:restart-alert
+  # Sensor for Showing the Coordinator Type
+  - platform: mqtt
+    name: Zigbee2MQTT Coordinator Type
+    state_topic: "zigbee2mqtt/bridge/info"
+    value_template: "{{ value_json.coordinator.type }}"
+    icon: mdi:zigbee
 
 binary_sensor:
 
