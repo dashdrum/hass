@@ -20,7 +20,7 @@
       entity_id:
         - media_player.dan_speaker
         - media_player.spare_room_speaker
-        - media_player.guest_room_speaker
+        - media_player.nestmini4000
         - media_player.kitchen_speaker
         - media_player.office_home
         - media_player.kelly_home
@@ -60,7 +60,7 @@
 #       entity_id:
 #         - media_player.dan_speaker
 #         - media_player.spare_room_speaker
-#         - media_player.guest_room_speaker
+#         - media_player.nestmini4000
 #         - media_player.kitchen_speaker
 #         - media_player.office_home
 #         - media_player.kelly_home
@@ -188,7 +188,7 @@
       entity_id:
         - media_player.dan_speaker
         - media_player.spare_room_speaker
-        - media_player.guest_room_speaker
+        - media_player.nestmini4000
         - media_player.kitchen_speaker
         - media_player.office_home
         - media_player.kelly_home
