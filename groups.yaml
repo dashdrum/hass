@@ -1,40 +1,5 @@
 ## See also lights.yaml - platform: group
 
-kitchen_lights:
-  name: Kitchen
-  entities:
-    - switch.kitchen_light
-    - switch.sink_light
-
-laundry_lights:
-  name: Laundry
-  entities:
-    - switch.laundry_light
-    - switch.coat_rack_light
-
-kit_laun_lights:
-  name: Kitchen/Laundry
-  entities:
-    - switch.laundry_light
-    - switch.coat_rack_light
-    - switch.kitchen_light
-    - switch.sink_light
-
-office_couch_lights:
-  name: Office Couch
-  entities:
-    - light.office_chair_light
-    - light.office_window_light
-
-outdoor_lights:
-  name: Outdoor
-  entities:
-    - switch.deck_light
-    - switch.garage_door_lights
-    - switch.woodpile_lights
-    - light.front_porch_light
-    - switch.shelly1l_f4cfa2e397de
-
 basement_lights:
   name: Basement Lights
   entities:

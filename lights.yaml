@@ -4,6 +4,36 @@
   username: !secret leviton_username
   password: !secret leviton_password
 
+- platform: switch
+  name: Candle Mold Light
+  entity_id: switch.candle_mold_light_switch
+
+- platform: switch
+  name: Laundry Light
+  entity_id: switch.laundry_light
+
+- platform: switch
+  name: Coat Rack Light
+  entity_id: switch.coat_rack_light
+
+- platform: switch
+  name: Deck Light
+  entity_id: switch.deck_light
+
+- platform: switch
+  name: Garage Door Lights
+  entity_id: switch.garage_door_lights
+
+- platform: switch
+  name: Woodpile Lights
+  entity_id: switch.woodpile_lights
+
+- platform: switch
+  name: Path Lights
+  entity_id: switch.shelly1l_f4cfa2e397de
+
+#---------------------------------------------------------------------------------------------------------------------#
+
 - platform: group
   name: Dressers
   entities:
@@ -17,6 +47,7 @@
     - light.kelly_lamp
     - light.dining_room_light
     - light.stairway_light
+    - light.candle_mold_light
 
 - platform: group
   name: Office Lights
@@ -41,7 +72,31 @@
     - light.office_chair_light
     - light.office_window_light
 
+- platform: group
+  name: laundry_lights
+  entities:
+    - light.laundry_light
+    - light.coat_rack_light
 
-- platform: switch
-  name: Candle Mold Light
-  entity_id: switch.candle_mold_light_switch
+- platform: group
+  name: kitchen_lights
+  entities:
+    - light.kitchen_light
+    - light.sink_light
+
+- platform: group
+  name: kit_laun_lights
+  entities:
+    - light.laundry_light
+    - light.coat_rack_light
+    - light.kitchen_light
+    - light.sink_light
+
+- platform: group
+  name: outdoor_lights
+  entities:
+    - light.deck_light
+    - light.garage_door_lights
+    - light.woodpile_lights
+    - light.front_porch_light
+    - light.path_lights
