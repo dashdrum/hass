@@ -246,9 +246,6 @@ binary_sensor.garage_motion_2:
   friendly_name: Garage Motion 2
 binary_sensor.garage_motion_3:
   friendly_name: Garage Motion 3
-binary_sensor.high_water:
-  friendly_name: Sink Level
-  icon: mdi:water
 
 ## Scenes
 
@@ -343,8 +340,6 @@ device_tracker.iphone:
 
 ## Scripts
 
-script.water_warning:
-  icon: mdi:water-off
 script.say_somthing:
   icon: mdi:account-voice
 
