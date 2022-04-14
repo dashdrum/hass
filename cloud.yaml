@@ -5,8 +5,7 @@ google_actions:
       - binary_sensor.garage_access_door
       - binary_sensor.garage_bin
       - input_boolean.washer_status
-      # - group.family_room_lights
-      - group.basement_lights
+      - light.basement_lights
       - light.0x94deb8fffe1d7768
       - light.led_mirror
       - light.tv_backlight
@@ -74,11 +73,7 @@ google_actions:
         - washing machine
       room: Laundry
 
-    # group.family_room_lights:
-      # name: Family Room Lights
-      # room: Family Room
-
-    group.basement_lights:
+    light.basement_lights:
       name: Basement Lights
 
     light.0x94deb8fffe1d7768:

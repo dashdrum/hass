@@ -1,16 +1,5 @@
 ## See also lights.yaml - platform: group
 
-basement_lights:
-  name: Basement Lights
-  entities:
-    - switch.shellyswitch25_00fb7b5
-    - switch.shelly1_e8db84d38d16
-    - switch.shelly1_500291ed226d
-    - switch.shelly1_bcddc2771acf
-    - light.shelly1_500291edbc26
-    - switch.shellyswitch25_3c6105e3e6e1_channel_1
-    - switch.shellyswitch25_3c6105e3e6e1_channel_2
-
 all_persons:
   name: All Persons
   entities:
