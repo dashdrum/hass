@@ -296,7 +296,7 @@
       brightness: 191
     light.wall_clock:
       state: on
-      effect: "Clock Comet"
+      effect: "Clock Fly"
     light.0x94deb8fffe1d7768:  # Under Desk Lights
       state: off
 
@@ -394,7 +394,7 @@
       state: off
     light.wall_clock:
       state: on
-      effect: "Clock Basic"
+      effect: "Clock"
     light.0x94deb8fffe1d7768:  # Under Desk Lights
       state: off
 
