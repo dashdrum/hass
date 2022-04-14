@@ -36,6 +36,14 @@ input_boolean:
     initial: off
     # icon: mdi:washing-machine
 
+input_select:
+  dryer_status:
+    name: Dryer Status
+    options:
+      - Idle
+      - Running
+      - Cycle Complete
+
 sensor:
 
   - platform: template
@@ -53,11 +61,7 @@ sensor:
       dryer_status:
         value_template: >-
           {% if is_state("binary_sensor.dryer_door", "off") %}
-            {% if is_state("binary_sensor.dryer_state", "on") %}
-              Drying
-            {% else %}
-              Idle
-            {% endif %}
+            {{ states('input_select.dryer_status') }}
           {% else %}
             Door Open
           {% endif %}
@@ -136,9 +140,8 @@ automation:
   - alias: 'Dryer has stopped'
     trigger:
       - platform: state
-        entity_id: binary_sensor.dryer_state
-        from: 'on'
-        to: 'off'
+        entity_id: input_select.dryer_status
+        to: Cycle Complete
         for:
           hours: 0
           minutes: 0
@@ -158,6 +161,70 @@ automation:
               [
                 "The dryer has stopped",
                 "Your laundry is dry",
-                "The clothing dehydration process has terminated"
+                "The clothing dehydration process has terminated",
+                "Hey everybody!  Let's empty the dryer!",
+                "It's folding time..."
               ] | random
             }}
+
+  - alias: Dryer Vibration Detected
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.dryer_state
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: binary_sensor.dryer_door
+        state: "off"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dryer_status
+          option: Running
+
+  - alias: Dryer Vibration Stops - Door Closed
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.dryer_state
+        to: "off"
+    condition:
+      - condition: state
+        entity_id: binary_sensor.dryer_door
+        state: "off"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dryer_status
+          option: Cycle Complete
+
+  - alias: Dryer Vibration Stops - Door Oopen
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.dryer_state
+        to: "off"
+    condition:
+      - condition: state
+        entity_id: binary_sensor.dryer_door
+        state: "on"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dryer_status
+          option: Idle
+
+  - alias: Dryer Door Opens
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.dryer_door
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: binary_sensor.dryer_state
+        state: "off"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dryer_status
+          option: Idle
+
+
