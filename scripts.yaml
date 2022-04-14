@@ -270,23 +270,148 @@ notify_kelly:
         sequence:
           - service: notify.living_room_cloud
             data:
-              title: '{{ title }}'
               message: '{{ message }}'
           - choose:
-            - conditions:
-              - condition: state
-                entity_id: sensor.espresence_apple_1005_9_24
-                state: 'spare'
-              - condition: state
-                entity_id: sensor.espresence_apple_1006_10_8
-                state: 'spare'
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_24
+                  state: 'spare'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1006_10_8
+                  state: 'spare'
+              sequence:
+                - service: notify.spare
+                  data:
+                    message: '{{ message }}'
+          - choose:
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_24
+                  state: 'master'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1006_10_8
+                  state: 'master'
+              sequence:
+                - service: notify.master
+                  data:
+                    message: '{{ message }}'
+          - choose:
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_24
+                  state: 'kitchen_dining'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1006_10_8
+                  state: 'kitchen_dining'
+              sequence:
+                - service: notify.kitchen
+                  data:
+                    message: '{{ message }}'
+          - choose:
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_24
+                  state: 'office'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1006_10_8
+                  state: 'office'
+              sequence:
+                - service: notify.office
+                  data:
+                    message: '{{ message }}'
+      default:
+        - service: notify.signal_kelly
+          data:
+            message: '{{ message }}'
+
+notify_dan:
+  sequence:
+    - choose:
+        conditions:
+        - condition: state
+          entity_id: person.dan_gentry
+          state: 'home'
+        sequence:
+          - service: notify.living_room
+            data:
+              message: '{{ message }}'
+          - choose:
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1
+                  state: 'office'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_12
+                  state: 'office'
+              sequence:
+                - service: notify.office
+                  data:
+                    message: '{{ message }}'
+          - choose:
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1
+                  state: 'spare'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_12
+                  state: 'spare'
               sequence:
                 - service: notify.spare
                   data:
                     title: '{{ title }}'
                     message: '{{ message }}'
+          - choose:
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1
+                  state: 'master'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_12
+                  state: 'master'
+              sequence:
+                - service: notify.master
+                  data:
+                    title: '{{ title }}'
+                    message: '{{ message }}'
+          - choose:
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1
+                  state: 'kitchen_dining'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_12
+                  state: 'kitchen_dining'
+              sequence:
+                - service: notify.kitchen
+                  data:
+                    title: '{{ title }}'
+                    message: '{{ message }}'
       default:
-        - service: notify.signal_kelly
+        - service: notify.signal_dan
           data:
-            title: '{{ title }}'
             message: '{{ message }}'
+
+notify_both:
+  sequence:
+    - service: script.notify_dan
+      data_template:
+        message: "{{ message }}"
+    - service: script.notify_kelly
+      data_template:
+        message: "{{ message }}"
