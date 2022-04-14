@@ -30,16 +30,6 @@
 
 - platform: fastdotcom
 
-- platform: template
-  sensors:
-    washer_state:
-      value_template: >-
-        {% if states.input_boolean.washer_status.state == 'on' %}
-          Washing
-        {% else %}
-          Idle
-        {% endif %}
-
 
 - platform: template
   sensors:
