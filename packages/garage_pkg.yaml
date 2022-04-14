@@ -1,0 +1,26 @@
+# Garage related things
+
+homeassistant:
+  customize:
+    binary_sensor.garage_abandoned:
+      friendly_name: Garage Abandoned
+
+template:
+  - binary_sensor:
+      - name: garage_abandoned
+        # The garage door is open, and no one is at home
+        state: "{{ states('group.all_persons') == 'away'
+                    and states('cover.garage_door') == 'open' }}"
+
+alert:
+  garage_abandoned:
+    name: Garage Abandoned 
+    message: "The garage door is still open"
+    done_message: "The garage is saved!"
+    entity_id: binary_sensor.garage_abandoned
+    repeat:
+      - 3
+      - 5
+    skip_first: true
+    notifiers:
+      - signal_both
