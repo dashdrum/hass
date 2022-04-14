@@ -1,0 +1,161 @@
+homeassistant:
+    customize:    
+      switch.washer:
+        icon: mdi:washing-machine
+        friendly_name: Washer
+      sensor.washer_state:
+        friendly_name: Washer Status
+        icon: mdi:washing-machine
+      binary_sensor.dryer_state:
+        icon: mdi:washing-machine
+      sensor.dryer_sensor:
+        friendly_name: Dryer Status
+        icon: mdi:washing-machine
+      sensor.dryer_door:
+        icon: mdi:washing-machine
+
+binary_sensor:
+
+  - platform: template
+    sensors:
+      dryer_state:
+        friendly_name: "Dryer State"
+        device_class: running
+        value_template: >-
+          {% if is_state('sensor.dryer_sensor', 'Running')   %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+  - platform: template
+    sensors:
+      washer_state:
+        friendly_name: "Washer State"
+        device_class: running
+        value_template: >-
+          {% if is_state('sensor.washer_state', 'Washing')   %}
+            on
+          {% else %}
+            off
+          {% endif %}
+
+input_boolean:
+  washer_status:
+    name: Washer Status Switch
+    initial: off
+    # icon: mdi:washing-machine
+
+automation:
+
+  - alias: Washer Start
+
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.washer_current
+      above: 0.03
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 10
+
+    condition:
+      - condition: state
+        entity_id: input_boolean.washer_status
+        state: 'off'
+
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.washer_status
+
+
+  - alias: Washer Stop
+
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.washer_current
+      below: 0.03
+      for:
+        hours: 0
+        minutes: 2
+        seconds: 30
+
+    condition:
+      - condition: state
+        entity_id: input_boolean.washer_status
+        state: 'on'
+
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.washer_status
+
+  - alias: 'Washer has stopped'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.washer_status
+        from: 'on'
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.tts_automations
+      state: "on"
+    action:
+      - service: tts.cloud_say
+        entity_id:
+          - media_player.dan_speaker
+          - media_player.spare_room_speaker
+          - media_player.nestmini4000
+          - media_player.kitchen_speaker
+          - media_player.office_home
+          - media_player.kelly_home
+          - media_player.smart_clock
+        data:
+          message: >
+            {{
+              [
+                "The washer has stopped",
+                "Better get those clothes into the dryer",
+                "Done washing"
+              ] | random
+            }}
+
+  - alias: 'Dryer has stopped'
+    trigger:
+      - platform: state
+        entity_id: sensor.dryer_sensor
+        from: 'Running'
+        to: 'Cycle Complete'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.tts_automations
+      state: "on"
+    action:
+      - service: tts.cloud_say
+        entity_id:
+          - media_player.dan_speaker
+          - media_player.spare_room_speaker
+          - media_player.nestmini4000
+          - media_player.kitchen_speaker
+          - media_player.office_home
+          - media_player.kelly_home
+          - media_player.smart_clock
+        data:
+          message: >
+            {{
+              [
+                "The dryer has stopped",
+                "Dryer! Now!",
+                "Your laundry is dry",
+                "The clothing dehydration process has terminated"
+              ] | random
+            }}

@@ -56,10 +56,6 @@ notify: !include notify.yaml
 tts: !include tts.yaml
 
 input_boolean:
-  washer_status:
-    name: Washer Status Switch
-    initial: off
-    # icon: mdi:washing-machine
 
   defeat_sleep:
     name: "Disable sleep on ESPHome"

@@ -43,9 +43,6 @@ switch.garage_light:
   icon: mdi:lightbulb-outline
 switch.shelly1_500291ed2481:
   icon: mdi:lightbulb-outline
-switch.washer:
-  icon: mdi:washing-machine
-  friendly_name: Washer
 switch.shelly1_bcddc2771acf:
   friendly_name: Guest Room Light
   icon: mdi:lightbulb-outline
@@ -95,11 +92,6 @@ sensor.familty_room_humidity:
   friendly_name: Family Room Humidity
 sensor.family_room_battery:
   friendly_name: Family Room Battery
-sensor.dryer_sensor:
-  friendly_name: Dryer Status
-  icon: mdi:washing-machine
-sensor.dryer_door:
-  icon: mdi:washing-machine
 sensor.office_humidity:
   friendly_name: Office Humidity
 sensor.office_pressure:
@@ -133,9 +125,6 @@ sensor.temp_compare_sht30d_humidity:
   friendly_name: Tech Cabinet SHT30D Humidity
 sensor.temp_compare_bme280_pressure:
   friendly_name: Tech Cabinet Pressure
-sensor.washer_state:
-  friendly_name: Washer Status
-  icon: mdi:washing-machine
 sensor.master_dimmer_switch_battery_level:
   friendly_name: Master Dimmer Switch Battery
   icon: mdi:battery
@@ -251,8 +240,6 @@ binary_sensor.closet_motion:
   friendly_name: Master Closet Motion
 binary_sensor.laundry_motion:
   friendly_name: Laundry Motion
-binary_sensor.dryer_state:
-  icon: mdi:washing-machine
 binary_sensor.garage_motion_1:
   friendly_name: Garage Motion 1
 binary_sensor.garage_motion_2:
