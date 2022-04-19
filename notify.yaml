@@ -37,7 +37,7 @@
 - platform: tts
   name: guest
   tts_service: tts.google_translate_say
-  media_player: media_player.nextmini4000
+  media_player: media_player.nestmini4000
 
 - platform: tts
   name: family
@@ -110,7 +110,7 @@
 - platform: tts
   name: guest_cloud
   tts_service: tts.cloud_say
-  media_player: media_player.nextmini4000
+  media_player: media_player.nestmini4000
 
 - platform: tts
   name: family_cloud
