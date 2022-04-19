@@ -297,7 +297,7 @@
     light.wall_clock:
       state: on
       effect: "Clock Fly"
-    light.0x94deb8fffe1d7768:  # Under Desk Lights
+    light.under_desk_lights:  # Under Desk Lights
       state: off
 
 - name: office_bright
@@ -317,7 +317,7 @@
     light.wall_clock:
       state: on
       effect: "Clock Backfill"
-    light.0x94deb8fffe1d7768:  # Under Desk Lights
+    light.under_desk_lights:  # Under Desk Lights
       state: on
       # rgb_color: [255,255,255]
       xy_color: [0.30929, 0.33007]
@@ -335,7 +335,7 @@
     light.office_desk_lamp:
       state: on
       brightness: 162
-    light.0x94deb8fffe1d7768:  # Under Desk Lights
+    light.under_desk_lights:  # Under Desk Lights
       state: off
 
 - name: office_dim
@@ -355,7 +355,7 @@
     light.wall_clock:
       state: on
       effect: "Clock"
-    light.0x94deb8fffe1d7768:  # Under Desk Lights
+    light.under_desk_lights:  # Under Desk Lights
       state: on
       # rgb_color: [255,255,255]
       xy_color: [0.30929, 0.33007]
@@ -375,7 +375,7 @@
       state: on
       rgb_color: [0,0,255]
       effect: "Clock Inverse"
-    light.0x94deb8fffe1d7768:  # Under Desk Lights
+    light.under_desk_lights:  # Under Desk Lights
       state: on
       # rgb_color: [0,0,255]
       xy_color: [0.13550, 0.030987]
@@ -395,6 +395,6 @@
     light.wall_clock:
       state: on
       effect: "Clock"
-    light.0x94deb8fffe1d7768:  # Under Desk Lights
+    light.under_desk_lights:  # Under Desk Lights
       state: off
 
