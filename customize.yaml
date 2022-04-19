@@ -180,6 +180,17 @@ sensor.openweathermap_condition:
   icon: mdi:newspaper-variant
 sensor.ktvc_sea_level_pressure_mbar:
   friendly_name: KTVC Sea Level Pressure mBar
+sensor.tomorrow_io_temperature:
+  friendly_name: Tomorrow.io Home Temperature
+sensor.tomorrow_io_humidity:
+  friendly_name: Tomorrow.io Home Humidity
+sensor.tomorrow_io_pressure:
+  friendly_name: Tomorrow.io Home Pressure
+sensor.tomorrow_io_pressure_mbar:
+  friendly_name: Tomorrow.io Home Pressure mBar
+sensor.tomorrow_io_home_dew_point:
+  friendly_name: Tomorrow.io Home Dew Point
+  icon: mdi:water-outline
 
 
 sensor.hp_laserjet_pro_m148f_m149f:
