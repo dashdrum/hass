@@ -7,14 +7,14 @@ homeassistant:
         friendly_name: Washer Status
         icon: mdi:washing-machine
       binary_sensor.dryer_state:
-        icon: mdi:washing-machine
+        icon: mdi:tumble-dryer
       binary_sensor.washer_state:
         icon: mdi:washing-machine
       sensor.dryer_status:
         friendly_name: Dryer Status
-        icon: mdi:washing-machine
-      sensor.dryer_door:
-        icon: mdi:washing-machine
+        icon: mdi:tumble-dryer
+      binary_sensor.dryer_door:
+        icon: mdi:tumble-dryer
       binary_sensor.high_water:
         friendly_name: Sink Level
         icon: mdi:water
@@ -146,6 +146,7 @@ automation:
     trigger:
       - platform: state
         entity_id: input_select.dryer_status
+        from: Running
         to: Cycle Complete
         for:
           hours: 0
@@ -176,6 +177,7 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.dryer_state
+        from: "off"
         to: "on"
     condition:
       - condition: state
@@ -191,6 +193,7 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.dryer_state
+        from: "on"
         to: "off"
     condition:
       - condition: state
@@ -206,6 +209,7 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.dryer_state
+        from: "on"
         to: "off"
     condition:
       - condition: state
@@ -221,6 +225,7 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.dryer_door
+        from: "off"
         to: "on"
     condition:
       - condition: state
