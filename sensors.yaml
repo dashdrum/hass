@@ -109,7 +109,7 @@
       unit_of_measurement: 'mBar'
       device_class: pressure
       value_template: >-
-        {{ (states.sensor.outdoor_pressure.state|float(0) / (1-0.0065*204/(states.sensor.outdoor_temperature.state|float(0) + 273.15 )) ** (5.255)) | round(1) }}
+        {{ ((states.sensor.outdoor_pressure.state|float(0) / (1-0.0065*204/(states.sensor.outdoor_temperature.state|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
 
 - platform: template
   sensors:
@@ -192,6 +192,24 @@
     - sensor.spare_room_temperature
   type: mean
   name: avg_indoor_temperature
+  round_digits: 2
+
+- platform: min_max
+  entity_ids:
+    - sensor.master_bedroom_temperature
+    - sensor.upstairs_bath_temperature
+    - sensor.spare_room_temperature
+  type: mean
+  name: avg_upstairs_temperature
+  round_digits: 2
+
+- platform: min_max
+  entity_ids:
+    - sensor.master_bedroom_humidity
+    - sensor.upstairs_bath_humidity
+    - sensor.spare_room_humidity
+  type: mean
+  name: avg_upstairs_humidity
   round_digits: 2
 
 # Pull attributes from Rusty the Roomba
