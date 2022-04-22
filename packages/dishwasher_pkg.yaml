@@ -3,11 +3,51 @@ homeassistant:
       binary_sensor.dishwasher_door_contact:
         friendly_name: Dishwasher Door
         icon: mdi:dishwasher
+      sensor.dishwasher_door_battery:
+        friendly_name: Dishwasher Door Battery
+      sensor.dishwasher_door_temperature:
+        friendly_name: Dishwasher Door Temperature
+      sensor.dishwasher_door_voltage:
+        friendly_name: Dishwasher Door Voltage
+      sensor.dishwasher_door_linkquality:
+        friendly_name: Dishwasher Door Link Quality
       binary_sensor.dishwasher_state:
         icon: mdi:dishwasher
       sensor.dishwasher_status:
         friendly_name: Dishwasher Status
         icon: mdi:dishwasher
+      binary_sensor.dishwasher_switch_cloud:
+        friendly_name: Dishwasher Switch Cloud
+      binary_sensor.dishwasher_switch_firmware_update:
+        friendly_name: Dishwasher Switch Firmware Update
+      button.dishwasher_switch_ota_update:
+        friendly_name: Dishwasher Switch OTA Update
+      button.dishwasher_switch_reboot:
+        friendly_name: Dishwasher Switch Reboot
+      sensor.dishwasher_switch_rssi:
+        friendly_name: Dishwasher Switch WiFi Signal
+      switch.dishwasher_switch_switch_0:
+        friendly_name: Dishwasher Switch
+        icon: mdi:dishwasher
+      sensor.dishwasher_switch_switch_0_energy:
+        friendly_name: Dishwasher Switch Energy
+      binary_sensor.dishwasher_switch_switch_0_input:
+        friendly_name: Dishwasher Switch Input
+        icon: mdi:light-switch
+      binary_sensor.dishwasher_switch_switch_0_overheating:
+        friendly_name: Dishwasher Switch Overheating
+      binary_sensor.dishwasher_switch_switch_0_overpowering:
+        friendly_name: Dishwasher Switch Overpowering
+      binary_sensor.dishwasher_switch_switch_0_overvoltage:
+        friendly_name: Dishwasher Switch Overvoltage
+      sensor.dishwasher_switch_switch_0_power:
+        friendly_name: Dishwasher Switch Power
+      sensor.dishwasher_switch_switch_0_temperature:
+        friendly_name: Dishwasher Switch Temperature
+      sensor.dishwasher_switch_switch_0_voltage:
+        friendly_name: Dishwasher Switch Voltage
+      sensor.dishwasher_switch_uptime:
+        friendly_name: Dishwasher Switch Uptime
 
 binary_sensor:
 
@@ -31,6 +71,7 @@ input_select:
       - Washing
       - Drying
       - Clean
+      - Empty
 
 sensor:
 
@@ -40,74 +81,221 @@ sensor:
         value_template: >-
           {{ states('input_select.dishwasher_status') }}
 
-# automation:
+automation:
 
-#   - alias: Washer Start
+  - alias: Dishwasher Start from Dirty
 
-#     trigger:
-#       platform: numeric_state
-#       entity_id: sensor.washer_current
-#       above: 0.03
-#       for:
-#         hours: 0
-#         minutes: 0
-#         seconds: 10
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.dishwasher_switch_switch_0_power
+      above: 1.2
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 5
 
-#     condition:
-#       - condition: state
-#         entity_id: input_boolean.washer_status
-#         state: 'off'
+    condition:
+      condition: and
+      conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity_id: input_select.dishwasher_status
+              state: 'Dirty'
+            - condition: state
+              entity_id: input_select.dishwasher_status
+              state: 'Empty'
+        - condition: state
+          entity_id: binary_sensor.dishwasher_door_contact
+          state: "off"
 
-#     action:
-#       - service: input_boolean.turn_on
-#         data:
-#           entity_id: input_boolean.washer_status
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dishwasher_status
+          option: Washing
 
+  - alias: Dishwasher Wash Cycle Complete
 
-#   - alias: Washer Stop
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.dishwasher_switch_switch_0_power
+      below: 1.0
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 30
 
-#     trigger:
-#       platform: numeric_state
-#       entity_id: sensor.washer_current
-#       below: 0.03
-#       for:
-#         hours: 0
-#         minutes: 2
-#         seconds: 30
+    condition:
+      - condition: state
+        entity_id: input_select.dishwasher_status
+        state: 'Washing'
+      - condition: state
+        entity_id: binary_sensor.dishwasher_door_contact
+        state: "off"
 
-#     condition:
-#       - condition: state
-#         entity_id: input_boolean.washer_status
-#         state: 'on'
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dishwasher_status
+          option: Drying
 
-#     action:
-#       - service: input_boolean.turn_off
-#         data:
-#           entity_id: input_boolean.washer_status
+  - alias: Dishwasher Dry Cycle Complete
 
-#   - alias: 'Washer has stopped'
-#     trigger:
-#       - platform: state
-#         entity_id: input_boolean.washer_status
-#         from: 'on'
-#         to: 'off'
-#         for:
-#           hours: 0
-#           minutes: 0
-#           seconds: 0
-#     condition:
-#       condition: state
-#       entity_id: input_boolean.tts_automations
-#       state: "on"
-#     action:
-#       - service: notify.no_bedrooms_cloud
-#         data:
-#           message: >
-#             {{
-#               [
-#                 "The washer has stopped",
-#                 "Better get those clothes into the dryer",
-#                 "Done washing"
-#               ] | random
-#             }}
+    trigger:
+      platform: state
+      entity_id: input_select.dishwasher_status
+      to: Drying
+      from: Washing
+      for:
+        hours: 0
+        minutes: 13
+        seconds: 30
+
+    condition:
+      - condition: state
+        entity_id: input_select.dishwasher_status
+        state: 'Drying'
+      - condition: state
+        entity_id: binary_sensor.dishwasher_door_contact
+        state: "off"
+
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dishwasher_status
+          option: Clean
+
+  - alias: Dishwasher Emptied
+  # Door opened while Clean or Drying
+    trigger:
+      platform: state
+      entity_id: binary_sensor.dishwasher_door_contact
+      to: 'on'
+      from: 'off'
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 00
+
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: input_select.dishwasher_status
+          state: 'Clean'
+        - condition: state
+          entity_id: input_select.dishwasher_status
+          state: 'Drying'
+
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dishwasher_status
+          option: Empty
+
+  - alias: Dishwasher Door Opened While Washing
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.dishwasher_door_contact
+      to: 'on'
+      from: 'off'
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 00
+
+    condition:
+      - condition: state
+        entity_id: input_select.dishwasher_status
+        state: 'Washing'
+
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dishwasher_status
+          option: Dirty
+
+  - alias: Dishwasher Door Opened While Empty
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.dishwasher_door_contact
+      to: 'on'
+      from: 'off'
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 05
+
+    condition:
+      - condition: state
+        entity_id: input_select.dishwasher_status
+        state: 'Empty'
+
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dishwasher_status
+          option: Dirty
+
+# Announcements
+
+  - alias: Dishwasher Ready to Empty
+    trigger:
+      - platform: state
+        entity_id: input_select.dishwasher_status
+        to: 'Clean'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      - condition: state
+        entity_id: input_boolean.tts_automations
+        state: "on"
+      - condition: state
+        entity_id: binary_sensor.dishwasher_door_contact
+        state: "off"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: >
+            {{
+              [
+                "The dishwasher is ready to empty",
+                "Them there dishes is sparklin clean",
+                "Dishes are done"
+              ] | random
+            }}
+
+  - alias: Dishwasher Has Been Emptied
+    trigger:
+      - platform: state
+        entity_id: input_select.dishwasher_status
+        to: 'Empty'
+        from: 'Clean'
+        for:
+          hours: 0
+          minutes: 2
+          seconds: 0
+    condition:
+      - condition: state
+        entity_id: input_boolean.tts_automations
+        state: "on"
+      - condition: state
+        entity_id: binary_sensor.dishwasher_door_contact
+        state: "off"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: >
+            {{
+              [
+                "The dishwasher has been emptied",
+                "No dishes in here!!",
+                "Dishes put away"
+              ] | random
+            }}
 
