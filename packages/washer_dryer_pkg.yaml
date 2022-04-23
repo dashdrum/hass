@@ -1,11 +1,23 @@
 homeassistant:
-    customize:    
-      switch.washer:
+    customize:
+      binary_sensor.washer_lid_contact:
+        friendly_name: Washer Lid
         icon: mdi:washing-machine
-        friendly_name: Washer
-      sensor.washer_state:
+      sensor.washer_lid_battery:
+        friendly_name: Washer Lid Battery
+      sensor.washer_lid_temperature:
+        friendly_name: Washer Lid Temperature
+      sensor.washer_lid_voltage:
+        friendly_name: Washer Lid Voltage
+      sensor.washer_lid_linkquality:
+        friendly_name: Washer Lid Link Quality
+      switch.washer:
+        icon: mdi:light-switch
+        friendly_name: Washer Switch
+      sensor.washer_status:
         friendly_name: Washer Status
         icon: mdi:washing-machine
+
       binary_sensor.dryer_state:
         icon: mdi:tumble-dryer
       binary_sensor.washer_state:
@@ -15,6 +27,7 @@ homeassistant:
         icon: mdi:tumble-dryer
       binary_sensor.dryer_door:
         icon: mdi:tumble-dryer
+
       binary_sensor.high_water:
         friendly_name: Sink Level
         icon: mdi:water
@@ -29,19 +42,22 @@ binary_sensor:
         friendly_name: "Washer State"
         device_class: running
         value_template: >-
-          {% if is_state('sensor.washer_state', 'Washing')   %}
+          {% if is_state('input_select.washer_state', 'Washing')   %}
             on
           {% else %}
             off
           {% endif %}
 
-input_boolean:
-  washer_status:
-    name: Washer Status Switch
-    initial: off
-    # icon: mdi:washing-machine
+    # binary_sensor.dryer_state is defined in the ESPHome laundry device
 
 input_select:
+  washer_status:
+    name: Washer Status
+    options:
+      - Idle
+      - Washing
+      - Clean
+
   dryer_status:
     name: Dryer Status
     options:
@@ -53,12 +69,12 @@ sensor:
 
   - platform: template
     sensors:
-      washer_state:
+      washer_status:
         value_template: >-
-          {% if states.input_boolean.washer_status.state == 'on' %}
-            Washing
+          {% if is_state("binary_sensor.washer_lid_contact", "off") %}
+            {{ states('input_select.washer_status') }}
           {% else %}
-            Idle
+            Lid Open
           {% endif %}
 
   - platform: template
@@ -73,6 +89,8 @@ sensor:
 
 automation:
 
+#------------------ W A S H E R ---------------------------------------------------------------------------------------#
+
   - alias: Washer Start
 
     trigger:
@@ -86,14 +104,14 @@ automation:
 
     condition:
       - condition: state
-        entity_id: input_boolean.washer_status
+        entity_id: binary_sensor.washer_state
         state: 'off'
 
     action:
-      - service: input_boolean.turn_on
+      - service: input_select.select_option
         data:
-          entity_id: input_boolean.washer_status
-
+          entity_id: input_select.washer_status
+          option: Washing
 
   - alias: Washer Stop
 
@@ -108,13 +126,42 @@ automation:
 
     condition:
       - condition: state
-        entity_id: input_boolean.washer_status
+        entity_id: binary_sensor.washer_state
         state: 'on'
 
     action:
-      - service: input_boolean.turn_off
+      - service: input_select.select_option
         data:
-          entity_id: input_boolean.washer_status
+          entity_id: input_select.washer_status
+          option: Clean
+
+  - alias: Washer Lid Opens While Clean
+
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.washer_lid_contact
+        from: "off"
+        to: "on"
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 8
+
+    condition:
+      - condition: state
+        entity_id: binary_sensor.washer_state
+        state: 'off'
+      - condition: state
+        entity_id: input_select.washer_status
+        state: Clean
+
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.washer_status
+          option: Idle
+
+# Announcement
 
   - alias: 'Washer has stopped'
     trigger:
@@ -142,36 +189,7 @@ automation:
               ] | random
             }}
 
-  - alias: 'Dryer has stopped'
-    trigger:
-      - platform: state
-        entity_id: input_select.dryer_status
-        from: Running
-        to: Cycle Complete
-        for:
-          hours: 0
-          minutes: 0
-          seconds: 0
-    condition:
-      - condition: state
-        entity_id: input_boolean.tts_automations
-        state: "on"
-      - condition: state
-        entity_id: binary_sensor.dryer_door
-        state: "off"
-    action:
-      - service: notify.no_bedrooms_cloud
-        data:
-          message: >
-            {{
-              [
-                "The dryer has stopped",
-                "Your laundry is dry",
-                "The clothing dehydration process has terminated",
-                "Hey everybody!  Let's empty the dryer!",
-                "It's folding time..."
-              ] | random
-            }}
+#-------------------- D R Y E R ---------------------------------------------------------------------------------------#
 
   - alias: Dryer Vibration Detected
     trigger:
@@ -227,6 +245,10 @@ automation:
         entity_id: binary_sensor.dryer_door
         from: "off"
         to: "on"
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 10
     condition:
       - condition: state
         entity_id: binary_sensor.dryer_state
@@ -236,6 +258,41 @@ automation:
         data:
           entity_id: input_select.dryer_status
           option: Idle
+
+# Announcement
+
+  - alias: 'Dryer has stopped'
+    trigger:
+      - platform: state
+        entity_id: input_select.dryer_status
+        from: Running
+        to: Cycle Complete
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      - condition: state
+        entity_id: input_boolean.tts_automations
+        state: "on"
+      - condition: state
+        entity_id: binary_sensor.dryer_door
+        state: "off"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: >
+            {{
+              [
+                "The dryer has stopped",
+                "Your laundry is dry",
+                "The clothing dehydration process has terminated",
+                "Hey everybody!  Let's empty the dryer!",
+                "It's folding time..."
+              ] | random
+            }}
+
+#------------------ H I G H  W A T E R --------------------------------------------------------------------------------#
 
   - alias: 'Laundry sink level high'
     trigger:
