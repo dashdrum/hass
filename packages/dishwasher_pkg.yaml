@@ -63,6 +63,13 @@ binary_sensor:
             off
           {% endif %}
 
+input_number:
+  dishwasher_start_time:
+    name: Dishwasher Start Time
+    min: 0
+    max: 9999999999
+    unit_of_measurement: 's'
+
 input_select:
   dishwasher_status:
     name: Dishwasher Status
@@ -83,7 +90,7 @@ sensor:
 
 automation:
 
-  - alias: Dishwasher Start from Dirty
+  - alias: Dishwasher Start from Dirty or Empty
 
     trigger:
       platform: numeric_state
@@ -114,6 +121,11 @@ automation:
         data:
           entity_id: input_select.dishwasher_status
           option: Washing
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.dishwasher_start_time
+        data:
+          value: "{{ as_timestamp(now())|round(0) }}"
 
   - alias: Dishwasher Wash Cycle Complete
 
@@ -133,12 +145,41 @@ automation:
       - condition: state
         entity_id: binary_sensor.dishwasher_door_contact
         state: "off"
-
+      - condition: template
+        alias: "Duration longer than 21 minutes"
+        value_template: "{{ as_timestamp(now())|round(0) - states('input_number.dishwasher_start_time')|int(0) > 1260 }}"
     action:
       - service: input_select.select_option
         data:
           entity_id: input_select.dishwasher_status
           option: Drying
+
+  - alias: Dishwasher Rinse Cycle Complete
+
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.dishwasher_switch_switch_0_power
+      below: 1.0
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 30
+
+    condition:
+      - condition: state
+        entity_id: input_select.dishwasher_status
+        state: 'Washing'
+      - condition: state
+        entity_id: binary_sensor.dishwasher_door_contact
+        state: "off"
+      - condition: template
+        alias: "Duration shorter than 21 minutes"
+        value_template: "{{ as_timestamp(now())|round(0) - states('input_number.dishwasher_start_time')|int(0)  < 1261 }}"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dishwasher_status
+          option: Dirty
 
   - alias: Dishwasher Dry Cycle Complete
 
