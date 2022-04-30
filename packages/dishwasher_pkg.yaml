@@ -325,9 +325,6 @@ automation:
       - condition: state
         entity_id: input_boolean.tts_automations
         state: "on"
-      - condition: state
-        entity_id: binary_sensor.dishwasher_door_contact
-        state: "off"
     action:
       - service: notify.no_bedrooms_cloud
         data:
