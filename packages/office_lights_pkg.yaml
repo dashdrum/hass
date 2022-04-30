@@ -1,0 +1,331 @@
+homeassistant:
+  customize:
+    light.office_others:
+      friendly_name: Office Others
+    scene.office_bright:
+      friendly_name: Office Bright
+      icon: mdi:lightbulb-on-outline
+    scene.office_normal:
+      friendly_name: Office Normal
+      icon: mdi:lightbulb-outline
+    scene.office_zoom:
+      friendly_name: Office Zoom
+      icon: mdi:webcam
+    scene.office_dim:
+      friendly_name: Office Dim
+      icon: mdi:lightbulb-on
+    scene.office_hacker:
+      friendly_name: Office Hacker
+      icon: mdi:keyboard
+    scene.office_off:
+      friendly_name: Office  Off
+      icon: mdi:lightbulb
+    script.office_hacker:
+      friendly_name: Office Hacker
+      icon: mdi:keyboard
+    light.shellydimmer2_e8db84d4610a:
+      friendly_name: Office Door Light
+    sensor.shellydimmer2_e8db84d4610a_device_temperature:
+      friendly_name: Office Dimmer Temp
+
+light:
+
+  - platform: group
+    name: Office Lights
+    entities:
+      - light.shellydimmer2_e8db84d4610a
+      - light.office_desk
+      - light.office_light_1
+      - light.office_light_2
+
+  - platform: group
+    name: office_others
+    entities:
+      - light.office_light_1
+      - light.office_light_2
+
+scene:
+
+  # Office
+
+  - name: office_normal
+    entities:
+      light.shellydimmer2_e8db84d4610a:
+        state: on
+        brightness: 191
+      light.office_light_1:
+        state: on
+        brightness: 191
+      light.office_light_2:
+        state: on
+        brightness: 191
+      light.office_desk:
+        state: on
+        brightness: 191
+      light.wall_clock:
+        state: on
+        effect: "Clock Fly"
+      light.under_desk_lights:  # Under Desk Lights
+        state: off
+
+  - name: office_bright
+    entities:
+      light.shellydimmer2_e8db84d4610a:
+        state: on
+        brightness: 255
+      light.office_light_1:
+        state: on
+        brightness: 255
+      light.office_light_2:
+        state: on
+        brightness: 255
+      light.office_desk:
+        state: on
+        brightness: 255
+      light.wall_clock:
+        state: on
+        effect: "Clock Backfill"
+      light.under_desk_lights:  # Under Desk Lights
+        state: on
+        # rgb_color: [255,255,255]
+        xy_color: [0.30929, 0.33007]
+        brightness: 255
+
+  - name: office_zoom
+    entities:
+      light.shellydimmer2_e8db84d4610a:
+        state: on
+        brightness: 250
+      light.office_light_1:
+        state: off
+      light.office_light_2:
+        state: off
+      light.office_desk:
+        state: on
+        brightness: 162
+      light.under_desk_lights:  # Under Desk Lights
+        state: off
+
+  - name: office_dim
+    entities:
+      light.shellydimmer2_e8db84d4610a:
+        state: on
+        brightness: 72
+      light.office_light_1:
+        state: on
+        brightness: 89
+      light.office_light_2:
+        state: on
+        brightness: 89
+      light.office_desk:
+        state: on
+        brightness: 72
+      light.wall_clock:
+        state: on
+        effect: "Clock"
+      light.under_desk_lights:  # Under Desk Lights
+        state: on
+        # rgb_color: [255,255,255]
+        xy_color: [0.30929, 0.33007]
+        brightness: 127
+
+  - name: office_hacker
+    entities:
+      light.shellydimmer2_e8db84d4610a:
+        state: off
+      light.office_light_1:
+        state: off
+      light.office_light_2:
+        state: off
+      light.office_desk:
+        state: off
+      light.wall_clock:
+        state: on
+        rgb_color: [0,0,255]
+        effect: "Clock Inverse"
+      light.under_desk_lights:  # Under Desk Lights
+        state: on
+        # rgb_color: [0,0,255]
+        xy_color: [0.13550, 0.030987]
+        brightness: 255
+
+
+  - name: office_off
+    entities:
+      light.shellydimmer2_e8db84d4610a:
+        state: off
+      light.office_light_1:
+        state: off
+      light.office_light_2:
+        state: off
+      light.office_desk:
+        state: off
+      light.wall_clock:
+        state: on
+        effect: "Clock"
+      light.under_desk_lights:  # Under Desk Lights
+        state: off
+
+script:
+
+  office_zoom:
+    alias: Office Zoom
+    sequence:
+  ## Setup the lights just right
+      - service: scene.turn_on
+        data:
+          entity_id: scene.office_zoom
+  ## Pause the music
+      - service: media_player.media_pause
+        data:
+          entity_id: media_player.office_home
+  ##  Here is where we could close the blinds
+  ##
+  ##  Run the scene again in case the back lights came on with the door light switch
+      - delay: "00:00:02"
+      - service: scene.turn_on
+        data:
+          entity_id: scene.office_zoom
+
+  office_hacker:
+    alias: Office Hacker
+    sequence:
+  ## Setup the lights just right
+      - service: light.turn_off
+        data:
+          entity_id: light.office_desk
+          transition: 0
+      - delay:
+          milliseconds: 750
+      - service: light.turn_off
+        data:
+          entity_id: light.office_light_1
+          transition: 0
+      - delay:
+          milliseconds: 750
+      - service: light.turn_off
+        data:
+          entity_id: light.office_light_2
+          transition: 0
+      - delay:
+          milliseconds: 750
+      - service: light.turn_off
+        data:
+          entity_id: light.shellydimmer2_e8db84d4610a
+          transition: 0
+      - delay:
+          milliseconds: 750
+      - service: scene.turn_on
+        data:
+          entity_id: scene.office_hacker
+      - service: cover.close_cover
+        target:
+          entity_id: cover.soma_ed_c1_c6_bb_2c_74
+
+  office_around_the_horn:
+    sequence:
+      - service: scene.turn_on
+        data:
+          entity_id: scene.office_off
+      # - delay:
+      #     milliseconds: 500
+      - alias: the_loop
+        repeat:
+          count: 7
+          sequence:
+            - service: light.turn_on
+              data:
+                entity_id: light.office_desk
+                brightness: 255
+                transition: 0
+            - delay:
+                milliseconds: 250
+            - service: light.turn_off
+              data:
+                entity_id: light.office_desk
+                transition: 0
+            - service: light.turn_on
+              data:
+                entity_id: light.office_light_2
+                brightness: 255
+                transition: 0
+            - delay:
+                milliseconds: 250
+            - service: light.turn_off
+              data:
+                entity_id: light.office_light_2
+                transition: 0
+            - service: light.turn_on
+              data:
+                entity_id: light.office_light_1
+                brightness: 255
+                transition: 0
+            - delay:
+                milliseconds: 250
+            - service: light.turn_off
+              data:
+                entity_id: light.office_light_1
+                transition: 0
+      # - service: light.turn_on
+      #   data:
+      #     entity_id: light.shellydimmer2_e8db84d4610a
+      #     brightness: 255
+      #     transition: 0
+      # - delay:
+      #     milliseconds: 250
+      # - service: light.turn_off
+      #   data:
+      #     entity_id: light.shellydimmer2_e8db84d4610a
+      #     transition: 0
+
+automation:
+
+  # Office
+
+  - alias: 'Office switch turns on all office Lights'
+    trigger:
+      - platform: state
+        entity_id: light.shellydimmer2_e8db84d4610a
+        from: 'off'
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    action:
+      - delay:
+          milliseconds: 1000
+      - service: light.turn_on
+        entity_id: light.office_light_2
+      - delay:
+          milliseconds: 1000
+      - service: light.turn_on
+        entity_id: light.office_light_1
+      - delay:
+          milliseconds: 1000
+      - service: light.turn_on
+        entity_id: light.office_desk
+
+  - alias: 'Office switch turns off all office Lights'
+    trigger:
+      - platform: state
+        entity_id: light.shellydimmer2_e8db84d4610a
+        from: 'on'
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    action:
+      - delay:
+          milliseconds: 1000
+      - service: light.turn_off
+        entity_id: light.office_light_2
+      - delay:
+          milliseconds: 1000
+      - service: light.turn_off
+        entity_id: light.office_light_1
+      - delay:
+          milliseconds: 1000
+      - service: light.turn_off
+        entity_id: light.office_desk

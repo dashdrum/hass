@@ -4,8 +4,6 @@
 light.shellyrgbw2_1dfb87:
   friendly_name: Undercabinet Lights
   icon: mdi:led-strip-variant
-light.shellydimmer2_e8db84d4610a:
-  friendly_name: Office Door Light
 light.shellydimmer2_e8db84d6142e:
   friendly_name: Upstairs Hall Light
   icon: mdi:lightbulb-outline
@@ -100,8 +98,6 @@ sensor.office_battery:
   friendly_name: Office Battery
 sensor.shellydimmer2_e8db84d6142e_device_temperature:
   friendly_name: Upstairs Hall Dimmer Temp
-sensor.shellydimmer_d0e973_device_temperature:
-  friendly_name: Office Dimmer Temp
 sensor.shelly1l_f4cfa2e397de_device_temperature:
   friendly_name: Path Switch Temp
 sensor.shellybutton1_3c6105e53723_battery:
@@ -247,8 +243,6 @@ binary_sensor.garage_house_door:
 binary_sensor.garage_door:
   friendly_name: Garage Door
   icon: mdi:garage
-binary_sensor.closet_motion:
-  friendly_name: Master Closet Motion
 binary_sensor.laundry_motion:
   friendly_name: Laundry Motion
 binary_sensor.garage_motion_1:
@@ -275,24 +269,6 @@ scene.watch_tv:
 scene.living_room_dim:
   friendly_name: Living Room Dim
   icon: mdi:lightbulb-on
-scene.office_bright:
-  friendly_name: Office Bright
-  icon: mdi:lightbulb-on-outline
-scene.office_normal:
-  friendly_name: Office Normal
-  icon: mdi:lightbulb-outline
-scene.office_zoom:
-  friendly_name: Office Zoom
-  icon: mdi:webcam
-scene.office_dim:
-  friendly_name: Office Dim
-  icon: mdi:lightbulb-on
-scene.office_hacker:
-  friendly_name: Office Hacker
-  icon: mdi:keyboard
-scene.office_off:
-  friendly_name: Office  Off
-  icon: mdi:lightbulb
 scene.kitchen_bright:
   friendly_name: Kitchen Bright
   icon: mdi:lightbulb-on-outline

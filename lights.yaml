@@ -59,12 +59,6 @@
 #---------------------------------------------------------------------------------------------------------------------#
 
 - platform: group
-  name: Dressers
-  entities:
-    - light.dresser1
-    - light.dresser2
-
-- platform: group
   name: Living Room Lights
   entities:
     - light.dan_lamp
@@ -72,29 +66,6 @@
     - light.dining_room_light
     - light.stairway_light
     - light.candle_mold_light
-
-- platform: group
-  name: Office Lights
-  entities:
-    - light.shellydimmer2_e8db84d4610a
-    - light.office_desk_lamp
-    - light.office_chair_light
-    - light.office_window_light
-
-- platform: group
-  name: master_bedroom
-  entities:
-    - light.dan_bedside_lamp
-    - light.kelly_bedside_lamp
-    - light.dresser1
-    - light.dresser2
-    - light.master_closet_light
-
-- platform: group
-  name: office_others
-  entities:
-    - light.office_chair_light
-    - light.office_window_light
 
 - platform: group
   name: laundry_lights

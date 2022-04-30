@@ -3,6 +3,130 @@ homeassistant:
     sensor.dressers_brightness:
       icon: mdi:alarm-light-outline
 
+light:
+
+  - platform: group
+    name: Dressers
+    entities:
+      - light.dresser_1
+      - light.dresser_2
+
+  - platform: group
+    name: master_bedroom
+    entities:
+      - light.dan_bedside_lamp
+      - light.kelly_bedside_lamp
+      - light.dresser_1
+      - light.dresser_2
+      - light.master_closet
+
+scene:
+
+  # Master Bedroom
+
+  - name: nighttime
+    entities:
+      light.kelly_bedside_lamp:
+        state: on
+        brightness: 5
+        rgb_color: [0,0,255]   #blue
+        effect: colorloop
+      light.dan_bedside_lamp:
+        state: off
+      light.master_closet:
+        state: off
+      light.dresser_1:
+        state: off
+      light.dresser_2:
+        state: off
+      # light.led_mirror:
+      #   state: on
+      #   effect: colorfade_fast
+
+  - name: master_warm
+    entities:
+      light.kelly_bedside_lamp:
+        state: on
+        brightness: 191
+        color_temp: 450
+      light.dan_bedside_lamp:
+        state: on
+        brightness: 191
+        color_temp: 450
+      light.dresser_1:
+        state: on
+        brightness: 191
+      light.dresser_2:
+        state: on
+        brightness: 191
+
+  - name: master_cool
+    entities:
+      light.kelly_bedside_lamp:
+        state: on
+        brightness: 204
+        color_temp: 203
+      light.dan_bedside_lamp:
+        state: on
+        brightness: 204
+        color_temp: 203
+      light.dresser_1:
+        state: off
+      light.dresser_2:
+        state: off
+
+  - name: master_bright
+    entities:
+      light.kelly_bedside_lamp:
+        state: on
+        brightness: 255
+        color_temp: 329
+      light.dan_bedside_lamp:
+        state: on
+        brightness: 255
+        color_temp: 329
+      light.master_closet:
+        state: on
+        brightness: 255
+      light.dresser_1:
+        state: on
+        brightness: 255
+      light.dresser_2:
+        state: on
+        brightness: 255
+
+  - name: master_dim
+    entities:
+      light.kelly_bedside_lamp:
+        state: on
+        brightness: 55
+        xy_color: [0.4575, 0.4099]
+      light.dan_bedside_lamp:
+        state: on
+        brightness: 55
+        xy_color: [0.4575, 0.4099]
+      light.dresser_1:
+        state: on
+        brightness: 55
+      light.dresser_2:
+        state: on
+        brightness: 55
+      light.master_closet:
+        state: off
+
+  - name: master_off
+    entities:
+      light.kelly_bedside_lamp:
+        state: off
+      light.dan_bedside_lamp:
+        state: off
+      light.master_closet:
+        state: off
+      light.dresser_1:
+        state: off
+      light.dresser_2:
+        state: off
+
 sensor:
   - platform: template
     sensors:
@@ -43,7 +167,7 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: light.master_closet_light
+          entity_id: light.master_closet
           state: "off"
         ## Check is bed if occupied
         - condition: state
@@ -78,7 +202,7 @@ automation:
       to: 'on'
     action:
       service: homeassistant.turn_on
-      entity_id: light.master_closet_light
+      entity_id: light.master_closet
 
   - alias: 'Turn off closet light 2 minutes after last movement'
     trigger:
@@ -89,12 +213,12 @@ automation:
         minutes: 2
     action:
       service: light.turn_off
-      entity_id: light.master_closet_light
+      entity_id: light.master_closet
 
   - alias: 'Closet Lights Timer'
     trigger:
       - platform: state
-        entity_id: light.master_closet_light
+        entity_id: light.master_closet
         from: 'off'
         to: 'on'
         for:
@@ -108,4 +232,4 @@ automation:
     action:
       - service: light.turn_off
         data:
-          entity_id: light.master_closet_light
+          entity_id: light.master_closet
