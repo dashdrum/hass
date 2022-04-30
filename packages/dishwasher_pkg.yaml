@@ -300,7 +300,7 @@ automation:
         entity_id: binary_sensor.dishwasher_door_contact
         state: "off"
     action:
-      - service: notify.no_bedrooms_cloud
+      - service: notify.dan_cloud
         data:
           message: >
             {{
@@ -326,7 +326,7 @@ automation:
         entity_id: input_boolean.tts_automations
         state: "on"
     action:
-      - service: notify.no_bedrooms_cloud
+      - service: notify.kitchen_cloud
         data:
           message: >
             {{
@@ -337,3 +337,14 @@ automation:
               ] | random
             }}
 
+# MQTT Publish
+  - alias: Dishwasher Publish Status
+    trigger:
+      platform: state
+      entity_id: input_select.dishwasher_status
+    action:
+      service: mqtt.publish
+      data_template:
+        payload: "{{states('input_select.dishwasher_status')}}"
+        topic: hass/dishwasher/status
+        retain: true

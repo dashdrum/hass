@@ -110,65 +110,65 @@ notify_kelly:
           entity_id: person.kelly_gentry
           state: 'home'
         sequence:
-          - service: notify.living_room_cloud
+          - service: notify.kelly_cloud
             data:
               message: '{{ message }}'
-          - choose:
-              conditions:
-                condition: or
-                conditions:
-                - condition: state
-                  entity_id: sensor.espresence_apple_1005_9_24
-                  state: 'spare'
-                - condition: state
-                  entity_id: sensor.espresence_apple_1006_10_8
-                  state: 'spare'
-              sequence:
-                - service: notify.spare
-                  data:
-                    message: '{{ message }}'
-          - choose:
-              conditions:
-                condition: or
-                conditions:
-                - condition: state
-                  entity_id: sensor.espresence_apple_1005_9_24
-                  state: 'master'
-                - condition: state
-                  entity_id: sensor.espresence_apple_1006_10_8
-                  state: 'master'
-              sequence:
-                - service: notify.master
-                  data:
-                    message: '{{ message }}'
-          - choose:
-              conditions:
-                condition: or
-                conditions:
-                - condition: state
-                  entity_id: sensor.espresence_apple_1005_9_24
-                  state: 'kitchen_dining'
-                - condition: state
-                  entity_id: sensor.espresence_apple_1006_10_8
-                  state: 'kitchen_dining'
-              sequence:
-                - service: notify.kitchen
-                  data:
-                    message: '{{ message }}'
-          - choose:
-              conditions:
-                condition: or
-                conditions:
-                - condition: state
-                  entity_id: sensor.espresence_apple_1005_9_24
-                  state: 'office'
-                - condition: state
-                  entity_id: sensor.espresence_apple_1006_10_8
-                  state: 'office'
-              sequence:
-                - service: notify.office
-                  data:
-                    message: '{{ message }}'
+          # - choose:
+          #     conditions:
+          #       condition: or
+          #       conditions:
+          #       - condition: state
+          #         entity_id: sensor.espresence_apple_1005_9_24
+          #         state: 'spare'
+          #       - condition: state
+          #         entity_id: sensor.espresence_apple_1006_10_8
+          #         state: 'spare'
+          #     sequence:
+          #       - service: notify.spare
+          #         data:
+          #           message: '{{ message }}'
+          # - choose:
+          #     conditions:
+          #       condition: or
+          #       conditions:
+          #       - condition: state
+          #         entity_id: sensor.espresence_apple_1005_9_24
+          #         state: 'master'
+          #       - condition: state
+          #         entity_id: sensor.espresence_apple_1006_10_8
+          #         state: 'master'
+          #     sequence:
+          #       - service: notify.master
+          #         data:
+          #           message: '{{ message }}'
+          # - choose:
+          #     conditions:
+          #       condition: or
+          #       conditions:
+          #       - condition: state
+          #         entity_id: sensor.espresence_apple_1005_9_24
+          #         state: 'kitchen_dining'
+          #       - condition: state
+          #         entity_id: sensor.espresence_apple_1006_10_8
+          #         state: 'kitchen_dining'
+          #     sequence:
+          #       - service: notify.kitchen
+          #         data:
+          #           message: '{{ message }}'
+          # - choose:
+          #     conditions:
+          #       condition: or
+          #       conditions:
+          #       - condition: state
+          #         entity_id: sensor.espresence_apple_1005_9_24
+          #         state: 'office'
+          #       - condition: state
+          #         entity_id: sensor.espresence_apple_1006_10_8
+          #         state: 'office'
+          #     sequence:
+          #       - service: notify.office
+          #         data:
+          #           message: '{{ message }}'
       default:
         - service: notify.signal_kelly
           data:
