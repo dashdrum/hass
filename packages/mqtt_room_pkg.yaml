@@ -3,12 +3,12 @@ homeassistant:
     sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1:
       friendly_name: Dan's Samsung - ESPresense
       icon: mdi:cellphone
-    sensor.espresence_apple_1006_10_8:
-      friendly_name: Kelly's iPhone - ESPresense
-      icon: mdi:cellphone
-    sensor.espresence_apple_1005_9_24:
-      friendly_name: Kelly's Apple Watch - ESPresense
-      icon: mdi:watch
+    # sensor.espresence_apple_1006_10_8:
+    #   friendly_name: Kelly's iPhone - ESPresense
+    #   icon: mdi:cellphone
+    # sensor.espresence_apple_1005_9_24:
+    #   friendly_name: Kelly's Apple Watch - ESPresense
+    #   icon: mdi:watch
     sensor.espresence_apple_1005_9_12:
       friendly_name: Dan's iPad - ESPresense
       icon: mdi:tablet
@@ -179,21 +179,21 @@ sensor:
     timeout: 60
     away_timeout: 120 # number of seconds after which the enitity will get status not_home
 
-  # iPhone
-  - platform: mqtt_room
-    device_id: apple:1006:10-8
-    name: espresence_apple:1006:10-8
-    state_topic: espresense/devices/apple:1006:10-8
-    timeout: 60
-    away_timeout: 120 # number of seconds after which the enitity will get status not_home
+  # # iPhone
+  # - platform: mqtt_room
+  #   device_id: apple:1006:10-8
+  #   name: espresence_apple:1006:10-8
+  #   state_topic: espresense/devices/apple:1006:10-8
+  #   timeout: 60
+  #   away_timeout: 120 # number of seconds after which the enitity will get status not_home
 
-  # Apple Watch
-  - platform: mqtt_room
-    device_id: apple:1005:9-24
-    name: espresence_apple:1005:9-24
-    state_topic: espresense/devices/apple:1005:9-24
-    timeout: 60
-    away_timeout: 120 # number of seconds after which the enitity will get status not_home
+  # # Apple Watch
+  # - platform: mqtt_room
+  #   device_id: apple:1005:9-24
+  #   name: espresence_apple:1005:9-24
+  #   state_topic: espresense/devices/apple:1005:9-24
+  #   timeout: 60
+  #   away_timeout: 120 # number of seconds after which the enitity will get status not_home
 
   # iPad
   - platform: mqtt_room
