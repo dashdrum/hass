@@ -14,21 +14,9 @@
     entity_id: input_boolean.tts_automations
     state: "on"
   action:
-    - service: tts.cloud_say
-      entity_id:
-        - media_player.dan_speaker
-        - media_player.spare_room_speaker
-        - media_player.nestmini4000
-        - media_player.kitchen_speaker
-        - media_player.smart_clock
-        - media_player.office_home
-        - media_player.kelly_home
-        - media_player.smart_clock
+    - service: notify.no_bedrooms_cloud
       data:
         message: 'The garage door is opening'
-        language: en-IE
-        options:
-          gender: female
 
 - alias: 'Turn on garage_door_lights with garage door open'
   trigger:
@@ -80,20 +68,9 @@
     entity_id: input_boolean.tts_automations
     state: "on"
   action:
-    - service: tts.cloud_say
-      entity_id:
-        - media_player.dan_speaker
-        - media_player.spare_room_speaker
-        - media_player.nestmini4000
-        - media_player.kitchen_speaker
-        - media_player.office_home
-        - media_player.kelly_home
-        - media_player.smart_clock
+    - service: notify.no_bedrooms_cloud
       data:
         message: 'The garage door has been open for 30 minutes'
-        language: en-IE
-        options:
-          gender: female
 
 - alias: 'Garage door open for 60 minutes - close it'
   trigger:
@@ -110,22 +87,9 @@
     entity_id: input_boolean.garage_automations
     state: "on"
   action:
-    - service: cover.close_cover
-      entity_id: cover.garage_door
-    - service: tts.cloud_say
-      entity_id:
-        - media_player.dan_speaker
-        - media_player.spare_room_speaker
-        - media_player.nestmini4000
-        - media_player.kitchen_speaker
-        - media_player.office_home
-        - media_player.kelly_home
-        - media_player.smart_clock
+    - service: notify.no_bedrooms_cloud
       data:
         message: 'The garage door has been open for one hour.  Closing now'
-        language: en-IE
-        options:
-          gender: female
 
 - alias: 'Garage door open for 90 minutes - close it'
   trigger:
@@ -144,20 +108,9 @@
   action:
     - service: cover.close_cover
       entity_id: cover.garage_door
-    - service: tts.cloud_say
-      entity_id:
-        - media_player.dan_speaker
-        - media_player.spare_room_speaker
-        - media_player.nestmini4000
-        - media_player.kitchen_speaker
-        - media_player.office_home
-        - media_player.kelly_home
-        - media_player.smart_clock
+    - service: notify.no_bedrooms_cloud
       data:
         message: '90 minutes this garage door has been open! I will try to close it again'
-        language: en-IE
-        options:
-          gender: female
 
 - alias: 'Garage door open for 2 hours - close it'
   trigger:
@@ -176,20 +129,9 @@
   action:
     - service: cover.close_cover
       entity_id: cover.garage_door
-    - service: tts.cloud_say
-      entity_id:
-        - media_player.dan_speaker
-        - media_player.spare_room_speaker
-        - media_player.nestmini4000
-        - media_player.kitchen_speaker
-        - media_player.office_home
-        - media_player.kelly_home
-        - media_player.smart_clock
+    - service: notify.no_bedrooms_cloud
       data:
         message: 'OK, 2 hours is too long for the garage door to be open.  I will try to close it one more time, but you should check it'
-        language: en-IE
-        options:
-          gender: female
 
 - alias: 'Garage door has closed'
   trigger:
@@ -206,7 +148,7 @@
     entity_id: input_boolean.tts_automations
     state: "on"
   action:
-    - service: notify.main_cloud
+    - service: notify.no_bedrooms_cloud
       data:
         message: 'The garage door has closed'
         data:
@@ -269,17 +211,6 @@
     entity_id: input_boolean.garage_automations
     state: "on"
   action:
-    - service: tts.cloud_say
-      entity_id:
-        - media_player.dan_speaker
-        - media_player.spare_room_speaker
-        - media_player.nestmini4000
-        - media_player.kitchen_speaker
-        - media_player.office_home
-        - media_player.kelly_home
-        - media_player.smart_clock
+    - service: notify.no_bedrooms_cloud
       data:
         message: 'The garage access door is opening'
-        language: en-IE
-        options:
-          gender: female

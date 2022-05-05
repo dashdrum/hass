@@ -59,17 +59,11 @@
   tts_service: tts.google_translate_say
   media_player: media_player.spare_room_speaker
 
-- platform: tts
-  name: main
-  tts_service: tts.google_translate_say
-  media_player: media_player.main_floor
-
 - platform: group
   name: all_speakers
   services:
     - service: kitchen
     - service: dan
-    - service: kelly
     - service: guest
     - service: family
     - service: office
@@ -81,7 +75,6 @@
   services:
     - service: kitchen
     - service: dan
-    - service: kelly
     - service: family
     - service: office
 
@@ -132,11 +125,6 @@
   tts_service: tts.cloud_say
   media_player: media_player.spare_room_speaker
 
-- platform: tts
-  name: main_cloud
-  tts_service: tts.cloud_say
-  media_player: media_player.main_floor
-
 - platform: group
   name: living_room
   services:
@@ -154,7 +142,6 @@
   services:
     - service: kitchen_cloud
     - service: dan_cloud
-    - service: kelly_cloud
     - service: guest_cloud
     - service: family_cloud
     - service: office_cloud
@@ -166,7 +153,6 @@
   services:
     - service: kitchen_cloud
     - service: dan_cloud
-    - service: kelly_cloud
     - service: family_cloud
     - service: office_cloud
 
