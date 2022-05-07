@@ -57,7 +57,7 @@ homeassistant:
     sensor.espresense_living_room_uptime:
       icon: mdi:clock
       friendly_name: ESP LR Uptime
-    sensor.espresense_living_room_free_memory:
+    sensor.espresense_living_room_free_mem:
       icon: mdi:memory
       friendly_name: ESP LR Free Mem
     switch.espresense_living_room_status_led:
@@ -87,7 +87,7 @@ homeassistant:
     sensor.espresense_master_uptime:
       icon: mdi:clock
       friendly_name: ESP Master Uptime
-    sensor.espresense_master_free_memory:
+    sensor.espresense_master_free_mem:
       icon: mdi:memory
       friendly_name: ESP Master Free Mem
     switch.espresense_master_status_led:
@@ -117,7 +117,7 @@ homeassistant:
     sensor.espresense_spare_uptime:
       icon: mdi:clock
       friendly_name: ESP Spare Uptime
-    sensor.espresense_spare_free_memory:
+    sensor.espresense_spare_free_mem:
       icon: mdi:memory
       friendly_name: ESP Spare Free Mem
     switch.espresense_spare_status_led:
@@ -147,7 +147,7 @@ homeassistant:
     sensor.espresense_kitchen_dining_uptime:
       icon: mdi:clock
       friendly_name: ESP Kitchen Uptime
-    sensor.espresense_kitchen_dining_free_memory:
+    sensor.espresense_kitchen_dining_free_mem:
       icon: mdi:memory
       friendly_name: ESP Kitchen Free Mem
     switch.espresense_kitchen_dining_status_led:

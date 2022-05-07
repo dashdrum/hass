@@ -10,6 +10,10 @@ homeassistant:
       icon: mdi:air-conditioner
     script.master_ac_night:
       icon: mdi:air-conditioner
+    climate.master_bedroom_ac:
+      friendly_name: Master Bedroom AC
+    climate.living_room_ac:
+      friendly_name: Living Room AC
 
 automation:
   - id: mb_ac_to_night

@@ -14,6 +14,13 @@ light.tv_backlight:
   icon: mdi:led-strip-variant
 light.led_mirror:
   icon: mdi:led-strip-variant
+light.laundry_lights:
+  friendly_name: Laundry Lights
+switch.shellyswitch25_00fb7b5:
+  friendly_name: Ceiling Lights
+  icon: mdi:light-switch
+light.outdoor_lights:
+  friendly_name: Outdoor Lights
 
 ## Switches
 
@@ -129,6 +136,12 @@ sensor.avg_indoor_temperature:
   icon: mdi:thermometer
 sensor.avg_indoor_humidity:
   friendly_name: Avg Indoor Humidity
+  icon: mdi:water-percent
+sensor.avg_upstairs_temperature:
+  friendly_name: Avg Upstairs Temperature
+  icon: mdi:thermometer
+sensor.avg_upstairs_humidity:
+  friendly_name: Avg Upstairs Humidity
   icon: mdi:water-percent
 
 sensor.avg_garage_temp:

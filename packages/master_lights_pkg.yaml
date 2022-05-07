@@ -2,6 +2,19 @@ homeassistant:
   customize:
     sensor.dressers_brightness:
       icon: mdi:alarm-light-outline
+    light.master_bedroom:
+      friendly_name: Master Bedroom Lights
+    sensor.master_closet_motion_battery:
+      friendly_name: Master Closet Motion Battery
+    binary_sensor.master_closet_motion_battery_low:
+      friendly_name: Master Closet Motion Low Battery
+    binary_sensor.master_closet_motion_occupancy:
+      friendly_name: Master Closet Motion
+    binary_sensor.master_closet_motion_tamper:
+      friendly_name: Master Closet Motion Tamper
+    sensor.master_closet_motion_linkquality:
+      friendly_name: Master Closet Motion Link Quality
+
 
 light:
 

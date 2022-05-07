@@ -1,5 +1,13 @@
 homeassistant:
   customize:
+    automation.wall_clock_input_number_brightness_change:
+      friendly_name: Wall Clock Input Number Brightness Change
+    automation.wall_clock_brightness_set:
+      friendly_name: Wall Clock Brightness Set
+    automation.wall_clock_brightness:
+      friendly_name: Wall Clock Brightness
+    sensor.wall_clock_marker_setting:
+      icon: mdi:marker
 
 ## With discovery off, the entities are defined here
 

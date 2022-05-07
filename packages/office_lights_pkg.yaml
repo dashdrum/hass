@@ -27,6 +27,8 @@ homeassistant:
       friendly_name: Office Door Light
     sensor.shellydimmer2_e8db84d4610a_device_temperature:
       friendly_name: Office Dimmer Temp
+    script.office_around_the_horn:
+      friendly_name: Office Around the Horn
 
 light:
 
