@@ -348,3 +348,42 @@ automation:
         payload: "{{states('input_select.dishwasher_status')}}"
         topic: hass/dishwasher/status
         retain: true
+
+  - alias: Dishwasher Publish Power
+    trigger:
+      platform: state
+      entity_id: sensor.dishwasher_switch_switch_0_power
+    action:
+      service: mqtt.publish
+      data_template:
+        payload: "{{states('sensor.dishwasher_switch_switch_0_power')}}"
+        topic: hass/dishwasher/power
+        retain: true
+
+# Dishwasher Display
+
+  - alias: Dishwasher Display Off at Midnight
+    trigger:
+      - platform: time_pattern
+        hours: 00
+        minutes: 00
+        seconds: 00
+    condition:
+      condition: state
+      entity_id: input_boolean.lights_off_automations
+      state: "on"
+    action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.dishwasher_display_backlight
+
+  - alias: Dishwasher Display On in the Morning
+    trigger:
+      - platform: time_pattern
+        hours: 05
+        minutes: 45
+        seconds: 00
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.dishwasher_display_backlight
