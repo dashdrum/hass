@@ -21,10 +21,6 @@
   entity_id: switch.deck_light
 
 - platform: switch
-  name: Garage Door Lights
-  entity_id: switch.garage_door_lights
-
-- platform: switch
   name: Woodpile Lights
   entity_id: switch.woodpile_lights
 

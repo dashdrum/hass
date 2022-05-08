@@ -4,6 +4,54 @@ homeassistant:
   customize:
     binary_sensor.garage_abandoned:
       friendly_name: Garage Abandoned
+    binary_sensor.garage_access_door:
+      friendly_name: Garage Access Door
+      device_class: door
+    binary_sensor.garage_house_door:
+      friendly_name: Garage House Door
+      device_class: door
+    binary_sensor.garage_door:
+      friendly_name: Garage Door
+      icon: mdi:garage
+    binary_sensor.garage_motion_1:
+      friendly_name: Garage Motion 1
+    binary_sensor.garage_motion_2:
+      friendly_name: Garage Motion 2
+    binary_sensor.garage_motion_3:
+      friendly_name: Garage Motion 3
+    binary_sensor.garage_left_bay:
+      icon: mdi:car-pickup
+      device_class: occupancy
+    cover.garage_door:
+      #device_class: garage
+      friendly_name: Garage Door
+      # icon: mdi:garage
+    switch.garage_door_lights:
+      icon: mdi:lightbulb-outline
+    switch.garage_light:
+      icon: mdi:lightbulb-outline
+    sensor.avg_garage_temp:
+      friendly_name: Garage Temperature (Avg)
+      icon: mdi:thermometer
+    sensor.avg_garage_humidity:
+      friendly_name: Garage Humidity (Avg)
+      icon: mdi:water-percent
+    sensor.garage_temp:
+      friendly_name: Garage Temperature (Ceiling)
+    sensor.garage_humidity:
+      friendly_name: Garage Humidity (Ceiling)
+    sensor.garage_sensor_temperature:
+      friendly_name: Garage Temperature (House Wall)
+    sensor.garage_sensor_humidity:
+      friendly_name: Garage Humidity (House Wall)
+    sensor.garage_temp_3_humidity:
+      friendly_name: Garage Humidity (Outer Wall)
+    sensor.garage_temp_3_temperature:
+      friendly_name: Garage Temperature (Outer Wall)
+    sensor.garage_temp_3_pressure:
+      friendly_name: Garage Pressure (Outer Wall)
+    sensor.garage_left_bay:
+      icon: mdi:car-pickup
 
 template:
   - binary_sensor:
@@ -24,3 +72,247 @@ alert:
     skip_first: true
     notifiers:
       - signal_both
+
+light:
+
+- platform: switch
+  name: Garage Door Lights
+  entity_id: switch.garage_door_lights
+
+sensor:
+
+  - platform: min_max
+    entity_ids:
+      - sensor.garage_sensor_temperature
+      - sensor.garage_temp
+      - sensor.garage_temp_3_temperature
+    type: mean
+    name: avg_garage_temp
+    round_digits: 2
+
+  - platform: min_max
+    entity_ids:
+      - sensor.garage_humidity
+      - sensor.garage_sensor_humidity
+      # - sensor.garage_temp_3_humidity
+    type: mean
+    name: avg_garage_humidity
+    round_digits: 2
+
+automation:
+
+  - alias: 'Garage door is opening'
+    trigger:
+      - platform: state
+        entity_id: cover.garage_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.tts_automations
+      state: "on"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'The garage door is opening'
+
+  - alias: 'Turn on garage_door_lights with garage door open'
+    trigger:
+      - platform: state
+        entity_id: cover.garage_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.garage_door_lights
+
+  - alias: 'Turn on garage_light with garage door open'
+    trigger:
+      - platform: state
+        entity_id: cover.garage_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    action:
+      - service: switch.turn_on
+        data:
+          entity_id: switch.garage_light
+
+  - alias: 'Garage door open for 30 minutes'
+    trigger:
+      - platform: state
+        entity_id: cover.garage_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 0
+          minutes: 30
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.tts_automations
+      state: "on"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'The garage door has been open for 30 minutes'
+
+  - alias: 'Garage door open for 60 minutes - close it'
+    trigger:
+      - platform: state
+        entity_id: cover.garage_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 0
+          minutes: 60
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.garage_automations
+      state: "on"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'The garage door has been open for one hour.  Closing now'
+
+  - alias: 'Garage door open for 90 minutes - close it'
+    trigger:
+      - platform: state
+        entity_id: cover.garage_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 1
+          minutes: 30
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.garage_automations
+      state: "on"
+    action:
+      - service: cover.close_cover
+        entity_id: cover.garage_door
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: '90 minutes this garage door has been open! I will try to close it again'
+
+  - alias: 'Garage door open for 2 hours - close it'
+    trigger:
+      - platform: state
+        entity_id: cover.garage_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 2
+          minutes: 00
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.garage_automations
+      state: "on"
+    action:
+      - service: cover.close_cover
+        entity_id: cover.garage_door
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'OK, 2 hours is too long for the garage door to be open.  I will try to close it one more time, but you should check it'
+
+  - alias: 'Garage door has closed'
+    trigger:
+      - platform: state
+        entity_id: cover.garage_door
+        from: 'open'
+        to: 'closed'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.tts_automations
+      state: "on"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'The garage door has closed'
+          data:
+            language: en-IE
+            options:
+              gender: female
+
+
+  - alias: 'Garage Door Lights Timer'
+    trigger:
+      - platform: state
+        entity_id: switch.garage_door_lights
+        from: 'off'
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 30
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.lights_off_automations
+      state: "on"
+    action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.garage_door_lights
+
+
+  - alias: 'Garage Light Timer'
+    trigger:
+      - platform: state
+        entity_id: switch.garage_light
+        from: 'off'
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 15
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.lights_off_automations
+      state: "on"
+    action:
+      - service: switch.turn_off
+        data:
+          entity_id: switch.garage_light
+
+  - alias: 'Garage access door is opening'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_access_door
+        from: 'off'
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.garage_automations
+      state: "on"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'The garage access door is opening'

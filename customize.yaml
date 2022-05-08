@@ -36,15 +36,11 @@ switch.kitchen_light:
   icon: mdi:lightbulb-outline
 switch.laundry_light:
   icon: mdi:lightbulb-outline
-switch.garage_door_lights:
-  icon: mdi:lightbulb-outline
 switch.guest_room_light:
   icon: mdi:lightbulb-outline
 switch.sink_light:
   icon: mdi:lightbulb-outline
 switch.coat_rack_light:
-  icon: mdi:lightbulb-outline
-switch.garage_light:
   icon: mdi:lightbulb-outline
 switch.shelly1_500291ed2481:
   icon: mdi:lightbulb-outline
@@ -75,13 +71,6 @@ switch.master_smart_plug:
   device_class: outlet
 
 
-
-## Covers
-
-cover.garage_door:
-  #device_class: garage
-  friendly_name: Garage Door
-  # icon: mdi:garage
 
 ## Sensors
 
@@ -144,31 +133,6 @@ sensor.avg_upstairs_humidity:
   friendly_name: Avg Upstairs Humidity
   icon: mdi:water-percent
 
-sensor.avg_garage_temp:
-  friendly_name: Garage Temperature (Avg)
-  icon: mdi:thermometer
-sensor.avg_garage_humidity:
-  friendly_name: Garage Humidity (Avg)
-  icon: mdi:water-percent
-sensor.garage_temp:
-  friendly_name: Garage Temperature (Ceiling)
-sensor.garage_humidity:
-  friendly_name: Garage Humidity (Ceiling)
-sensor.garage_sensor_temperature:
-  friendly_name: Garage Temperature (House Wall)
-sensor.garage_sensor_humidity:
-  friendly_name: Garage Humidity (House Wall)
-sensor.garage_temp_3_humidity:
-  friendly_name: Garage Humidity (Outer Wall)
-sensor.garage_temp_3_temperature:
-  friendly_name: Garage Temperature (Outer Wall)
-sensor.garage_temp_3_pressure:
-  friendly_name: Garage Pressure (Outer Wall)
-sensor.garage_left_bay:
-  icon: mdi:car-pickup
-binary_sensor.garage_left_bay:
-  icon: mdi:car-pickup
-  device_class: occupancy
 
 sensor.outdoor_sea_level_pressure:
   friendly_name: Outdoor Sea Level Equivalent
@@ -247,23 +211,8 @@ sensor.hass_server:
 
 ## Binary Sensors
 
-binary_sensor.garage_access_door:
-  friendly_name: Garage Access Door
-  device_class: door
-binary_sensor.garage_house_door:
-  friendly_name: Garage House Door
-  device_class: door
-binary_sensor.garage_door:
-  friendly_name: Garage Door
-  icon: mdi:garage
 binary_sensor.laundry_motion:
   friendly_name: Laundry Motion
-binary_sensor.garage_motion_1:
-  friendly_name: Garage Motion 1
-binary_sensor.garage_motion_2:
-  friendly_name: Garage Motion 2
-binary_sensor.garage_motion_3:
-  friendly_name: Garage Motion 3
 
 ## Scenes
 
