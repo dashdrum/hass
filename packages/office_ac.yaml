@@ -179,11 +179,10 @@ automation:
           entity_id: input_boolean.ac_automations
           state: "on"
     action:
-      - service: switch.turn_on
+      - service: button.press
         data:
-          entity_id: switch.office_ac_power
-      - service: tts.google_translate_say
-        entity_id: media_player.office_home
+          entity_id: button.office_ac_power
+      - service: notify.office
         data:
           message: >
             {{
@@ -214,6 +213,6 @@ automation:
           entity_id: input_boolean.ac_automations
           state: "on"
     action:
-      - service: switch.turn_on
+      - service: button.press
         data:
-          entity_id: switch.office_ac_power
+          entity_id: button.office_ac_power
