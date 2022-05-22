@@ -205,13 +205,13 @@
       value_template: "{{ state_attr('vacuum.rusty', 'position')  }}"
 
 
-- platform: template
-  sensors:
-    shellyswitch25_00fb7b5_temperature_c:
-      friendly_name: "Ceiling Lights Switch Temp C"
-      unit_of_measurement: 'ºC'
-      device_class: temperature
-      value_template: "{{ ((( states('sensor.shellyswitch25_00fb7b5_temperature') | float ) - 32) * 5/9) | round(1) }}"
+# - platform: template
+#   sensors:
+#     shellyswitch25_00fb7b5_temperature_c:
+#       friendly_name: "Ceiling Lights Switch Temp C"
+#       unit_of_measurement: 'ºC'
+#       device_class: temperature
+#       value_template: "{{ ((( states('sensor.shellyswitch25_00fb7b5_temperature') | float ) - 32) * 5/9) | round(1) }}"
 
 - platform: template
   sensors:

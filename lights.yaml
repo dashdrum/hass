@@ -30,7 +30,7 @@
 
 - platform: switch
   name: Ceiling Lights
-  entity_id: switch.shellyswitch25_00fb7b5 # ceiling lights
+  entity_id: switch.shellyswitch25_00d075f # ceiling lights
 
 - platform: switch
   name: Basement Stair

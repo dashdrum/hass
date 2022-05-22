@@ -7,15 +7,17 @@ google_actions:
       - input_boolean.washer_status
       - light.basement_lights
       - light.0x94deb8fffe1d7768
+      - light.ceiling_lights
       - light.led_mirror
       - light.tv_backlight
       - light.wall_clock
       - light.xmas_window
       - light.family_room_lights
       - light.candle_mold_light
+      - light.under_desk_lights
       - script.office_zoom
       - script.office_hacker
-      - scene.watch_tv
+      - script.watch_tv
       - scene.nighttime
       - scene.office_dim
       - scene.office_normal
@@ -28,7 +30,6 @@ google_actions:
       - switch.wall_clock_random_effect
       - switch.lr_powerful
       - switch.mb_powerful
-      - switch.shellyswitch25_00fb7b5
       - script.office_ac_toggle
     include_domains:
       - cover
@@ -88,6 +89,10 @@ google_actions:
         - Tin Lamp
       room: Living Room
 
+    light.under_desk_lights:
+      name: Under Desk Lights
+      room: Office
+
     script.office_ac_toggle:
       name: Office AC
       aliases:
@@ -105,6 +110,13 @@ google_actions:
         - Hacker
         - Hacker Scene
       room: Office
+
+    script.watch_tv:
+      name: Watch TV
+      aliases:
+        - TV Scene
+        - TV Mode
+      room: Living Room
 
     sensor.living_room_temperature:
       name: Living room temperature
@@ -124,7 +136,7 @@ google_actions:
         - master bedroom AC powerful
       room: Master Bedroom
 
-    switch.shellyswitch25_00fb7b5:
+    light.ceiling_lights:
       name: Ceiling Lights
       room: Family Room
 
