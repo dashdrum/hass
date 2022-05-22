@@ -3,20 +3,72 @@
 say_somthing:
   alias: Text-to-Speech Test
   sequence:
-    - service: tts.cloud_say
+    - service: notify.all_speakers_cloud
       data:
-        entity_id:
-        - media_player.dan_speaker
-        - media_player.spare_room_speaker
-        - media_player.guest_room_speaker
-        - media_player.kitchen_speaker
-        - media_player.office_home
-        - media_player.kelly_home
-        - media_player.smart_clock
         message: 'Testing ... 1 ... 2 ... 3'
-        language: en-IE
-        options:
-          gender: female
+
+watch_tv:
+  alias: Watch TV
+  sequence:
+## Setup the lights just right
+    - service: light.turn_off
+      data:
+        entity_id: light.laundry_light
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: light.turn_off
+      data:
+        entity_id: light.coat_rack_light
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: light.turn_off
+      data:
+        entity_id: light.sink_light
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: light.turn_off
+      data:
+        entity_id: light.kitchen_light
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: light.turn_off
+      data:
+        entity_id: light.dining_room_light
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: light.turn_off
+      data:
+        entity_id: light.candle_mold_light
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: light.turn_off
+      data:
+        entity_id: light.kelly_lamp
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: light.turn_off
+      data:
+        entity_id: light.dan_lamp
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: light.turn_off
+      data:
+        entity_id: light.stairway_light
+        transition: 0
+    - delay:
+        milliseconds: 750
+    - service: scene.turn_on
+      data:
+        entity_id: scene.watch_tv
+
 undercabinet_morning:
   alias: Activate morning settings
   sequence:

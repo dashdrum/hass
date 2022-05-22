@@ -13,9 +13,7 @@
         minutes: 0
         seconds: 0
   action:
-    - service: tts.cloud_say
-      entity_id:
-        - media_player.main_floor
+    - service: notify.no_bedrooms
       data:
         message: 'The Roomba bin is full'
 
