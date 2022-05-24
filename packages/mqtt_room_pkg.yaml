@@ -27,7 +27,7 @@ homeassistant:
     sensor.espresense_office_uptime:
       icon: mdi:clock
       friendly_name: ESP Office Uptime
-    sensor.espresense_office_free_memory:
+    sensor.espresense_office_free_mem:
       icon: mdi:memory
       friendly_name: ESP Office Free Mem
     switch.espresense_office_status_led:
@@ -165,6 +165,36 @@ homeassistant:
     switch.espresense_kitchen_dining_prerelease:
       icon: mdi:folder-upload-outline
       friendly_name: ESP Kitchen Prerelease
+
+    binary_sensor.espresense_mechanical:
+      friendly_name: ESP Mech
+    button.espresense_mechanical_restart:
+      friendly_name: ESP Mech Restart
+    number.espresense_mechanical_max_distance:
+      friendly_name: ESP Mech Max Distance
+    number.espresense_mechanical_absorption:
+      friendly_name: ESP Mech Absorption
+    sensor.espresense_mechanical_uptime:
+      icon: mdi:clock
+      friendly_name: ESP Mech Uptime
+    sensor.espresense_mechanical_free_mem:
+      icon: mdi:memory
+      friendly_name: ESP Mech Free Mem
+    switch.espresense_mechanical_status_led:
+      icon: mdi:led-on
+      friendly_name: ESP Mech LED
+    switch.espresense_mechanical_active_scan:
+      icon: mdi:magnify-plus
+      friendly_name: ESP Mech Active Scan
+    switch.espresense_mechanical_auto_update:
+      icon: mdi:folder-sync
+      friendly_name: ESP Mech Auto Update
+    switch.espresense_mechanical_arduino_ota:
+      icon: mdi:folder-upload
+      friendly_name: ESP Mech OTA Update
+    switch.espresense_mechanical_prerelease:
+      icon: mdi:folder-upload-outline
+      friendly_name: ESP Mech Prerelease
 
   # Allow list: iBeacon:5887b4f1-5ec7-4db6-ad06-68f83af6609f-100-1 apple:1006:10-8 apple:1005:9-24 apple:1005:9-12
 
