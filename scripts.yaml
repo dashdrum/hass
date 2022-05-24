@@ -296,6 +296,21 @@ notify_dan:
                   data:
                     title: '{{ title }}'
                     message: '{{ message }}'
+          - choose:
+              conditions:
+                condition: or
+                conditions:
+                - condition: state
+                  entity_id: sensor.espresence_ibeacon_5887b4f1_5ec7_4db6_ad06_68f83af6609f_100_1
+                  state: 'mechanical'
+                - condition: state
+                  entity_id: sensor.espresence_apple_1005_9_12
+                  state: 'mechanical'
+              sequence:
+                - service: notify.family
+                  data:
+                    title: '{{ title }}'
+                    message: '{{ message }}'
       default:
         - service: notify.signal_dan
           data:
