@@ -48,6 +48,8 @@ homeassistant:
         friendly_name: Dishwasher Switch Voltage
       sensor.dishwasher_switch_uptime:
         friendly_name: Dishwasher Switch Uptime
+      input_boolean.dishwasher_empty_reported:
+        friendly_name: Dishwasher Empty Reported
 
 binary_sensor:
 
@@ -62,6 +64,9 @@ binary_sensor:
           {% else %}
             off
           {% endif %}
+
+input_boolean:
+  dishwasher_empty_reported:
 
 input_number:
   dishwasher_start_time:
@@ -121,6 +126,9 @@ automation:
         data:
           entity_id: input_select.dishwasher_status
           option: Washing
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.dishwasher_empty_reported
       - service: input_number.set_value
         target:
           entity_id: input_number.dishwasher_start_time
@@ -186,8 +194,8 @@ automation:
     trigger:
       platform: state
       entity_id: input_select.dishwasher_status
-      to: Drying
       from: Washing
+      to: Drying
       for:
         hours: 0
         minutes: 13
@@ -212,8 +220,8 @@ automation:
     trigger:
       platform: state
       entity_id: binary_sensor.dishwasher_door_contact
-      to: 'on'
       from: 'off'
+      to: 'on'
       for:
         hours: 0
         minutes: 1
@@ -240,8 +248,8 @@ automation:
     trigger:
       platform: state
       entity_id: binary_sensor.dishwasher_door_contact
-      to: 'on'
       from: 'off'
+      to: 'on'
       for:
         hours: 0
         minutes: 1
@@ -263,12 +271,12 @@ automation:
     trigger:
       platform: state
       entity_id: binary_sensor.dishwasher_door_contact
-      to: 'on'
       from: 'off'
+      to: 'on'
       for:
         hours: 0
         minutes: 0
-        seconds: 05
+        seconds: 10
 
     condition:
       - condition: state
@@ -312,20 +320,30 @@ automation:
             }}
 
   - alias: Dishwasher Has Been Emptied
+     # Door closes while empty and not already reported
     trigger:
-      - platform: state
-        entity_id: input_select.dishwasher_status
-        to: 'Empty'
-        from: 'Clean'
-        for:
-          hours: 0
-          minutes: 2
-          seconds: 0
+      platform: state
+      entity_id: binary_sensor.dishwasher_door_contact
+      from: "on"
+      to: "off"
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 05
     condition:
       - condition: state
         entity_id: input_boolean.tts_automations
         state: "on"
+      - condition: state
+        entity_id: input_select.dishwasher_status
+        state: 'Empty'
+      - condition: state
+        entity_id: input_boolean.dishwasher_empty_reported
+        state: "off"
     action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.dishwasher_empty_reported
       - service: notify.kitchen_cloud
         data:
           message: >
