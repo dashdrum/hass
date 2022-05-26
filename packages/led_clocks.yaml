@@ -8,6 +8,9 @@ homeassistant:
       friendly_name: Wall Clock Brightness
     sensor.wall_clock_marker_setting:
       icon: mdi:marker
+    sensor.wall_clock_effect:
+      icon: mdi:target
+      friendly_name: Wall Clock Effect
 
 ## With discovery off, the entities are defined here
 
@@ -115,6 +118,10 @@ input_number:
     max: 255
     step: 1
 
+template:
+  - sensor:
+    - name: wall_clock_effect
+      state: "{{ 'Off' if state_attr('light.wall_clock', 'effect') == none  else state_attr('light.wall_clock', 'effect')}}"
 
 automation:
 
