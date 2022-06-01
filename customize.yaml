@@ -176,6 +176,8 @@ sensor.sun_elevation:
   icon: mdi:weather-sunny
 sensor.rusty_status:
   icon: mdi:pulse
+sensor.rusty_vacuum_status:
+  icon: mdi:state-machine
 sensor.rusty_position:
   icon: mdi:map-marker
 

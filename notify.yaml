@@ -42,7 +42,7 @@
 - platform: tts
   name: family
   tts_service: tts.google_translate_say
-  media_player: media_player.guestmini5470
+  media_player: media_player.nestmini5470
 
 - platform: tts
   name: office
@@ -108,7 +108,7 @@
 - platform: tts
   name: family_cloud
   tts_service: tts.cloud_say
-  media_player: media_player.guestmini5470
+  media_player: media_player.nestmini5470
 
 - platform: tts
   name: office_cloud
