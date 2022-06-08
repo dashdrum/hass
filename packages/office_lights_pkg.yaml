@@ -23,10 +23,10 @@ homeassistant:
     script.office_hacker:
       friendly_name: Office Hacker
       icon: mdi:keyboard
-    light.shellydimmer2_e8db84d4610a:
-      friendly_name: Office Door Light
-    sensor.shellydimmer2_e8db84d4610a_device_temperature:
-      friendly_name: Office Dimmer Temp
+    # light.shellydimmer2_e8db84d4610a:
+    #   friendly_name: Office Door Light
+    # sensor.shellydimmer2_e8db84d4610a_device_temperature:
+    #   friendly_name: Office Dimmer Temp
     script.office_around_the_horn:
       friendly_name: Office Around the Horn
 
@@ -45,6 +45,12 @@ light:
     entities:
       - light.office_light_1
       - light.office_light_2
+
+input_number:
+  office_brightness:
+    min: 0
+    max: 255
+    step: 25
 
 scene:
 
@@ -88,10 +94,10 @@ scene:
         state: on
         effect: "Clock Backfill"
       light.under_desk_lights:  # Under Desk Lights
-        state: on
-        # rgb_color: [255,255,255]
-        xy_color: [0.30929, 0.33007]
-        brightness: 255
+        state: off
+        # # rgb_color: [255,255,255]
+        # xy_color: [0.30929, 0.33007]
+        # brightness: 255
 
   - name: office_zoom
     entities:
@@ -279,6 +285,53 @@ script:
       #   data:
       #     entity_id: light.shellydimmer2_e8db84d4610a
       #     transition: 0
+
+  office_bright:
+    alias: Office Bright
+    sequence:
+      ## current brightness
+      - service: input_number.set_value
+        entity_id: input_number.office_brightness
+        data:
+          value: "{% if is_state('light.shellydimmer2_e8db84d4610a', 'on')  %}{{ state_attr('light.shellydimmer2_e8db84d4610a','brightness') }}{% else %}0{% endif %}"
+      - repeat:
+          while:
+            - condition: template
+              value_template: "{{ states('input_number.office_brightness') | int(0) < 255 }}"
+          sequence:
+            - service: input_number.increment
+              entity_id: input_number.office_brightness
+            - service: light.turn_on
+              data:
+                entity_id: light.office_desk
+                transition: 0
+                brightness: "{{ states('input_number.office_brightness') | int(0) }}"
+            - delay:
+                milliseconds: 125
+            - service: light.turn_on
+              data:
+                entity_id: light.office_light_1
+                transition: 0
+                brightness: "{{ states('input_number.office_brightness') | int(0) }}"
+            - delay:
+                milliseconds: 125
+            - service: light.turn_on
+              data:
+                entity_id: light.office_light_2
+                transition: 0
+                brightness: "{{ states('input_number.office_brightness') | int(0) }}"
+            - delay:
+                milliseconds: 125
+            - service: light.turn_on
+              data:
+                entity_id: light.shellydimmer2_e8db84d4610a
+                transition: 0
+                brightness: "{{ states('input_number.office_brightness') | int(0) }}"
+            - delay:
+                milliseconds: 125
+      - service: scene.turn_on
+        data:
+          entity_id: scene.office_bright
 
 automation:
 

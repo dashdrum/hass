@@ -1,0 +1,220 @@
+## MQTT Config for Office Door Shelly Dimmer 2
+
+homeassistant:
+  customize:
+    light.shellydimmer2_e8db84d4610a:
+      friendly_name: Office Door Light
+      icon: mdi:lamp
+    sensor.shellydimmer2_e8db84d4610a_device_temperature:
+      friendly_name: Office Door Light Temperature
+    sensor.shellydimmer2_e8db84d4610a_power:
+      friendly_name: Office Door Light Power
+    sensor.shellydimmer2_e8db84d4610a_energy:
+      friendly_name: Office Door Light Energy
+    sensor.shellydimmer2_e8db84d4610a_rssi:
+      friendly_name: Office Door Light WiFi Signal
+    sensor.shellydimmer2_e8db84d4610a_uptime:
+      friendly_name: Office Door Light Uptime
+    binary_sensor.shellydimmer2_e8db84d4610a_input_1:
+      friendly_name: Office Door Light Input 1
+      icon: mdi:light-switch
+    binary_sensor.shellydimmer2_e8db84d4610a_input_2:
+      friendly_name: Office Door Light Input 2
+      icon: mdi:light-switch
+    binary_sensor.shellydimmer2_e8db84d4610a_firmware_update:
+      friendly_name: Office Door Light Firmware Update
+    binary_sensor.shellydimmer2_e8db84d4610a_overpower:
+      friendly_name: Office Door Light Overpowering
+    binary_sensor.shellydimmer2_e8db84d4610at_overtemperature:
+      friendly_name: Office Door Light Overheating
+    button.shellydimmer2_e8db84d4610a_reboot:
+      friendly_name: Office Door Light Restart
+    button.shellydimmer2_e8db84d4610a_ota_update:
+      friendly_name: Office Door Light OTA Update
+
+## Note: to get the announce and info topics to update successfully to Mosquitto, I raised the QoS limit on the device.
+## I used QoS = 2, but didn't try QoS = 1.
+
+light:
+  - platform: mqtt
+    schema: template
+    name: shellydimmer2_e8db84d4610a
+    unique_id: shellydimmer2_e8db84d4610a
+    state_topic: "shellies/shellydimmer2-E8DB84D4610A/light/0/status"
+    state_template: '{% if value_json.ison %} on {% else %} off {% endif %}'
+    command_topic: "shellies/shellydimmer2-E8DB84D4610A/light/0/set"
+    command_on_template: '{"turn": "on"{% if brightness is defined %}, "brightness": {{(brightness | float * 0.3882 + 1) | round(0)}}{% endif %}}'
+    command_off_template: '{"turn": "off"}'
+    brightness_template: '{{ (value_json.brightness | float * 2.55) | round(0) }}'
+    json_attributes_topic: "shellies/shellydimmer2-E8DB84D4610A/info"
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+
+sensor:
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_device_temperature
+    unique_id: shellydimmer2_e8db84d4610a_device_temperature
+    unit_of_measurement: "°C"
+    device_class: temperature
+    entity_category: diagnostic
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/temperature
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_power
+    unique_id: shellydimmer2_e8db84d4610a_power
+    unit_of_measurement: "W"
+    device_class: power
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/light/0/power
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_energy
+    unique_id: shellydimmer2_e8db84d4610a_energy
+    unit_of_measurement: "kWh"
+    device_class: power
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/light/0/energy
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_uptime
+    unique_id: shellydimmer2_e8db84d4610a_uptime
+    device_class: timestamp
+    entity_category: diagnostic
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/info
+    value_template: "{{(as_timestamp(now())-value_json.uptime)|timestamp_local}}"
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_rssi
+    unique_id: shellydimmer2_e8db84d4610a_rssi
+    unit_of_measurement: "dBm"
+    device_class: signal_strength
+    entity_category: diagnostic
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/info
+    value_template: "{%if value_json['wifi_sta']['rssi']!=0%}{{value_json['wifi_sta']['rssi']}}{%else%}-99{%endif%}"
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+
+binary_sensor:
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_input_1
+    unique_id: shellydimmer2_e8db84d4610a_input_1
+    device_class: power
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/input/0
+    payload_on: 1
+    payload_off: 0
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_input_2
+    unique_id: shellydimmer2_e8db84d4610a_input_2
+    device_class: power
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/input/1
+    payload_on: 1
+    payload_off: 0
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_overpower
+    unique_id: shellydimmer2_e8db84d4610a_overpower
+    device_class: problem
+    entity_category: diagnostic
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/overpower
+    payload_on: 1
+    payload_off: 0
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610at_overtemperature
+    unique_id: shellydimmer2_e8db84d4610at_overtemperature
+    device_class: problem
+    entity_category: diagnostic
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/overtemperature
+    payload_on: 1
+    payload_off: 0
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_firmware_update
+    unique_id: shellydimmer2_e8db84d4610a_firmware_update
+    device_class: update
+    entity_category: diagnostic
+    state_topic: shellies/shellydimmer2-E8DB84D4610A/info
+    value_template: "{{ value_json.has_update }}"
+    payload_on: true
+    payload_off: false
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+
+button:
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_reboot
+    unique_id: shellydimmer2_e8db84d4610a_reboot
+    device_class: restart
+    entity_category: config
+    command_topic: shellies/shellydimmer2-E8DB84D4610A/reboot
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+  - platform: mqtt
+    name: shellydimmer2_e8db84d4610a_ota_update
+    unique_id: shellydimmer2_e8db84d4610a_ota_update
+    device_class: update
+    entity_category: config
+    command_topic: shellies/shellydimmer2-E8DB84D4610A/ota
+    command_template: "{ 'update': 1 }"
+    device:
+      configuration_url: http://192.168.37.40
+      identifiers: "shellydimmer2_e8db84d4610a"
+      model: "SHDM-2"
+      manufacturer: "Signify Netherlands B.V."
+      name: "shellydimmer2_e8db84d4610a"
+

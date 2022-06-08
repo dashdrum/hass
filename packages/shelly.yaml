@@ -42,6 +42,21 @@ rest_command:
     method: POST
     payload: 'update=1'
     content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shellyswitch25_3c6105e3e6e1:
+    url: "http://192.168.254.61/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shelly1_e8db84d38d16:
+    url: "http://192.168.254.62/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
+  update_firmware_shelly1pm_3c61057290e4:
+    url: "http://192.168.254.63/ota"
+    method: POST
+    payload: 'update=1'
+    content_type:  'application/x-www-form-urlencoded'
 
 automation:
   - id: update_shelly1_500291ed226d
@@ -116,6 +131,33 @@ automation:
       to: 'on'
     action:
       - service: rest_command.update_firmware_shelly1_500291edbc26
+  - id: update_shellyswitch25_3c6105e3e6e1
+    alias: update_shellyswitch25_3c6105e3e6e1
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shellyswitch25_3c6105e3e6e1_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shellyswitch25_3c6105e3e6e1
+  - id: update_shelly1_e8db84d38d16
+    alias: update_shelly1_e8db84d38d16
+    trigger:
+      platform: state
+      entity_id: binary_sensor.shelly1_e8db84d38d16_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shelly1_e8db84d38d16
+  - id: update_shelly1pm_3c61057290e4
+    alias: update_shelly1pm_3c61057290e4
+    trigger:
+      platform: state
+      entity_id: binary_sensor.dishwasher_switch_firmware_update
+      from: 'off'
+      to: 'on'
+    action:
+      - service: rest_command.update_firmware_shelly1pm_3c61057290e4
 
 script:
   shelly_updates:
@@ -129,3 +171,6 @@ script:
       - service: rest_command.update_firmware_shelly1_bcddc2771acf
       - service: rest_command.update_firmware_shellydimmer2_e8db84d4610a
       - service: rest_command.update_firmware_shelly1_500291edbc26
+      - service: rest_command.update_firmware_shellyswitch25_3c6105e3e6e1
+      - service: rest_command.update_firmware_shelly1_e8db84d38d16
+      - service: rest_command.update_firmware_shelly1pm_3c61057290e4
