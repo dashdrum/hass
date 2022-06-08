@@ -200,9 +200,9 @@
     rusty_status:
       friendly_name: "Rusty Status"
       value_template: "{{ state_attr('vacuum.rusty', 'status')}}"
-    rusty_position:
-      friendly_name: "Rusty Position"
-      value_template: "{{ state_attr('vacuum.rusty', 'position')  }}"
+    rusty_vacuum_state:
+      friendly_name: "Rusty State"
+      value_template: "{{ states('vacuum.rusty') }}"
 
 
 # - platform: template
