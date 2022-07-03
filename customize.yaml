@@ -298,6 +298,27 @@ script.say_somthing:
 
 media_player.office_home:
   device_class: speaker
+media_player.dan_speaker:
+  device_class: speaker
+media_player.kelly_home:
+  device_class: speaker
+media_player.kitchen_speaker:
+  device_class: speaker
+media_player.nestmini4000:
+  device_class: speaker
+media_player.nestmini5470:
+  device_class: speaker
+media_player.smart_clock:
+  device_class: speaker
+media_player.spare_room_speaker:
+  device_class: speaker
+
+media_player.bravia_vu1:
+  device_class: tv
+  friendly_name: Living Room TV
+media_player.living_room_chromecast:
+  friendly_name: Family Room Chromecast
+  device_class: tv
 
 ## Pi-Hole
 sensor.pi_hole_ads_blocked_today:

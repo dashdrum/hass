@@ -55,7 +55,7 @@
   trigger:
     platform: numeric_state
     entity_id:  sensor.air_quality_tvoc
-    above: 1000
+    above: 2000
     for:
       hours: 0
       minutes: 0
@@ -63,7 +63,7 @@
   action:
     service: notify.mobile_app_sm_g975u
     data_template:
-      message: 'TVOC level has exceeded 1,000 ppb'
+      message: 'TVOC level has exceeded 2,000 ppb'
       title: 'Bad Air'
 
 # - alias: 'Ranger contact'
@@ -123,4 +123,32 @@
 #       entity_id: media_player.office_home
 #       data:
 #         message: 'Boy, it sure is dark in here'
+
+- alias: office_media_player_night_volume
+  trigger:
+  trigger:
+    platform: time_pattern
+    hours: 22
+    minutes: 00
+    seconds: 00
+  action:
+    - service: media_player.volume_set
+      target:
+        entity_id: media_player.office_home
+      data:
+        volume_level: 0.22
+
+- alias: office_media_player_day_volume
+  trigger:
+  trigger:
+    platform: time_pattern
+    hours: 06
+    minutes: 00
+    seconds: 00
+  action:
+    - service: media_player.volume_set
+      target:
+        entity_id: media_player.office_home
+      data:
+        volume_level: 0.44
 
