@@ -4,11 +4,14 @@ google_actions:
       - binary_sensor.dryer_state
       - binary_sensor.garage_access_door
       - binary_sensor.garage_bin
+      - button.wall_clock_random_effect
       - input_boolean.washer_status
       - light.basement_lights
-      - light.0x94deb8fffe1d7768
       - light.ceiling_lights
       - light.led_mirror
+      - light.office_desk
+      - light.shellydimmer2_e8db84d4610a # Office Door Light
+      - light.office_lights
       - light.tv_backlight
       - light.wall_clock
       - light.xmas_window
@@ -27,7 +30,7 @@ google_actions:
       - sensor.living_room_temperature
       - sensor.spare_room_temperature
       - sensor.family_room_temperature
-      - switch.wall_clock_random_effect
+      - switch.guest_room_fan
       - switch.lr_powerful
       - switch.mb_powerful
       - script.office_ac_toggle
@@ -77,10 +80,6 @@ google_actions:
     light.basement_lights:
       name: Basement Lights
 
-    light.0x94deb8fffe1d7768:
-      name: under desk lights
-      room: Office
-
     light.candle_mold_light:
       name: Candle Mold Light
       aliases:
@@ -89,8 +88,25 @@ google_actions:
         - Tin Lamp
       room: Living Room
 
+    light.office_desk:
+      name: office desk light
+      aliases:
+        - desk light
+        - office desk
+
+    light.shellydimmer2_e8db84d4610a:
+      name: Office Door Light
+      aliases:
+        - office door
+        - door Light
+      room: office
+
     light.under_desk_lights:
       name: Under Desk Lights
+      room: Office
+
+    light.office_lights:
+      name: Office Lights
       room: Office
 
     script.office_ac_toggle:
@@ -121,6 +137,11 @@ google_actions:
     sensor.living_room_temperature:
       name: Living room temperature
       room: Living Room
+
+    switch.guest_room_fan:
+      name: Guest Room Fan
+      aliases:
+        - guest fan
 
     switch.lr_powerful:
       name: LR Powerful

@@ -103,13 +103,13 @@
       device_class: temperature
       value_template: "{{ ((( states('sensor.hass_server_cputemp') | float ) - 32) * 5/9) | round(1) }}"
 
-- platform: template
-  sensors:
-    outdoor_sea_level_pressure:
-      unit_of_measurement: 'mBar'
-      device_class: pressure
-      value_template: >-
-        {{ ((states.sensor.outdoor_pressure.state|float(0) / (1-0.0065*204/(states.sensor.outdoor_temperature.state|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
+# - platform: template
+#   sensors:
+#     outdoor_sea_level_pressure:
+#       unit_of_measurement: 'mBar'
+#       device_class: pressure
+#       value_template: >-
+#         {{ ((states.sensor.outdoor_pressure.state|float(0) / (1-0.0065*204/(states.sensor.outdoor_temperature.state|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
 
 - platform: template
   sensors:
