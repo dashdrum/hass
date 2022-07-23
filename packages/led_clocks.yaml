@@ -62,6 +62,7 @@ light:
       - Clock Half
       - Clock Inverse
       - Clock Marquee
+      - Clock Pendulum
       - Clock Tourbillon
       - Color Test
       - Color Wipe
