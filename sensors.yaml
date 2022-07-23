@@ -119,14 +119,6 @@
       value_template: >-
         {{ (states('sensor.ktvc_sea_level_pressure')|float(0) * 33.8639) | round(1) }}
 
-- platform: template
-  sensors:
-    tomorrow_io_pressure_mbar:
-      unit_of_measurement: 'mBar'
-      device_class: pressure
-      value_template: >-
-        {{ (states('sensor.tomorrow_io_pressure')|float(0) * 68.9475729318) | round(1) }}
-
 
 - platform: template
   sensors:
@@ -212,18 +204,3 @@
 #       unit_of_measurement: 'ºC'
 #       device_class: temperature
 #       value_template: "{{ ((( states('sensor.shellyswitch25_00fb7b5_temperature') | float ) - 32) * 5/9) | round(1) }}"
-
-- platform: template
-  sensors:
-    tomorrow_io_temperature:
-      value_template: '{{ state_attr("weather.tomorrow_io_home_daily","temperature") }}'
-      unit_of_measurement: '°F'
-      device_class: temperature
-    tomorrow_io_humidity:
-      value_template: '{{ state_attr("weather.tomorrow_io_home_daily","humidity") }}'
-      unit_of_measurement: '%'
-      device_class: humidity
-    tomorrow_io_pressure:
-      value_template: '{{ state_attr("weather.tomorrow_io_home_daily","pressure") }}'
-      unit_of_measurement: 'psi'
-      device_class: pressure
