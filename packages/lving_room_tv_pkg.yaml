@@ -9,6 +9,14 @@ homeassistant:
     script.lr_tv_all_on_off:
       friendly_name: Living Room TV All On/Off
       icon: mdi:power
+    sensor.tv_reset_current_voltage:
+      friendly_name: Living Room TV Voltage
+    sensor.tv_reset_energy_use_monthly:
+      friendly_name: Living Room TV Monthly Energy
+    sensor.tv_reset_energy_use_weekly:
+      friendly_name: Living Room TV Weekly Energy
+    sensor.tv_reset_energy_use_yearly:
+      friendly_name: Living Room TV Annual Energy
 
 binary_sensor:
 
@@ -21,35 +29,9 @@ binary_sensor:
 
 sensor:
 
-  ## VeSync Smart Plug sensors
-
-  - platform: template
-    sensors:
-      tv_reset_voltage:
-        value_template: '{{ states.switch.tv_reset.attributes["voltage"] | float }}'
-        unit_of_measurement: 'V'
-        device_class: voltage
-        friendly_name: TV Voltage
-      tv_reset_weekly_energy_total:
-        value_template: '{{ states.switch.tv_reset.attributes["weekly_energy_total"] | float }}'
-        unit_of_measurement: 'kWh'
-        device_class: energy
-        friendly_name: TV Weekly
-      tv_reset_monthly_energy_total:
-        value_template: '{{ states.switch.tv_reset.attributes["monthly_energy_total"] | float }}'
-        unit_of_measurement: 'kWh'
-        device_class: energy
-        friendly_name: TV Monthly
-      tv_reset_yearly_energy_total:
-        value_template: '{{ states.switch.tv_reset.attributes["yearly_energy_total"] | float }}'
-        unit_of_measurement: 'kWh'
-        device_class: energy
-        friendly_name: TV Annual
-
   - platform: template
     sensors:
       living_room_tv_state:
-        friendly_name: "TV State"
         value_template: >-
           {% set tv_power = states('sensor.tv_reset_current_power') | float %}
 
