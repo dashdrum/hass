@@ -98,6 +98,10 @@ scene:
         # # rgb_color: [255,255,255]
         # xy_color: [0.30929, 0.33007]
         # brightness: 255
+      light.quad_led:
+        state: on
+        rgb_color: [244, 253, 255]
+        effect: "Severed On"
 
   - name: office_zoom
     entities:
@@ -223,12 +227,27 @@ script:
           transition: 0
       - delay:
           milliseconds: 750
+      - service: light.turn_off
+        data:
+          entity_id: light.quad_led
+      - service: light.turn_off
+        data:
+          entity_id: light.quad_led
+      - delay:
+          milliseconds: 750
       - service: scene.turn_on
         data:
           entity_id: scene.office_hacker
-      - service: cover.close_cover
-        target:
-          entity_id: cover.soma_ed_c1_c6_bb_2c_74
+      - delay:
+          milliseconds: 750
+      - service: light.turn_on
+        data:
+          entity_id: light.quad_led
+          rgb_color: [0,0,255]
+          effect: "Fill On"
+      # - service: cover.close_cover
+      #   target:
+      #     entity_id: cover.soma_ed_c1_c6_bb_2c_74
 
   office_around_the_horn:
     sequence:
@@ -332,6 +351,68 @@ script:
       - service: scene.turn_on
         data:
           entity_id: scene.office_bright
+
+  office_off:
+    alias: Office Off
+    sequence:
+  ## Setup the lights just right
+      - service: light.turn_off
+        data:
+          entity_id: light.office_desk
+          transition: 0
+      - delay:
+          milliseconds: 750
+      - service: light.turn_off
+        data:
+          entity_id: light.office_light_1
+          transition: 0
+      - delay:
+          milliseconds: 750
+      - service: light.turn_off
+        data:
+          entity_id: light.office_light_2
+          transition: 0
+      - delay:
+          milliseconds: 750
+      - service: light.turn_off
+        data:
+          entity_id: light.shellydimmer2_e8db84d4610a
+          transition: 0
+      - delay:
+          milliseconds: 750
+      - service: scene.turn_on
+        data:
+          entity_id: scene.office_off
+      - delay:
+          milliseconds: 750
+      - choose:
+          # Quad LED is Blue
+          - conditions:
+              - "{{ states.light.quad_led.attributes.rgb_color[0] == 0 }}"
+              - "{{ states.light.quad_led.attributes.rgb_color[1] == 0 }}"
+              - "{{ states.light.quad_led.attributes.rgb_color[2] == 255 }}"
+            sequence:
+              - service: light.turn_on
+                data:
+                  entity_id: light.quad_led
+                  rgb_color: [0,0,255]
+                  effect: "Fill Off"
+          # Quad LED is bright cool white
+          - conditions:
+              - "{{ states.light.quad_led.attributes.rgb_color[0] == 244 }}"
+              - "{{ states.light.quad_led.attributes.rgb_color[1] == 253 }}"
+              - "{{ states.light.quad_led.attributes.rgb_color[2] == 255 }}"
+            sequence:
+              - service: light.turn_on
+                data:
+                  entity_id: light.quad_led
+                  rgb_color: [244,253,255]
+                  effect: "Severed Off"
+          # No special off effect
+        default:
+          - service: light.turn_off
+            data:
+              entity_id: light.quad_led
 
 automation:
 
