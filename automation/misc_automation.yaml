@@ -124,8 +124,7 @@
 #       data:
 #         message: 'Boy, it sure is dark in here'
 
-- alias: office_media_player_night_volume
-  trigger:
+- alias: Media Player Night Volume Set
   trigger:
     platform: time_pattern
     hours: 22
@@ -134,12 +133,16 @@
   action:
     - service: media_player.volume_set
       target:
-        entity_id: media_player.office_home
+        entity_id:
+          - media_player.kitchen_speaker
+          - media_player.dan_speaker
+          - media_player.kelly_home
+          - media_player.office_home
+          - media_player.nestmini5470  # Family Room
       data:
-        volume_level: 0.22
+        volume_level: 0.32
 
-- alias: office_media_player_day_volume
-  trigger:
+- alias: Media Player Day Volume Set
   trigger:
     platform: time_pattern
     hours: 06
@@ -148,7 +151,75 @@
   action:
     - service: media_player.volume_set
       target:
-        entity_id: media_player.office_home
+        entity_id:
+          - media_player.kitchen_speaker
+          - media_player.dan_speaker
+          - media_player.kelly_home
+          - media_player.office_home
+          - media_player.nestmini5470  # Family Room
       data:
         volume_level: 0.44
+
+- alias: Media Player Bedroom Night Volume Set
+  trigger:
+    platform: time_pattern
+    hours: 20
+    minutes: 00
+    seconds: 00
+  action:
+    - service: media_player.volume_set
+      target:
+        entity_id:
+          - media_player.nestmini4000  # Guest room
+          - media_player.smart_clock             # Master bedroom
+          - media_player.spare_room_speaker
+      data:
+        volume_level: 0.22
+
+- alias: Media Player Bedroom Day Volume Set
+  trigger:
+    platform: time_pattern
+    hours: 09
+    minutes: 00
+    seconds: 00
+  action:
+    - if:
+      - alias: Guest room is playing
+        condition: state
+        entity_id: media_player.nestmini4000
+        state: playing
+      then:
+        ## Do nothing
+      else:
+        - service: media_player.volume_set
+          target:
+            entity_id: media_player.nestmini4000  # Guest room
+          data:
+            volume_level: 0.42
+    - if:
+      - alias: Master bedroom is playing
+        condition: state
+        entity_id: media_player.smart_clock
+        state: playing
+      then:
+        ## Do nothing
+      else:
+        - service: media_player.volume_set
+          target:
+            entity_id: media_player.smart_clock  # Guest room
+          data:
+            volume_level: 0.42
+    - if:
+      - alias: Spare room is playing
+        condition: state
+        entity_id: media_player.spare_room_speaker
+        state: playing
+      then:
+        ## Do nothing
+      else:
+        - service: media_player.volume_set
+          target:
+            entity_id: media_player.spare_room_speaker  # Guest room
+          data:
+            volume_level: 0.42
 
