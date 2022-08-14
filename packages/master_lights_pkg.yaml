@@ -52,9 +52,6 @@ scene:
         state: off
       light.dresser_2:
         state: off
-      # light.led_mirror:
-      #   state: on
-      #   effect: colorfade_fast
 
   - name: master_warm
     entities:
@@ -169,7 +166,7 @@ automation:
         data_template:
           brightness: '{{ ((now().minute - 30) * 255/58 ) | int(255) }}'
 
-  - id: master_lights_wakup
+  - id: master_lights_wakeup
     alias: Master Lights Wakeup
     trigger:
       - platform: time_pattern
@@ -191,6 +188,7 @@ automation:
         entity_id: light.master_bedroom
         data_template:
           brightness: 255
+          rgb_color: [255,255,255]
 
   - id: master_lights_morning_cleanup
     alias: Master Lights Morning Cleanup
@@ -208,7 +206,8 @@ automation:
         data:
           entity_id: light.dressers
 
-  - alias: Turn on closet light when there is movement
+  - id: master_closet_movement
+    alias: Master Closet Movement
     trigger:
       platform: state
       entity_id: binary_sensor.master_closet_motion_occupancy
@@ -217,7 +216,8 @@ automation:
       service: homeassistant.turn_on
       entity_id: light.master_closet
 
-  - alias: 'Turn off closet light 2 minutes after last movement'
+  - id: master_closet_motion_timer
+    alias: 'Master Closet Motion Timer'
     trigger:
       platform: state
       entity_id: binary_sensor.master_closet_motion_occupancy
@@ -228,7 +228,8 @@ automation:
       service: light.turn_off
       entity_id: light.master_closet
 
-  - alias: 'Closet Lights Timer'
+  - id: master_closet_light_timer
+    alias: 'Master Closet Light Timer'
     trigger:
       - platform: state
         entity_id: light.master_closet

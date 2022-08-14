@@ -199,6 +199,32 @@ sensor.hass_server_networkout:
 sensor.hass_server:
   icon: mdi:server
 
+sensor.dan_bedside_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.dan_lamp_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.dresser_1_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.dresser_2_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.front_porch_light_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.kelly_bedside_lamp_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.kelly_lamp_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.master_bedroom_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.master_closet_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.office_light_1_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.office_light_2_zigbee_connectivity:
+  icon: mdi:hubspot
+sensor.stairway_light_zigbee_connectivity:
+  icon: mdi:hubspot
+
+
 
 ## Binary Sensors
 
@@ -252,6 +278,12 @@ scene.master_dim:
 scene.master_off:
   friendly_name: Master Off
   icon: mdi:lightbulb
+
+## Lights
+
+light.oil_lamp:
+  friendly_name: Oil Lamp
+  icon: mdi:oil-lamp
 
 ## Tracker
 

@@ -52,6 +52,10 @@
   name: Basement Fan
   entity_id: switch.shellyswitch25_3c6105e3e6e1_channel_2  # basement fan
 
+- platform: switch
+  name: Oil Lamp
+  entity_id: switch.shelly1_e8db84d25801  # Oil Lamp
+
 #---------------------------------------------------------------------------------------------------------------------#
 
 - platform: group
@@ -62,6 +66,7 @@
     - light.dining_room_light
     - light.stairway_light
     - light.candle_mold_light
+    - light.oil_lamp
 
 - platform: group
   name: laundry_lights

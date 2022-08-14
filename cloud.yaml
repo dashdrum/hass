@@ -10,6 +10,7 @@ google_actions:
       - light.ceiling_lights
       - light.led_mirror
       - light.office_desk
+      - light.oil_lamp
       - light.shellydimmer2_e8db84d4610a # Office Door Light
       - light.office_lights
       - light.tv_backlight
@@ -86,6 +87,10 @@ google_actions:
         - Candle Mold
         - Candle Light
         - Tin Lamp
+      room: Living Room
+
+    light.oil_lamp:
+      name: Oil Lamp
       room: Living Room
 
     light.office_desk:

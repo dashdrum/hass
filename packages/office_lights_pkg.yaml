@@ -413,6 +413,11 @@ script:
           - service: light.turn_off
             data:
               entity_id: light.quad_led
+      - delay:
+          milliseconds: 1000
+      - service: light.turn_off
+        data:
+          entity_id: light.quad_led
 
 automation:
 
