@@ -514,3 +514,44 @@ automation:
       - service: light.turn_off
         data:
           entity_id: light.quad_led
+
+  - alias: "Office desk occupancy turns on desk light"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.room_occupancy_1
+        to: 'on'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: '07:29:59'
+          before: '22:30:00'
+        - condition: state
+          entity_id: light.shellydimmer2_e8db84d4610a
+          state: 'off'
+    action:
+      - service: light.turn_on
+        entity_id: light.office_desk
+
+  - alias: "Office desk vacancy turns off desk light"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.room_occupancy_1
+        from: 'on'
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 05
+          seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.shellydimmer2_e8db84d4610a
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+    action:
+      - service: light.turn_off
+        entity_id: light.office_desk
