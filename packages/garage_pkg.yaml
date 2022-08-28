@@ -60,6 +60,11 @@ template:
         state: "{{ states('group.all_persons') == 'away'
                     and states('cover.garage_door') == 'open' }}"
 
+input_boolean:
+  garage_access_door_open:
+    name: Garage Access Door Open
+    icon: mdi:door
+
 alert:
   garage_abandoned:
     name: Garage Abandoned 
@@ -70,6 +75,17 @@ alert:
       - 3
       - 5
     skip_first: true
+    notifiers:
+      - signal_both
+
+  garage_access_door_open:
+    name: Garage Access Door Open
+    message: "The garage access door is open"
+    done_message: "The garage is saved!"
+    entity_id: input_boolean.garage_access_door_open
+    repeat:
+      - 30
+    skip_first: false
     notifiers:
       - signal_both
 
@@ -189,6 +205,8 @@ automation:
       entity_id: input_boolean.garage_automations
       state: "on"
     action:
+      - service: cover.close_cover
+        entity_id: cover.garage_door
       - service: notify.no_bedrooms_cloud
         data:
           message: 'The garage door has been open for one hour.  Closing now'
@@ -316,3 +334,101 @@ automation:
       - service: notify.no_bedrooms_cloud
         data:
           message: 'The garage access door is opening'
+
+#--------------------------------------------------------------------------------------#
+
+  - alias: 'Garage access door open for 60 minutes'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_access_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 0
+          minutes: 60
+          seconds: 0
+    condition:
+      condition: state
+      entity_id: input_boolean.garage_automations
+      state: "on"
+    action:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.garage_access_door_open
+
+  - alias: 'Garage access door open for 30 minutes at night'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_access_door
+        from: 'closed'
+        to: 'open'
+        for:
+          hours: 0
+          minutes: 30
+          seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.garage_automations
+          state: "on"
+        - condition: state
+          entity_id: sun.sun
+          state: "below_horizon"
+    action:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.garage_access_door_open
+
+  - alias: 'Garage access door open at 10:30 pm'
+    trigger:
+      - platform: time_pattern
+        hours: 22
+        minutes: 30
+        seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.garage_automations
+          state: "on"
+        - condition: state
+          entity_id: binary_sensor.garage_access_door
+          state: "open"
+    action:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.garage_access_door_open
+
+  - alias: 'Garage access door open when all leave'
+    trigger:
+      - platform: state
+        entity_id: group.all_persons
+        to: 'away'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.garage_automations
+          state: "on"
+        - condition: state
+          entity_id: binary_sensor.garage_access_door
+          state: "open"
+    action:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.garage_access_door_open
+
+  - alias: 'Garage access door closes'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_access_door
+        to: 'closed'
+    condition:
+      condition: state
+      entity_id: input_boolean.garage_automations
+      state: "on"
+    action:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.garage_access_door_open
