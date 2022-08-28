@@ -19,6 +19,7 @@ google_actions:
       - light.family_room_lights
       - light.candle_mold_light
       - light.under_desk_lights
+      # - script.lr_tv_all_on_off
       - script.office_zoom
       - script.office_hacker
       - script.watch_tv
@@ -59,6 +60,16 @@ google_actions:
         - bin
         - garbage
       room: Garage
+
+    # script.lr_tv_all_on_off:
+    #   name: Living Room TV On
+    #   aliases:
+    #     - LR TV On
+    #     - turn on living room tv
+    #     - turn off living room tv
+    #     - LR tv off
+    #     - Living room tv off
+    #   room: Living Room
 
     climate.living_room_ac:
       name: Living Room Air Conditioner

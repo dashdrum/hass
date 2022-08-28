@@ -1,14 +1,8 @@
 homeassistant:
   customize:
-    sensor.living_room_tv_state:
+    sensor.living_room_tv_status:
       icon: mdi:television
       friendly_name: Living Room TV Status
-    binary_sensor.living_room_tv_state:
-      icon: mdi:television
-      friendly_name: Living Room TV State
-    script.lr_tv_all_on_off:
-      friendly_name: Living Room TV All On/Off
-      icon: mdi:power
     sensor.tv_reset_current_voltage:
       friendly_name: Living Room TV Voltage
     sensor.tv_reset_energy_use_monthly:
@@ -18,20 +12,11 @@ homeassistant:
     sensor.tv_reset_energy_use_yearly:
       friendly_name: Living Room TV Annual Energy
 
-binary_sensor:
-
-  - platform: mqtt
-    name: living_room_tv_state
-    state_topic: lr_ir/living_room_tv/state
-    payload_on: "on"
-    payload_off: "off"
-    device_class: power
-
 sensor:
 
   - platform: template
     sensors:
-      living_room_tv_state:
+      living_room_tv_status:
         value_template: >-
           {% set tv_power = states('sensor.tv_reset_current_power') | float %}
 
@@ -45,44 +30,8 @@ sensor:
              Unknown
           {% endif %}
 
-automation:
-
-  - alias: 'Publish living room tv state'
-    trigger:
-      platform: state
-      entity_id: sensor.living_room_tv_state
-    action:
-      service: mqtt.publish
-      data_template:
-        payload: "{{  'on' if is_state('sensor.living_room_tv_state', 'On') else 'off'  }}"
-        topic: lr_ir/living_room_tv/state
-        retain: true
-
 script:
 
-  lr_tv_all_on_off:
-    sequence:
-      - alias: "Is the TV On?"
-        choose:
-          - alias: "TV is on"
-            conditions: "{{ states('binary_sensor.living_room_ir_tv_state') == 'on' }}"
-            sequence:
-              - service: button.press
-                entity_id: button.living_room_ir_tv_cable_off
-        default:
-          - service: button.press
-            entity_id: button.living_room_ir_tv_cable_on
-
-
-  lr_tv_mute:
-    sequence:
-      - service: rest_command.lr_tv_mute
-  lr_tv_on:
-    sequence:
-      - service: rest_command.lr_tv_on
-  lr_tv_off:
-    sequence:
-      - service: rest_command.lr_tv_offf
   lr_tv_channelup:
     sequence:
       - service: rest_command.lr_tv_channelup
@@ -95,9 +44,6 @@ script:
   lr_tv_home:
     sequence:
       - service: rest_command.lr_tv_home
-  lr_tv_netflix:
-    sequence:
-      - service: rest_command.lr_tv_netflix
   lr_tv_info:
     sequence:
       - service: rest_command.lr_tv_info
@@ -116,37 +62,17 @@ script:
   lr_tv_muchsofter:
     sequence:
       - service: rest_command.lr_tv_muchsofter
-  lr_tv_nbc:
-    sequence:
-      - service: rest_command.lr_tv_nbc
-  lr_tv_cbs:
-    sequence:
-      - service: rest_command.lr_tv_cbs
-  lr_tv_science:
-    sequence:
-      - service: rest_command.lr_tv_science
-  lr_tv_cnn:
-    sequence:
-      - service: rest_command.lr_tv_cnn
   lr_tv_tcm:
     sequence:
       - service: rest_command.lr_tv_tcm
 
 rest_command:
-  lr_tv_mute:
-    url: "http://192.168.254.31/mute"
-  lr_tv_on:
-    url: "http://192.168.254.31/on"
-  lr_tv_off:
-    url: "http://192.168.254.31/off"
   lr_tv_channelup:
     url: "http://192.168.254.31/channelup"
   lr_tv_channeldown:
     url: "http://192.168.254.31/channeldown"
   lr_tv_last:
     url: "http://192.168.254.31/last"
-  lr_tv_netflix:
-    url: "http://192.168.254.31/netflix"
   lr_tv_home:
     url: "http://192.168.254.31/home"
   lr_tv_cablebox:
@@ -161,14 +87,51 @@ rest_command:
     url: "http://192.168.254.31/muchsofter"
   lr_tv_softer:
     url: "http://192.168.254.31/softer"
-  lr_tv_nbc:
-    url: "http://192.168.254.31/nbc"
-  lr_tv_cbs:
-    url: "http://192.168.254.31/cbs"
-  lr_tv_science:
-    url: "http://192.168.254.31/science"
-  lr_tv_cnn:
-    url: "http://192.168.254.31/cnn"
   lr_tv_tcm:
     url: "http://192.168.254.31/811"
 
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - button.living_room_ir_tv_all_on_off
+        - button.living_room_ir_sony_tv_mute
+        - button.living_room_ir_cnn
+        - button.living_room_ir_science_channel
+
+    entity_config:
+
+      button.living_room_ir_tv_all_on_off:
+        name: Living Room TV On
+        aliases:
+          - LR TV On
+          - turn on living room tv
+          - turn off living room tv
+          - LR tv off
+          - Living room tv off
+        room: Living Room
+
+      button.living_room_ir_sony_tv_mute:
+        name: Living Room mute
+        aliases:
+          - LR TV mute
+          - mute living room tv
+          - mute tv
+          - mute the tv
+        room: Living Room
+
+      button.living_room_ir_cnn:
+        name: Watch CNN
+        aliases:
+          - Let's watch CNN
+          - living room tv cnn
+          - CNN
+        room: Living Room
+
+      button.living_room_ir_science_channel:
+        name: Watch Science Channel
+        aliases:
+          - Let's watch Science
+          - living room tv science
+          - SCIENCE
+        room: Living Room
