@@ -355,29 +355,6 @@ automation:
               ] | random
             }}
 
-# MQTT Publish
-  - alias: Dishwasher Publish Status
-    trigger:
-      platform: state
-      entity_id: input_select.dishwasher_status
-    action:
-      service: mqtt.publish
-      data_template:
-        payload: "{{states('input_select.dishwasher_status')}}"
-        topic: hass/dishwasher/status
-        retain: true
-
-  - alias: Dishwasher Publish Power
-    trigger:
-      platform: state
-      entity_id: sensor.dishwasher_switch_switch_0_power
-    action:
-      service: mqtt.publish
-      data_template:
-        payload: "{{states('sensor.dishwasher_switch_switch_0_power')}}"
-        topic: hass/dishwasher/power
-        retain: true
-
 # Dishwasher Display
 
   - alias: Dishwasher Display Off at Midnight
@@ -405,3 +382,13 @@ automation:
       - service: switch.turn_on
         data:
           entity_id: switch.dishwasher_display_backlight
+
+script:
+
+  # Rollback status
+  dishwasher_rollback_status:
+    sequence:
+      - service: input_select.select_previous
+        target:
+          entity_id: input_select.dishwasher_status
+
