@@ -14,16 +14,15 @@ group:
       - sensor.usps_packages
       - camera.usps_mail_pictures
 
-sensor:
-  - platform: mqtt
-    name: 'USPS Mail'
-    state_topic: 'usps/mails'
-    value_template: "{{ value }}"
+mqtt:
+  sensor:
+    - name: 'USPS Mail'
+      state_topic: 'usps/mails'
+      value_template: "{{ value }}"
 
-  - platform: mqtt
-    name: USPS Packages
-    state_topic: 'usps/packages'
-    value_template: "{{ value }}"
+    - name: USPS Packages
+      state_topic: 'usps/packages'
+      value_template: "{{ value }}"
 
 # Generic camera is now configured on the integration panel
 # camera:

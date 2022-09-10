@@ -14,102 +14,98 @@ homeassistant:
 
 ## With discovery off, the entities are defined here
 
-button:
-  - platform: mqtt
-    device_class: restart
-    name: Wall Clock Restart
-    entity_category: config
-    command_topic: wall_clock/button/wall_clock_restart/command
-    availability_topic: wall_clock/availability
-    unique_id: ESPbuttonwall_clock_restart
-    device:
-      identifiers: 2cf4324a9e03
-      name: wall_clock
-      sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
-      model: d1_mini
-      manufacturer: espressif
+mqtt:
+  button:
+    - name: Wall Clock Restart
+      device_class: restart
+      entity_category: config
+      command_topic: wall_clock/button/wall_clock_restart/command
+      availability_topic: wall_clock/availability
+      unique_id: ESPbuttonwall_clock_restart
+      device:
+        identifiers: 2cf4324a9e03
+        name: wall_clock
+        sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
+        model: d1_mini
+        manufacturer: espressif
 
-  - platform: mqtt
-    name: Wall Clock Random Effect
-    command_topic: wall_clock/button/wall_clock_random_effect/command
-    availability_topic: wall_clock/availability
-    unique_id: ESPbuttonwall_clock_random_effect
-    device:
-      identifiers: 2cf4324a9e03
-      name: wall_clock
-      sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
-      model: d1_mini
-      manufacturer: espressif
+    - name: Wall Clock Random Effect
+      command_topic: wall_clock/button/wall_clock_random_effect/command
+      availability_topic: wall_clock/availability
+      unique_id: ESPbuttonwall_clock_random_effect
+      device:
+        identifiers: 2cf4324a9e03
+        name: wall_clock
+        sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
+        model: d1_mini
+        manufacturer: espressif
 
-light:
-  - platform: mqtt
-    schema: json
-    color_mode: true
-    supported_color_modes:
-      - rgb
-    brightness: true
-    effect: true
-    effect_list:
-      - Clock
-      - Clock Backfill
-      - Clock Backwards
-      - Clock Basic
-      - Clock Candy Cane
-      - Clock Comet
-      - Clock Flicker
-      - Clock Fly
-      - Clock Glitter
-      - Clock Half
-      - Clock Inverse
-      - Clock Marquee
-      - Clock Pendulum
-      - Clock Tourbillon
-      - Color Test
-      - Color Wipe
-      - Police 3
-      - Rainbow Spinner
-      - None
-    name: Wall Clock
-    state_topic: wall_clock/light/wall_clock/state
-    command_topic: wall_clock/light/wall_clock/command
-    availability_topic: wall_clock/availability
-    unique_id: ESPlightwall_clock
-    device:
-      identifiers: 2cf4324a9e03
-      name: wall_clock
-      sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
-      model: d1_mini
-      manufacturer: espressif
+  light:
+    - name: Wall Clock
+      schema: json
+      color_mode: true
+      supported_color_modes:
+        - rgb
+      brightness: true
+      effect: true
+      effect_list:
+        - Clock
+        - Clock Backfill
+        - Clock Backwards
+        - Clock Basic
+        - Clock Candy Cane
+        - Clock Comet
+        - Clock Flicker
+        - Clock Fly
+        - Clock Glitter
+        - Clock Half
+        - Clock Inverse
+        - Clock Marquee
+        - Clock Pendulum
+        - Clock Tourbillon
+        - Color Test
+        - Color Wipe
+        - Police 3
+        - Rainbow Spinner
+        - None
+      state_topic: wall_clock/light/wall_clock/state
+      command_topic: wall_clock/light/wall_clock/command
+      availability_topic: wall_clock/availability
+      unique_id: ESPlightwall_clock
+      device:
+        identifiers: 2cf4324a9e03
+        name: wall_clock
+        sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
+        model: d1_mini
+        manufacturer: espressif
 
-sensor:
-  - platform: mqtt
-    device_class: signal_strength
-    unit_of_measurement: dBm
-    state_class: measurement
-    name: Wall Clock WiFi Signal
-    icon: mdi:wifi
-    entity_category: diagnostic
-    state_topic: wall_clock/sensor/wall_clock_wifi_signal/state
-    availability_topic: wall_clock/availability
-    unique_id: 2cf4324a9e03-wifisignal
-    device:
-      identifiers: 2cf4324a9e03
-      name: wall_clock
-      sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
-      model: d1_mini
-      manufacturer: espressif
+  sensor:
+    - name: Wall Clock WiFi Signal
+      device_class: signal_strength
+      unit_of_measurement: dBm
+      state_class: measurement
+      icon: mdi:wifi
+      entity_category: diagnostic
+      state_topic: wall_clock/sensor/wall_clock_wifi_signal/state
+      availability_topic: wall_clock/availability
+      unique_id: 2cf4324a9e03-wifisignal
+      device:
+        identifiers: 2cf4324a9e03
+        name: wall_clock
+        sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
+        model: d1_mini
+        manufacturer: espressif
 
-  - platform: mqtt
-    name: Wall Clock Marker Setting
-    state_topic: wall_clock/markers/state
-    availability_topic: wall_clock/availability
-    unique_id: ESPsensorwall_clock_marker_setting
-    device:
-      identifiers: 2cf4324a9e03
-      name: wall_clock
-      sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
-      model: d1_mini
-      manufacturer: espressif
+    - name: Wall Clock Marker Setting
+      state_topic: wall_clock/markers/state
+      availability_topic: wall_clock/availability
+      unique_id: ESPsensorwall_clock_marker_setting
+      device:
+        identifiers: 2cf4324a9e03
+        name: wall_clock
+        sw_version: esphome v2022.3.2 Apr 30 2022, 02:20:45
+        model: d1_mini
+        manufacturer: espressif
 
 ## End of entity definition
 
