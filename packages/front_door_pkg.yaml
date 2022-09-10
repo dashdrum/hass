@@ -1,0 +1,47 @@
+# Front Door Package
+
+homeassistant:
+  customize:
+    binary_sensor.front_door_abandoned:
+      friendly_name: Front Door Abandoned
+    binary_sensor.front_door_contact:
+      friendly_name: Front Door
+      device_class: door
+
+
+
+template:
+  - binary_sensor:
+      - name: front_door_abandoned
+        # The front door is open, and no one is at home
+        state: "{{ states('group.all_persons') == 'away'
+                    and states('binary_sensor.front_door_contact') == 'on' }}"
+
+alert:
+  front_door_abandoned:
+    name: Front Door Abandoned 
+    message: "The front door is still open"
+    done_message: "The house is saved!"
+    entity_id: binary_sensor.front_door_abandoned
+    repeat:
+      - 10
+    skip_first: true
+    notifiers:
+      - signal_both
+
+automation:
+
+  - alias: 'Front door open at sunset'
+    trigger:
+      - platform: sun
+        event: sunset
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.front_door_contact
+          state: "on"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'The front door is open after sunset'
