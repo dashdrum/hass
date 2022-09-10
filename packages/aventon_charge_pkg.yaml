@@ -1,0 +1,89 @@
+# Aventon Battery charging
+
+homeassistant:
+
+
+input_boolean:
+  aventon_charging:
+    name: Aventon Battery Charging
+    icon: mdi:bicycle-electric
+
+  aventon_charging_done:
+    name: Aventon Battery Charging Done
+    icon: mdi:bicycle-electric
+
+input_number:
+  aventon_charge_time:
+    name: Aventon Charge Time
+    icon: mdi:bicycle-electric
+    min: 1
+    max: 5
+    mode: box
+    unit_of_measurement: hrs
+
+automation:
+  - id: aventon_tag_scan
+    alias: Aventon Tag Scan
+    trigger:
+      - platform: tag
+        tag_id: 389004ad-5571-4c84-a2a1-29262d705266
+    action:
+      - service: input_boolean.toggle
+        data:
+          entity_id: input_boolean.aventon_charging
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.aventon_charging_done
+
+  - id: aventon_charging_starts
+    alias: Aventon Charging Starts
+    trigger:
+      - platform: state
+        entity_id: input_boolean.aventon_charging
+        from: 'off'
+        to: 'on'
+    action:
+      - service: notify.signal_dan
+        data:
+          message: 'Aventon charging has started'
+
+  - id: aventon_charging_stops
+    alias: Aventon Charging Stops
+    trigger:
+      - platform: state
+        entity_id: input_boolean.aventon_charging
+        from: 'on'
+        to: 'off'
+    action:
+      - service: notify.signal_dan
+        data:
+          message: 'Aventon charging has stopped'
+
+  - id: aventon_charging_done
+    alias: Aventon Charging Done
+    trigger:
+      - platform: state
+        entity_id: input_boolean.aventon_charging
+        from: 'off'
+        to: 'on'
+        for:
+          hours: "{{ states('input_number.aventon_charge_time')|int (5) }}"
+          minutes: 0
+          seconds: 0
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.aventon_charging_done
+
+
+alert:
+  aventon_charging_done:
+    name: Aventon Charging Done 
+    message: "Charging complete. Unplug the Aventon charger"
+    done_message: "The battery is unplugged"
+    entity_id: input_boolean.aventon_charging_done
+    repeat:
+      - 15
+    skip_first: false
+    notifiers:
+      - signal_dan
