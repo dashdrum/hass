@@ -1,4 +1,4 @@
-# Garage related things
+
 
 homeassistant:
   customize:
@@ -341,8 +341,8 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.garage_access_door
-        from: 'closed'
-        to: 'open'
+        from: 'off'
+        to: 'on'
         for:
           hours: 0
           minutes: 60
@@ -360,8 +360,8 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.garage_access_door
-        from: 'closed'
-        to: 'open'
+        from: 'off'
+        to: 'on'
         for:
           hours: 0
           minutes: 30
@@ -394,7 +394,7 @@ automation:
           state: "on"
         - condition: state
           entity_id: binary_sensor.garage_access_door
-          state: "open"
+          state: "on"
     action:
       - service: input_boolean.turn_on
         target:
@@ -413,7 +413,7 @@ automation:
           state: "on"
         - condition: state
           entity_id: binary_sensor.garage_access_door
-          state: "open"
+          state: "on"
     action:
       - service: input_boolean.turn_on
         target:
@@ -423,7 +423,7 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.garage_access_door
-        to: 'closed'
+        to: 'off'
     condition:
       condition: state
       entity_id: input_boolean.garage_automations
