@@ -429,3 +429,11 @@
       data:
         entity_id: light.led_mirror
 
+- alias: Tag 1 Scanned
+  trigger:
+    - platform: tag
+      tag_id: bbba54bf-8959-45e1-b39a-54c20343f266
+  condition: []
+  action:
+    - service: script.watch_tv
+      data: {}
