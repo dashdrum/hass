@@ -194,46 +194,6 @@
   action:
     - service: script.undercabinet_button
 
-# Garage Lights
-
-- alias: 'door turns on lights'
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.garage_access_door
-      from: 'off'
-      to: 'on'
-  action:
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.garage_door_lights
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.garage_light
-
-# - alias: 'door turns off lights'
-#   trigger:
-#     - platform: state
-#       entity_id: binary_sensor.garage_access_door
-#       from: 'on'
-#       to: 'off'
-
-#   action:
-#     - service: homeassistant.turn_off
-#       data:
-#         entity_id: switch.garage_door_lights
-
-- alias: 'house door turns on light'
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.garage_house_door
-      from: 'off'
-      to: 'on'
-
-  action:
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.garage_light
-
 # Motion sensor lights
 
 - alias: Turn on laundry light when there is movement
@@ -255,47 +215,6 @@
   action:
     service: homeassistant.turn_off
     entity_id: switch.laundry_light
-
-- id: garage_motion_1
-  alias: Turn on garage light when there is movement
-  trigger:
-    platform: state
-    entity_id: binary_sensor.garage_motion_1
-    to: 'on'
-  action:
-    service: switch.turn_on
-    entity_id: switch.garage_light
-
-- id: garage_motion_2
-  alias: Turn on garage light when there is movement 2
-  trigger:
-    platform: state
-    entity_id: binary_sensor.garage_motion_2
-    to: 'on'
-  action:
-    service: switch.turn_on
-    entity_id: switch.garage_light
-
-- id: garage_motion_3
-  alias: Turn on garage light when there is movement 3
-  trigger:
-    platform: state
-    entity_id: binary_sensor.garage_motion_3
-    to: 'on'
-  action:
-    service: switch.turn_on
-    entity_id: switch.garage_light
-
-# - alias: 'Turn off garage light 15 minutes after last movement'
-#   trigger:
-#     platform: state
-#     entity_id: binary_sensor.garage_motion_1
-#     to: 'off'
-#     for:
-#       minutes: 15
-#   action:
-#     service: switch.turn_off
-#     entity_id: switch.garage_light
 
 - alias: tv_backight_on
   trigger:
