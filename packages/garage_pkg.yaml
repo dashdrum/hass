@@ -316,31 +316,31 @@ automation:
         data:
           entity_id: switch.garage_light
 
-- alias: 'door turns on lights'
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.garage_access_door
-      from: 'off'
-      to: 'on'
-  action:
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.garage_door_lights
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.garage_light
+  - alias: 'door turns on lights'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_access_door
+        from: 'off'
+        to: 'on'
+    action:
+      - service: homeassistant.turn_on
+        data:
+          entity_id: switch.garage_door_lights
+      - service: homeassistant.turn_on
+        data:
+          entity_id: switch.garage_light
 
-- alias: 'house door turns on light'
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.garage_house_door
-      from: 'off'
-      to: 'on'
+  - alias: 'house door turns on light'
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_house_door
+        from: 'off'
+        to: 'on'
 
-  action:
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.garage_light
+    action:
+      - service: homeassistant.turn_on
+        data:
+          entity_id: switch.garage_light
 
   - alias: 'Garage access door is opening'
     trigger:
@@ -371,25 +371,25 @@ automation:
 #     service: switch.turn_on
 #     entity_id: switch.garage_light
 
-- id: garage_motion_2
-  alias: Turn on garage light when there is movement 2
-  trigger:
-    platform: state
-    entity_id: binary_sensor.garage_motion_2
-    to: 'on'
-  action:
-    service: switch.turn_on
-    entity_id: switch.garage_light
+  - id: garage_motion_2
+    alias: Turn on garage light when there is movement 2
+    trigger:
+      platform: state
+      entity_id: binary_sensor.garage_motion_2
+      to: 'on'
+    action:
+      service: switch.turn_on
+      entity_id: switch.garage_light
 
-- id: garage_motion_3
-  alias: Turn on garage light when there is movement 3
-  trigger:
-    platform: state
-    entity_id: binary_sensor.garage_motion_3
-    to: 'on'
-  action:
-    service: switch.turn_on
-    entity_id: switch.garage_light
+  - id: garage_motion_3
+    alias: Turn on garage light when there is movement 3
+    trigger:
+      platform: state
+      entity_id: binary_sensor.garage_motion_3
+      to: 'on'
+    action:
+      service: switch.turn_on
+      entity_id: switch.garage_light
 
 #--------------------------------------------------------------------------------------#
 
