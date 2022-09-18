@@ -153,6 +153,8 @@
     - sensor.master_bedroom_humidity
     - sensor.plant_stand_humidity
     - sensor.spare_room_humidity
+    - sensor.kitchen_sensor_humidity
+    - sendor.guest_sensor_humidity
   type: mean
   name: avg_indoor_humidity
   round_digits: 2
@@ -164,6 +166,7 @@
     - sensor.laundry_temperature
     - sensor.plant_stand_temperature
     - sensor.spare_room_temperature
+    - sensor.kitchen_sensor_temperature
   type: mean
   name: avg_indoor_temperature
   round_digits: 2
@@ -179,11 +182,29 @@
 
 - platform: min_max
   entity_ids:
+    - sensor.geust_sensor_temperature
+    - sensor.family_room_temperature
+    - sensor.mechanical_room_temperature
+  type: mean
+  name: avg_basement_temperature
+  round_digits: 2
+
+- platform: min_max
+  entity_ids:
     - sensor.master_bedroom_humidity
     - sensor.upstairs_bath_humidity
     - sensor.spare_room_humidity
   type: mean
   name: avg_upstairs_humidity
+  round_digits: 2
+
+- platform: min_max
+  entity_ids:
+    - sensor.guest_sensor_humidity
+    - sensor.mechanical_room_humidity
+    - sensor.family_room_humidity
+  type: mean
+  name: avg_basement_humidity
   round_digits: 2
 
 # Pull attributes from Rusty the Roomba
