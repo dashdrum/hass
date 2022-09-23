@@ -14,6 +14,12 @@ homeassistant:
       friendly_name: Master Closet Motion Tamper
     sensor.master_closet_motion_linkquality:
       friendly_name: Master Closet Motion Link Quality
+    sensor.master_dimmer_brightness:
+      friendly_name: Master Dimmer Brightness
+      icon: mdi:brightness-7
+    sensor.master_bedroom_brightness:
+      friendly_name: "Master Brightness"
+      icon: mdi:brightness-7
 
 
 light:
@@ -52,6 +58,21 @@ scene:
         state: off
       light.dresser_2:
         state: off
+
+  - name: master_dressers
+    entities:
+      light.kelly_bedside_lamp:
+        state: off
+      light.dan_bedside_lamp:
+        state: off
+      light.master_closet:
+        state: off
+      light.dresser_1:
+        state: on
+        brightness: 5
+      light.dresser_2:
+        state: on
+        brightness: 5
 
   - name: master_warm
     entities:
@@ -124,6 +145,23 @@ scene:
       light.master_closet:
         state: off
 
+  - name: master_blue
+    entities:
+      light.kelly_bedside_lamp:
+        state: on
+        brightness: 255
+        rgb_color: [0,0,255]   #blue
+      light.dan_bedside_lamp:
+        state: on
+        brightness: 255
+        rgb_color: [0,0,255]   #blue
+      light.master_closet:
+        state: off
+      light.dresser_1:
+        state: off
+      light.dresser_2:
+        state: off
+
   - name: master_off
     entities:
       light.kelly_bedside_lamp:
@@ -143,6 +181,26 @@ sensor:
       dressers_brightness:
         friendly_name: "Dressers Brightness"
         value_template: "{{ state_attr('light.dressers', 'brightness') | int(0) }}"
+
+template:
+  sensor:
+    - name: master_bedroom_brightness
+      state: "{{ state_attr('light.master_bedroom', 'brightness') | int(0) }}"
+
+mqtt:
+  sensor:
+    - name: master_dimmer_brightness
+      state_topic: "zigbee2mqtt/Master Dimmer"
+      value_template: "{{ value_json.brightness }}"
+
+input_select:
+  master_light_status:
+    name: Master Light Status
+    options:
+      - Dressers
+      - Dim
+      - Bright
+      - Blue
 
 automation:
   - id: master_lights_sunrise
@@ -247,3 +305,190 @@ automation:
       - service: light.turn_off
         data:
           entity_id: light.master_closet
+
+  - id: master_dimmer_on_press
+    alias: 'Master Dimmer On Press When Off'
+    trigger:
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'on_press'
+    condition:
+      condition: state
+      entity_id: light.master_bedroom
+      state: "off"
+    action:
+      - choose:
+          - conditions:
+            - condition: time
+              after: "05:59:59"
+              before: "07:30:00"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_dim
+              - service: input_select.select_option
+                data:
+                  entity_id: input_select.master_light_status
+                  option: Dim
+          - conditions:
+            - condition: time
+              after: "07:29:59"
+              before: "21:30:01"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_bright
+              - service: input_select.select_option
+                data:
+                  entity_id: input_select.master_light_status
+                  option: Bright
+          - conditions:
+            - condition: time
+              after: "21:30:00"
+              before: "06:00:00"
+              ## and bed not occupied
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_blue
+              - service: input_select.select_option
+                data:
+                  entity_id: input_select.master_light_status
+                  option: Blue
+          # - conditions:
+          #   - condition: time
+          #     after: "21:30:00"
+          #     before: "06:00:00"
+          #     ## and bed occupied
+          #   sequence:
+          #     - service: scene.turn_on
+          #       target:
+          #         entity_id: scene.master_dressers
+          #     - service: input_select.select_option
+          #       data:
+          #         entity_id: input_select.master_light_status
+          #         option: Dressers
+
+  - id: master_dimmer_on_press_when_on
+    alias: 'Master Dimmer On Press When On'
+    trigger:
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'on_press'
+    condition:
+      condition: state
+      entity_id: light.master_bedroom
+      state: "on"
+    action:
+      - service: input_select.select_next
+        target:
+          entity_id: input_select.master_light_status
+
+  - id: master_dimmer_on_hold
+    alias: 'Master Dimmer On Hold'
+    trigger:
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'on_hold'
+    action:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.master_bright
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.master_light_status
+          option: Bright
+
+  - id: master_dimmer_off_hold
+    alias: 'Master Dimmer Off Hold'
+    trigger:
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'off_hold'
+    action:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.master_dressers
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.master_light_status
+          option: Dressers
+
+  - id: master_dimmer_off_press
+    alias: 'Master Dimmer Off Press'
+    trigger:
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'off_press'
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.master_bedroom
+
+  - id: master_dimmer_up_down_press
+    alias: 'Master Dimmer Up Down Press'
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'up_press'
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'down_press'
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'up_hold'
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'down_hold'
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'up_hold_release'
+      - platform: state
+        entity_id: sensor.master_dimmer_action
+        to: 'down_hold_release'
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.master_bedroom
+          brightness: "{{ states('sensor.master_dimmer_brightness') }}"
+
+  - id: master_dimmer_set_scene
+    alias: Master Dimmer Set Scene
+    trigger:
+      - platform: state
+        entity_id: input_select.master_light_status
+    action:
+      - choose:
+          - conditions:
+            - condition: state
+              entity_id: input_select.master_light_status
+              state: 'Dressers'
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_dressers
+          - conditions:
+            - condition: state
+              entity_id: input_select.master_light_status
+              state: 'Dim'
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_dim
+          - conditions:
+            - condition: state
+              entity_id: input_select.master_light_status
+              state: 'Bright'
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_bright
+          - conditions:
+            - condition: state
+              entity_id: input_select.master_light_status
+              state: 'Blue'
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_blue
