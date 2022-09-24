@@ -5,3 +5,15 @@
   workdays: [mon, tue, wed, thu, fri]
   excludes: [sat, sun, holiday]
 
+
+- platform: template
+  sensors:
+    main_floor_nest_state:
+      friendly_name: "Main Floor Nest State"
+      device_class: power
+      value_template: >-
+        {% if is_state('climate.main_floor_nest', 'off')   %}
+          off
+        {% else %}
+          on
+        {% endif %}

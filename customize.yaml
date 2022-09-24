@@ -132,6 +132,12 @@ sensor.avg_upstairs_temperature:
 sensor.avg_upstairs_humidity:
   friendly_name: Avg Upstairs Humidity
   icon: mdi:water-percent
+sensor.avg_basement_temperature:
+  friendly_name: Avg Basement Temperature
+  icon: mdi:thermometer
+sensor.avg_basement_humidity:
+  friendly_name: Avg Basement Humidity
+  icon: mdi:water-percent
 
 
 sensor.outdoor_sea_level_pressure:
@@ -230,6 +236,8 @@ sensor.stairway_light_zigbee_connectivity:
 
 binary_sensor.laundry_motion:
   friendly_name: Laundry Motion
+binary_sensor.main_floor_nest_state:
+  icon: mdi:home-thermometer
 
 ## Scenes
 
