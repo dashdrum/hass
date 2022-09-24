@@ -154,7 +154,8 @@
     - sensor.plant_stand_humidity
     - sensor.spare_room_humidity
     - sensor.kitchen_sensor_humidity
-    - sendor.guest_sensor_humidity
+    - sensor.guest_sensor_humidity
+    - sensor.main_floor_nest_humidity
   type: mean
   name: avg_indoor_humidity
   round_digits: 2
@@ -167,6 +168,7 @@
     - sensor.plant_stand_temperature
     - sensor.spare_room_temperature
     - sensor.kitchen_sensor_temperature
+    - sensor.main_floor_nest_temperature
   type: mean
   name: avg_indoor_temperature
   round_digits: 2
