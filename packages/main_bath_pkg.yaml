@@ -1,0 +1,184 @@
+# Main Bath Package
+
+
+# input_boolean.bathroom_occupied 
+
+
+# Lights:
+
+# door close with motion after turns on input_boolean.bathroom_occupied
+
+# door close to open turns off input_boolean.bathroom_occupied
+
+
+# door close to open turns on lights
+
+# motion turns on lights
+
+
+# no motion for 2 minutes with input_boolean.bathroom_occupied off turns off lights
+
+# watch_tv turns off lights when door is open and no motion 
+
+
+
+# Fan:
+
+# humidity level +20 over house avg turns on fan
+
+# humidity level ±5 to house avg turns off fan 
+
+
+# input_boolean.bathroom_occupied to off sets 15 min timer to turn off fan if humidity level is low
+
+homeassistant:
+  customize:
+    binary_sensor.main_bath_occupied:
+      icon: mdi:toilet
+      class: occupancy
+    binary_sensor.shelly1_e8db84d27f6a_input:
+      icon: mdi:light-switch
+    sensor.main_bath_occupied:
+      icon: mdi:toilet
+    sensor.shelly1_e8db84d27f6a_humidity:
+      friendly_name: Main Bath Humid
+    sensor.shelly1_e8db84d27f6a_temperature:
+      friendly_name: Main Bath Temp
+    switch.shelly1_e8db84d27f6a:
+      friendly_name: Main Bath Fan
+      icon: mdi:fan
+    binary_sensor.main_bath_door_contact:
+      friendly_name: Main Bath Door
+    sensor.main_bath_door_power_outage_count:
+      icon: mdi:counter
+    light.main_bath_light:
+      friendly_name: Main Bath Light
+
+input_boolean:
+  main_bath_occupied:
+    name: Main Bath Occupied
+
+template:
+  binary_sensor:
+    - name: Main Bath Occupied
+      state: "{{ states('input_boolean.main_bath_occupied') }}"
+
+  sensor:
+    - name: Main Bath Occupied
+      state: >
+        {% if is_state('input_boolean.main_bath_occupied', 'on')   %}
+            Occupied
+          {% else %}
+            Available
+          {% endif %}
+
+
+automation:
+
+  - alias: main bath occupied off
+  ## Door open turns off input_boolean.main_bath_occupied
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.main_bath_door_contact
+      from: 'off'   # off is door closed
+      to: 'on'      # on is door open
+
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.main_bath_occupied
+
+  - alias: main bath occupied on
+  ## door close with motion after turns on input_boolean.main_bath_occupied
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.main_bath_door_contact
+      from: 'on'   # on is door open
+      to: 'off'    # off is door closed
+      for:
+        hours: 00
+        minutes: 00
+        seconds: 25
+
+    condition:
+      - condition: state
+        entity_id: binary_sensor.main_bath_motion_occupancy
+        state: 'on'
+
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.main_bath_occupied
+
+  - alias: main bath motion door closed
+  ## motion with door closed turns on input_boolean.main_bath_occupied
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.main_bath_motion_occupancy
+      from: 'off'
+      to: 'on'
+
+    condition:
+      - condition: state
+        entity_id: binary_sensor.main_bath_door_contact
+        state: 'off'  ## off is door closed
+
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.main_bath_occupied
+
+
+  - alias: main bath door turns on light
+  ## Door open turns on main_bath_light
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.main_bath_door_contact
+      from: 'off'   # off is door closed
+      to: 'on'      # on is door open
+
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.main_bath_light
+
+  - alias: main bath motion light on
+  ## motion with door closed turns on input_boolean.main_bath_occupied
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.main_bath_motion_occupancy
+      from: 'off'
+      to: 'on'
+
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.main_bath_light
+
+  - alias: main bath no motion turns off lights
+  ## motion with door closed turns on input_boolean.main_bath_occupied
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.main_bath_motion_occupancy
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 00
+        minutes: 02
+        seconds: 00
+
+    condition:
+      - condition: state
+        entity_id: input_boolean.main_bath_occupied
+        state: 'off'  ## bathroom is not occupied
+
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.main_bath_light

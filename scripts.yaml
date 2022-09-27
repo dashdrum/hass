@@ -11,60 +11,130 @@ watch_tv:
   alias: Watch TV
   sequence:
 ## Setup the lights just right
-    - service: light.turn_off
-      data:
-        entity_id: light.laundry_light
-        transition: 0
-    - delay:
-        milliseconds: 750
-    - service: light.turn_off
-      data:
-        entity_id: light.coat_rack_light
-        transition: 0
-    - delay:
-        milliseconds: 750
-    - service: light.turn_off
-      data:
-        entity_id: light.sink_light
-        transition: 0
-    - delay:
-        milliseconds: 750
-    - service: light.turn_off
-      data:
-        entity_id: light.kitchen_light
-        transition: 0
-    - delay:
-        milliseconds: 750
-    - service: light.turn_off
-      data:
-        entity_id: light.dining_room_light
-        transition: 0
-    - delay:
-        milliseconds: 750
-    - service: light.turn_off
-      data:
-        entity_id: light.candle_mold_light
-        transition: 0
-    - delay:
-        milliseconds: 750
-    - service: light.turn_off
-      data:
-        entity_id: light.kelly_lamp
-        transition: 0
-    - delay:
-        milliseconds: 750
-    - service: light.turn_off
-      data:
-        entity_id: light.dan_lamp
-        transition: 0
-    - delay:
-        milliseconds: 750
-    - service: light.turn_off
-      data:
-        entity_id: light.stairway_light
-        transition: 0
-    - delay:
-        milliseconds: 750
+    - choose:
+      # Laundry light is on and no motion
+        - conditions:
+            - "{{ is_state('light.laundry_light','on') }}"
+            - "{{ is_state('binary_sensor.laundry_motion','off') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.laundry_light
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Coat Rack light is on
+        - conditions:
+            - "{{ is_state('light.coat_rack_light','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.coat_rack_light
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Sink light is on
+        - conditions:
+            - "{{ is_state('light.sink_light','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.sink_light
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Kitchen light is on
+        - conditions:
+            - "{{ is_state('light.kitchen_light','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.kitchen_light
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Main Bath light is on and Bath is not occupied
+        - conditions:
+            - "{{ is_state('light.main_bath_light','on') }}"
+            - "{{ is_state('input_boolean.main_bath_occupied','off') }}"
+            - "{{ is_state('binary_sensor.main_bath_motion_occupancy','off') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.main_bath_light
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Dining Room light is on
+        - conditions:
+            - "{{ is_state('light.dining_room_light','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.dining_room_light
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Kelly lamp is on
+        - conditions:
+            - "{{ is_state('light.kelly_lamp','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.kelly_lamp
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Candle Mold light is on
+        - conditions:
+            - "{{ is_state('light.candle_mold_light','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.candle_mold_light
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Dan lamp is on
+        - conditions:
+            - "{{ is_state('light.dan_lamp','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.dan_lamp
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Oil Lamp is on
+        - conditions:
+            - "{{ is_state('light.oil_lamp','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.oil_lamp
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Stairway light is on
+        - conditions:
+            - "{{ is_state('light.stairway_light','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.stairway_light
+                transition: 0
+            - delay:
+                milliseconds: 750
     - service: scene.turn_on
       data:
         entity_id: scene.watch_tv
