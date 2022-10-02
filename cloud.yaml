@@ -10,7 +10,6 @@ google_actions:
       - light.ceiling_lights
       - light.led_mirror
       - light.office_desk
-      - light.oil_lamp
       - light.shellydimmer2_e8db84d4610a # Office Door Light
       - light.office_lights
       - light.tv_backlight
@@ -19,6 +18,7 @@ google_actions:
       - light.family_room_lights
       - light.candle_mold_light
       - light.under_desk_lights
+      - light.main_bath_lights
       # - script.lr_tv_all_on_off
       - script.office_zoom
       - script.office_hacker
@@ -100,10 +100,6 @@ google_actions:
         - Tin Lamp
       room: Living Room
 
-    light.oil_lamp:
-      name: Oil Lamp
-      room: Living Room
-
     light.office_desk:
       name: office desk light
       aliases:
@@ -120,6 +116,12 @@ google_actions:
     light.under_desk_lights:
       name: Under Desk Lights
       room: Office
+
+    light.main_bath_lighta:
+      name: Main Bath Lights
+      aliases:
+        - bathroom lights
+      room: Main Bath
 
     light.office_lights:
       name: Office Lights

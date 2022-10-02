@@ -289,10 +289,6 @@ scene.master_off:
 
 ## Lights
 
-light.oil_lamp:
-  friendly_name: Oil Lamp
-  icon: mdi:oil-lamp
-
 ## Tracker
 
 device_tracker.daniels_ipad_2:
