@@ -20,6 +20,10 @@ homeassistant:
     sensor.master_bedroom_brightness:
       friendly_name: "Master Brightness"
       icon: mdi:brightness-7
+    binary_sensor.mm_wave_1_occupancy:
+      friendly_name: "Master Occupancy"
+      device_class: Occupancy
+      icon: mdi:human
 
 
 light:
@@ -202,6 +206,64 @@ input_select:
       - Bright
       - Blue
 
+script:
+  master_lights_time_based_on:
+    alias: Master Lights Time Based On
+    sequence:
+      - choose:
+          - conditions:
+            - condition: time
+              after: "05:59:59"
+              before: "07:30:00"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_dim
+              - service: input_select.select_option
+                data:
+                  entity_id: input_select.master_light_status
+                  option: Dim
+          - conditions:
+            - condition: time
+              after: "07:29:59"
+              before: "21:30:01"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_bright
+              - service: input_select.select_option
+                data:
+                  entity_id: input_select.master_light_status
+                  option: Bright
+          - conditions:
+            - condition: time
+              after: "21:30:00"
+              before: "06:00:00"
+            - condition: state    ## and bed occupied
+              entity_id: binary_sensor.bed_sensor_mat
+              state: "on"
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_dressers
+              - service: input_select.select_option
+                data:
+                  entity_id: input_select.master_light_status
+                  option: Dressers
+          - conditions:
+            - condition: time
+              after: "21:30:00"
+              before: "06:00:00"
+              ## and bed not occupied
+            sequence:
+              - service: scene.turn_on
+                target:
+                  entity_id: scene.master_blue
+              - service: input_select.select_option
+                data:
+                  entity_id: input_select.master_light_status
+                  option: Blue
+
 automation:
   - id: master_lights_sunrise
     alias: Master Lights Sunrise
@@ -264,6 +326,8 @@ automation:
         data:
           entity_id: light.dressers
 
+#-------------------------------------------------------------------------#
+
   - id: master_closet_movement
     alias: Master Closet Movement
     trigger:
@@ -306,6 +370,8 @@ automation:
         data:
           entity_id: light.master_closet
 
+#-------------------------------------------------------------------------#
+
   - id: master_dimmer_on_press
     alias: 'Master Dimmer On Press When Off'
     trigger:
@@ -317,57 +383,9 @@ automation:
       entity_id: light.master_bedroom
       state: "off"
     action:
-      - choose:
-          - conditions:
-            - condition: time
-              after: "05:59:59"
-              before: "07:30:00"
-            sequence:
-              - service: scene.turn_on
-                target:
-                  entity_id: scene.master_dim
-              - service: input_select.select_option
-                data:
-                  entity_id: input_select.master_light_status
-                  option: Dim
-          - conditions:
-            - condition: time
-              after: "07:29:59"
-              before: "21:30:01"
-            sequence:
-              - service: scene.turn_on
-                target:
-                  entity_id: scene.master_bright
-              - service: input_select.select_option
-                data:
-                  entity_id: input_select.master_light_status
-                  option: Bright
-          - conditions:
-            - condition: time
-              after: "21:30:00"
-              before: "06:00:00"
-              ## and bed not occupied
-            sequence:
-              - service: scene.turn_on
-                target:
-                  entity_id: scene.master_blue
-              - service: input_select.select_option
-                data:
-                  entity_id: input_select.master_light_status
-                  option: Blue
-          # - conditions:
-          #   - condition: time
-          #     after: "21:30:00"
-          #     before: "06:00:00"
-          #     ## and bed occupied
-          #   sequence:
-          #     - service: scene.turn_on
-          #       target:
-          #         entity_id: scene.master_dressers
-          #     - service: input_select.select_option
-          #       data:
-          #         entity_id: input_select.master_light_status
-          #         option: Dressers
+      - service: script.turn_on
+        data:
+          entity_id: script.master_lights_time_based_on
 
   - id: master_dimmer_on_press_when_on
     alias: 'Master Dimmer On Press When On'
@@ -492,3 +510,38 @@ automation:
               - service: scene.turn_on
                 target:
                   entity_id: scene.master_blue
+
+#-------------------------------------------------------------------------#
+
+## Turn on/off lights only when bed is unoccupied
+
+  - id: master_room_occupied
+    alias: Master Room Occupied
+    trigger:
+      platform: state
+      entity_id: binary_sensor.mm_wave_1_occupancy
+      to: 'on'
+    condition:
+      condition: state
+      entity_id: binary_sensor.bed_sensor_mat
+      state: "off"
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.master_lights_time_based_on
+
+  - id: master_room_unoccupied
+    alias: 'Master Room Unoccupied'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.mm_wave_1_occupancy
+      to: 'off'
+      for:
+        minutes: 10
+    condition:
+      condition: state
+      entity_id: binary_sensor.bed_sensor_mat
+      state: "off"
+    action:
+      service: light.turn_off
+      entity_id: light.master_bedroom

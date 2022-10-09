@@ -228,6 +228,40 @@
         brightness: 110
         transition: 5
 
+- alias: Basement stair motion light on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.basement_stair_motion_occupancy
+    to: 'on'
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.basement_stair
+
+- alias: Basement stair no motion light off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.laundry_motion
+    to: 'off'
+    for:
+      minutes: 5
+  action:
+    service: homeassistant.turn_off
+    entity_id: light.basement_stair
+
+#---------------------------------------------------------------
+
+- alias: tv_backight_on
+  trigger:
+    - platform: sun
+      event: sunset
+  action:
+    - service: light.turn_on
+      entity_id: light.tv_backlight
+      data:
+        effect: rainbow
+        brightness: 110
+        transition: 5
+
 # Living Room
 
 - alias: tv_backlight_off

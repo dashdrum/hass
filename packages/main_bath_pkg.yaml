@@ -35,7 +35,7 @@ homeassistant:
   customize:
     binary_sensor.main_bath_occupied:
       icon: mdi:toilet
-      class: occupancy
+      device_class: occupancy
     binary_sensor.shelly1_e8db84d27f6a_input:
       icon: mdi:light-switch
     sensor.main_bath_occupied:
@@ -100,7 +100,7 @@ automation:
       for:
         hours: 00
         minutes: 00
-        seconds: 25
+        seconds: 15
 
     condition:
       - condition: state
@@ -181,4 +181,11 @@ automation:
     action:
       - service: light.turn_off
         data:
-          entity_id: light.main_bath_light
+          entity_id: light.main_bath_lights
+
+light:
+  - platform: group
+    name: Main Bath Lights
+    entities:
+      - light.main_bath_light
+
