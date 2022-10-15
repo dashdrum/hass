@@ -281,6 +281,9 @@ notify_kelly:
           #         data:
           #           message: '{{ message }}'
       default:
+        - service: notify.mobile_app_iphone
+          data:
+            message: '{{ message }}'
         - service: notify.signal_kelly
           data:
             message: '{{ message }}'
@@ -323,7 +326,6 @@ notify_dan:
               sequence:
                 - service: notify.spare
                   data:
-                    title: '{{ title }}'
                     message: '{{ message }}'
           - choose:
               conditions:
@@ -338,7 +340,6 @@ notify_dan:
               sequence:
                 - service: notify.master
                   data:
-                    title: '{{ title }}'
                     message: '{{ message }}'
           - choose:
               conditions:
@@ -353,7 +354,6 @@ notify_dan:
               sequence:
                 - service: notify.kitchen
                   data:
-                    title: '{{ title }}'
                     message: '{{ message }}'
           - choose:
               conditions:
@@ -368,10 +368,12 @@ notify_dan:
               sequence:
                 - service: notify.family
                   data:
-                    title: '{{ title }}'
                     message: '{{ message }}'
       default:
         - service: notify.signal_dan
+          data:
+            message: '{{ message }}'
+        - service: notify.mobile_app_sm_g975u
           data:
             message: '{{ message }}'
 
