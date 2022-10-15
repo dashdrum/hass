@@ -30,6 +30,11 @@ homeassistant:
     script.office_around_the_horn:
       friendly_name: Office Around the Horn
 
+template:
+  binary_sensor:
+    - name: hacker_mode_enabled
+      state: "{{ is_state_attr('light.under_desk_lights', 'xy_color', (0.13550, 0.030987)) }}"
+
 light:
 
   - platform: group
@@ -249,6 +254,49 @@ script:
       #   target:
       #     entity_id: cover.soma_ed_c1_c6_bb_2c_74
 
+  office_normal:
+    alias: Office Normal
+    sequence:
+  ## Setup the lights just right
+      - service: light.turn_on
+        data:
+          entity_id: light.office_light_1
+          transition: 0
+          brightness: 191
+      - delay:
+          milliseconds: 750
+      - service: light.turn_on
+        data:
+          entity_id: light.office_light_2
+          transition: 0
+          brightness: 191
+      - delay:
+          milliseconds: 750
+      - service: light.turn_on
+        data:
+          entity_id: light.office_desk
+          transition: 0
+          brightness: 191
+      - delay:
+          milliseconds: 750
+      - service: light.turn_on
+        data:
+          entity_id: light.shellydimmer2_e8db84d4610a
+          transition: 0
+          brightness: 191
+      - delay:
+          milliseconds: 750
+      - service: scene.turn_on
+        data:
+          entity_id: scene.office_normal
+      - delay:
+          milliseconds: 750
+      - service: light.turn_off
+        data:
+          entity_id: light.quad_led
+      - delay:
+          milliseconds: 750
+
   office_around_the_horn:
     sequence:
       - service: scene.turn_on
@@ -448,16 +496,39 @@ automation:
     action:
       - delay:
           milliseconds: 1000
-      - service: light.turn_on
-        entity_id: light.office_light_2
-      - delay:
-          milliseconds: 1000
-      - service: light.turn_on
-        entity_id: light.office_light_1
-      - delay:
-          milliseconds: 1000
-      - service: light.turn_on
-        entity_id: light.office_desk
+      - choose:
+        # Light 2 is off
+          - conditions:
+              - "{{ is_state('light.office_light_2','off') }}"
+            sequence:
+              - service: light.turn_on
+                data:
+                  entity_id: light.office_light_2
+                  transition: 0
+              - delay:
+                  milliseconds: 1000
+      - choose:
+        # Light 1 is off
+          - conditions:
+              - "{{ is_state('light.office_light_1','off') }}"
+            sequence:
+              - service: light.turn_on
+                data:
+                  entity_id: light.office_light_1
+                  transition: 0
+              - delay:
+                  milliseconds: 1000
+      - choose:
+        # Desk Light  is off
+          - conditions:
+              - "{{ is_state('light.office_desk','off') }}"
+            sequence:
+              - service: light.turn_on
+                data:
+                  entity_id: light.office_desk
+                  transition: 0
+              - delay:
+                  milliseconds: 1000
 
   - alias: 'Office switch turns off all office Lights'
     trigger:
@@ -480,10 +551,17 @@ automation:
         entity_id: light.office_light_1
       - delay:
           milliseconds: 1000
-      - service: light.turn_off
-        entity_id: light.office_desk
-      - delay:
-          milliseconds: 1000
+      - choose:
+        # No occupancy at desk
+          - conditions:
+              - "{{ is_state('binary_sensor.room_occ_1_occupied','off') }}"
+            sequence:
+              - service: light.turn_off
+                data:
+                  entity_id: light.office_desk
+                  transition: 0
+              - delay:
+                  milliseconds: 1000
       - choose:
         # Quad Led is on
           - conditions:
@@ -506,19 +584,21 @@ automation:
                     data:
                       entity_id: light.quad_led
                       effect: "Fill Off"
-      - service: scene.turn_on
-        data:
-          entity_id: scene.office_off
+      # - service: scene.turn_on
+      #   data:
+      #     entity_id: scene.office_off
       - delay:
           milliseconds: 3000
       - service: light.turn_off
         data:
           entity_id: light.quad_led
 
+#-----------------------------------------------------------#
+
   - alias: "Office desk occupancy turns on desk light"
     trigger:
       - platform: state
-        entity_id: binary_sensor.room_occupancy_1_occupied
+        entity_id: binary_sensor.room_occ_1_occupied
         to: 'on'
     condition:
       condition: and
@@ -529,6 +609,9 @@ automation:
         - condition: state
           entity_id: light.shellydimmer2_e8db84d4610a
           state: 'off'
+        - condition: state
+          entity_id: binary_sensor.hacker_mode_enabled
+          state: "off"
     action:
       - service: light.turn_on
         entity_id: light.office_desk
@@ -536,7 +619,7 @@ automation:
   - alias: "Office desk vacancy turns off desk light"
     trigger:
       - platform: state
-        entity_id: binary_sensor.room_occupancy_1_occupied
+        entity_id: binary_sensor.room_occ_1_occupied
         from: 'on'
         to: 'off'
         for:
@@ -555,3 +638,58 @@ automation:
     action:
       - service: light.turn_off
         entity_id: light.office_desk
+
+#-----------------------------------------------------------#
+
+  - alias: "Office presense turns on door light"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.fp1_presence
+        to: 'on'
+      - platform: state
+        entity_id: sensor.fp1_presence_event
+        to: 'enter'
+      - platform: state
+        entity_id: sensor.fp1_presence_event
+        to: 'left_enter'
+      - platform: state
+        entity_id: sensor.fp1_presence_event
+        to: 'right_enter'
+      - platform: state
+        entity_id: sensor.fp1_presence_event
+        to: 'approach'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.hacker_mode_enabled
+          state: "off"
+        - condition: time
+          after: '08:29:59'
+          before: '21:00:01'
+    action:
+      - service: light.turn_on
+        entity_id: light.shellydimmer2_e8db84d4610a
+
+  - alias: "Office presence turns off door light"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.fp1_presence
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 10
+          seconds: 1
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+        - condition: state
+          entity_id: binary_sensor.room_occ_1_occupied
+          state: 'off'
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.office_off
