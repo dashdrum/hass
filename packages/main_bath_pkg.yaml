@@ -132,6 +132,28 @@ automation:
           entity_id: input_boolean.main_bath_occupied
 
 
+  - alias: main bath occupied turns on light
+  ## Door close with motion turns on light.  To catch edge cases
+  ## Will make it impossible to leave the bathroom, turn off the light and close the door
+  ## and expect the light to stay off
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.main_bath_door_contact
+      from: 'on'   # on is door open
+      to: 'off'    # off is door closed
+
+    condition:
+      - condition: state
+        entity_id: binary_sensor.main_bath_motion_occupancy
+        state: 'on'
+
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.main_bath_light
+
+
   - alias: main bath door turns on light
   ## Door open turns on main_bath_light
 
@@ -147,7 +169,7 @@ automation:
           entity_id: light.main_bath_light
 
   - alias: main bath motion light on
-  ## motion with door closed turns on input_boolean.main_bath_occupied
+  ## motion  turns on light
 
     trigger:
       platform: state

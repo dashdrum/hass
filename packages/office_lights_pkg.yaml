@@ -408,6 +408,7 @@ script:
         # Desk light is on
           - conditions:
               - "{{ is_state('light.office_desk','on') }}"
+              - "{{ is_state('binary_sensor.room_occ_1_occupied','off') }}"
             sequence:
               - service: light.turn_off
                 data:
@@ -470,9 +471,9 @@ script:
                     data:
                       entity_id: light.quad_led
                       effect: "Fill Off"
-      - service: scene.turn_on
-        data:
-          entity_id: scene.office_off
+      # - service: scene.turn_on
+      #   data:
+      #     entity_id: scene.office_off
       - delay:
           milliseconds: 3000
       - service: light.turn_off
@@ -629,9 +630,9 @@ automation:
     condition:
       condition: and
       conditions:
-        - condition: state
-          entity_id: light.shellydimmer2_e8db84d4610a
-          state: 'off'
+        # - condition: state
+        #   entity_id: light.shellydimmer2_e8db84d4610a
+        #   state: 'off'
         - condition: state
           entity_id: input_boolean.lights_off_automations
           state: "on"
@@ -686,9 +687,9 @@ automation:
         - condition: state
           entity_id: input_boolean.lights_off_automations
           state: "on"
-        - condition: state
-          entity_id: binary_sensor.room_occ_1_occupied
-          state: 'off'
+        # - condition: state
+        #   entity_id: binary_sensor.room_occ_1_occupied
+        #   state: 'off'
     action:
       - service: script.turn_on
         data:
