@@ -21,6 +21,9 @@ switch.shellyswitch25_00fb7b5:
   icon: mdi:light-switch
 light.outdoor_lights:
   friendly_name: Outdoor Lights
+light.oil_lamp:
+  friendly_name: Oil Lamp
+  icon: mdi:oil_lamp
 
 ## Switches
 
@@ -65,7 +68,7 @@ switch.shellyswitch25_3c6105e3e6e1_channel_1:
 switch.shellyswitch25_3c6105e3e6e1_channel_2:
   friendly_name: Basement Fan
   icon: mdi:fan
-switch.candle_mold_light_switch:
+switch.oil_lamp_switch:
   device_class: outlet
 switch.master_smart_plug:
   device_class: outlet

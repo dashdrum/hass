@@ -30,7 +30,7 @@
       state: off
     light.dining_room_light:
       state: off
-    light.candle_mold_light:
+    light.oil_lamp:
       state: off
 
 - name: living_room_normal
@@ -47,7 +47,7 @@
     light.dining_room_light:
       state: on
       brightness: 128
-    light.candle_mold_light:
+    light.oil_lamp:
       state: on
 
 - name: living_room_bright
@@ -64,7 +64,7 @@
     light.dining_room_light:
       state: on
       brightness: 255
-    light.candle_mold_light:
+    light.oil_lamp:
       state: on
 
 - name: living_room_dim
@@ -80,7 +80,7 @@
     light.dining_room_light:
       state: on
       brightness: 94
-    light.candle_mold_light:
+    light.oil_lamp:
       state: off
 
 - name: living_room_off
@@ -93,7 +93,7 @@
       state: off
     light.dining_room_light:
       state: off
-    light.candle_mold_light:
+    light.oil_lamp:
       state: off
 
 # Kitchen

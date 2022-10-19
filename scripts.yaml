@@ -92,24 +92,35 @@ watch_tv:
             - delay:
                 milliseconds: 750
     - choose:
-      # Candle Mold light is on
+      # Dan lamp 1 is on
         - conditions:
-            - "{{ is_state('light.candle_mold_light','on') }}"
+            - "{{ is_state('light.dan_lamp_1','on') }}"
           sequence:
             - service: light.turn_off
               data:
-                entity_id: light.candle_mold_light
+                entity_id: light.dan_lamp_1
                 transition: 0
             - delay:
                 milliseconds: 750
     - choose:
-      # Dan lamp is on
+      # Dan lamp 2 is on
         - conditions:
-            - "{{ is_state('light.dan_lamp','on') }}"
+            - "{{ is_state('light.dan_lamp_2','on') }}"
           sequence:
             - service: light.turn_off
               data:
-                entity_id: light.dan_lamp
+                entity_id: light.dan_lamp_2
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Oil Lamp is on
+        - conditions:
+            - "{{ is_state('light.oil_lamp','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.oil_lamp
                 transition: 0
             - delay:
                 milliseconds: 750
