@@ -264,6 +264,70 @@ script:
                   entity_id: input_select.master_light_status
                   option: Blue
 
+  master_around_the_horn:
+    alias: Master Around the Horn
+    sequence:
+      - alias: looping_time
+        repeat:
+          while:
+            - condition: state
+              entity_id: binary_sensor.bed_sensor_mat
+              state: "on"
+            # - condition: template
+            #   value_template: "{{ repeat.index <= 20 }}"
+          sequence:
+            - service: script.master_around_the_horn_loop
+
+  master_around_the_horn_loop:
+    sequence:
+      - service: scene.turn_on
+        data:
+          entity_id: scene.master_off
+      - service: light.turn_on
+        data:
+          entity_id: light.dan_bedside_lamp
+          brightness: 255
+          transition: 0
+      - delay:
+          milliseconds: 250
+      - service: light.turn_off
+        data:
+          entity_id: light.dan_bedside_lamp
+          transition: 0
+      - service: light.turn_on
+        data:
+          entity_id: light.kelly_bedside_lamp
+          brightness: 255
+          transition: 0
+      - delay:
+          milliseconds: 250
+      - service: light.turn_off
+        data:
+          entity_id: light.kelly_bedside_lamp
+          transition: 0
+      - service: light.turn_on
+        data:
+          entity_id: light.dresser_1
+          brightness: 255
+          transition: 0
+      - delay:
+          milliseconds: 250
+      - service: light.turn_off
+        data:
+          entity_id: light.dresser_1
+          transition: 0
+      - service: light.turn_on
+        data:
+          entity_id: light.dresser_2
+          brightness: 255
+          transition: 0
+      - delay:
+          milliseconds: 250
+      - service: light.turn_off
+        data:
+          entity_id: light.dresser_2
+          transition: 0
+
 automation:
   - id: master_lights_sunrise
     alias: Master Lights Sunrise
@@ -309,6 +373,41 @@ automation:
         data_template:
           brightness: 255
           rgb_color: [255,255,255]
+
+  - id: master_lights_wakeup_now
+    alias: Master Lights Wakeup Now
+    trigger:
+      - platform: time_pattern
+        hours: 07
+        minutes: 30
+        seconds: 01
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: light.master_closet
+          state: "off"
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "on"
+    action:
+      - service: script.master_around_the_horn
+
+  - id: master_lights_give_up
+    alias: Master Lights Give Up
+    trigger:
+      - platform: time_pattern
+        hours: 08
+        minutes: 00
+        seconds: 01
+    condition:
+      - condition: state
+        entity_id: script.master_around_the_horn
+        state: 'on'
+    action:
+      - service: script.turn_off
+        entity_id: script.master_around_the_horn
+
 
   - id: master_lights_morning_cleanup
     alias: Master Lights Morning Cleanup
