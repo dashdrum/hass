@@ -24,6 +24,8 @@ light.outdoor_lights:
 light.oil_lamp:
   friendly_name: Oil Lamp
   icon: mdi:oil_lamp
+light.lr_blacklight:
+  entity_picture: /local/curio-cabinet.png
 
 ## Switches
 

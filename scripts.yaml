@@ -57,6 +57,19 @@ watch_tv:
             - delay:
                 milliseconds: 750
     - choose:
+      # Office lights are on and Office is not occupied
+        - conditions:
+            - "{{ is_state('light.office_lights','on') }}"
+            - "{{ is_state('binary_sensor.fp1_presence','off') }}"
+            - "{{ is_state('binary_sensor.room_occ_1_occupied','off') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.main_bath_light
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
       # Main Bath light is on and Bath is not occupied
         - conditions:
             - "{{ is_state('light.main_bath_light','on') }}"
@@ -83,11 +96,22 @@ watch_tv:
     - choose:
       # Kelly lamp is on
         - conditions:
-            - "{{ is_state('light.kelly_lamp','on') }}"
+            - "{{ is_state('light.kelly_lamp_1','on') }}"
           sequence:
             - service: light.turn_off
               data:
-                entity_id: light.kelly_lamp
+                entity_id: light.kelly_lamp_1
+                transition: 0
+            - delay:
+                milliseconds: 750
+    - choose:
+      # Kelly lamp is on
+        - conditions:
+            - "{{ is_state('light.kelly_lamp_2','on') }}"
+          sequence:
+            - service: light.turn_off
+              data:
+                entity_id: light.kelly_lamp_2
                 transition: 0
             - delay:
                 milliseconds: 750

@@ -230,20 +230,20 @@
 
 - alias: Basement stair motion light on
   trigger:
-    platform: state
-    entity_id: binary_sensor.basement_stair_motion_occupancy
-    to: 'on'
+    - platform: state
+      entity_id: group.basement_stair_motion
+      to: 'on'
   action:
     service: homeassistant.turn_on
     entity_id: light.basement_stair
 
 - alias: Basement stair no motion light off
   trigger:
-    platform: state
-    entity_id: binary_sensor.laundry_motion
-    to: 'off'
-    for:
-      minutes: 5
+    - platform: state
+      entity_id: group.basement_stair_motion
+      to: 'off'
+      for:
+        minutes: 5
   action:
     service: homeassistant.turn_off
     entity_id: light.basement_stair
