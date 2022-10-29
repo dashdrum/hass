@@ -56,8 +56,6 @@ scene:
         effect: colorloop
       light.dan_bedside_lamp:
         state: off
-      light.master_closet:
-        state: off
       light.dresser_1:
         state: off
       light.dresser_2:
@@ -68,8 +66,6 @@ scene:
       light.kelly_bedside_lamp:
         state: off
       light.dan_bedside_lamp:
-        state: off
-      light.master_closet:
         state: off
       light.dresser_1:
         state: on
@@ -120,9 +116,6 @@ scene:
         state: on
         brightness: 255
         color_temp: 329
-      light.master_closet:
-        state: on
-        brightness: 255
       light.dresser_1:
         state: on
         brightness: 255
@@ -146,8 +139,6 @@ scene:
       light.dresser_2:
         state: on
         brightness: 55
-      light.master_closet:
-        state: off
 
   - name: master_blue
     entities:
@@ -159,8 +150,6 @@ scene:
         state: on
         brightness: 255
         rgb_color: [0,0,255]   #blue
-      light.master_closet:
-        state: off
       light.dresser_1:
         state: off
       light.dresser_2:
@@ -277,6 +266,9 @@ script:
             #   value_template: "{{ repeat.index <= 20 }}"
           sequence:
             - service: script.master_around_the_horn_loop
+      - service: script.turn_on
+        data:
+          entity_id: script.master_lights_time_based_on
 
   master_around_the_horn_loop:
     sequence:
@@ -621,9 +613,17 @@ automation:
       entity_id: binary_sensor.mm_wave_1_occupancy
       to: 'on'
     condition:
-      condition: state
-      entity_id: binary_sensor.bed_sensor_mat
-      state: "off"
+      condition: and
+      conditions:
+        - condition: time
+          after: "06:30:00"
+          before: "23:00:00"
+        - condition: state
+          entity_id: binary_sensor.bed_sensor_mat
+          state: "off"
+        - condition: state
+          entity_id: light.master_bedroom
+          state: "off"
     action:
       - service: script.turn_on
         data:
@@ -638,9 +638,9 @@ automation:
       for:
         minutes: 10
     condition:
-      condition: state
-      entity_id: binary_sensor.bed_sensor_mat
-      state: "off"
+        - condition: state
+          entity_id: binary_sensor.bed_sensor_mat
+          state: "off"
     action:
       service: light.turn_off
       entity_id: light.master_bedroom

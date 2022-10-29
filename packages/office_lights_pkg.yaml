@@ -672,7 +672,59 @@ automation:
       - service: light.turn_on
         entity_id: light.shellydimmer2_e8db84d4610a
 
-  - alias: "Office presence turns off door light"
+  - alias: "Office vacancy turns off door light - Work time"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.fp1_presence
+        to: 'off'
+        for:
+          hours: 1
+          minutes: 0
+          seconds: 1
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+        - condition: time
+          after: '08:00:00'
+          before: '17:00:00'
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "on"
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.office_off
+
+  - alias: "Office vacancy turns off door light - Leisure time"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.fp1_presence
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 30
+          seconds: 1
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+        - condition: time
+          after: '08:00:00'
+          before: '17:00:01'
+        - condition: state
+          entity_id: binary_sensor.workday_sensor
+          state: "off"
+    action:
+      - service: script.turn_on
+        data:
+          entity_id: script.office_off
+
+  - alias: "Office vacancy turns off door light - Evening"
     trigger:
       - platform: state
         entity_id: binary_sensor.fp1_presence
@@ -687,9 +739,9 @@ automation:
         - condition: state
           entity_id: input_boolean.lights_off_automations
           state: "on"
-        # - condition: state
-        #   entity_id: binary_sensor.room_occ_1_occupied
-        #   state: 'off'
+        - condition: time
+          after: '17:00:00'
+          before: '07:59:59'
     action:
       - service: script.turn_on
         data:

@@ -21,6 +21,7 @@ google_actions:
       - light.oil_lamp
       - light.under_desk_lights
       - light.main_bath_lights
+      - light.lr_blacklight
       # - script.lr_tv_all_on_off
       - script.office_zoom
       - script.office_hacker
@@ -119,6 +120,7 @@ google_actions:
       aliases:
         - desk light
         - office desk
+      room: office
 
     light.shellydimmer2_e8db84d4610a:
       name: Office Door Light
@@ -140,6 +142,15 @@ google_actions:
     light.office_lights:
       name: Office Lights
       room: Office
+
+    light.lr_blacklight:
+      name: Living Room Blacklight
+      aliases:
+        - blacklight
+        - curio cabinet
+        - cabinet light
+        - uranium light
+      room: living room
 
     script.office_ac_toggle:
       name: Office AC
