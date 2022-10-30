@@ -304,8 +304,20 @@
         message: 'The Roomba bin is full'
 
 
+#-----------------------------------------------------------------------------#
 
-
+- alias: LED mirror reset
+  trigger:
+    - platform: state
+      entity_id: sensor.upstairs_bath_temperature
+      to: 'unavailable'
+      for:
+        hours: 0
+        minutes: 2
+        seconds: 0
+  action:
+    - service: button.press
+      entity_id: button.led_mirror_restart
 
 
 

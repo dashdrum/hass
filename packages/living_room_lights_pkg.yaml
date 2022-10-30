@@ -48,7 +48,34 @@ automation:
       - service: light.turn_off
         entity_id: light.tv_backlight
 
-lights:
+  - alias: lr_blacklight_on_sunset
+    trigger:
+      - platform: sun
+        event: sunset
+    action:
+      - service: light.turn_on
+        entity_id: light.lr_blacklight
+        data:
+          brightness: 255
+          transition: 30
+
+  - alias: lr_blacklight_off_midnight
+    trigger:
+      - platform: time_pattern
+        hours: 23
+        minutes: 59
+        seconds: 50
+    condition:
+      condition: state
+      entity_id: input_boolean.lights_off_automations
+      state: "on"
+    action:
+      - service: light.turn_off
+        entity_id: light.lr_blacklight
+        data:
+          transition: 30
+
+light:
 
   - platform: switch
     name: Oil Lamp
