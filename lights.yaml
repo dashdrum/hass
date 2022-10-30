@@ -5,10 +5,6 @@
   password: !secret leviton_password
 
 - platform: switch
-  name: Oil Lamp
-  entity_id: switch.oil_lamp_switch
-
-- platform: switch
   name: Laundry Light
   entity_id: switch.laundry_light
 
@@ -54,26 +50,6 @@
 
 #---------------------------------------------------------------------------------------------------------------------#
 
-- platform: group
-  name: Dan Lamp
-  entities:
-    - light.dan_lamp_1
-    - light.dan_lamp_2
-
-- platform: group
-  name: Kelly Lamp
-  entities:
-    - light.kelly_lamp_1
-    - light.kelly_lamp_2
-
-- platform: group
-  name: Living Room Lights
-  entities:
-    - light.dan_lamp
-    - light.kelly_lamp
-    - light.dining_room_light
-    - light.stairway_light
-    - light.oil_lamp
 
 - platform: group
   name: laundry_lights

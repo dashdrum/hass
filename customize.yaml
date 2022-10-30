@@ -10,8 +10,6 @@ light.shellydimmer2_e8db84d6142e:
 light.shelly1_500291edbc26:
   friendly_name: Mechanical Room Lights
   icon: mdi:lightbulb-multiple-outline
-light.tv_backlight:
-  icon: mdi:led-strip-variant
 light.led_mirror:
   icon: mdi:led-strip-variant
 light.laundry_lights:
@@ -21,11 +19,6 @@ switch.shellyswitch25_00fb7b5:
   icon: mdi:light-switch
 light.outdoor_lights:
   friendly_name: Outdoor Lights
-light.oil_lamp:
-  friendly_name: Oil Lamp
-  icon: mdi:oil_lamp
-light.lr_blacklight:
-  entity_picture: /local/curio-cabinet.png
 
 ## Switches
 
@@ -70,10 +63,6 @@ switch.shellyswitch25_3c6105e3e6e1_channel_1:
 switch.shellyswitch25_3c6105e3e6e1_channel_2:
   friendly_name: Basement Fan
   icon: mdi:fan
-switch.oil_lamp_switch:
-  device_class: outlet
-switch.master_smart_plug:
-  device_class: outlet
 
 
 

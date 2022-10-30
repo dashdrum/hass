@@ -1,0 +1,76 @@
+homeassistant:
+  customize:
+    light.tv_backlight:
+      icon: mdi:led-strip-variant
+    light.oil_lamp:
+      friendly_name: Oil Lamp
+      icon: mdi:oil_lamp
+    light.lr_blacklight:
+      entity_picture: /local/curio-cabinet.png
+    switch.oil_lamp_switch:
+      device_class: outlet
+
+
+automation:
+
+  - alias: Tag 1 Scanned
+    trigger:
+      - platform: tag
+        tag_id: bbba54bf-8959-45e1-b39a-54c20343f266
+    condition: []
+    action:
+      - service: script.watch_tv
+        data: {}
+
+  - alias: tv_backight_on
+    trigger:
+      - platform: sun
+        event: sunset
+    action:
+      - service: light.turn_on
+        entity_id: light.tv_backlight
+        data:
+          effect: rainbow
+          brightness: 110
+          transition: 5
+
+  - alias: tv_backlight_off
+    trigger:
+      - platform: time_pattern
+        hours: 00
+        minutes: 01
+        seconds: 00
+    condition:
+      condition: state
+      entity_id: input_boolean.lights_off_automations
+      state: "on"
+    action:
+      - service: light.turn_off
+        entity_id: light.tv_backlight
+
+lights:
+
+  - platform: switch
+    name: Oil Lamp
+    entity_id: switch.oil_lamp_switch
+
+  - platform: group
+    name: Dan Lamp
+    entities:
+      - light.dan_lamp_1
+      - light.dan_lamp_2
+
+  - platform: group
+    name: Kelly Lamp
+    entities:
+      - light.kelly_lamp_1
+      - light.kelly_lamp_2
+
+  - platform: group
+    name: Living Room Lights
+    entities:
+      - light.dan_lamp
+      - light.kelly_lamp
+      - light.dining_room_light
+      - light.stairway_light
+      - light.oil_lamp
