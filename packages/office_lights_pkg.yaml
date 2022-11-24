@@ -607,9 +607,9 @@ automation:
         - condition: time
           after: '07:29:59'
           before: '22:30:00'
-        - condition: state
-          entity_id: light.shellydimmer2_e8db84d4610a
-          state: 'off'
+        # - condition: state
+        #   entity_id: light.shellydimmer2_e8db84d4610a
+        #   state: 'off'
         - condition: state
           entity_id: binary_sensor.hacker_mode_enabled
           state: "off"

@@ -236,6 +236,26 @@
     service: homeassistant.turn_off
     entity_id: light.basement_stair
 
+- alias: Turn on mechanical room light when there is movement
+  trigger:
+    platform: state
+    entity_id: binary_sensor.mech_room_motion_occupancy
+    to: 'on'
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.shelly1_500291edbc26
+
+# - alias: Turn off mechanical room light 30 minutes after last movement
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.mech_room_motion_occupancy
+#     to: 'off'
+#     for:
+#       minutes: 30
+#   action:
+#     service: homeassistant.turn_off
+#     entity_id: light.shelly1_500291edbc26
+
 #---------------------------------------------------------------
 
 # Others
