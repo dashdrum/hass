@@ -13,6 +13,9 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Detroit
 
+  country: US
+  currency: USD
+
   external_url: !secret external_url
   internal_url: !secret internal_url
 
