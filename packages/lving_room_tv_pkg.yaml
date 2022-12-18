@@ -121,17 +121,17 @@ cloud:
         room: Living Room
 
       button.living_room_ir_cnn:
-        name: Watch CNN
+        name: CNN
         aliases:
-          - Let's watch CNN
-          - living room tv cnn
-          - CNN
+          - activate CNN
+          - push CNN
+          - switch to science
         room: Living Room
 
       button.living_room_ir_science_channel:
-        name: Watch Science Channel
+        name: Science
         aliases:
-          - Let's watch Science
-          - living room tv science
-          - SCIENCE
+          - activate Science
+          - push science
+          - switch to SCIENCE
         room: Living Room
