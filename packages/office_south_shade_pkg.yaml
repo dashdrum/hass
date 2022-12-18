@@ -28,38 +28,46 @@ script:
 
   office_south_shade_open:
     alias: Office South Shade Open
+    # sequence:
+    #   - repeat:
+    #       while:
+    #         - condition: state
+    #           entity_id: cover.office_south_shade
+    #           state: "closed"
+    #         - condition: template
+    #           value_template: "{{ repeat.index <= 20 }}"
+    #       sequence:
+    #         - service: cover.open_cover
+    #           target:
+    #             entity_id: cover.office_south_shade
+    #         - delay: 00:00:30
     sequence:
-      - repeat:
-          while:
-            - condition: state
-              entity_id: cover.office_south_shade
-              state: "closed"
-            - condition: template
-              value_template: "{{ repeat.index <= 20 }}"
-          sequence:
-            - service: cover.open_cover
-              target:
-                entity_id: cover.office_south_shade
-            - delay: 00:00:30
+      - service: cover.open_cover
+        target:
+          entity_id: cover.office_south_shade
 
   office_south_shade_close:
     alias: Office South Shade Close
+    # sequence:
+    #   - service: cover.close_cover
+    #     target:
+    #       entity_id: cover.office_south_shade
+    #   - repeat:
+    #       while:
+    #         - condition: state
+    #           entity_id: cover.office_south_shade
+    #           state: "open"
+    #         - condition: template
+    #           value_template: "{{ repeat.index <= 20 }}"
+    #       sequence:
+    #         - service: cover.close_cover
+    #           target:
+    #             entity_id: cover.office_south_shade
+    #         - delay: 00:00:30
     sequence:
       - service: cover.close_cover
         target:
           entity_id: cover.office_south_shade
-      - repeat:
-          while:
-            - condition: state
-              entity_id: cover.office_south_shade
-              state: "open"
-            - condition: template
-              value_template: "{{ repeat.index <= 20 }}"
-          sequence:
-            - service: cover.close_cover
-              target:
-                entity_id: cover.office_south_shade
-            - delay: 00:00:30
 
 automation:
 
