@@ -143,26 +143,9 @@ automation:
         effect: >
           {{
             [
-              "Color Wipe",
-              "Candy Cane",
-              "White Twinkle",
-              "Current Twinkle",
-              "Rainbow",
-              "Random",
-              "Scan",
-              "Current Scan",
-              "Blue Scan",
-              "Gradient",
-              "Twinkle",
-              "Gold Glitter",
-              "Current Glitter",
-              "Wheel of Color",
-              "Vesuvius",
-              "Theater Marquee",
-              "Theater Marquee One Way",
-              "Subway Car",
-              "Squeeze",
-              "Pink Bee"
+              "Color Wipe", "Rainbow", "Random", "Scan", "Fireworks", "Strobe", "Color Strobe", "Pink Bee", "Candy Cane",
+              "Gradient", "Gold Glitter", "Current Glitter", "Twinkle", "Blue Twinkle", "White Twinkle", "Current Twinkle",
+              "Wheel of Color", "Vesuvius", "Theater Marquee", "Theater Marquee One Way", "Subway Car", "Squeeze", "Current Scan"
             ] | random
           }}
 
@@ -180,27 +163,9 @@ automation:
           entity_id: light.xmas_tree
           effect: >
             {{
-              [
-                "Color Wipe",
-                "Candy Cane",
-                "White Twinkle",
-                "Current Twinkle",
-                "Rainbow",
-                "Random",
-                "Scan",
-                "Current Scan",
-                "Blue Scan",
-                "Gradient",
-                "Twinkle",
-                "Gold Glitter",
-                "Current Glitter",
-                "Wheel of Color",
-                "Vesuvius",
-                "Theater Marquee",
-                "Theater Marquee One Way",
-                "Subway Car",
-                "Squeeze",
-                "Pink Bee"
+              ["Color Wipe", "Rainbow", "Random", "Scan", "Fireworks", "Strobe", "Color Strobe", "Pink Bee", "Candy Cane",
+               "Gradient", "Gold Glitter", "Current Glitter", "Twinkle", "Blue Twinkle", "White Twinkle", "Current Twinkle",
+               "Wheel of Color", "Vesuvius", "Theater Marquee", "Theater Marquee One Way", "Subway Car", "Squeeze", "Current Scan"
               ] | random
             }}
 
