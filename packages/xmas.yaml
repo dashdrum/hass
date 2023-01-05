@@ -6,38 +6,6 @@ homeassistant:
       icon: mdi:snowflake-variant
       friendly_name: Outdoor Lights
 
-scene:
-  - name: xmas_outside_on
-    entities:
-      switch.cabinet_reset:
-        state: on
-      light.front_porch_light:
-        state: off
-
-  - name: xmas_outside_off
-    entities:
-      switch.cabinet_reset:
-        state: off
-
-script:
-  xmas_outside_toggle:
-    alias: Xmas Outside Toggle
-    sequence:
-      choose:
-        - alias: Xmas lights are on
-          conditions:
-            - condition: state
-              entity_id: switch.cabinet_reset
-              state: 'on'
-          sequence:
-            - service: scene.turn_on
-              data:
-                entity_id: scene.xmas_outside_off
-      default:
-        - service: scene.turn_on
-          data:
-            entity_id: scene.xmas_outside_on
-
 automation:
 
   - alias: xmas_window_on
@@ -370,15 +338,15 @@ automation:
 
 
 
-  - alias: xmas_outside_on
+  - alias: xmas_wreath_on
     trigger:
       - platform: sun
         event: sunset
     action:
       - service: switch.turn_on
-        entity_id: switch.cabinet_reset
+        entity_id: switch.outdoor_plug_2
 
-  - alias: xmas_outside_off
+  - alias: xmas_wreath_off
     trigger:
       - platform: time_pattern
         hours: 02
@@ -386,4 +354,4 @@ automation:
         seconds: 00
     action:
       - service: switch.turn_off
-        entity_id: switch.cabinet_reset
+        entity_id: switch.outdoor_plug_2
