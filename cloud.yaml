@@ -22,6 +22,7 @@ google_actions:
       - light.under_desk_lights
       - light.main_bath_lights
       - light.lr_blacklight
+      - light.workshop_lights
       # - script.lr_tv_all_on_off
       - script.office_zoom
       - script.office_hacker
@@ -151,6 +152,10 @@ google_actions:
         - cabinet light
         - uranium light
       room: living room
+
+    light.workshop_lights:
+      name: Workshop Lights
+      room: Workshop
 
     script.office_ac_toggle:
       name: Office AC

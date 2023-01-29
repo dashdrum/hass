@@ -1,0 +1,120 @@
+homeassistant:
+  customize:
+    light.workshop_light_1:
+      friendly_name: Workshop Light 1
+    binary_sensor.room_occ_2_occupied:
+      friendly_name: Workshop Occupancy
+      icon: mdi:hammer-wrench
+
+
+light:
+
+  - platform: group
+    name: Workshop Lights
+    entities:
+      - light.workshop_light_1
+
+automation:
+
+  # Workshop
+
+  - id: workshop_motion
+    alias: Workshop motion turns on lights
+    trigger:
+      platform: state
+      entity_id: binary_sensor.garage_motion_2
+      from: 'off'
+      to: 'on'
+    action:
+      service: switch.turn_on
+      entity_id: light.workshop_lights
+
+
+  - alias: 'Workshop Lights Timer'
+    trigger:
+      - platform: state
+        entity_id: light.workshop_lights
+        from: 'off'
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 30
+          seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.garage_motion_2
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.room_occ_2_occupied
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+    action:
+      - service: light.turn_off
+        entity_id: light.workshop_lights
+
+#-----------------------------------------------------------#
+
+  - alias: "Workshop occupancy turns on lights"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.room_occ_2_occupied
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 20
+    action:
+      - service: light.turn_on
+        entity_id: light.workshop_lights
+
+  - alias: "Workshop no motion turns off lights"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_motion_2
+        from: 'on'
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 20
+          seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.room_occ_1_occupied
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+    action:
+      - service: light.turn_off
+        entity_id: light.workshop_lights
+
+  - alias: "Workshop vacancy turns off lights"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.room_occ_1_occupied
+        from: 'on'
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 20
+          seconds: 0
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.garage_motion_2
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+    action:
+      - service: light.turn_off
+        entity_id: light.workshop_lights
+
+#-----------------------------------------------------------#
