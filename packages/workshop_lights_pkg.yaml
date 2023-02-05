@@ -5,7 +5,10 @@ homeassistant:
     binary_sensor.room_occ_2_occupied:
       friendly_name: Workshop Occupancy
       icon: mdi:hammer-wrench
-
+    sensor.shellybutton1_3c6105e53723_battery:
+      friendly_name: Workshop Lights Button Battery
+    timer.workshop_lights:
+      friendly_name: Workshop Lights Timer
 
 light:
 
@@ -14,9 +17,56 @@ light:
     entities:
       - light.workshop_light_1
 
+timer:
+  workshop_lights:
+    duration: "00:20:01"
+    icon: mdi:timer-outline
+    restore: true
+
 automation:
 
   # Workshop
+
+  - alias: 'Workshop Lights Timer Start'
+    trigger:
+      platform: state
+      entity_id: light.workshop_lights
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.workshop_lights
+
+  - alias: 'Workshop Lights Timer Cancel'
+    trigger:
+      platform: state
+      entity_id: light.workshop_lights
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.workshop_lights
+
+  - alias: Workshop Lights Timer Restart on Motion
+    ## motion restarts workshop lights timer
+
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_motion_2
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.room_occ_2_occupied
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 20
+    condition:
+      - condition: state
+        entity_id: light.workshop_lights
+        state: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.main_bath_lights
 
   - id: workshop_motion
     alias: Workshop motion turns on lights
@@ -26,37 +76,8 @@ automation:
       from: 'off'
       to: 'on'
     action:
-      service: switch.turn_on
+      service: light.turn_on
       entity_id: light.workshop_lights
-
-
-  - alias: 'Workshop Lights Timer'
-    trigger:
-      - platform: state
-        entity_id: light.workshop_lights
-        from: 'off'
-        to: 'on'
-        for:
-          hours: 0
-          minutes: 30
-          seconds: 0
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: binary_sensor.garage_motion_2
-          state: 'off'
-        - condition: state
-          entity_id: binary_sensor.room_occ_2_occupied
-          state: 'off'
-        - condition: state
-          entity_id: input_boolean.lights_off_automations
-          state: "on"
-    action:
-      - service: light.turn_off
-        entity_id: light.workshop_lights
-
-#-----------------------------------------------------------#
 
   - alias: "Workshop occupancy turns on lights"
     trigger:
@@ -71,42 +92,18 @@ automation:
       - service: light.turn_on
         entity_id: light.workshop_lights
 
-  - alias: "Workshop no motion turns off lights"
+  - alias: "Workshop lights timer turns off lights"
     trigger:
-      - platform: state
-        entity_id: binary_sensor.garage_motion_2
-        from: 'on'
-        to: 'off'
-        for:
-          hours: 0
-          minutes: 20
-          seconds: 0
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.workshop_lights
     condition:
       condition: and
       conditions:
         - condition: state
-          entity_id: binary_sensor.room_occ_1_occupied
+          entity_id: binary_sensor.room_occ_2_occupied
           state: 'off'
-        - condition: state
-          entity_id: input_boolean.lights_off_automations
-          state: "on"
-    action:
-      - service: light.turn_off
-        entity_id: light.workshop_lights
-
-  - alias: "Workshop vacancy turns off lights"
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.room_occ_1_occupied
-        from: 'on'
-        to: 'off'
-        for:
-          hours: 0
-          minutes: 20
-          seconds: 0
-    condition:
-      condition: and
-      conditions:
         - condition: state
           entity_id: binary_sensor.garage_motion_2
           state: 'off'
@@ -117,4 +114,38 @@ automation:
       - service: light.turn_off
         entity_id: light.workshop_lights
 
+  - alias: "Workshop lights timer does restart"
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.workshop_lights
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.room_occ_2_occupied
+          state: 'on'
+        - condition: state
+          entity_id: binary_sensor.garage_motion_2
+          state: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.workshop_lights
+
 #-----------------------------------------------------------#
+
+  - alias: 'Workshop Lights Button Toggle'
+    description: ''
+    trigger:
+      - platform: event
+        event_type: shelly.click
+        event_data:
+          device: shellybutton1-3C6105E53723
+          channel: 1
+          click_type: single
+    condition: []
+    action:
+      - service: light.toggle
+        entity_id: light.workshop_lights
+    mode: single

@@ -53,10 +53,24 @@ homeassistant:
       icon: mdi:counter
     light.main_bath_light:
       friendly_name: Main Bath Light
+    timer.main_bath_lights:
+      friendly_name: Main Bath Lights Timer
+
+light:
+  - platform: group
+    name: Main Bath Lights
+    entities:
+      - light.main_bath_light
 
 input_boolean:
   main_bath_occupied:
     name: Main Bath Occupied
+
+timer:
+  main_bath_lights:
+    duration: "00:15:05"
+    icon: mdi:timer-outline
+    restore: true
 
 template:
   binary_sensor:
@@ -75,8 +89,45 @@ template:
 
 automation:
 
-  - alias: main bath occupied off
-  ## Door open turns off input_boolean.main_bath_occupied
+
+  ## ---- Handle Timer -----------------------------------------------------------------------------------------------##
+
+  - alias: 'Main Bath Lights Timer Start'
+    trigger:
+      platform: state
+      entity_id: light.main_bath_light
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.main_bath_lights
+
+  - alias: 'Main Bath Lights Timer Cancel'
+    trigger:
+      platform: state
+      entity_id: light.main_bath_light
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.main_bath_lights
+
+  - alias: Main Bath Timer Restart on Motion
+    ## motion restarts main bath lights timer
+
+    trigger:
+      platform: state
+      entity_id: binary_sensor.main_bath_motion_occupancy
+      from: 'off'
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.main_bath_lights
+
+
+
+  ## ---- Maintain occupied status -----------------------------------------------------------------------------------##
+
+  - alias: Main Bath occupied off
+    ## Door open turns off input_boolean.main_bath_occupied
 
     trigger:
       platform: state
@@ -89,8 +140,8 @@ automation:
         data:
           entity_id: input_boolean.main_bath_occupied
 
-  - alias: main bath occupied on
-  ## door close with motion after turns on input_boolean.main_bath_occupied
+  - alias: Main Bath occupied on
+    ## door close with motion after turns on input_boolean.main_bath_occupied
 
     trigger:
       platform: state
@@ -112,8 +163,8 @@ automation:
         data:
           entity_id: input_boolean.main_bath_occupied
 
-  - alias: main bath motion door closed
-  ## motion with door closed turns on input_boolean.main_bath_occupied
+  - alias: Main Bath motion door closed
+    ## motion with door closed turns on input_boolean.main_bath_occupied
 
     trigger:
       platform: state
@@ -131,11 +182,12 @@ automation:
         data:
           entity_id: input_boolean.main_bath_occupied
 
+  ## ---- Turn on the light ------------------------------------------------------------------------------------------##
 
-  - alias: main bath occupied turns on light
-  ## Door close with motion turns on light.  To catch edge cases
-  ## Will make it impossible to leave the bathroom, turn off the light and close the door
-  ## and expect the light to stay off
+  - alias: Main Bath occupied turns on light
+    ## Door close with motion turns on light.  To catch edge cases
+    ## Will make it impossible to leave the bathroom, turn off the light and close the door
+    ## and expect the light to stay off
 
     trigger:
       platform: state
@@ -151,11 +203,11 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.main_bath_light
+          entity_id: light.main_bath_lights
 
 
-  - alias: main bath door turns on light
-  ## Door open turns on main_bath_light
+  - alias: Main Bath door turns on light
+    ## Door open turns on main_bath_light
 
     trigger:
       platform: state
@@ -166,10 +218,10 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.main_bath_light
+          entity_id: light.main_bath_lights
 
-  - alias: main bath motion light on
-  ## motion  turns on light
+  - alias: Main Bath motion light on
+    ## motion  turns on light
 
     trigger:
       platform: state
@@ -180,34 +232,47 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.main_bath_light
-
-  - alias: main bath no motion turns off lights
-  ## motion with door closed turns on input_boolean.main_bath_occupied
-
-    trigger:
-      platform: state
-      entity_id: binary_sensor.main_bath_motion_occupancy
-      from: 'on'
-      to: 'off'
-      for:
-        hours: 00
-        minutes: 02
-        seconds: 00
-
-    condition:
-      - condition: state
-        entity_id: input_boolean.main_bath_occupied
-        state: 'off'  ## bathroom is not occupied
-
-    action:
-      - service: light.turn_off
-        data:
           entity_id: light.main_bath_lights
 
-light:
-  - platform: group
-    name: Main Bath Lights
-    entities:
-      - light.main_bath_light
+  ## ---- Turn off the light? ----------------------------------------------------------------------------------------##
 
+  - alias: "Main Bath light timer turns off lights"
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.main_bath_lights
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: input_boolean.main_bath_occupied
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.main_bath_motion_occupancy
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+    action:
+      - service: light.turn_off
+        entity_id: light.main_bath_lights
+
+  - alias: "Main Bath light timer does restart"
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.main_bath_lights
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: input_boolean.main_bath_occupied
+          state: 'on'
+        - condition: state
+          entity_id: binary_sensor.main_bath_motion_occupancy
+          state: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.main_bath_lights

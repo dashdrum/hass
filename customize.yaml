@@ -90,8 +90,6 @@ sensor.shellydimmer2_e8db84d6142e_device_temperature:
   friendly_name: Upstairs Hall Dimmer Temp
 sensor.shelly1l_f4cfa2e397de_device_temperature:
   friendly_name: Path Switch Temp
-sensor.shellybutton1_3c6105e53723_battery:
-  friendly_name: Office Shade Button Battery
 sensor.temp_compare_bme280_press:
   friendly_name: Bedroom 2 Pressure
 sensor.temp_compare_sht3xd_humid:
