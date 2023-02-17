@@ -24,6 +24,18 @@ watch_tv:
             - delay:
                 milliseconds: 750
     - choose:
+      # Office lights are on and no occupancy
+        - conditions:
+            - "{{ is_state('light.office_lights','on') }}"
+            - "{{ is_state('binary_sensor.room_occ_1_occupied','off') }}"
+            - "{{ is_state('binary_sensor.fp1_presence','off') }}"
+          sequence:
+            - service: script.turn_on
+              data:
+                entity_id: script.office_off
+            - delay:
+                milliseconds: 750
+    - choose:
       # Coat Rack light is on
         - conditions:
             - "{{ is_state('light.coat_rack_light','on') }}"
