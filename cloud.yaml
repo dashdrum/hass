@@ -4,7 +4,6 @@ google_actions:
       - binary_sensor.dryer_state
       - binary_sensor.garage_access_door
       - binary_sensor.garage_bin
-      - button.wall_clock_random_effect
       - input_boolean.washer_status
       - light.basement_lights
       - light.ceiling_lights
@@ -14,9 +13,9 @@ google_actions:
       - light.office_desk
       - light.shellydimmer2_e8db84d4610a # Office Door Light
       - light.office_lights
-      - light.tv_backlight
+     # - light.tv_backlight
       - light.wall_clock
-      - light.xmas_window
+    #  - light.xmas_window
       - light.family_room_lights
       - light.oil_lamp
       - light.under_desk_lights
@@ -37,8 +36,8 @@ google_actions:
       - sensor.spare_room_temperature
       - sensor.family_room_temperature
       - switch.guest_room_fan
-      - switch.lr_powerful
-      - switch.mb_powerful
+     # - switch.lr_powerful
+     # - switch.mb_powerful
       - script.office_ac_toggle
     include_domains:
       - cover
@@ -191,19 +190,19 @@ google_actions:
       aliases:
         - guest fan
 
-    switch.lr_powerful:
-      name: LR Powerful
-      aliases:
-        - living room AC powerful
-        - ac powerful
-      room: Living Room
+    # switch.lr_powerful:
+    #   name: LR Powerful
+    #   aliases:
+    #     - living room AC powerful
+    #     - ac powerful
+    #   room: Living Room
 
-    switch.mb_powerful:
-      name: MB Powerful
-      aliases:
-        - master AC powerful
-        - master bedroom AC powerful
-      room: Master Bedroom
+    # switch.mb_powerful:
+    #   name: MB Powerful
+    #   aliases:
+    #     - master AC powerful
+    #     - master bedroom AC powerful
+    #   room: Master Bedroom
 
     light.ceiling_lights:
       name: Ceiling Lights

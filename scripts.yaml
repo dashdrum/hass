@@ -268,7 +268,7 @@ notify_kelly:
           entity_id: person.kelly_gentry
           state: 'home'
         sequence:
-          - service: notify.kelly_cloud
+          - service: notify.living_room
             data:
               message: '{{ message }}'
           # - choose:

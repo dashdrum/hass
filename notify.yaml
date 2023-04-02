@@ -1,23 +1,4 @@
 
-- name: signal_dan
-  platform: signal_messenger
-  url: !secret signal_url
-  number: !secret signal_sender # the sender number
-  recipients: # one or more recipients
-    - !secret signal_dan
-
-- name: signal_kelly
-  platform: signal_messenger
-  url: !secret signal_url
-  number: !secret signal_sender # the sender number
-  recipients: # one or more recipients
-    - !secret signal_kelly
-
-- platform: group
-  name: signal_both
-  services:
-    - service: signal_dan
-    - service: signal_kelly
 
 - platform: tts
   name: kitchen
@@ -28,11 +9,6 @@
   name: dan
   tts_service: tts.google_translate_say
   media_player: media_player.dan_speaker
-
-- platform: tts
-  name: kelly
-  tts_service: tts.google_translate_say
-  media_player: media_player.kelly_home
 
 - platform: tts
   name: guest
@@ -59,6 +35,13 @@
   tts_service: tts.google_translate_say
   media_player: media_player.spare_room_speaker
 
+
+
+- platform: tts
+  name: workshop
+  tts_service: tts.google_translate_say
+  media_player: media_player.workshop_speaker
+
 - platform: group
   name: all_speakers
   services:
@@ -69,6 +52,7 @@
     - service: office
     - service: master
     - service: spare
+    - service: workshop
 
 - platform: group
   name: no_bedrooms
@@ -77,6 +61,7 @@
     - service: dan
     - service: family
     - service: office
+    - service: workshop
 
 - platform: group
   name: bedrooms
@@ -94,11 +79,6 @@
   name: dan_cloud
   tts_service: tts.cloud_say
   media_player: media_player.dan_speaker
-
-- platform: tts
-  name: kelly_cloud
-  tts_service: tts.cloud_say
-  media_player: media_player.kelly_home
 
 - platform: tts
   name: guest_cloud
@@ -125,17 +105,20 @@
   tts_service: tts.cloud_say
   media_player: media_player.spare_room_speaker
 
+- platform: tts
+  name: workshop_cloud
+  tts_service: tts.cloud_say
+  media_player: media_player.workshop_speaker
+
 - platform: group
   name: living_room
   services:
     - service: dan
-    - service: kelly
 
 - platform: group
   name: living_room_cloud
   services:
     - service: dan_cloud
-    - service: kelly_cloud
 
 - platform: group
   name: all_speakers_cloud
@@ -147,6 +130,7 @@
     - service: office_cloud
     - service: master_cloud
     - service: spare_cloud
+    - service: workshop_cloud
 
 - platform: group
   name: no_bedrooms_cloud
@@ -155,6 +139,7 @@
     - service: dan_cloud
     - service: family_cloud
     - service: office_cloud
+    - service: workshop_cloud
 
 - platform: group
   name: bedrooms_cloud
@@ -168,4 +153,4 @@
   services:
     - service: mobile_app_daniels_ipad
     - service: mobile_app_iphone
-    - service: mobile_app_sm_g975u
+    - service: mobile_app_sm_s916u
