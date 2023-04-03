@@ -66,7 +66,7 @@ automation:
         state: 'on'
     action:
       - service: timer.start
-        entity_id: timer.main_bath_lights
+        entity_id: timer.workshop_lights
 
   - id: workshop_motion
     alias: Workshop motion turns on lights
