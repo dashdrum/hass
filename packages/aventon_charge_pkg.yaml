@@ -43,7 +43,7 @@ automation:
         from: 'off'
         to: 'on'
     action:
-      - service: notify.mobile_app_sm_g975u
+      - service: notify.mobile_app_sm_s916u
         data:
           message: 'Aventon charging has started'
 
@@ -55,7 +55,7 @@ automation:
         from: 'on'
         to: 'off'
     action:
-      - service: notify.mobile_app_sm_g975u
+      - service: notify.mobile_app_sm_s916u
         data:
           message: 'Aventon charging has stopped'
 
@@ -86,4 +86,4 @@ alert:
       - 15
     skip_first: false
     notifiers:
-      - mobile_app_sm_g975u
+      - mobile_app_sm_s916u
