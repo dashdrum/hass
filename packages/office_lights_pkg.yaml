@@ -57,6 +57,12 @@ input_number:
     max: 255
     step: 25
 
+timer:
+  office_desk_lights:
+    duration: "00:20:01"
+    icon: mdi:timer-outline
+    restore: true
+
 scene:
 
   # Office
@@ -596,6 +602,42 @@ automation:
 
 #-----------------------------------------------------------#
 
+  - alias: 'Office Desk Lights Timer Start'
+    trigger:
+      platform: state
+      entity_id: light.office_desk
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.office_desk_lights
+
+  - alias: 'Office Desk Lights Timer Cancel'
+    trigger:
+      platform: state
+      entity_id: light.office_desk
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.office_desk_lights
+
+  - alias: Office Desk Lights Timer Restart on Motion
+    ## motion restarts workshop lights timer
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.room_occ_1_occupied
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 20
+    condition:
+      - condition: state
+        entity_id: light.office_desk
+        state: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.office_desk_lights
+
   - alias: "Office desk occupancy turns on desk light"
     trigger:
       - platform: state
@@ -617,28 +659,40 @@ automation:
       - service: light.turn_on
         entity_id: light.office_desk
 
-  - alias: "Office desk vacancy turns off desk light"
+  - alias: "Office desk lights timer turns off lights"
     trigger:
-      - platform: state
-        entity_id: binary_sensor.room_occ_1_occupied
-        from: 'on'
-        to: 'off'
-        for:
-          hours: 0
-          minutes: 05
-          seconds: 0
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.office_desk_lights
     condition:
       condition: and
       conditions:
-        # - condition: state
-        #   entity_id: light.shellydimmer2_e8db84d4610a
-        #   state: 'off'
+        - condition: state
+          entity_id: binary_sensor.room_occ_1_occupied
+          state: 'off'
         - condition: state
           entity_id: input_boolean.lights_off_automations
           state: "on"
     action:
       - service: light.turn_off
-        entity_id: light.office_desk
+        entity_id: light.office_desk_light
+
+  - alias: "Office desk lights timer restart on occupancy"
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.office_desk_lights
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.room_occ_1_occupied
+          state: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.office_desk_lights
 
 #-----------------------------------------------------------#
 
