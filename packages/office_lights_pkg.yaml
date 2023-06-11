@@ -29,6 +29,10 @@ homeassistant:
     #   friendly_name: Office Dimmer Temp
     script.office_around_the_horn:
       friendly_name: Office Around the Horn
+    timer.office_desk_lights:
+      friendly_name: Office Desk Light Timer
+    binary_sensor.mm_wave_4_occupancy:
+      friendly_name: Office Desk Occupancy
 
 template:
   binary_sensor:
@@ -414,7 +418,7 @@ script:
         # Desk light is on
           - conditions:
               - "{{ is_state('light.office_desk','on') }}"
-              - "{{ is_state('binary_sensor.room_occ_1_occupied','off') }}"
+              - "{{ is_state('binary_sensor.mm_wave_4_occupancy','off') }}"
             sequence:
               - service: light.turn_off
                 data:
@@ -561,7 +565,7 @@ automation:
       - choose:
         # No occupancy at desk
           - conditions:
-              - "{{ is_state('binary_sensor.room_occ_1_occupied','off') }}"
+              - "{{ is_state('binary_sensor.mm_wave_4_occupancy','off') }}"
             sequence:
               - service: light.turn_off
                 data:
@@ -624,12 +628,12 @@ automation:
     ## motion restarts workshop lights timer
     trigger:
       - platform: state
-        entity_id: binary_sensor.room_occ_1_occupied
+        entity_id: binary_sensor.mm_wave_4_occupancy
         to: 'on'
         for:
           hours: 0
           minutes: 0
-          seconds: 20
+          seconds: 03
     condition:
       - condition: state
         entity_id: light.office_desk
@@ -641,7 +645,7 @@ automation:
   - alias: "Office desk occupancy turns on desk light"
     trigger:
       - platform: state
-        entity_id: binary_sensor.room_occ_1_occupied
+        entity_id: binary_sensor.mm_wave_4_occupancy
         to: 'on'
     condition:
       condition: and
@@ -669,7 +673,7 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: binary_sensor.room_occ_1_occupied
+          entity_id: binary_sensor.mm_wave_4_occupancy
           state: 'off'
         - condition: state
           entity_id: input_boolean.lights_off_automations
@@ -688,7 +692,7 @@ automation:
       condition: or
       conditions:
         - condition: state
-          entity_id: binary_sensor.room_occ_1_occupied
+          entity_id: binary_sensor.mm_wave_4_occupancy
           state: 'on'
     action:
       - service: timer.start

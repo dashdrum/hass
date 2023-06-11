@@ -331,9 +331,6 @@ notify_kelly:
         - service: notify.mobile_app_iphone
           data:
             message: '{{ message }}'
-        - service: notify.signal_kelly
-          data:
-            message: '{{ message }}'
 
 notify_dan:
   sequence:
@@ -417,10 +414,7 @@ notify_dan:
                   data:
                     message: '{{ message }}'
       default:
-        - service: notify.signal_dan
-          data:
-            message: '{{ message }}'
-        - service: notify.mobile_app_sm_g975u
+        - service: notify.mobile_app_sm_s916u
           data:
             message: '{{ message }}'
 

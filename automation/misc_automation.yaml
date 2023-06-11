@@ -1,15 +1,5 @@
 # Send out MQTT messages
 
-- alias: 'Publish Dark Sky Temperature'
-  trigger:
-    platform: state
-    entity_id: sensor.dark_sky_temperature
-  action:
-    service: mqtt.publish
-    data_template:
-      payload: "{{states.sensor.dark_sky_temperature.state}}"
-      topic: darksky/temperature/state
-      retain: true
 
 - alias: 'Publish defeat_sleep'
   trigger:

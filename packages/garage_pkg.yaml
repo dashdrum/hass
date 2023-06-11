@@ -16,7 +16,7 @@ homeassistant:
     binary_sensor.garage_motion_1:
       friendly_name: Garage Motion 1
     binary_sensor.garage_motion_2:
-      friendly_name: Garage Motion 2
+      friendly_name: Workshop Motion
     binary_sensor.garage_motion_3:
       friendly_name: Garage Motion 3
     binary_sensor.garage_left_bay:

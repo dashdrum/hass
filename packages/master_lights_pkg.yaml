@@ -426,8 +426,10 @@ automation:
       entity_id: binary_sensor.master_closet_motion_occupancy
       to: 'on'
     action:
-      service: homeassistant.turn_on
-      entity_id: light.master_closet
+      service: light.turn_on
+      data:
+        entity_id: light.master_closet
+        brightness: 255
 
   - id: master_closet_motion_timer
     alias: 'Master Closet Motion Timer'

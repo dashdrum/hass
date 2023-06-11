@@ -1,10 +1,4 @@
 
-- platform: workday
-  country: US
-  province: MI
-  workdays: [mon, tue, wed, thu, fri]
-  excludes: [sat, sun, holiday]
-
 
 - platform: template
   sensors:

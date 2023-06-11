@@ -5,9 +5,3 @@ all_persons:
   entities:
     - person.dan_gentry
     - person.kelly_gentry
-
-basement_stair_motion:
-  name: basement_stair_motion
-  entities:
-    - binary_sensor.basement_stair_1_motion
-    - binary_sensor.basement_stair_2_motion

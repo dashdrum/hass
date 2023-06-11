@@ -24,30 +24,6 @@
   name: Path Lights
   entity_id: switch.shelly1l_f4cfa2e397de
 
-- platform: switch
-  name: Ceiling Lights
-  entity_id: switch.shellyswitch25_00d075f # ceiling lights
-
-- platform: switch
-  name: Basement Stair
-  entity_id: switch.shelly1_500291ed226d  # basement stair
-
-- platform: switch
-  name: Basement Hall
-  entity_id: switch.basement_hall  # basement stair
-
-- platform: switch
-  name: Guest Room Light
-  entity_id: switch.shelly1_bcddc2771acf  # guest room light
-
-- platform: switch
-  name: Basement Bath
-  entity_id: switch.shellyswitch25_3c6105e3e6e1_channel_1  # basement bath
-
-- platform: switch
-  name: Basement Fan
-  entity_id: switch.shellyswitch25_3c6105e3e6e1_channel_2  # basement fan
-
 #---------------------------------------------------------------------------------------------------------------------#
 
 
@@ -79,14 +55,3 @@
     - light.woodpile_lights
     - light.front_porch_light
     - light.path_lights
-
-- platform: group
-  name: Basement Lights
-  entities:
-    - light.ceiling_lights         # switch.shellyswitch25_00fb7b5 # ceiling lights
-    - light.basement_hall          # switch.basement_hall          # basement hall
-    - light.basement_stair         # switch.shelly1_500291ed226d   # basement stair
-    - light.guest_room_light       # switch.shelly1_bcddc2771acf   # guest room light
-    - light.shelly1_500291edbc26   # switch.shelly1_500291edbc26   # mech room lights
-    - light.basement_bath          # switch.shellyswitch25_3c6105e3e6e1_channel_1  # basement bath
-    - light.basement_fan           # switch.shellyswitch25_3c6105e3e6e1_channel_2  # basement fan
