@@ -2,13 +2,15 @@ homeassistant:
   customize:
     light.workshop_light_1:
       friendly_name: Workshop Light 1
-    binary_sensor.room_occ_2_occupied:
+    binary_sensor.mm_wave_3_occupancy:
       friendly_name: Workshop Occupancy
       icon: mdi:hammer-wrench
     sensor.shellybutton1_3c6105e53723_battery:
       friendly_name: Workshop Lights Button Battery
     timer.workshop_lights:
       friendly_name: Workshop Lights Timer
+    binary_sensor.workshop_motion_occupancy:
+      friendly_name: Workshop Motion
 
 light:
 
@@ -50,16 +52,16 @@ automation:
 
     trigger:
       - platform: state
-        entity_id: binary_sensor.garage_motion_2
+        entity_id: binary_sensor.workshop_motion_occupancy
         from: 'off'
         to: 'on'
       - platform: state
-        entity_id: binary_sensor.room_occ_2_occupied
+        entity_id: binary_sensor.mm_wave_3_occupancy
         to: 'on'
         for:
           hours: 0
           minutes: 0
-          seconds: 20
+          seconds: 3
     condition:
       - condition: state
         entity_id: light.workshop_lights
@@ -72,7 +74,7 @@ automation:
     alias: Workshop motion turns on lights
     trigger:
       platform: state
-      entity_id: binary_sensor.garage_motion_2
+      entity_id: binary_sensor.workshop_motion_occupancy
       from: 'off'
       to: 'on'
     action:
@@ -82,12 +84,8 @@ automation:
   - alias: "Workshop occupancy turns on lights"
     trigger:
       - platform: state
-        entity_id: binary_sensor.room_occ_2_occupied
+        entity_id: binary_sensor.mm_wave_3_occupancy
         to: 'on'
-        for:
-          hours: 0
-          minutes: 0
-          seconds: 20
     action:
       - service: light.turn_on
         entity_id: light.workshop_lights
@@ -102,10 +100,10 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: binary_sensor.room_occ_2_occupied
+          entity_id: binary_sensor.mm_wave_3_occupancy
           state: 'off'
         - condition: state
-          entity_id: binary_sensor.garage_motion_2
+          entity_id: binary_sensor.workshop_motion_occupancy
           state: 'off'
         - condition: state
           entity_id: input_boolean.lights_off_automations
@@ -124,10 +122,10 @@ automation:
       condition: or
       conditions:
         - condition: state
-          entity_id: binary_sensor.room_occ_2_occupied
+          entity_id: binary_sensor.mm_wave_3_occupancy
           state: 'on'
         - condition: state
-          entity_id: binary_sensor.garage_motion_2
+          entity_id: binary_sensor.workshop_motion_occupancy
           state: 'on'
     action:
       - service: timer.start
