@@ -476,6 +476,8 @@ automation:
       entity_id: light.master_bedroom
       state: "off"
     action:
+      - service: script.turn_off
+        entity_id: script.master_around_the_horn
       - service: script.turn_on
         data:
           entity_id: script.master_lights_time_based_on
@@ -491,6 +493,8 @@ automation:
       entity_id: light.master_bedroom
       state: "on"
     action:
+      - service: script.turn_off
+        entity_id: script.master_around_the_horn
       - service: input_select.select_next
         target:
           entity_id: input_select.master_light_status
@@ -532,6 +536,8 @@ automation:
         entity_id: sensor.master_dimmer_action
         to: 'off_press'
     action:
+      - service: script.turn_off
+        entity_id: script.master_around_the_horn
       - service: light.turn_off
         data:
           entity_id: light.master_bedroom
