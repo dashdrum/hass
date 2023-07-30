@@ -2,6 +2,8 @@ homeassistant:
   customize:
     light.office_others:
       friendly_name: Office Others
+    light.office_not_desk:
+      friendly_name: Office Not Desk Lights
     scene.office_bright:
       friendly_name: Office Bright
       icon: mdi:lightbulb-on-outline
@@ -31,6 +33,8 @@ homeassistant:
       friendly_name: Office Around the Horn
     timer.office_desk_lights:
       friendly_name: Office Desk Light Timer
+    timer.office_lights:
+      friendly_name: Office Lights Timer
     binary_sensor.mm_wave_4_occupancy:
       friendly_name: Office Desk Occupancy
 
@@ -55,6 +59,13 @@ light:
       - light.office_light_1
       - light.office_light_2
 
+  - platform: group
+    name: office_not_desk
+    entities:
+      - light.office_light_1
+      - light.office_light_2
+      - light.shellydimmer2_e8db84d4610a
+
 input_number:
   office_brightness:
     min: 0
@@ -63,6 +74,11 @@ input_number:
 
 timer:
   office_desk_lights:
+    duration: "00:20:01"
+    icon: mdi:timer-outline
+    restore: true
+
+  office_lights:
     duration: "00:20:01"
     icon: mdi:timer-outline
     restore: true
@@ -700,7 +716,150 @@ automation:
 
 #-----------------------------------------------------------#
 
-  - alias: "Office presense turns on door light"
+  # - alias: "Office presense turns on door light"
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.fp1_presence
+  #       to: 'on'
+  #     - platform: state
+  #       entity_id: sensor.fp1_presence_event
+  #       to: 'enter'
+  #     - platform: state
+  #       entity_id: sensor.fp1_presence_event
+  #       to: 'left_enter'
+  #     - platform: state
+  #       entity_id: sensor.fp1_presence_event
+  #       to: 'right_enter'
+  #     - platform: state
+  #       entity_id: sensor.fp1_presence_event
+  #       to: 'approach'
+  #   condition:
+  #     condition: and
+  #     conditions:
+  #       - condition: state
+  #         entity_id: binary_sensor.hacker_mode_enabled
+  #         state: "off"
+  #       - condition: time
+  #         after: '08:29:59'
+  #         before: '21:00:01'
+  #   action:
+  #     - service: light.turn_on
+  #       entity_id: light.shellydimmer2_e8db84d4610a
+
+  # - alias: "Office vacancy turns off door light - Work time"
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.fp1_presence
+  #       to: 'off'
+  #       for:
+  #         hours: 1
+  #         minutes: 0
+  #         seconds: 1
+  #   condition:
+  #     condition: and
+  #     conditions:
+  #       - condition: state
+  #         entity_id: input_boolean.lights_off_automations
+  #         state: "on"
+  #       - condition: time
+  #         after: '08:00:00'
+  #         before: '17:00:00'
+  #       - condition: state
+  #         entity_id: binary_sensor.workday_sensor
+  #         state: "on"
+  #   action:
+  #     - service: script.turn_on
+  #       data:
+  #         entity_id: script.office_off
+
+  # - alias: "Office vacancy turns off door light - Leisure time"
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.fp1_presence
+  #       to: 'off'
+  #       for:
+  #         hours: 0
+  #         minutes: 30
+  #         seconds: 1
+  #   condition:
+  #     condition: and
+  #     conditions:
+  #       - condition: state
+  #         entity_id: input_boolean.lights_off_automations
+  #         state: "on"
+  #       - condition: time
+  #         after: '08:00:00'
+  #         before: '17:00:01'
+  #       - condition: state
+  #         entity_id: binary_sensor.workday_sensor
+  #         state: "off"
+  #   action:
+  #     - service: script.turn_on
+  #       data:
+  #         entity_id: script.office_off
+
+  # - alias: "Office vacancy turns off door light - Evening"
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.fp1_presence
+  #       to: 'off'
+  #       for:
+  #         hours: 0
+  #         minutes: 10
+  #         seconds: 1
+  #   condition:
+  #     condition: and
+  #     conditions:
+  #       - condition: state
+  #         entity_id: input_boolean.lights_off_automations
+  #         state: "on"
+  #       - condition: time
+  #         after: '17:00:00'
+  #         before: '07:59:59'
+  #   action:
+  #     - service: script.turn_on
+  #       data:
+  #         entity_id: script.office_off
+
+#-----------------------------------------------------------#
+
+  - alias: 'Office Lights Timer Start'
+    trigger:
+      platform: state
+      entity_id: light.office_not_desk
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.office_lights
+
+  - alias: 'Office Lights Timer Cancel'
+    trigger:
+      platform: state
+      entity_id: light.office_not_desk
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.office_lights
+
+  - alias: Office Lights Timer Restart on Motion
+    ## motion restarts workshop lights timer
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.mm_wave_4_occupancy
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 03
+    condition:
+      - condition: state
+        entity_id: light.office_not_desk
+        state: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.office_lights
+
+  - alias: "Office occupancy turns on lights"
     trigger:
       - platform: state
         entity_id: binary_sensor.fp1_presence
@@ -720,87 +879,51 @@ automation:
     condition:
       condition: and
       conditions:
+        - condition: time
+          after: '07:29:59'
+          before: '22:30:00'
+        # - condition: state
+        #   entity_id: light.shellydimmer2_e8db84d4610a
+        #   state: 'off'
         - condition: state
           entity_id: binary_sensor.hacker_mode_enabled
           state: "off"
-        - condition: time
-          after: '08:29:59'
-          before: '21:00:01'
     action:
       - service: light.turn_on
         entity_id: light.shellydimmer2_e8db84d4610a
 
-  - alias: "Office vacancy turns off door light - Work time"
+  - alias: "Office lights timer turns off lights"
     trigger:
-      - platform: state
-        entity_id: binary_sensor.fp1_presence
-        to: 'off'
-        for:
-          hours: 1
-          minutes: 0
-          seconds: 1
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.office_lights
     condition:
       condition: and
       conditions:
         - condition: state
-          entity_id: input_boolean.lights_off_automations
-          state: "on"
-        - condition: time
-          after: '08:00:00'
-          before: '17:00:00'
+          entity_id: binary_sensor.fp1_presence
+          state: 'off'
         - condition: state
-          entity_id: binary_sensor.workday_sensor
+          entity_id: input_boolean.lights_off_automations
           state: "on"
     action:
       - service: script.turn_on
         data:
           entity_id: script.office_off
 
-  - alias: "Office vacancy turns off door light - Leisure time"
+  - alias: "Office lights timer restart on occupancy"
     trigger:
-      - platform: state
-        entity_id: binary_sensor.fp1_presence
-        to: 'off'
-        for:
-          hours: 0
-          minutes: 30
-          seconds: 1
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.office_lights
     condition:
-      condition: and
+      condition: or
       conditions:
         - condition: state
-          entity_id: input_boolean.lights_off_automations
-          state: "on"
-        - condition: time
-          after: '08:00:00'
-          before: '17:00:01'
-        - condition: state
-          entity_id: binary_sensor.workday_sensor
-          state: "off"
+          entity_id: binary_sensor.fp1_presence
+          state: 'on'
     action:
-      - service: script.turn_on
-        data:
-          entity_id: script.office_off
-
-  - alias: "Office vacancy turns off door light - Evening"
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.fp1_presence
-        to: 'off'
-        for:
-          hours: 0
-          minutes: 10
-          seconds: 1
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: input_boolean.lights_off_automations
-          state: "on"
-        - condition: time
-          after: '17:00:00'
-          before: '07:59:59'
-    action:
-      - service: script.turn_on
-        data:
-          entity_id: script.office_off
+      - service: timer.start
+        entity_id: timer.office_lights
