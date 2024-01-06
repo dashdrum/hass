@@ -84,6 +84,7 @@ input_select:
       - Drying
       - Clean
       - Empty
+      - Unknown
 
 sensor:
 
@@ -95,7 +96,7 @@ sensor:
 
 automation:
 
-  - alias: Dishwasher Start from Dirty or Empty
+  - alias: Dishwasher Start from Dirty, Empty, or Unknown
 
     trigger:
       platform: numeric_state
@@ -117,6 +118,9 @@ automation:
             - condition: state
               entity_id: input_select.dishwasher_status
               state: 'Empty'
+            - condition: state
+              entity_id: input_select.dishwasher_status
+              state: 'Unknown'
         - condition: state
           entity_id: binary_sensor.dishwasher_door_contact
           state: "off"
@@ -289,6 +293,23 @@ automation:
           entity_id: input_select.dishwasher_status
           option: Dirty
 
+  - alias: Dishwasher Lost Contact with Power Sensor
+
+    trigger:
+      platform: state
+      entity_id: entity_id: sensor.dishwasher_switch_switch_0_power
+      to: 'unavaliable'
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 00
+
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.dishwasher_status
+          option: Unknown
+
 # Announcements
 
   - alias: Dishwasher Ready to Empty
@@ -352,6 +373,31 @@ automation:
                 "The dishwasher has been emptied",
                 "No dishes in here!!",
                 "Dishes put away"
+              ] | random
+            }}
+
+  - alias: Dishwasher Lost Contact
+    trigger:
+      - platform: state
+        entity_id: input_select.dishwasher_status
+        to: 'Unknown'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 0
+    condition:
+      - condition: state
+        entity_id: input_boolean.tts_automations
+        state: "on"
+    action:
+      - service: notify.living_room_cloud
+        data:
+          message: >
+            {{
+              [
+                "Home Assistant has lost contact with the power sensor",
+                "No response from the power sensor",
+                "Power sensor down!"
               ] | random
             }}
 
