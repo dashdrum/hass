@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Post-receive script for Home Assistant config
+# Developer: Dan Gentry
+# Date: Jan 6, 2024
+
+echo "Starting post-receive"
+
+# prevent public permissions on new files, but allow all others:
+umask 0007
+
+GIT_DEPLOY_DIR=/srv/homeautomation/hass-config;export GIT_DEPLOY_DIR
+
+echo "Move to app directory"
+cd $GIT_DEPLOY_DIR
+
+echo "Backup files and rename secrets"
+mv secrets.yaml secrets.bak
+cd ..
+rm -rf hass-bak
+cp -R hass-config hass-back
+cd hass-config
+
+# Clear work tree directory
+find . -name "*.yaml" -type f -delete
+
+echo "Checkout latest"
+GIT_WORK_TREE=/srv/homeautomation/hass-config git checkout -f master
+
+echo "End of post-receive"
