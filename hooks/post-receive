@@ -24,7 +24,12 @@ cd hass-config
 # Clear work tree directory
 find . -name "*.yaml" -type f -delete
 
+cd /repos/hass.git
+
 echo "Checkout latest"
 GIT_WORK_TREE=/srv/homeautomation/hass-config git checkout -f master
+
+cd $GIT_DEPLOY_DIR
+mv secrets.bak secrets.yaml
 
 echo "End of post-receive"
