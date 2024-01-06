@@ -35,6 +35,7 @@ google_actions:
       - sensor.living_room_temperature
       - sensor.spare_room_temperature
       - sensor.family_room_temperature
+      - switch.deck_light_string
       - switch.guest_room_fan
      # - switch.lr_powerful
      # - switch.mb_powerful
@@ -184,6 +185,13 @@ google_actions:
     sensor.living_room_temperature:
       name: Living room temperature
       room: Living Room
+
+    switch.deck_light_string:
+      name: Deck Light String
+      aliases:
+        - light string
+        - string lights
+        - patio lights
 
     switch.guest_room_fan:
       name: Guest Room Fan

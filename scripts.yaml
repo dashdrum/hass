@@ -340,7 +340,7 @@ notify_dan:
           entity_id: person.dan_gentry
           state: 'home'
         sequence:
-          - service: notify.dan
+          - service: notify.living_room
             data:
               message: '{{ message }}'
           - choose:

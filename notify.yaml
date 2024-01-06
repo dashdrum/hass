@@ -6,36 +6,34 @@
   media_player: media_player.kitchen_speaker
 
 - platform: tts
-  name: dan
+  name: living_room
   tts_service: tts.google_translate_say
-  media_player: media_player.dan_speaker
+  media_player: media_player.living_room_speaker
 
 - platform: tts
   name: guest
   tts_service: tts.google_translate_say
-  media_player: media_player.nestmini4000
+  media_player: media_player.guest_room_speaker
 
 - platform: tts
   name: family
   tts_service: tts.google_translate_say
-  media_player: media_player.nestmini5470
+  media_player: media_player.family_room_speaker
 
 - platform: tts
   name: office
   tts_service: tts.google_translate_say
-  media_player: media_player.office_home
+  media_player: media_player.office_speaker
 
 - platform: tts
   name: master
   tts_service: tts.google_translate_say
-  media_player: media_player.smart_clock
+  media_player: media_player.master_bedroom_clock
 
 - platform: tts
   name: spare
   tts_service: tts.google_translate_say
   media_player: media_player.spare_room_speaker
-
-
 
 - platform: tts
   name: workshop
@@ -46,7 +44,7 @@
   name: all_speakers
   services:
     - service: kitchen
-    - service: dan
+    - service: living_room
     - service: guest
     - service: family
     - service: office
@@ -58,7 +56,7 @@
   name: no_bedrooms
   services:
     - service: kitchen
-    - service: dan
+    - service: living_room
     - service: family
     - service: office
     - service: workshop
@@ -76,29 +74,29 @@
   media_player: media_player.kitchen_speaker
 
 - platform: tts
-  name: dan_cloud
+  name: living_room_cloud
   tts_service: tts.cloud_say
-  media_player: media_player.dan_speaker
+  media_player: media_player.living_room_speaker
 
 - platform: tts
   name: guest_cloud
   tts_service: tts.cloud_say
-  media_player: media_player.nestmini4000
+  media_player: media_player.guest_room_speaker
 
 - platform: tts
   name: family_cloud
   tts_service: tts.cloud_say
-  media_player: media_player.nestmini5470
+  media_player: media_player.family_room_speaker
 
 - platform: tts
   name: office_cloud
   tts_service: tts.cloud_say
-  media_player: media_player.office_home
+  media_player: media_player.office_speaker
 
 - platform: tts
   name: master_cloud
   tts_service: tts.cloud_say
-  media_player: media_player.smart_clock
+  media_player: media_player.master_bedroom_clock
 
 - platform: tts
   name: spare_cloud
@@ -111,20 +109,10 @@
   media_player: media_player.workshop_speaker
 
 - platform: group
-  name: living_room
-  services:
-    - service: dan
-
-- platform: group
-  name: living_room_cloud
-  services:
-    - service: dan_cloud
-
-- platform: group
   name: all_speakers_cloud
   services:
     - service: kitchen_cloud
-    - service: dan_cloud
+    - service: living_room_cloud
     - service: guest_cloud
     - service: family_cloud
     - service: office_cloud
@@ -136,7 +124,7 @@
   name: no_bedrooms_cloud
   services:
     - service: kitchen_cloud
-    - service: dan_cloud
+    - service: living_room_cloud
     - service: family_cloud
     - service: office_cloud
     - service: workshop_cloud
@@ -151,6 +139,6 @@
 - platform: group
   name: mobile_devices
   services:
-    - service: mobile_app_daniels_ipad
+    - service: mobile_app_living_roomiels_ipad
     - service: mobile_app_iphone
     - service: mobile_app_sm_s916u

@@ -27,7 +27,7 @@ homeassistant:
 default_config:
 
 # Discover some devices automatically
-discovery:
+## discovery:
 
 recorder:
   #purge_interval: 7
@@ -83,9 +83,7 @@ input_boolean:
   lights_off_automations:
     name: Lights Off Automations
 
-# Internet speed checks
 
-fastdotcom:
 
 
 

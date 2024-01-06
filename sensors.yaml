@@ -1,7 +1,5 @@
 
 
-- platform: fastdotcom
-
 
 - platform: template
   sensors:

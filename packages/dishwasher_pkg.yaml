@@ -308,7 +308,7 @@ automation:
         entity_id: binary_sensor.dishwasher_door_contact
         state: "off"
     action:
-      - service: notify.dan_cloud
+      - service: notify.living_room_cloud
         data:
           message: >
             {{
