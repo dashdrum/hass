@@ -297,7 +297,7 @@ automation:
 
     trigger:
       platform: state
-      entity_id: entity_id: sensor.dishwasher_switch_switch_0_power
+      entity_id: sensor.dishwasher_switch_switch_0_power
       to: 'unavaliable'
       for:
         hours: 0
