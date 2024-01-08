@@ -301,8 +301,8 @@ automation:
       to: 'unavaliable'
       for:
         hours: 0
-        minutes: 1
-        seconds: 00
+        minutes: 0
+        seconds: 05
 
     action:
       - service: input_select.select_option
