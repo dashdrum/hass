@@ -2,13 +2,8 @@ homeassistant:
   customize:
     light.tv_backlight:
       icon: mdi:led-strip-variant
-    light.oil_lamp:
-      friendly_name: Oil Lamp
-      icon: mdi:oil_lamp
     light.lr_blacklight:
       entity_picture: /local/curio-cabinet.png
-    switch.oil_lamp_switch:
-      device_class: outlet
 
 
 automation:
@@ -77,10 +72,6 @@ automation:
 
 light:
 
-  - platform: switch
-    name: Oil Lamp
-    entity_id: switch.oil_lamp_switch
-
   - platform: group
     name: Dan Lamp
     entities:
@@ -100,4 +91,3 @@ light:
       - light.kelly_lamp
       - light.dining_room_light
       - light.stairway_light
-      - light.oil_lamp

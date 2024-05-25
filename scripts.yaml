@@ -150,17 +150,6 @@ watch_tv:
             - delay:
                 milliseconds: 750
     - choose:
-      # Oil Lamp is on
-        - conditions:
-            - "{{ is_state('light.oil_lamp','on') }}"
-          sequence:
-            - service: light.turn_off
-              data:
-                entity_id: light.oil_lamp
-                transition: 0
-            - delay:
-                milliseconds: 750
-    - choose:
       # Stairway light is on
         - conditions:
             - "{{ is_state('light.stairway_light','on') }}"

@@ -17,7 +17,6 @@ google_actions:
       - light.wall_clock
     #  - light.xmas_window
       - light.family_room_lights
-      - light.oil_lamp
       - light.under_desk_lights
       - light.main_bath_lights
       - light.lr_blacklight
@@ -95,12 +94,6 @@ google_actions:
 
     light.basement_lights:
       name: Basement Lights
-
-    light.oil_lamp:
-      name: Oil Lamp
-      aliases:
-        - Flicker Light
-      room: Living Room
 
     light.dan_lamp:
       name: Dan Lamp

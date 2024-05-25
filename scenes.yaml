@@ -30,8 +30,6 @@
       state: off
     light.dining_room_light:
       state: off
-    light.oil_lamp:
-      state: off
 
 - name: living_room_normal
   entities:
@@ -47,8 +45,6 @@
     light.dining_room_light:
       state: on
       brightness: 128
-    light.oil_lamp:
-      state: on
 
 - name: living_room_bright
   entities:
@@ -64,8 +60,6 @@
     light.dining_room_light:
       state: on
       brightness: 255
-    light.oil_lamp:
-      state: on
 
 - name: living_room_dim
   entities:
@@ -80,8 +74,6 @@
     light.dining_room_light:
       state: on
       brightness: 94
-    light.oil_lamp:
-      state: off
 
 - name: living_room_off
   entities:
@@ -92,8 +84,6 @@
     light.stairway_light:
       state: off
     light.dining_room_light:
-      state: off
-    light.oil_lamp:
       state: off
 
 # Kitchen
