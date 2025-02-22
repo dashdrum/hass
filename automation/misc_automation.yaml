@@ -213,41 +213,41 @@
 
 
 
-- id: presence_all_away_starts_roomba
-  alias: All Away Starts Roomba
-  trigger:
-    platform: state
-    entity_id: group.all_persons
-    from: 'home'
-  condition:
-    - condition: state
-      entity_id: vacuum.rusty
-      state: 'docked'
-  action:
-    service: vacuum.start
-    target:
-      entity_id: vacuum.rusty
+# - id: presence_all_away_starts_roomba
+#   alias: All Away Starts Roomba
+#   trigger:
+#     platform: state
+#     entity_id: group.all_persons
+#     from: 'home'
+#   condition:
+#     - condition: state
+#       entity_id: vacuum.rusty
+#       state: 'docked'
+#   action:
+#     service: vacuum.start
+#     target:
+#       entity_id: vacuum.rusty
 
-- id: presence_any_home_docks_roomba
-  alias: Anyone Arrives Docks Roomba
-  trigger:
-    - platform: state
-      entity_id: person.kelly_gentry
-      to: 'home'
-    - platform: state
-      entity_id: person.dan_gentry
-      to: 'home'
-  condition:
-    condition: not
-    conditions:
-      - condition: state
-        entity_id: vacuum.rusty
-        state: 'docked'
-  action:
-    service: vacuum.return_to_base
-    data: {}
-    target:
-      entity_id: vacuum.rusty
+# - id: presence_any_home_docks_roomba
+#   alias: Anyone Arrives Docks Roomba
+#   trigger:
+#     - platform: state
+#       entity_id: person.kelly_gentry
+#       to: 'home'
+#     - platform: state
+#       entity_id: person.dan_gentry
+#       to: 'home'
+#   condition:
+#     condition: not
+#     conditions:
+#       - condition: state
+#         entity_id: vacuum.rusty
+#         state: 'docked'
+#   action:
+#     service: vacuum.return_to_base
+#     data: {}
+#     target:
+#       entity_id: vacuum.rusty
 
 
 - id: time_for_kellys_meds
@@ -276,20 +276,20 @@
         message: "Dan, time for your evening meds"
 
 
-- alias: 'Roomba Bin Full'
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.roomba_bin_full
-      from: 'off'
-      to: 'on'
-      for:
-        hours: 0
-        minutes: 0
-        seconds: 0
-  action:
-    - service: notify.no_bedrooms
-      data:
-        message: 'The Roomba bin is full'
+# - alias: 'Roomba Bin Full'
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.roomba_bin_full
+#       from: 'off'
+#       to: 'on'
+#       for:
+#         hours: 0
+#         minutes: 0
+#         seconds: 0
+#   action:
+#     - service: notify.no_bedrooms
+#       data:
+#         message: 'The Roomba bin is full'
 
 
 #-----------------------------------------------------------------------------#

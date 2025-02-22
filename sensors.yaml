@@ -206,17 +206,6 @@
   name: avg_basement_humidity
   round_digits: 2
 
-# Pull attributes from Rusty the Roomba
-- platform: template
-  sensors:
-    rusty_status:
-      friendly_name: "Rusty Status"
-      value_template: "{{ state_attr('vacuum.rusty', 'status')}}"
-    rusty_vacuum_state:
-      friendly_name: "Rusty State"
-      value_template: "{{ states('vacuum.rusty') }}"
-
-
 # - platform: template
 #   sensors:
 #     shellyswitch25_00fb7b5_temperature_c:

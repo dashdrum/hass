@@ -1,23 +1,6 @@
 #Basic config
 
 homeassistant:
-  # Name of the location where Home Assistant is running
-  name: Home
-  # Location required to calculate the time the sun rises and sets
-  latitude: !secret latitude
-  longitude: !secret longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: !secret elevation
-  # metric for Metric, imperial for Imperial
-  unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: America/Detroit
-
-  country: US
-  currency: USD
-
-  external_url: !secret external_url
-  internal_url: !secret internal_url
 
   customize: !include customize.yaml
 
@@ -54,7 +37,7 @@ scene: !include scenes.yaml
 sensor: !include sensors.yaml
 binary_sensor: !include binary_sensors.yaml
 zone: !include zones.yaml
-cloud: !include cloud.yaml
+#cloud: !include cloud.yaml
 notify: !include notify.yaml
 tts: !include tts.yaml
 

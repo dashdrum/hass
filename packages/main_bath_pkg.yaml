@@ -59,6 +59,7 @@ homeassistant:
 light:
   - platform: group
     name: Main Bath Lights
+    unique_id: Main Bath Lights
     entities:
       - light.main_bath_light
 

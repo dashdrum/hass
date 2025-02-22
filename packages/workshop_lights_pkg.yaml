@@ -16,6 +16,7 @@ light:
 
   - platform: group
     name: Workshop Lights
+    unique_id: Workshop Lights
     entities:
       - light.workshop_light_1
 

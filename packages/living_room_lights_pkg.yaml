@@ -74,18 +74,21 @@ light:
 
   - platform: group
     name: Dan Lamp
+    unique_id: Dan Lamp
     entities:
       - light.dan_lamp_1
       - light.dan_lamp_2
 
   - platform: group
     name: Kelly Lamp
+    unique_id: Dan Lamp
     entities:
       - light.kelly_lamp_1
       - light.kelly_lamp_2
 
   - platform: group
     name: Living Room Lights
+    unique_id: Living Room Lights
     entities:
       - light.dan_lamp
       - light.kelly_lamp
