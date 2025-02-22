@@ -99,18 +99,28 @@ automation:
     condition:
       condition: and
       conditions:
+      - condition: or
+        conditions:
         - condition: state
           entity_id: binary_sensor.mm_wave_3_occupancy
           state: 'off'
         - condition: state
+          entity_id: binary_sensor.mm_wave_3_occupancy
+          state: 'Unavailable'
+      - condition: or
+        conditions:
+        - condition: state
           entity_id: binary_sensor.workshop_motion_occupancy
           state: 'off'
         - condition: state
-          entity_id: input_boolean.lights_off_automations
-          state: "on"
+          entity_id: binary_sensor.workshop_motion_occupancy
+          state: 'Unavailable'
+      - condition: state
+        entity_id: input_boolean.lights_off_automations
+        state: "on"
     action:
-      - service: light.turn_off
-        entity_id: light.workshop_lights
+        - service: light.turn_off
+          entity_id: light.workshop_lights
 
   - alias: "Workshop lights timer does restart"
     trigger:

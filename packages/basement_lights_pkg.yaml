@@ -6,6 +6,8 @@ homeassistant:
       friendly_name: Mechanical Room Motion
     timer.mech_room_lights:
       friendly_name: Mech Room Lights Timer
+    timer.family_room_lights:
+      friendly_name: Family Room Lights Timer
     binary_sensor.room_occ_1_occupied:
       friendly_name: Family Rooom Occupied
 
@@ -14,6 +16,10 @@ homeassistant:
 timer:
   mech_room_lights:
     duration: "00:20:01"
+    icon: mdi:timer-outline
+    restore: true
+  family_room_lights:
+    duration: "00:45:01"
     icon: mdi:timer-outline
     restore: true
 
@@ -197,6 +203,83 @@ automation:
     action:
       - service: timer.start
         entity_id: timer.mech_room_lights
+
+
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+
+  - alias: 'Family Room Lights Timer Start'
+    trigger:
+      platform: state
+      entity_id: light.ceiling_lights
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.family_room_lights
+
+  - alias: 'Family Room Lights Timer Cancel'
+    trigger:
+      platform: state
+      entity_id: light.ceiling_lights
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.family_room_lights
+
+  - alias: Family Room Lights Timer Restart on Motion
+    ## motion restarts Mech lights timer
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.room_occ_1_occupied
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 03
+    condition:
+      - condition: state
+        entity_id: light.ceiling_lights
+        state: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.family_room_lights
+
+  - alias: "Family Room lights timer turns off lights"
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.family_room_lights
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.room_occ_1_occupied
+          state: 'off'
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+    action:
+      - service: light.turn_off
+        entity_id: light.ceiling_lights
+
+  - alias: "Family Room lights timer does restart"
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.family_room_lights
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.room_occ_1_occupied
+          state: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.family_room_lights
+
 
 
 #----------------------------------------------------------------------------------------------------------------------#
