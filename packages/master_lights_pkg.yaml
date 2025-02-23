@@ -30,12 +30,14 @@ light:
 
   - platform: group
     name: Dressers
+    unique_id: Dresser Lights
     entities:
       - light.dresser_1
       - light.dresser_2
 
   - platform: group
     name: master_bedroom
+    unique_id: Master Bedroom Lights
     entities:
       - light.dan_bedside_lamp
       - light.kelly_bedside_lamp

@@ -51,32 +51,26 @@ light:
 
   - platform: switch
     name: Ceiling Lights
-    unique_id: Ceiling Lights
     entity_id: switch.shellyswitch25_00d075f # ceiling lights
 
   - platform: switch
     name: Basement Stair
-    unique_id: Basement Stair
     entity_id: switch.shelly1_500291ed226d  # basement stair
 
   - platform: switch
     name: Basement Hall
-    unique_id: Basement Hall
     entity_id: switch.basement_hall  # basement stair
 
   - platform: switch
     name: Guest Room Light
-    unique_id: Guest Room Light
     entity_id: switch.shelly1_bcddc2771acf  # guest room light
 
   - platform: switch
     name: Basement Bath
-    unique_id: Basement Bath
     entity_id: switch.shellyswitch25_3c6105e3e6e1_channel_1  # basement bath
 
   - platform: switch
     name: Basement Fan
-    unique_id: Basement Fan 
     entity_id: switch.shellyswitch25_3c6105e3e6e1_channel_2  # basement fan
 
   - platform: group

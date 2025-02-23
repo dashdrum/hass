@@ -29,12 +29,14 @@
 
 - platform: group
   name: laundry_lights
+  unique_id: laundry_lights
   entities:
     - light.laundry_light
     - light.coat_rack_light
 
 - platform: group
   name: kitchen_lights
+  unique_id: Kitchen Lights
   entities:
     - light.kitchen_light
     - light.sink_light
@@ -49,6 +51,7 @@
 
 - platform: group
   name: outdoor_lights
+  unique_id: Outdoor Lights
   entities:
     - light.deck_light
     - light.garage_door_lights
