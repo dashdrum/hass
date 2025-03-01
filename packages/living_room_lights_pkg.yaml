@@ -81,7 +81,7 @@ light:
 
   - platform: group
     name: Kelly Lamp
-    unique_id: Dan Lamp
+    unique_id: Kelly Lamp
     entities:
       - light.kelly_lamp_1
       - light.kelly_lamp_2

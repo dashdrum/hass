@@ -75,7 +75,7 @@ light:
 
   - platform: group
     name: Basement Lights
-    uinique_id: Basement Lights
+    unique_id: Basement Lights
     entities:
       - light.ceiling_lights         # switch.shellyswitch25_00fb7b5 # ceiling lights
       - light.basement_hall          # switch.basement_hall          # basement hall
