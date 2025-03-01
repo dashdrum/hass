@@ -29,15 +29,15 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.air_quality_eco2
-    above: 2000
+    above: 3000
     for:
       hours: 0
       minutes: 0
       seconds: 30
   action:
-    service: notify.mobile_app_sm_s916u
+    service: notify.mobile_app_sm_s936u
     data_template:
-      message: 'eCO2 level has exceeded 2,000 ppm'
+      message: 'eCO2 level has exceeded 3,000 ppm'
       title: 'Bad Air'
 
 - id: tvoc_warning
@@ -45,15 +45,15 @@
   trigger:
     platform: numeric_state
     entity_id:  sensor.air_quality_tvoc
-    above: 2000
+    above: 3000
     for:
       hours: 0
       minutes: 0
       seconds: 30
   action:
-    service: notify.mobile_app_sm_s916u
+    service: notify.mobile_app_sm_s936u
     data_template:
-      message: 'TVOC level has exceeded 2,000 ppb'
+      message: 'TVOC level has exceeded 3,000 ppb'
       title: 'Bad Air'
 
 # - alias: 'Ranger contact'

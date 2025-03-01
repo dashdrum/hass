@@ -203,7 +203,7 @@
     to: 'on'
   action:
     service: homeassistant.turn_on
-    entity_id: switch.laundry_light
+    entity_id: light.laundry_lights
 
 - alias: Turn off laundry light 2 minutes after last movement
   trigger:
@@ -214,7 +214,7 @@
       minutes: 2
   action:
     service: homeassistant.turn_off
-    entity_id: switch.laundry_light
+    entity_id: light.laundry_lights
 
 # - alias: Turn off mechanical room light 30 minutes after last movement
 #   trigger:

@@ -73,14 +73,6 @@
       device_class: temperature
       value_template: "{{ ((( states('sensor.hass_server_cputemp') | float ) - 32) * 5/9) | round(1) }}"
 
-# - platform: template
-#   sensors:
-#     outdoor_sea_level_pressure:
-#       unit_of_measurement: 'mbar'
-#       device_class: pressure
-#       value_template: >-
-#         {{ ((states.sensor.outdoor_pressure.state|float(0) / (1-0.0065*204/(states.sensor.outdoor_temperature.state|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
-
 - platform: template
   sensors:
     ktvc_sea_level_pressure_mbar:
@@ -91,13 +83,19 @@
 
 - platform: template
   sensors:
-    outdoor_2_pressure_mbar:
+    outdoor_pressure_mbar:
       unit_of_measurement: 'mbar'
       device_class: pressure
       value_template: >-
-        {{ (states('sensor.ruuvitag_9aa3_pressure')|float(0) * 68.9476) | round(1) }}
+        {{ (states('sensor.outdoor_ruuvitag_9aa3_pressure')|float(0) * 68.9476) | round(1) }}
 
-
+# - platform: template
+#   sensors:
+#     outdoor_sea_level_pressure:
+#       unit_of_measurement: 'mbar'
+#       device_class: pressure
+#       value_template: >-
+#         {{ ((states.sensor.outdoor_pressure.state|float(0) / (1-0.0065*204/(states.sensor.outdoor_temperature.state|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
 
 - platform: template
   sensors:
@@ -105,7 +103,7 @@
       friendly_name: "Outdoor Temperature C"
       unit_of_measurement: '°C'
       device_class: temperature
-      value_template: "{{ ((( states('sensor.outdoor_temperature') | float(0) ) - 32) * 5/9) | round(1) }}"
+      value_template: "{{ ((( states('sensor.outdoor_ruuvitag_9aa3_temperature') | float(0) ) - 32) * 5/9) | round(1) }}"
 
 - platform: template
   sensors:
@@ -113,27 +111,27 @@
       friendly_name: "Outdoor Dew Point"
       unit_of_measurement: '°F'
       value_template: >-
-        {{ (((243.04*(log(float(states('sensor.outdoor_humidity'))/100)+((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c')))))
-          /(17.625-log(float(states('sensor.outdoor_humidity'))/100)-((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c'))))))
+        {{ (((243.04*(log(float(states('sensor.outdoor_ruuvitag_9aa3_humidity'))/100)+((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c')))))
+          /(17.625-log(float(states('sensor.outdoor_ruuvitag_9aa3_humidity'))/100)-((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c'))))))
           *  9/5) + 32) | round(2) }}
 
-- platform: template
-  sensors:
-    outdoor_2_temperature_c:
-      friendly_name: "Outdoor 2 Temperature C"
-      unit_of_measurement: '°C'
-      device_class: temperature
-      value_template: "{{ ((( states('sensor.ruuvitag_9aa3_temperature') | float(0) ) - 32) * 5/9) | round(1) }}"
+# - platform: template
+#   sensors:
+#     outdoor_2_temperature_c:
+#       friendly_name: "Outdoor 2 Temperature C"
+#       unit_of_measurement: '°C'
+#       device_class: temperature
+#       value_template: "{{ ((( states('sensor.ruuvitag_9aa3_temperature') | float(0) ) - 32) * 5/9) | round(1) }}"
 
-- platform: template
-  sensors:
-    outdoor_2_dew_point_s:
-      friendly_name: "Outdoor 2 Dew Point"
-      unit_of_measurement: '°F'
-      value_template: >-
-        {{ (((243.04*(log(float(states('sensor.ruuvitag_9aa3_humidity'))/100)+((17.625*float(states('sensor.outdoor_2_temperature_c')))/(243.04+float(states('sensor.outdoor_2_temperature_c')))))
-          /(17.625-log(float(states('sensor.ruuvitag_9aa3_humidity'))/100)-((17.625*float(states('sensor.outdoor_2_temperature_c')))/(243.04+float(states('sensor.outdoor_2_temperature_c'))))))
-          *  9/5) + 32) | round(2) }}
+# - platform: template
+#   sensors:
+#     outdoor_2_dew_point_s:
+#       friendly_name: "Outdoor 2 Dew Point"
+#       unit_of_measurement: '°F'
+#       value_template: >-
+#         {{ (((243.04*(log(float(states('sensor.ruuvitag_9aa3_humidity'))/100)+((17.625*float(states('sensor.outdoor_2_temperature_c')))/(243.04+float(states('sensor.outdoor_2_temperature_c')))))
+#           /(17.625-log(float(states('sensor.ruuvitag_9aa3_humidity'))/100)-((17.625*float(states('sensor.outdoor_2_temperature_c')))/(243.04+float(states('sensor.outdoor_2_temperature_c'))))))
+#           *  9/5) + 32) | round(2) }}
 
 - platform: min_max
   entity_ids:
@@ -145,7 +143,7 @@
 
 - platform: min_max
   entity_ids:
-    - sensor.family_room_humidity
+    - sensor.family_h5100_4b4c_humidity
     - sensor.living_room_humidity
     - sensor.master_bedroom_humidity
     - sensor.plant_stand_humidity
@@ -153,8 +151,27 @@
     - sensor.kitchen_sensor_humidity
     - sensor.guest_sensor_humidity
     - sensor.main_floor_nest_humidity
+    - sensor.mechanical_room_humidity
+    - sensor.office_h5100_3a27_humidity
   type: mean
   name: avg_indoor_humidity
+  round_digits: 2
+
+- platform: min_max
+  entity_ids:
+    - sensor.master_bedroom_humidity
+    - sensor.spare_room_humidity
+  type: mean
+  name: avg_upstairs_humidity
+  round_digits: 2
+
+- platform: min_max
+  entity_ids:
+    - sensor.guest_sensor_humidity
+    - sensor.mechanical_room_humidity
+    - sensor.family_h5100_4b4c_humidity
+  type: mean
+  name: avg_basement_humidity
   round_digits: 2
 
 - platform: min_max
@@ -166,6 +183,7 @@
     - sensor.spare_room_temperature
     - sensor.kitchen_sensor_temperature
     - sensor.main_floor_nest_temperature
+    - sensor.office_h5100_3a27_temperature
   type: mean
   name: avg_indoor_temperature
   round_digits: 2
@@ -182,28 +200,10 @@
 - platform: min_max
   entity_ids:
     - sensor.geust_sensor_temperature
-    - sensor.family_room_temperature
+    - sensor.family_h5100_4b4c_temperature
     - sensor.mechanical_room_temperature
   type: mean
   name: avg_basement_temperature
-  round_digits: 2
-
-- platform: min_max
-  entity_ids:
-    - sensor.master_bedroom_humidity
-    - sensor.upstairs_bath_humidity
-    - sensor.spare_room_humidity
-  type: mean
-  name: avg_upstairs_humidity
-  round_digits: 2
-
-- platform: min_max
-  entity_ids:
-    - sensor.guest_sensor_humidity
-    - sensor.mechanical_room_humidity
-    - sensor.family_room_humidity
-  type: mean
-  name: avg_basement_humidity
   round_digits: 2
 
 # - platform: template

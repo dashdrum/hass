@@ -139,6 +139,5 @@
 - platform: group
   name: mobile_devices
   services:
-    - service: mobile_app_living_roomiels_ipad
     - service: mobile_app_iphone
-    - service: mobile_app_sm_s916u
+    - service: mobile_app_sm_s936u
