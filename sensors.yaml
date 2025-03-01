@@ -89,13 +89,13 @@
       value_template: >-
         {{ (states('sensor.outdoor_ruuvitag_9aa3_pressure')|float(0) * 68.9476) | round(1) }}
 
-# - platform: template
-#   sensors:
-#     outdoor_sea_level_pressure:
-#       unit_of_measurement: 'mbar'
-#       device_class: pressure
-#       value_template: >-
-#         {{ ((states.sensor.outdoor_pressure.state|float(0) / (1-0.0065*204/(states.sensor.outdoor_temperature.state|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
+- platform: template
+  sensors:
+    outdoor_sea_level_pressure:
+      unit_of_measurement: 'mbar'
+      device_class: pressure
+      value_template: >-
+        {{ ((states('sensor.outdoor_pressure_mbar')|float(0) / (1-0.0065*204/(states('sensor.outdoor_ruuvitag_9aa3_temperature')|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
 
 - platform: template
   sensors:
@@ -114,25 +114,7 @@
         {{ (((243.04*(log(float(states('sensor.outdoor_ruuvitag_9aa3_humidity'))/100)+((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c')))))
           /(17.625-log(float(states('sensor.outdoor_ruuvitag_9aa3_humidity'))/100)-((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c'))))))
           *  9/5) + 32) | round(2) }}
-
-# - platform: template
-#   sensors:
-#     outdoor_2_temperature_c:
-#       friendly_name: "Outdoor 2 Temperature C"
-#       unit_of_measurement: '°C'
-#       device_class: temperature
-#       value_template: "{{ ((( states('sensor.ruuvitag_9aa3_temperature') | float(0) ) - 32) * 5/9) | round(1) }}"
-
-# - platform: template
-#   sensors:
-#     outdoor_2_dew_point_s:
-#       friendly_name: "Outdoor 2 Dew Point"
-#       unit_of_measurement: '°F'
-#       value_template: >-
-#         {{ (((243.04*(log(float(states('sensor.ruuvitag_9aa3_humidity'))/100)+((17.625*float(states('sensor.outdoor_2_temperature_c')))/(243.04+float(states('sensor.outdoor_2_temperature_c')))))
-#           /(17.625-log(float(states('sensor.ruuvitag_9aa3_humidity'))/100)-((17.625*float(states('sensor.outdoor_2_temperature_c')))/(243.04+float(states('sensor.outdoor_2_temperature_c'))))))
-#           *  9/5) + 32) | round(2) }}
-
+          
 - platform: min_max
   entity_ids:
     - sensor.temp_compare_bme280_temperature
