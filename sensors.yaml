@@ -121,6 +121,7 @@
     - sensor.temp_compare_sht30d_temperature
   type: mean
   name: avg_tech_cabinet_temp
+  unique_id: avg_tech_cabinet_temp
   round_digits: 2
 
 - platform: min_max
@@ -137,6 +138,7 @@
     - sensor.office_h5100_3a27_humidity
   type: mean
   name: avg_indoor_humidity
+  unique_id: avg_indoor_humidity
   round_digits: 2
 
 - platform: min_max
@@ -145,6 +147,7 @@
     - sensor.spare_room_humidity
   type: mean
   name: avg_upstairs_humidity
+  unique_id: avg_upstairs_humidity
   round_digits: 2
 
 - platform: min_max
@@ -154,6 +157,7 @@
     - sensor.family_h5100_4b4c_humidity
   type: mean
   name: avg_basement_humidity
+  unique_id: avg_basement_humidity
   round_digits: 2
 
 - platform: min_max
@@ -168,6 +172,7 @@
     - sensor.office_h5100_3a27_temperature
   type: mean
   name: avg_indoor_temperature
+  unique_id: avg_indoor_temperature
   round_digits: 2
 
 - platform: min_max
@@ -177,6 +182,7 @@
     - sensor.spare_room_temperature
   type: mean
   name: avg_upstairs_temperature
+  unique_id: avg_upstairs_temperature
   round_digits: 2
 
 - platform: min_max
@@ -186,6 +192,7 @@
     - sensor.mechanical_room_temperature
   type: mean
   name: avg_basement_temperature
+  unique_id: avg_basement_temperature
   round_digits: 2
 
 # - platform: template

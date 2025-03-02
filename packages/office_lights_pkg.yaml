@@ -47,6 +47,7 @@ light:
 
   - platform: group
     name: Office Lights
+    unique_id: office lights
     entities:
       - light.shellydimmer2_e8db84d4610a
       - light.office_desk
@@ -55,12 +56,14 @@ light:
 
   - platform: group
     name: office_others
+    unique_id: office_others
     entities:
       - light.office_light_1
       - light.office_light_2
 
   - platform: group
     name: office_not_desk
+    unique_id: office_not_desk
     entities:
       - light.office_light_1
       - light.office_light_2
