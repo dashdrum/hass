@@ -670,7 +670,7 @@ automation:
       condition: and
       conditions:
         - condition: time
-          after: '07:29:59'
+          after: '07:00:00'
           before: '22:30:00'
         # - condition: state
         #   entity_id: light.shellydimmer2_e8db84d4610a
@@ -853,7 +853,7 @@ automation:
         for:
           hours: 0
           minutes: 0
-          seconds: 03
+          seconds: 01
     condition:
       - condition: state
         entity_id: light.office_not_desk
@@ -883,7 +883,7 @@ automation:
       condition: and
       conditions:
         - condition: time
-          after: '07:29:59'
+          after: '07:00:00'
           before: '22:30:00'
         # - condition: state
         #   entity_id: light.shellydimmer2_e8db84d4610a
@@ -914,6 +914,9 @@ automation:
       - service: script.turn_on
         data:
           entity_id: script.office_off
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'Office lights timer has finished'
 
   - alias: "Office lights timer restart on occupancy"
     trigger:
@@ -930,3 +933,34 @@ automation:
     action:
       - service: timer.start
         entity_id: timer.office_lights
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'Office lights timer restart'
+
+  - alias: "Office occupancy report"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.fp1_presence
+        to: 'on'
+      - platform: state
+        entity_id: sensor.fp1_presence_event
+        to: 'enter'
+      - platform: state
+        entity_id: sensor.fp1_presence_event
+        to: 'left_enter'
+      - platform: state
+        entity_id: sensor.fp1_presence_event
+        to: 'right_enter'
+      - platform: state
+        entity_id: sensor.fp1_presence_event
+        to: 'approach'
+    condition:
+      condition: and
+      conditions:
+        - condition: time
+          after: '09:00:00'
+          before: '22:00:00'
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'FP1 has fired'

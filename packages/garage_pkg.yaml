@@ -76,7 +76,7 @@ alert:
       - 5
     skip_first: true
     notifiers:
-      - signal_both
+      - no_bedrooms_cloud
 
   garage_access_door_open:
     name: Garage Access Door Open
@@ -87,7 +87,7 @@ alert:
       - 30
     skip_first: false
     notifiers:
-      - signal_both
+      - no_bedrooms_cloud
 
 light:
 

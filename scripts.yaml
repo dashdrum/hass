@@ -403,7 +403,7 @@ notify_dan:
                   data:
                     message: '{{ message }}'
       default:
-        - service: notify.mobile_app_sm_s916u
+        - service: notify.mobile_app_sm_s936u
           data:
             message: '{{ message }}'
 
