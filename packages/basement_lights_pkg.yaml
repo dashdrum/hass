@@ -142,6 +142,9 @@ automation:
     action:
       - service: timer.cancel
         entity_id: timer.mech_room_lights
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'Mechanical Room lights off'
 
   - alias: Mech Lights Timer Restart on Motion
     ## motion restarts Mech lights timer
@@ -185,6 +188,9 @@ automation:
     action:
       - service: light.turn_off
         entity_id: light.shelly1_500291edbc26
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'Mechanical Room timer finished'
 
   - alias: "Mech lights timer does restart"
     trigger:
@@ -206,6 +212,43 @@ automation:
         entity_id: timer.mech_room_lights
 
 
+
+
+  - alias: Mech Motion Sensor to On
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.mech_room_motion_occupancy
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 03
+    condition:
+      - condition: state
+        entity_id: input_boolean.basement_guest_mode
+        state: "off"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'Mechanical Room motion center tripped'
+
+  - alias: Mech Motion Sensor to On
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.room_occ_2_occupied
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 03
+    condition:
+      - condition: state
+        entity_id: input_boolean.basement_guest_mode
+        state: "off"
+    action:
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'Mechanical Room occupancy noted'
 
 #----------------------------------------------------------------------------------------------------------------------#
 
