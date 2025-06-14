@@ -168,7 +168,7 @@ script:
       - service: climate.set_temperature
         data:
           entity_id: climate.master_bedroom_ac
-          temperature: 64.0
+          temperature: 65.0
           hvac_mode: cool
       - service: climate.set_fan_mode
         data:

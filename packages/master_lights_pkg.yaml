@@ -627,7 +627,7 @@ automation:
       conditions:
         - condition: time
           after: "06:30:00"
-          before: "23:00:00"
+          before: "23:59:00"
         - condition: state
           entity_id: binary_sensor.bed_sensor_mat
           state: "off"
