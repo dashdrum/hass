@@ -73,11 +73,11 @@ input_boolean:
 
 timer:
   main_bath_lights:
-    duration: "00:10:05"
+    duration: "00:10:10"
     icon: mdi:timer-outline
     restore: true
   main_bath_fan:
-    duration: "00:20:05"
+    duration: "00:11:11"
     icon: mdi:timer-outline
     restore: true
 

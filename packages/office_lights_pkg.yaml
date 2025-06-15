@@ -863,6 +863,8 @@ automation:
         entity_id: timer.office_lights
 
   - alias: "Office occupancy turns on lights"
+    mode: single
+    max_exceeded: silent
     trigger:
       - platform: state
         entity_id: binary_sensor.fp1_presence
