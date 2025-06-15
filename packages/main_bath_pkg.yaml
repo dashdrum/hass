@@ -367,7 +367,6 @@ automation:
         entity_id: input_boolean.main_bath_occupied
         to: 'off'
     condition:
-    condition:
       condition: and
       conditions:
         - condition: state
