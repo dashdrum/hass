@@ -93,10 +93,9 @@ template:
             Available
           {% endif %}
 
-  sensor:
     - name: main_bath_humidity_change
-      friendly_name: "Main Bath Humidity Change"
-      value_template: "{{ (states(sensor.shelly1_e8db84d47dbd_humidity) | int ) - (states(sensor.avg_indoor_humidity) | int)}}"
+      ##friendly_name: "Main Bath Humidity Change"
+      state: "{{ (states(sensor.shelly1_e8db84d47dbd_humidity) | int ) - (states(sensor.avg_indoor_humidity) | int)}}"
       device_class: "humidity"
       unit_of_measurement: '%'          
 
