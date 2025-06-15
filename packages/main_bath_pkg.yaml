@@ -55,6 +55,8 @@ homeassistant:
       friendly_name: Main Bath Light
     timer.main_bath_lights:
       friendly_name: Main Bath Lights Timer
+    timer.main_bath_fan:
+      friendly_name: Main Bath Fan Timer
 
 light:
   - platform: group
@@ -93,9 +95,8 @@ template:
             Available
           {% endif %}
 
-    - name: main_bath_humidity_change
-      ##friendly_name: "Main Bath Humidity Change"
-      state: "{{ (states(sensor.shelly1_e8db84d47dbd_humidity) | int ) - (states(sensor.avg_indoor_humidity) | int)}}"
+    - name: Main Bath Humidity Change
+      state: "{{ (states('sensor.shelly1_e8db84d47dbd_humidity') | int ) - (states('sensor.avg_indoor_humidity') | int)}}"
       device_class: "humidity"
       unit_of_measurement: '%'          
 
