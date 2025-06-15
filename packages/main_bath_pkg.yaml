@@ -66,10 +66,16 @@ light:
 input_boolean:
   main_bath_occupied:
     name: Main Bath Occupied
+  main_bath_humid:
+    name: Main Bath Humid
 
 timer:
   main_bath_lights:
-    duration: "00:15:05"
+    duration: "00:10:05"
+    icon: mdi:timer-outline
+    restore: true
+  main_bath_fan:
+    duration: "00:20:05"
     icon: mdi:timer-outline
     restore: true
 
@@ -87,11 +93,18 @@ template:
             Available
           {% endif %}
 
+  sensor:
+    - name: main_bath_humidity_change
+      friendly_name: "Main Bath Humidity Change"
+      value_template: "{{ (states(sensor.shelly1_e8db84d47dbd_humidity) | int ) - (states(sensor.avg_indoor_humidity) | int)}}"
+      device_class: "humidity"
+      unit_of_measurement: '%'          
+
 
 automation:
 
 
-  ## ---- Handle Timer -----------------------------------------------------------------------------------------------##
+  ## ---- Handle Timer ----------------------------------------------------------------------------------------------##
 
   - alias: 'Main Bath Lights Timer Start'
     trigger:
@@ -122,7 +135,6 @@ automation:
     action:
       - service: timer.start
         entity_id: timer.main_bath_lights
-
 
 
   ## ---- Maintain occupied status -----------------------------------------------------------------------------------##
@@ -277,3 +289,97 @@ automation:
     action:
       - service: timer.start
         entity_id: timer.main_bath_lights
+
+
+## ------ Main Bath Fan Automations ----------------------------------------------------------------------------------##
+
+  - alias: 'Main Bath Fan Timer Start'
+    trigger:
+      platform: state
+      entity_id: fan.shelly1_e8db84d47dbd
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.main_bath_fan
+
+  - alias: 'Main Bath Fan Timer Cancel'
+    trigger:
+      platform: state
+      entity_id: fan.shelly1_e8db84d47dbd
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.main_bath_fan
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.main_bath_humid
+
+  - alias: 'Main Bath High Humidity'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.main_bath_humidity_change
+      above: 20
+    action:
+      - service: homeassistant.turn_on
+        entity_id: fan.shelly1_e8db84d47dbd
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.main_bath_humid
+
+  - alias: "Main Bath Fan Timer Finished"
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.main_bath_fan
+    condition:
+        condition: state
+        entity_id: fan.shelly1_e8db84d47dbd
+        state: 'on'
+    action:
+      - choose:
+          # IF occupied
+          - conditions:
+              - condition: state
+                entity_id: input_boolean.main_bath_occupied
+                state: 'on'
+            sequence:
+              - action: 
+                  - service: timer.start
+                    entity_id: timer.main_bath_fan
+          # ELIF humidity is high by more than 5%
+          - conditions:
+              - condition: state
+                entity_id: input_boolean.main_bath_humid
+                state: 'on'
+            sequence:
+              - action: 
+                  - service: timer.start
+                    entity_id: timer.main_bath_fan
+        # ELSE night
+        default:
+          - service: homeassistant.turn_on
+            entity_id: fan.shelly1_e8db84d47dbd
+
+
+  - alias: 'Main Bath Fan Handle Occupancy Off'
+    trigger:
+      - platform: state
+        entity_id: input_boolean.main_bath_occupied
+        to: 'off'
+    condition:
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: fan.shelly1_e8db84d47dbd
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.main_bath_humid
+          state: 'off'
+    action:
+      - service: timer.start
+        entity_id: timer.main_bath_fan
+      - service: notify.main_floor_cloud
+        data:
+          message: 'Do NOT go in there!'

@@ -137,6 +137,13 @@
     - service: guest_cloud
 
 - platform: group
+  name: main_floor_cloud
+  services:
+    - service: kitchen_cloud
+    - service: living_room_cloud
+    - service: office_cloud
+
+- platform: group
   name: mobile_devices
   services:
     - service: mobile_app_iphone
