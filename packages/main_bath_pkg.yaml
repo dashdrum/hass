@@ -344,8 +344,9 @@ automation:
                 entity_id: input_boolean.main_bath_occupied
                 state: 'on'
             sequence:
-              - action: timer.start
-                entity_id: timer.main_bath_fan
+              - service: timer.start
+                data:
+                  entity_id: timer.main_bath_fan
           # ELIF humidity is high by more than 5%
           # - conditions:
           #     - condition: numeric_state
