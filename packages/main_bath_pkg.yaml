@@ -383,4 +383,14 @@ automation:
           milliseconds: 6000
       - service: notify.main_floor_cloud
         data:
-          message: 'Do NOT go in there!'
+          message: >
+            {{
+              [
+                "Do NOT go in there",
+                "Better let this air out a bit",
+                "",
+                "",
+                "",
+                ""
+              ] | random
+            }}
