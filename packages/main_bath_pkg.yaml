@@ -74,7 +74,7 @@ input_boolean:
 input_number:
   main_bath_humidity_change:
     name: Main Bath Humidity Change
-    initial: 20
+    initial: 18
     min: -20
     max: 100
     step: 1

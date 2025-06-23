@@ -22,6 +22,10 @@ timer:
     duration: "00:45:01"
     icon: mdi:timer-outline
     restore: true
+  basement_fan:
+    duration: "00:20:02"
+    icon: mdi:timer-outline
+    restore: true
 
 input_boolean:
   basement_guest_mode:
@@ -422,3 +426,78 @@ automation:
     action:
       - service: homeassistant.turn_off
         entity_id: switch.shellyswitch25_00d075f
+
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+
+  - alias: 'Basement Fan Timer Start'
+    trigger:
+      platform: state
+      entity_id: fan.2_basement_bath_channel_2
+      to: 'on'
+    action:
+      - service: timer.start
+        entity_id: timer.basement_fan
+
+  - alias: 'Basement Fan Timer Cancel'
+    trigger:
+      platform: state
+      entity_id: fan.2_basement_bath_channel_2
+      to: 'off'
+    action:
+      - service: timer.cancel
+        entity_id: timer.basement_fan
+
+  # - alias: Basement Fan Timer Restart on Motion
+  #   ## motion restarts Mech lights timer
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.room_occ_1_occupied
+  #       to: 'on'
+  #       for:
+  #         hours: 0
+  #         minutes: 0
+  #         seconds: 03
+  #   condition:
+  #     - condition: state
+  #       entity_id: fan.2_basement_bath_channel_2
+  #       state: 'on'
+  #   action:
+  #     - service: timer.start
+  #       entity_id: timer.basement_fan
+
+  - alias: "Basement Fan timer turns off fan"
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.basement_fan
+    condition:
+      condition: and
+      conditions:
+        # - condition: state
+        #   entity_id: binary_sensor.room_occ_1_occupied
+        #   state: 'off'
+        - condition: state
+          entity_id: input_boolean.lights_off_automations
+          state: "on"
+    action:
+      - service: homeassistant.turn_off
+        entity_id: fan.2_basement_bath_channel_2
+
+  # - alias: "Basement Fan timer does restart"
+  #   trigger:
+  #     - platform: event
+  #       event_type: timer.finished
+  #       event_data:
+  #         entity_id: timer.basement_fan
+    # condition:
+    #   condition: or
+    #   conditions:
+    #     - condition: state
+    #       entity_id: binary_sensor.room_occ_1_occupied
+    #       state: 'on'
+  #   action:
+  #     - service: timer.start
+  #       entity_id: timer.basement_fan
