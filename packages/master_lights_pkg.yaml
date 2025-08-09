@@ -541,7 +541,7 @@ automation:
     - trigger: state
       entity_id: event.shelly_blu_button1_a287_button_4
       attribute: event_type
-      to: 'hold'
+      to: 'press'
     action:
       - service: script.turn_off
         entity_id: script.master_around_the_horn
@@ -632,10 +632,10 @@ automation:
       conditions:
         - condition: time
           after: "06:30:00"
-          before: "23:59:00"
-        - condition: state
-          entity_id: binary_sensor.bed_sensor_mat
-          state: "off"
+          before: "23:00:00"
+        # - condition: state
+        #   entity_id: binary_sensor.bed_sensor_mat
+        #   state: "off"
         - condition: state
           entity_id: light.master_bedroom
           state: "off"
@@ -652,10 +652,10 @@ automation:
       to: 'off'
       for:
         minutes: 10
-    condition:
-        - condition: state
-          entity_id: binary_sensor.bed_sensor_mat
-          state: "off"
+#    condition:
+#        - condition: state
+#          entity_id: binary_sensor.bed_sensor_mat
+#          state: "off"
     action:
       service: light.turn_off
       entity_id: light.master_bedroom
