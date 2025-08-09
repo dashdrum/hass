@@ -427,7 +427,7 @@ automation:
       - service: homeassistant.turn_off
         entity_id: switch.shellyswitch25_00d075f
 
-#------------------------------------------------------------------------------>
+
 
 
   - alias: 'Basement Fan Timer Start'

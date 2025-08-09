@@ -71,6 +71,21 @@ input_boolean:
   main_bath_humid:
     name: Main Bath Humid
 
+input_number:
+  main_bath_humidity_change:
+    name: Main Bath Humidity Change
+    initial: 18
+    min: -20
+    max: 100
+    step: 1
+
+  main_bath_humidity_return:
+    name: Main Bath Humidity Return
+    initial: 5
+    min: -20
+    max: 100
+    step: 1
+
 timer:
   main_bath_lights:
     duration: "00:10:10"
@@ -318,7 +333,7 @@ automation:
     trigger:
       platform: numeric_state
       entity_id: sensor.main_bath_humidity_change
-      above: 20
+      above: input_number.main_bath_humidity_change
     action:
       - service: homeassistant.turn_on
         entity_id: fan.shelly1_e8db84d47dbd
@@ -350,13 +365,13 @@ automation:
           # ELIF humidity is high by more than 5%
           - conditions:
               - condition: numeric_state
-                entity_id: input_boolean.main_bath_humid
-                above: 5
+                entity_id: sensor.main_bath_humidity_change
+                above: input_number.main_bath_humidity_return
             sequence:
               - service: timer.start
                 data:
                   entity_id: timer.main_bath_fan
-        # ELSE night
+        # ELSE done with fan
         default:
           - service: homeassistant.turn_off
             entity_id: fan.shelly1_e8db84d47dbd
