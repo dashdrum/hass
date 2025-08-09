@@ -470,9 +470,10 @@ automation:
   - id: master_dimmer_on_press
     alias: 'Master Dimmer On Press When Off'
     trigger:
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'on_press'
+    - trigger: state
+      entity_id: event.shelly_blu_button1_a287_button_1
+      attribute: event_type
+      to: "press"
     condition:
       condition: state
       entity_id: light.master_bedroom
@@ -487,9 +488,10 @@ automation:
   - id: master_dimmer_on_press_when_on
     alias: 'Master Dimmer On Press When On'
     trigger:
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'on_press'
+    - trigger: state
+      entity_id: event.shelly_blu_button1_a287_button_1
+      attribute: event_type
+      to: "press"
     condition:
       condition: state
       entity_id: light.master_bedroom
@@ -504,9 +506,10 @@ automation:
   - id: master_dimmer_on_hold
     alias: 'Master Dimmer On Hold'
     trigger:
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'on_hold'
+    - trigger: state
+      entity_id: event.shelly_blu_button1_a287_button_1
+      attribute: event_type
+      to: 'hold_press'
     action:
       - service: scene.turn_on
         target:
@@ -519,9 +522,10 @@ automation:
   - id: master_dimmer_off_hold
     alias: 'Master Dimmer Off Hold'
     trigger:
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'off_hold'
+    - trigger: state
+      entity_id: event.shelly_blu_button1_a287_button_4
+      attribute: event_type
+      to: 'hold_press'
     action:
       - service: scene.turn_on
         target:
@@ -534,9 +538,10 @@ automation:
   - id: master_dimmer_off_press
     alias: 'Master Dimmer Off Press'
     trigger:
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'off_press'
+    - trigger: state
+      entity_id: event.shelly_blu_button1_a287_button_4
+      attribute: event_type
+      to: 'hold'
     action:
       - service: script.turn_off
         entity_id: script.master_around_the_horn
