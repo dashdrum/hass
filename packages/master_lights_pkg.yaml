@@ -554,23 +554,19 @@ automation:
     mode: queued
     trigger:
       - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'up_press'
+        entity_id: event.shelly_blu_button1_a287_button_2
+        attribute: event_type
+        to: 
+          - 'press'
+          - 'hold_press'
+          - 'long_press'
       - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'down_press'
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'up_hold'
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'down_hold'
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'up_hold_release'
-      - platform: state
-        entity_id: sensor.master_dimmer_action
-        to: 'down_hold_release'
+        entity_id: event.shelly_blu_button1_a287_button_3
+        attribute: event_type
+        to: 
+          - 'press'
+          - 'hold_press'
+          - 'long_press'
     action:
       - service: light.turn_on
         data:

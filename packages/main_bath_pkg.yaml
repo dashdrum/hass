@@ -396,16 +396,16 @@ automation:
         entity_id: timer.main_bath_fan
       - delay:
           milliseconds: 6000
-      - service: notify.main_floor_cloud
-        data:
-          message: >
-            {{
-              [
-                "Do NOT go in there",
-                "Better let this air out a bit",
-                "",
-                "",
-                "",
-                ""
-              ] | random
-            }}
+      # - service: notify.main_floor_cloud
+      #   data:
+      #     message: >
+      #       {{
+      #         [
+      #           "Do NOT go in there",
+      #           "Better let this air out a bit",
+      #           "",
+      #           "",
+      #           "",
+      #           ""
+      #         ] | random
+      #       }}
