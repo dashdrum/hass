@@ -81,7 +81,7 @@ mqtt:
     - name: shellydimmer2_e8db84d4610a_energy
       unique_id: shellydimmer2_e8db84d4610a_energy
       unit_of_measurement: "kWh"
-      device_class: power
+      device_class: energy
       state_topic: shellies/shellydimmer2-E8DB84D4610A/light/0/energy
       device:
         configuration_url: http://192.168.37.40
