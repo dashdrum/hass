@@ -14,9 +14,6 @@ homeassistant:
       friendly_name: Master Closet Motion Tamper
     sensor.master_closet_motion_linkquality:
       friendly_name: Master Closet Motion Link Quality
-    sensor.master_dimmer_brightness:
-      friendly_name: Master Dimmer Brightness
-      icon: mdi:brightness-7
     sensor.master_bedroom_brightness:
       friendly_name: "Master Brightness"
       icon: mdi:brightness-7
@@ -181,12 +178,6 @@ template:
   sensor:
     - name: master_bedroom_brightness
       state: "{{ state_attr('light.master_bedroom', 'brightness') | int(0) }}"
-
-mqtt:
-  sensor:
-    - name: master_dimmer_brightness
-      state_topic: "zigbee2mqtt/Master Dimmer"
-      value_template: "{{ value_json.brightness }}"
 
 input_select:
   master_light_status:
@@ -571,7 +562,7 @@ automation:
       - service: light.turn_on
         data:
           entity_id: light.master_bedroom
-          brightness: "{{ states('sensor.master_dimmer_brightness') }}"
+          brightness: "{{ states('sensor.master_bedroom_brightness') }}"
 
   - id: master_dimmer_set_scene
     alias: Master Dimmer Set Scene

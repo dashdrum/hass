@@ -81,21 +81,22 @@
       value_template: >-
         {{ (states('sensor.ktvc_sea_level_pressure')|float(0) * 33.8639) | round(1) }}
 
-- platform: template
-  sensors:
-    outdoor_pressure_mbar:
-      unit_of_measurement: 'mbar'
-      device_class: pressure
-      value_template: >-
-        {{ (states('sensor.outdoor_ruuvitag_9aa3_pressure')|float(0) * 68.9476) | round(1) }}
+# Current outside sensor doesn't measure pressure
+# - platform: template
+#   sensors:
+#     outdoor_pressure_mbar:
+#       unit_of_measurement: 'mbar'
+#       device_class: pressure
+#       value_template: >-
+#         {{ (states('sensor.outdoor_ruuvitag_9aa3_pressure')|float(0) * 68.9476) | round(1) }}
 
-- platform: template
-  sensors:
-    outdoor_sea_level_pressure:
-      unit_of_measurement: 'mbar'
-      device_class: pressure
-      value_template: >-
-        {{ ((states('sensor.outdoor_pressure_mbar')|float(0) / (1-0.0065*204/(states('sensor.outdoor_ruuvitag_9aa3_temperature')|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
+# - platform: template
+#   sensors:
+#     outdoor_sea_level_pressure:
+#       unit_of_measurement: 'mbar'
+#       device_class: pressure
+#       value_template: >-
+#         {{ ((states('sensor.outdoor_pressure_mbar')|float(0) / (1-0.0065*204/(states('sensor.outside_h5074_1c97_temperature')|float(0) + 273.15 )) ** (5.255)) + 5 ) | round(1) }}
 
 - platform: template
   sensors:
@@ -103,7 +104,7 @@
       friendly_name: "Outdoor Temperature C"
       unit_of_measurement: '°C'
       device_class: temperature
-      value_template: "{{ ((( states('sensor.outdoor_ruuvitag_9aa3_temperature') | float(0) ) - 32) * 5/9) | round(1) }}"
+      value_template: "{{ ((( states('sensor.outside_h5074_1c97_temperature') | float(0) ) - 32) * 5/9) | round(1) }}"
 
 - platform: template
   sensors:
@@ -111,8 +112,8 @@
       friendly_name: "Outdoor Dew Point"
       unit_of_measurement: '°F'
       value_template: >-
-        {{ (((243.04*(log(float(states('sensor.outdoor_ruuvitag_9aa3_humidity'))/100)+((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c')))))
-          /(17.625-log(float(states('sensor.outdoor_ruuvitag_9aa3_humidity'))/100)-((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c'))))))
+        {{ (((243.04*(log(float(states('sensor.outside_h5074_1c97_humidity'))/100)+((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c')))))
+          /(17.625-log(float(states('sensor.outside_h5074_1c97_humidity'))/100)-((17.625*float(states('sensor.outdoor_temperature_c')))/(243.04+float(states('sensor.outdoor_temperature_c'))))))
           *  9/5) + 32) | round(2) }}
           
 - platform: min_max
@@ -129,10 +130,10 @@
     - sensor.family_h5100_4b4c_humidity
     - sensor.living_room_humidity
     - sensor.master_bedroom_humidity
-    - sensor.plant_stand_humidity
+    - sensor.plant_stand_h5100_1e4a_humidity
     - sensor.spare_room_humidity
-    - sensor.kitchen_sensor_humidity
-    - sensor.guest_sensor_humidity
+    - sensor.kitchen_h5100_3580_humidity
+    - sensor.guest_h5100_3d6c_humidity
     - sensor.main_floor_nest_humidity
     - sensor.mechanical_room_humidity
     - sensor.office_h5100_3a27_humidity
@@ -152,7 +153,7 @@
 
 - platform: min_max
   entity_ids:
-    - sensor.guest_sensor_humidity
+    - sensor.guest_h5100_3d6c_humidity
     - sensor.mechanical_room_humidity
     - sensor.family_h5100_4b4c_humidity
   type: mean
@@ -165,9 +166,9 @@
     - sensor.living_room_temperature
     - sensor.master_bedroom_temperature
     - sensor.laundry_temperature
-    - sensor.plant_stand_temperature
+    - sensor.plant_stand_h5100_1e4a_temperature
     - sensor.spare_room_temperature
-    - sensor.kitchen_sensor_temperature
+    - sensor.kitchen_h5100_3580_temperature
     - sensor.main_floor_nest_temperature
     - sensor.office_h5100_3a27_temperature
   type: mean
@@ -187,7 +188,7 @@
 
 - platform: min_max
   entity_ids:
-    - sensor.geust_sensor_temperature
+    - sensor.guest_h5100_3d6c_temperature
     - sensor.family_h5100_4b4c_temperature
     - sensor.mechanical_room_temperature
   type: mean
