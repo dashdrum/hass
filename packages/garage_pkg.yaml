@@ -101,7 +101,7 @@ sensor:
     entity_ids:
       - sensor.garage_sensor_temperature
       - sensor.garage_temp
-      - sensor.garage_temp_3_temperature
+      - sensor.ruuvitag_9aa3_temperature
     type: mean
     name: avg_garage_temp
     unique_id: avg_garage_temp
@@ -111,7 +111,7 @@ sensor:
     entity_ids:
       - sensor.garage_humidity
       - sensor.garage_sensor_humidity
-      # - sensor.garage_temp_3_humidity
+      - sensor.ruuvitag_9aa3_humidity
     type: mean
     name: avg_garage_humidity
     unique_id: avg_garage_humidity
