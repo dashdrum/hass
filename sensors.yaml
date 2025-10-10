@@ -108,7 +108,7 @@
       device_class: temperature
       # availibility: "{{ is_number(states('sensor.outside_h5074_1c97_temperature')) }}"
       value_template: >-
-       {{ ((( states('sensor.outside_h5074_1c97_temperature') | float(0) ) - 32000) * 5/9) | round(1) }}
+       {{ ((( states('sensor.outside_h5074_1c97_temperature') | float(0) ) - 32) * 5/9) | round(1) }}
 
 - platform: template
   sensors:
