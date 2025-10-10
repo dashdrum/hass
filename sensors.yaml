@@ -84,6 +84,7 @@
 - platform: template
   sensors:
     garage_3_pressure_mbar:
+      friendly_name: Garage Pressure
       unit_of_measurement: 'mbar'
       device_class: pressure
       value_template: >-
@@ -101,10 +102,11 @@
 - platform: template
   sensors:
     outdoor_temperature_c:
+      id: outdoor_temperature_c
       friendly_name: "Outdoor Temperature C"
       unit_of_measurement: '°C'
       device_class: temperature
-      value_template: >-
+      state: >-
        {{ ((( states('sensor.outside_h5074_1c97_temperature') | float(0) ) - 32) * 5/9) | round(1) }}
 
 - platform: template
