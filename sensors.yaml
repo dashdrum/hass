@@ -102,11 +102,11 @@
 - platform: template
   sensors:
     outdoor_temperature_c:
-      id: outdoor_temperature_c
+      # id: outdoor_temperature_c
       friendly_name: "Outdoor Temperature C"
       unit_of_measurement: '°C'
       device_class: temperature
-      availibility: "{{ is_number(states('sensor.outside_h5074_1c97_temperature')) }}"
+      # availibility: "{{ is_number(states('sensor.outside_h5074_1c97_temperature')) }}"
       value_template: >-
        {{ ((( states('sensor.outside_h5074_1c97_temperature') | float(0) ) - 32000) * 5/9) | round(1) }}
 
