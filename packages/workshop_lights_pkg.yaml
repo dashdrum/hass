@@ -144,17 +144,18 @@ automation:
 
 #-----------------------------------------------------------#
 
-  - alias: 'Workshop Lights Button Toggle'
-    description: ''
+  - id: workshop_temp_min_reached
+    alias: "Workshop Temperature Minimum Reached"
+    description: 'Notify when the workshop temp is above the minimum'
     trigger:
-      - platform: event
-        event_type: shelly.click
-        event_data:
-          device: shellybutton1-3C6105E53723
-          channel: 1
-          click_type: single
-    condition: []
+      - platform: numeric_state
+        entity_id: sensor.workshop_h5100_403b_temperature
+        above: 50
+    condition:
+      - condition: time
+        after: '09:00:00'
+        before: '20:00:00'
     action:
-      - service: light.toggle
-        entity_id: light.workshop_lights
-    mode: single
+      - service: notify.no_bedrooms_cloud
+        data:
+          message: 'The workshop has reached minimum temperature'
