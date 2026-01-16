@@ -38,6 +38,10 @@ homeassistant:
     binary_sensor.mm_wave_4_occupancy:
       friendly_name: Office Desk Occupancy
 
+input_boolean:
+  office_motion_on:
+    name: Office Motion On
+
 template:
   binary_sensor:
     - name: hacker_mode_enabled
@@ -678,6 +682,9 @@ automation:
         - condition: state
           entity_id: binary_sensor.hacker_mode_enabled
           state: "off"
+        - condition: state
+          entity_id: input_boolean.office_motion_on
+          state: "on"
     action:
       - service: light.turn_on
         entity_id: light.office_desk
@@ -893,6 +900,9 @@ automation:
         - condition: state
           entity_id: binary_sensor.hacker_mode_enabled
           state: "off"
+        - condition: state
+          entity_id: input_boolean.office_motion_on
+          state: "on"
     action:
       - service: light.turn_on
         entity_id: light.shellydimmer2_e8db84d4610a
