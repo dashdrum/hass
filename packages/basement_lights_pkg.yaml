@@ -55,7 +55,7 @@ light:
 
   - platform: switch
     name: Ceiling Lights
-    entity_id: switch.shellyswitch25_00d075f # ceiling lights
+    entity_id: switch.ceiling_lights # ceiling lights
 
   - platform: switch
     name: Basement Stair
@@ -63,7 +63,7 @@ light:
 
   - platform: switch
     name: Basement Hall
-    entity_id: switch.basement_hall  # basement hll
+    entity_id: switch.basement_hall  # basement hall
     
   - platform: switch
     name: Guest Room Light
@@ -387,7 +387,7 @@ automation:
           value_template: "{{ as_timestamp(now())|round(0) - states('input_number.basement_stair_top_time')|int(0) < 25 }}"
     action:
       - service: homeassistant.turn_on
-        entity_id: switch.shellyswitch25_00d075f
+        entity_id: light.ceiling_lights
 
 # Pair to turn off ceiling lights when going upstairs
 # Note when bottom sensor is triggered
@@ -425,7 +425,7 @@ automation:
           state: "off"
     action:
       - service: homeassistant.turn_off
-        entity_id: switch.shellyswitch25_00d075f
+        entity_id: light.ceiling_lights
 
 
 

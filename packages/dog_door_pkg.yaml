@@ -16,7 +16,7 @@ homeassistant:
 
 automation:
 
-  - id: dog_door_motion
+  - id: dog_door_motion_light
     alias: 'Dog Door Motion'
     trigger:
       - platform: state
@@ -32,7 +32,7 @@ automation:
           entity_id: switch.deck_light
 
 
-  - id: dog_door_motion
+  - id: dog_door_motion_announce
     alias: 'Dog Door Motion'
     trigger:
       - platform: state
