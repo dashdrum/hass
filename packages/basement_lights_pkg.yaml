@@ -48,8 +48,8 @@ group:
   basement_stair_motion:
     name: basement_stair_motion
     entities:
-      - binary_sensor.basement_stair_motion_top # top
-      - binary_sensor.basement_stair_motion_bottom # bottom
+      - binary_sensor.basement_stair_motion_top_occupancy # top
+      - binary_sensor.basement_stair_motion_bottom_occupancy # bottom
 
 light:
 
@@ -360,7 +360,7 @@ automation:
     mode: single
     trigger:
       - platform: state
-        entity_id: binary_sensor.basement_stair_motion_top
+        entity_id: binary_sensor.basement_stair_motion_top_occupancy
         to: 'on'
     action:
       - service: input_number.set_value
@@ -374,7 +374,7 @@ automation:
     mode: single
     trigger:
       - platform: state
-        entity_id: binary_sensor.basement_stair_motion_bottom
+        entity_id: binary_sensor.basement_stair_motion_bottom_occupancy
         to: 'on'
     condition:
       condition: and
@@ -395,7 +395,7 @@ automation:
     mode: single
     trigger:
       - platform: state
-        entity_id: binary_sensor.basement_stair_motion_bottom
+        entity_id: binary_sensor.basement_stair_motion_bottom_occupancy
         to: 'on'
     action:
       - service: input_number.set_value
@@ -409,7 +409,7 @@ automation:
     mode: single
     trigger:
       - platform: state
-        entity_id: binary_sensor.basement_stair_motion_top
+        entity_id: binary_sensor.basement_stair_motion_top_occupancy
         to: 'on'
     condition:
       condition: and
