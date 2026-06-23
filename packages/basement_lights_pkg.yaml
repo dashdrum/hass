@@ -48,8 +48,8 @@ group:
   basement_stair_motion:
     name: basement_stair_motion
     entities:
-      - binary_sensor.basement_stair_1_motion # top
-      - binary_sensor.basement_stair_2_motion # bottom
+      - binary_sensor.basement_stair_motion_top # top
+      - binary_sensor.basement_stair_motion_bottom # bottom
 
 light:
 
@@ -63,8 +63,8 @@ light:
 
   - platform: switch
     name: Basement Hall
-    entity_id: switch.basement_hall  # basement stair
-
+    entity_id: switch.basement_hall  # basement hll
+    
   - platform: switch
     name: Guest Room Light
     entity_id: switch.shelly1_bcddc2771acf  # guest room light
@@ -360,7 +360,7 @@ automation:
     mode: single
     trigger:
       - platform: state
-        entity_id: binary_sensor.basement_stair_1_motion
+        entity_id: binary_sensor.basement_stair_motion_top
         to: 'on'
     action:
       - service: input_number.set_value
@@ -374,7 +374,7 @@ automation:
     mode: single
     trigger:
       - platform: state
-        entity_id: binary_sensor.basement_stair_2_motion
+        entity_id: binary_sensor.basement_stair_motion_bottom
         to: 'on'
     condition:
       condition: and
@@ -395,7 +395,7 @@ automation:
     mode: single
     trigger:
       - platform: state
-        entity_id: binary_sensor.basement_stair_2_motion
+        entity_id: binary_sensor.basement_stair_motion_bottom
         to: 'on'
     action:
       - service: input_number.set_value
@@ -409,7 +409,7 @@ automation:
     mode: single
     trigger:
       - platform: state
-        entity_id: binary_sensor.basement_stair_1_motion
+        entity_id: binary_sensor.basement_stair_motion_top
         to: 'on'
     condition:
       condition: and
